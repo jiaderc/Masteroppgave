@@ -1,0 +1,90 @@
+\select@language {USenglish}
+\contentsline {chapter}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {1.1}Outline}{2}
+\contentsline {paragraph}{Chapter 1: Introduction}{2}
+\contentsline {paragraph}{Chapter 2: Background}{2}
+\contentsline {paragraph}{Chapter 3: Implementation}{2}
+\contentsline {paragraph}{Chapter 4: Conclusion}{2}
+\contentsline {chapter}{\numberline {2}Background}{3}
+\contentsline {section}{\numberline {2.1}Terrain classification}{3}
+\contentsline {subsection}{\numberline {2.1.1}Types of legged robots}{3}
+\contentsline {subsection}{\numberline {2.1.2}Terrain classification for legged robots}{3}
+\contentsline {subsection}{\numberline {2.1.3}Terrain sensing}{4}
+\contentsline {paragraph}{Remote sensing}{4}
+\contentsline {paragraph}{Local sensing}{4}
+\contentsline {section}{\numberline {2.2}Optical force sensor}{5}
+\contentsline {section}{\numberline {2.3}Machine learning}{7}
+\contentsline {paragraph}{Supervised learning}{7}
+\contentsline {paragraph}{Unsupervised learning}{7}
+\contentsline {paragraph}{Reinforcement learning}{7}
+\contentsline {paragraph}{Evolutionary learning}{7}
+\contentsline {subsection}{\numberline {2.3.1}Classifier}{7}
+\contentsline {subsubsection}{Neural network}{7}
+\contentsline {paragraph}{Multi-Layer Perceptron}{8}
+\contentsline {subsubsection}{SVM}{9}
+\contentsline {subsubsection}{Naive bayes}{9}
+\contentsline {subsubsection}{K-nearest neighbors }{11}
+\contentsline {subsubsection}{Decision tree}{11}
+\contentsline {section}{\numberline {2.4}Features}{12}
+\contentsline {subsection}{\numberline {2.4.1}Curse of dimensionality}{12}
+\contentsline {subsection}{\numberline {2.4.2}Features extraction}{12}
+\contentsline {subsubsection}{Statistical features}{13}
+\contentsline {paragraph}{Mean}{13}
+\contentsline {paragraph}{Variance}{13}
+\contentsline {paragraph}{Standard deviation}{13}
+\contentsline {paragraph}{Skewness}{13}
+\contentsline {paragraph}{Kurtosis}{14}
+\contentsline {paragraph}{Time domain}{14}
+\contentsline {paragraph}{Fourier transform}{14}
+\contentsline {subsection}{\numberline {2.4.3}Features selection}{14}
+\contentsline {paragraph}{Filter}{15}
+\contentsline {paragraph}{Wrapper}{15}
+\contentsline {paragraph}{Embedded}{16}
+\contentsline {subsection}{\numberline {2.4.4}Features scaling}{16}
+\contentsline {section}{\numberline {2.5}Model validation}{16}
+\contentsline {subsection}{\numberline {2.5.1}No free lunch theorem}{16}
+\contentsline {subsection}{\numberline {2.5.2}Ovefitting and underfitting}{16}
+\contentsline {subsection}{\numberline {2.5.3}Cross-Validation}{17}
+\contentsline {paragraph}{K-fold}{17}
+\contentsline {subsection}{\numberline {2.5.4}Evaluating Classifiers}{17}
+\contentsline {paragraph}{Precision}{18}
+\contentsline {paragraph}{Accuracy}{18}
+\contentsline {paragraph}{Recall}{18}
+\contentsline {paragraph}{F-score}{18}
+\contentsline {chapter}{\numberline {3}Implementation}{21}
+\contentsline {section}{\numberline {3.1}Implementation environment and language}{21}
+\contentsline {subsubsection}{Python}{21}
+\contentsline {paragraph}{Scikit-learn}{21}
+\contentsline {paragraph}{Runstats}{22}
+\contentsline {section}{\numberline {3.2}Robot}{22}
+\contentsline {section}{\numberline {3.3}Terrain}{22}
+\contentsline {section}{\numberline {3.4}Data from optoforce sensor}{23}
+\contentsline {section}{\numberline {3.5}Segmentation of data}{24}
+\contentsline {subsection}{\numberline {3.5.1}Analyzing data from sensor}{24}
+\contentsline {section}{\numberline {3.6}Feature extraction}{27}
+\contentsline {subsubsection}{Time domain}{27}
+\contentsline {paragraph}{Feature set one - raw data}{27}
+\contentsline {paragraph}{Feature set two - statistical features}{28}
+\contentsline {subsubsection}{Frequency domain}{28}
+\contentsline {paragraph}{Feature set three - complete frequency spectrum}{28}
+\contentsline {paragraph}{Feature set four - staticial features}{28}
+\contentsline {paragraph}{Feature set five - set two and four}{29}
+\contentsline {subsection}{\numberline {3.6.1}Tuning Parameters}{29}
+\contentsline {section}{\numberline {3.7}Learning approach}{29}
+\contentsline {subsubsection}{Details of the learning process}{30}
+\contentsline {chapter}{\numberline {4}Experiments and results}{33}
+\contentsline {section}{\numberline {4.1}Results of classifier}{33}
+\contentsline {subsection}{\numberline {4.1.1}Analysis}{35}
+\contentsline {section}{\numberline {4.2}Further improving all classifier}{35}
+\contentsline {section}{\numberline {4.3}Experiment 2 - classifier improvement}{36}
+\contentsline {section}{\numberline {4.4}Analysis}{38}
+\contentsline {section}{\numberline {4.5}Cross validation with unseen data}{38}
+\contentsline {subsubsection}{SVM - Wrapper - Feature set two}{39}
+\contentsline {subsubsection}{Neuarl Network - Feature set one}{40}
+\contentsline {subsubsection}{Decision Tree - Feature set one}{41}
+\contentsline {subsubsection}{Decision Tree - Filter - Feature set one}{42}
+\contentsline {section}{\numberline {4.6}Classification in real-time}{43}
+\contentsline {section}{\numberline {4.7}Prediction next sensor?}{46}
+\contentsline {section}{\numberline {4.8}Prediction different length of legs?}{46}
+\contentsline {chapter}{\numberline {5}Conclusion}{47}
+\contentsline {subsection}{\numberline {5.0.1}Furture work}{47}

@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: master.aux
+The style file: ieeetr.bst
+Database file #1: bib.bib
+Repeated entry---line 330 of file bib.bib
+ : @inproceedings{6784609
+ :                       ,
+I'm skipping whatever remains of this entry
+Warning--can't use both author and editor fields in Guyon2006
+Warning--can't use both author and editor fields in Bao2004
+(There was 1 error message)

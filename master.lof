@@ -1,0 +1,32 @@
+\select@language {USenglish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Figure showing construction of the 3d optical force used in thesis \cite {OptoforceFig}\relax }}{6}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite {OptoforceSheet}.\relax }}{6}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Figure showing The three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods \cite {Guyon2006}\relax }}{8}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Figure showing a multi-layer perceptron with 1 hidden layer \cite {MLP}. It is possible to increase the number of hidden layers and nodes to each layer\relax }}{9}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Figure showing an example of the optimal margin for a two dimensional two-class classification problem \cite {Cortes1995}. Each of features vector with values according to the x- and y-axis, represents as classes: circles and crosses. The vectors with values according to the x- and y-axis. The support vectors are the hatced classes which lies on the straight line. "The dotted line is the decision boundary/hyperplane created by the SVM".\relax }}{10}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Figure showing an example of a KNN\cite {KnnClassification}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to 3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the cicle will be classified as square.\relax }}{11}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Figure showing an example of a simple decision tree \cite {Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.\relax }}{12}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Skewness\relax }}{14}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Kurtosis\relax }}{14}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces The figure showing the three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods. \cite {Guyon2006}.\relax }}{15}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces The figure showing an example when the classifier is underfitted, overfitted or optimal.\relax }}{17}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces The figure showing an instance of k-fold cross valdiation. This is when k=n\relax }}{18}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Figure showing dyret used in this project\relax }}{22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces }}{23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Figure showing \texttt {rqt\_plot} of a testrun on the floor.\relax }}{24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Figure showing \texttt {rqt\_plot} of a testrun on the carpet terrain.\relax }}{25}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Figure showing \texttt {rqt\_plot} of a testrun on the hard mat terrain.\relax }}{25}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Figure showing \texttt {rqt\_plot} of a testrun on the soft mat.\relax }}{25}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Figur showing the mean\relax }}{26}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces FFT of \relax }}{27}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces The figure showing steps \relax }}{30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The figure showing steps \relax }}{36}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Figure showing an the optofoce used in this thesis \cite {OptoforceFig}\relax }}{43}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Figure showing an the optofoce used in this thesis \cite {OptoforceFig}\relax }}{44}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Figure showing an the optoforce used in this thesis \cite {OptoforceFig}\relax }}{44}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Figure showing an the optofoce used in this thesis \cite {OptoforceFig}\relax }}{45}
+\addvspace {10\p@ }

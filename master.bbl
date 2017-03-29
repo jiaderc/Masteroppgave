@@ -1,0 +1,258 @@
+\begin{thebibliography}{10}
+
+\bibitem{OptoforceFig}
+``Optoforce.'' Available at \url{http://optoforce.com/technology/}.
+\newblock Accessed: 2017-02-27.
+
+\bibitem{OptoforceSheet}
+``Omd-20-se-40n-datasheet v2.2.'' Available at
+  \url{https://optoforce.com/file-contents/OMD-20-SE-40N-DATASHEET-V2.2.pdf}.
+\newblock Accessed: 2017-03-29.
+
+\bibitem{Guyon2006}
+I.~Guyon and A.~Elisseeff, {\em An Introduction to Feature Extraction},
+  pp.~1--25.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2006.
+
+\bibitem{MLP}
+``mlp.'' Available at
+  \url{https://en.wikipedia.org/wiki/Artificial_neural_network#/media/File:Colored_neural_network.svg}.
+\newblock Accessed: 2017-03-01.
+
+\bibitem{Cortes1995}
+C.~Cortes and V.~Vapnik, ``Support-vector networks,'' {\em Machine Learning},
+  vol.~20, no.~3, pp.~273--297, 1995.
+
+\bibitem{KnnClassification}
+``Knn classification.'' Available at
+  \url{https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm#/media/File:KnnClassification.svg}.
+\newblock Accessed: 2017-03-14.
+
+\bibitem{Quinlan1986}
+J.~R. Quinlan, ``Induction of decision trees,'' {\em Machine Learning}, vol.~1,
+  no.~1, pp.~81--106, 1986.
+
+\bibitem{littleDog}
+P.~Filitchkin and K.~Byl, ``Feature-based terrain classification for
+  littledog,'' in {\em 2012 IEEE/RSJ International Conference on Intelligent
+  Robots and Systems}, pp.~1387--1392, Oct 2012.
+
+\bibitem{4651026}
+C.~Plagemann, S.~Mischke, S.~Prentice, K.~Kersting, N.~Roy, and W.~Burgard,
+  ``Learning predictive terrain models for legged robot locomotion,'' in {\em
+  2008 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pp.~3545--3552, Sept 2008.
+
+\bibitem{6784609}
+J.~Degrave, R.~V. Cauwenbergh, F.~Wyffels, T.~Waegeman, and B.~Schrauwen,
+  ``Terrain classification for a quadruped robot,'' in {\em 2013 12th
+  International Conference on Machine Learning and Applications}, vol.~1,
+  pp.~185--190, Dec 2013.
+
+\bibitem{Dutta2016}
+A.~Dutta, {\em Brief Review on Integrated Planar Waveguide-Based Optical
+  Sensor}, pp.~9--69.
+\newblock Cham: Springer International Publishing, 2016.
+
+\bibitem{6569179}
+S.~Manjanna, G.~Dudek, and P.~Giguere, ``Using gait change for terrain sensing
+  by robots,'' in {\em 2013 International Conference on Computer and Robot
+  Vision}, pp.~16--22, May 2013.
+
+\bibitem{Giguere06environmentidentification}
+P.~Giguere, G.~Dudek, C.~Prahacs, and S.~Saunderson, ``Environment
+  identification for a running robot using inertial and actuator cues,'' in
+  {\em ROBOTICS: SCIENCE AND SYSTEMS}, pp.~271--278, 2006.
+
+\bibitem{7487541}
+W.~Bosworth, J.~Whitney, S.~Kim, and N.~Hogan, ``Robot locomotion on hard and
+  soft ground: Measuring stability and ground properties in-situ,'' in {\em
+  2016 IEEE International Conference on Robotics and Automation (ICRA)},
+  pp.~3582--3589, May 2016.
+
+\bibitem{7487544}
+M.~Stejskal, J.~Mrva, and J.~Faigl, ``Road following with blind crawling
+  robot,'' in {\em 2016 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pp.~3612--3617, May 2016.
+
+\bibitem{5602459}
+K.~Kim, K.~Ko, W.~Kim, S.~Yu, and C.~Han, ``Performance comparison between
+  neural network and svm for terrain classification of legged robot,'' in {\em
+  Proceedings of SICE Annual Conference 2010}, pp.~1343--1348, Aug 2010.
+
+\bibitem{5509309}
+M.~A. Hoepflinger, C.~D. Remy, M.~Hutter, L.~Spinello, and R.~Siegwart,
+  ``Haptic terrain classification for legged robots,'' in {\em 2010 IEEE
+  International Conference on Robotics and Automation}, pp.~2828--2833, May
+  2010.
+
+\bibitem{Giguere2009}
+P.~Giguere and G.~Dudek, ``Clustering sensor data for autonomous terrain
+  identification using time-dependency,'' {\em Autonomous Robots}, vol.~26,
+  no.~2, pp.~171--186, 2009.
+
+\bibitem{6386243}
+F.~L.~G. Bermudez, R.~C. Julian, D.~W. Haldane, P.~Abbeel, and R.~S. Fearing,
+  ``Performance analysis and terrain classification for a legged robot over
+  rough terrain,'' in {\em 2012 IEEE/RSJ International Conference on
+  Intelligent Robots and Systems}, pp.~513--519, Oct 2012.
+
+\bibitem{4399500}
+A.~C. Larson, R.~M. Voyles, J.~Bae, and R.~Godzdanker, ``Evolving gaits for
+  increased discriminability in terrain classification,'' in {\em 2007 IEEE/RSJ
+  International Conference on Intelligent Robots and Systems}, pp.~3691--3696,
+  Oct 2007.
+
+\bibitem{6027100}
+A.~Tar and G.~Cserey, ``Development of a low cost 3d optical compliant tactile
+  force sensor,'' in {\em 2011 IEEE/ASME International Conference on Advanced
+  Intelligent Mechatronics (AIM)}, pp.~236--240, July 2011.
+
+\bibitem{6907805}
+C.~Melchiorri, L.~Moriello, G.~Palli, and U.~Scarcia, ``A new force/torque
+  sensor for robotic applications based on optoelectronic components,'' in {\em
+  2014 IEEE International Conference on Robotics and Automation (ICRA)},
+  pp.~6408--6413, May 2014.
+
+\bibitem{Optoforce}
+``Optical force sensors - introduction to the technology.'' Available at
+  \url{https://optoforce.com/file-contents/optoforcewhitepaperopticalforcesensors-0.pdf}.
+\newblock Accessed: 2017-03-22.
+
+\bibitem{Optoforce2}
+``Optoforce.'' Available at
+  \url{https://optoforce.com/file-contents/comparison-1.pdf}.
+\newblock Accessed: 2017-03-22.
+
+\bibitem{7803326}
+S.~Caccamo, P.~Güler, H.~Kjellström, and D.~Kragic, ``Active perception and
+  modeling of deformable surfaces using gaussian processes and position-based
+  dynamics,'' in {\em 2016 IEEE-RAS 16th International Conference on Humanoid
+  Robots (Humanoids)}, pp.~530--537, Nov 2016.
+
+\bibitem{7759112}
+S.~Caccamo, Y.~Bekiroglu, C.~H. Ek, and D.~Kragic, ``Active exploration using
+  gaussian random fields and gaussian process implicit surfaces,'' in {\em 2016
+  IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pp.~582--589, Oct 2016.
+
+\bibitem{7849467}
+A.~Burka, S.~Hu, S.~Helgeson, S.~Krishnan, Y.~Gao, L.~A. Hendricks, T.~Darrell,
+  and K.~J. Kuchenbecker, ``Proton: A visuo-haptic data acquisition system for
+  robotic learning of surface properties,'' in {\em 2016 IEEE International
+  Conference on Multisensor Fusion and Integration for Intelligent Systems
+  (MFI)}, pp.~58--65, Sept 2016.
+
+\bibitem{5752869}
+P.~Giguere and G.~Dudek, ``A simple tactile probe for surface identification by
+  mobile robots,'' {\em IEEE Transactions on Robotics}, vol.~27, pp.~534--544,
+  June 2011.
+
+\bibitem{4654717}
+R.~Jitpakdee and T.~Maneewarn, ``Neural networks terrain classification using
+  inertial measurement unit for an autonomous vehicle,'' in {\em 2008 SICE
+  Annual Conference}, pp.~554--558, Aug 2008.
+
+\bibitem{5152327}
+P.~Komma, C.~Weiss, and A.~Zell, ``Adaptive bayesian filtering for
+  vibration-based terrain classification,'' in {\em 2009 IEEE International
+  Conference on Robotics and Automation}, pp.~3307--3313, May 2009.
+
+\bibitem{6849778}
+C.~Kertész, ``Exploring surface detection for a quadruped robot in
+  households,'' in {\em 2014 IEEE International Conference on Autonomous Robot
+  Systems and Competitions (ICARSC)}, pp.~152--157, May 2014.
+
+\bibitem{4161556}
+I.~Halatci, C.~A. Brooks, and K.~Iagnemma, ``Terrain classification and
+  classifier fusion for planetary exploration rovers,'' in {\em 2007 IEEE
+  Aerospace Conference}, pp.~1--11, March 2007.
+
+\bibitem{4059113}
+C.~Weiss, H.~Frohlich, and A.~Zell, ``Vibration-based terrain classification
+  using support vector machines,'' in {\em 2006 IEEE/RSJ International
+  Conference on Intelligent Robots and Systems}, pp.~4429--4434, Oct 2006.
+
+\bibitem{6225128}
+D.~Tick, T.~Rahman, C.~Busso, and N.~Gans, ``Indoor robotic terrain
+  classification via angular velocity based hierarchical classifier
+  selection,'' in {\em 2012 IEEE International Conference on Robotics and
+  Automation}, pp.~3594--3600, May 2012.
+
+\bibitem{5981563}
+W.~Mou and A.~Kleiner, ``Online learning terrain classification for adaptive
+  velocity control,'' in {\em 2010 IEEE Safety Security and Rescue Robotics},
+  pp.~1--7, July 2010.
+
+\bibitem{1053964}
+T.~Cover and P.~Hart, ``Nearest neighbor pattern classification,'' {\em IEEE
+  Transactions on Information Theory}, vol.~13, pp.~21--27, January 1967.
+
+\bibitem{Bao2004}
+Y.~Bao, N.~Ishii, and X.~Du, {\em Combining Multiple k-Nearest Neighbor
+  Classifiers Using Different Distance Functions}, pp.~634--641.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2004.
+
+\bibitem{5152662}
+P.~Giguere and G.~Dudek, ``Surface identification using simple contact dynamics
+  for mobile robots,'' in {\em 2009 IEEE International Conference on Robotics
+  and Automation}, pp.~3301--3306, May 2009.
+
+\bibitem{4543710}
+E.~G. Collins and E.~J. Coyle, ``Vibration-based terrain classification using
+  surface profile input frequency responses,'' in {\em 2008 IEEE International
+  Conference on Robotics and Automation}, pp.~3276--3283, May 2008.
+
+\bibitem{5979766}
+E.~Coyle, E.~G. Collins, and R.~G. Roberts, ``Speed independent terrain
+  classification using singular value decomposition interpolation,'' in {\em
+  2011 IEEE International Conference on Robotics and Automation},
+  pp.~4014--4019, May 2011.
+
+\bibitem{Press:2007:NRE:1403886}
+W.~H. Press, S.~A. Teukolsky, W.~T. Vetterling, and B.~P. Flannery, {\em
+  Numerical Recipes 3rd Edition: The Art of Scientific Computing}.
+\newblock New York, NY, USA: Cambridge University Press, 3~ed., 2007.
+
+\bibitem{NOFREELUNCH}
+D.~H. Wolpert and W.~G. Macready, ``No free lunch theorems for optimization,''
+  {\em IEEE Transactions on Evolutionary Computation}, vol.~1, pp.~67--82, Apr
+  1997.
+
+\bibitem{DBLP:conf/emcr/WeissFSZ07}
+C.~Weiss, N.~Fechner, M.~Stark, and A.~Zell, ``Comparison of different
+  approaches to vibration-based terrain classification,'' in {\em Proceedings
+  of the 3rd European Conference on Mobile Robots, {EMCR} 2007, September
+  19-21, 2007, Freiburg, Germany}, 2007.
+
+\bibitem{Hoffmann20141790}
+M.~Hoffmann, K.~Štěpánová, and M.~Reinstein, ``The effect of motor action
+  and different sensory modalities on terrain classification in a quadruped
+  robot running with multiple gaits,'' {\em Robotics and Autonomous Systems},
+  vol.~62, no.~12, pp.~1790 -- 1798, 2014.
+
+\bibitem{7387710}
+C.~Kertész, ``Rigidity-based surface recognition for a domestic legged
+  robot,'' {\em IEEE Robotics and Automation Letters}, vol.~1, pp.~309--315,
+  Jan 2016.
+
+\bibitem{scikit-learn}
+``scikit-learn.'' Available at \url{http://scikit-learn.org/stable/index.html
+  }.
+\newblock Accessed: 2017-03-15.
+
+\bibitem{runstats}
+``runstats.'' Available at \url{https://pypi.python.org/pypi/runstats/ }.
+\newblock Accessed: 2017-03-15.
+
+\bibitem{optoRos}
+``Ros driver for the optoforce sensor.'' Available at
+  \url{https://github.com/shadow-robot/optoforce}.
+\newblock Accessed: 2017-03-15.
+
+\bibitem{hexapod}
+G.~Best, P.~Moghadam, N.~Kottege, and L.~Kleeman, ``Terrain classification
+  using a hexapod robot,'' in {\em proceedings of the Australasian Conference
+  on Robotics and Automation(ACRA ’13)}, 2013.
+
+\end{thebibliography}
