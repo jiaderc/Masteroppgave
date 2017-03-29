@@ -115,6 +115,13 @@ Terrain classification is the process of identify different types of terrain suc
 \subsection{Types of legged robots}
 
 
+\paragraph{Biped}
+
+\paragraph{Quadruped}
+
+\paragraph{Hexapod}
+
+
 \subsection{Terrain classification for legged robots}
 The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability of the robot when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
 \\
@@ -132,7 +139,7 @@ To be able to classify various of terrains, the system must obtain information f
 The remote sensing obtain information of a terrain from a distance and do not measure the terrain physically. The camera is most widely used and discriminating the terrain is based on analyzing images.
 \\
 \\ 
-Filitchkin et al. \cite{littleDog} presents an visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three types of gaits were used during the experiment, "a gait that is optimized for speed on relatively flat surfaces, a gait designed for high clearance on rough terrain at the expense of speed and a mixture of the two firsts". To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type is required. There were totally four different terrain small rocks, rocks, grass and tile. Lastly, the experiment was let the robot execute a terrain classification cycle every few steps and switched to one of three gait according which terrain it is on. To measure the robot performance, they compared the traversal time between for each three gait and the changing gait. The result indicate that changing gait for each terrain is faster than using a single gait to traverse.
+Filitchkin et al. \cite{littleDog} presents an visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three types of gaits were used during the experiment, "a gait that is optimized for speed on relatively flat surfaces, a gait designed for high clearance on rough terrain at the expense of speed and a mixture of the two first. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type is required. There were totally four different terrain small rocks, rocks, grass and tile. Lastly, the experiment was let the robot execute a terrain classification cycle every few steps and switched to one of three gait according which terrain it is on. To measure the robot performance, they compared the traversal time between for each three gait and the changing gait. The result indicate that changing gait for each terrain is faster than using a single gait to traverse.
 \\
 \\
 \begin{comment}
@@ -525,8 +532,11 @@ This chapter intends to explain the various choices which has been made to creat
 
 
 \section{Implementation environment and language}
-The robot can be controlled by Robot Operating System (ROS), which is a software component framework developed for robot applications. There are many choices of chosing an algorithm, but limited to integrate it with ROS. Labraries will be beneficial to use to reduce development time. ROS is most comapatible with Python, C++, Lisp, and MatLab, but there is experimental libraries in Java and Lua. 
-There are many available libraries to different type of language. Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this labrary it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter wether langauge it was chosen between these two. Gathering data is used c++ and the machine learning part is in python. All the system is integreted. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collction and class prediction in real time whereas the python implementation runs sequentially.
+The data segmentation is implemented in C++ and machine learning in python. Reading data from optical force sensor is also coded in python and taken from \cite{optoRos}. A software component framework developed for robot applications, Robot Operating System (ROS), is used to connecting each implementation as nodes. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collection and class prediction in real time whereas the python implementation runs sequentially.
+\\
+\\
+There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
+
 
 \subsubsection{Python}
 Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algoithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.
@@ -540,13 +550,14 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 %\part{Conclusion}                     %% ... or Konklusjon
 
 \section{Robot}
-The robot used in this work is an Quadruped Robot called "dyret" at the University of Oslo. This is shown in figure \ref{fig:robot} The OptoForce sensor is attached to each feet on the robot. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. The robot has 4 different gaits which can be used, but only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
+The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and connected with optical force sensors. The OptoForce sensor is attached to each feet on the robot. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
+(MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Robot.JPG}
-    \caption{Figure showing dyret used in this project}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Robot3}
+    \caption{Figure showing the Quadruped Robot developed at the University of Oslo, which was used in all experiments}
     \label{fig:robot}
 \end{figure}
 
@@ -626,7 +637,7 @@ The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard m
     \end{figure*}
 
 
-\section{Data from optoforce sensor}
+\section{Setup?}
 The data is collected by letting the robot walk 10 step per run. The data is saved into rosbag, which make it possible resimulate the data from earlier test. Integrating the optoforce with ros has an advantage, which is rosbag. The project using this package \cite{optoRos} in order to integrate with ros. For each terrain let the robot walk 10 step. Totalt  50 step is gathered from each for four different terrain. Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. Since the data arrives as a stream, we window
 it into discrete chunks when creating the feature
 vector for the classifier. Larger data windows
@@ -1424,7 +1435,10 @@ To og to bein på forskjellige underlag
 
 http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 
+%Optical force (Legged Robots)
+%https://link.springer.com/referenceworkentry/10.1007/978-3-540-30301-5_17
 
+An Overview of Legged Robots
 
 \backmatter{}
 \bibliography{bib}
