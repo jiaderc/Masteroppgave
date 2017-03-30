@@ -531,14 +531,16 @@ An example of confusion matrix is shown on table \ref{tab:cmatrix}
 This chapter intends to explain the various choices which has been made to create machine learning models.
 
 
-\section{Implementation environment and language}
+\section{Tools and environment}
+
+\subsection{Implementation language}
 The data segmentation is implemented in C++ and machine learning in python. Reading data from optical force sensor is also coded in python and taken from \cite{optoRos}. A software component framework developed for robot applications, Robot Operating System (ROS), is used to connecting each implementation as nodes. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collection and class prediction in real time whereas the python implementation runs sequentially.
 \\
 \\
 There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
 
 
-\subsubsection{Python}
+\paragraph{Python}
 Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algoithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.
 
 \paragraph{Scikit-learn}
@@ -549,7 +551,7 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 
 %\part{Conclusion}                     %% ... or Konklusjon
 
-\section{Robot}
+\subsection{Robot}
 The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and connected with optical force sensors. The OptoForce sensor is mounted on its feet. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
 (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
 
@@ -560,10 +562,10 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
     \caption{Figure showing the Quadruped Robot developed at the University of Oslo, which was used in all experiments}
     \label{fig:robot}
 \end{figure}
+\FloatBarrier
 
-
-\section{Terrain} \label{seq:terrain}
-The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences.  Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
+\subsection{Terrain} \label{seq:terrain}
+Four different terrains will be used in all experiment, which are floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences.  Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
 
 \begin{comment}
 \begin{figure} 
@@ -637,104 +639,110 @@ The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard m
         \label{fig:terrains}
     \end{figure*}
 
-\section{Data collection}
-Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Each step represent a sample, and in total was 50 samples collected from each of terrains.
+\section{Data from optical force sensor}
+This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 
-
-\section{Segmentation of data}
-This section will first describe how the measurement from sensor gathered. Next, it will present how the data is splittet into sequences and used as the basis for creating feature vectors.
-
-Since the data arrives as a stream, we window
-it into discrete chunks when creating the feature
-vector for the classifier. Larger data windows
-increase accuracy at the cost of increased latency
-when detecting change. We chose to use a one
-second sliding window.
-
-
-\subsection{Analyzing data from sensor}
-An important stage is get the gather the interest information from the data set. There are many approach to get data such as sliding window. In this project was to first analyzing how the data looks like and find whetere there are any characterizatic between each terrain. A run for each terrain is shown on \ref{fig:graphf}, it is collected by one sensor.
-
+\subsection{Data collection}
+Reading from the sensor is set to default 100Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure "!!".
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
-    \caption{Figure showing \texttt{rqt\_plot} of a testrun on the floor.}
-    \label{fig:graphf}
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the floor.}
+	\label{fig:graphf}
 \end{figure}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
-    \caption{Figure showing \texttt{rqt\_plot} of a testrun on the carpet terrain.}
-    \label{fig:grapht}
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
+	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the carpet terrain.}
+	\label{fig:grapht}
 \end{figure}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
-    \caption{Figure showing \texttt{rqt\_plot} of a testrun on the hard mat terrain.}
-\label{fig:graphhm}
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
+	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the hard mat terrain.}
+	\label{fig:graphhm}
 \end{figure}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
-    \caption{Figure showing \texttt{rqt\_plot} of a testrun on the soft mat.}
-    \label{fig:graphmm}
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
+	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the soft mat.}
+	\label{fig:graphmm}
 \end{figure}
 
 
 \FloatBarrier
-The first of the robot is get ready to walk, while we can see an almost periodic sequence when the robot walk. As a sensor is in the air, the x,y, z-direction will have minor change almost constant. The idea of getting the interested data is to detect when a foot is in air. That is when there are minior change in x,y,z-direction. When there are big change in each direction, start to save the data from sensor, and stop when it is in the air again. 
+
+\subsection{Analyzing data from sensor}
+Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure "!!!!". The periodic sequence is for each step. A  common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
+
+
+
+\subsection{Segmentation of data}
+An appropriate method to segment data is sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining interesting data from the window and big window size is not efficient. Thus, an algorithm to segment data was created. 
+\\
+\\
+The idea of getting the interested data is to detect when a foot is in air. That is when there are minior change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
+
+
+\section{Feature extraction}
+As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. In this project, five different feature sets will be created from either time domain, frequency domain or both. 
+The algorithm to extracting each step. 
 \\
 \\
 To see how each terrain will differ to each other. A mean of ten steps for each terrain and each direction is shown \ref{fig:meanx}.
+Note that the soft mat is the one which differ from all of the terrains. The challenging will be to predict the hard mat and the carpet since the data is to close to each other. But it has a similar shape of graph as floor, which also could make it difficult to distinguish. Many researcher like to see the fequency domain. The figure \ref{fig:fft} showing a mean of ten step in fft.
+
+
+
 \begin{comment}
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
-    \caption{Figure showing force in the x-direction}
-    \label{fig:meanx}
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
+\caption{Figure showing force in the x-direction}
+\label{fig:meanx}
 \end{figure}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
-    \caption{Figure showing force in the y-direction}
-    \label{fig:optoforce}
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
+\caption{Figure showing force in the y-direction}
+\label{fig:optoforce}
 \end{figure}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
-    \caption{Figure showing force in the z-direction}
-    \label{fig:optoforce}
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
+\caption{Figure showing force in the z-direction}
+\label{fig:optoforce}
 \end{figure}
 \end{comment}
 
 
 \begin{figure}[h]
-\begin{subfigure}{0.5\linewidth}
-\centering
-\includegraphics[scale=0.42]{Figures/meanx}
-\caption{}
-\label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\linewidth}
-\centering
-\includegraphics[scale=0.42]{Figures/meany}
-\caption{}
-\label{fig:sub2}
-\end{subfigure}\\[1ex]
-\begin{subfigure}{\linewidth}
-\centering
-\includegraphics[scale=0.42]{Figures/meanz}
-\caption{}
-\label{fig:sub3}
-\end{subfigure}
-\caption{Figur showing the mean}
-\label{fig:meanx}
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.42]{Figures/meanx}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[scale=0.42]{Figures/meany}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}\\[1ex]
+	\begin{subfigure}{\linewidth}
+		\centering
+		\includegraphics[scale=0.42]{Figures/meanz}
+		\caption{}
+		\label{fig:sub3}
+	\end{subfigure}
+	\caption{Figur showing the mean}
+	\label{fig:meanx}
 \end{figure}
 
 
@@ -743,42 +751,33 @@ To see how each terrain will differ to each other. A mean of ten steps for each 
 
 
 \FloatBarrier
-Note that the soft mat is the one which differ from all of the terrains. The challenging will be to predict the hard mat and the carpet since the data is to close to each other. But it has a similar shape of graph as floor, which also could make it difficult to distinguish. Many researcher like to see the fequency domain. The figure \ref{fig:fft} showing a mean of ten step in fft.
 
 \begin{figure}[h]
-\begin{subfigure}{0.5\linewidth}
-\centering
-\includegraphics[scale=0.4]{Figures/fftx}
-\caption{}
-\label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\linewidth}
-\centering
-\includegraphics[scale=0.4]{Figures/fftx}
-\caption{}
-\label{fig:sub2}
-\end{subfigure}\\[1ex]
-\begin{subfigure}{\linewidth}
-\centering
-\includegraphics[scale=0.4]{Figures/fftx}
-\caption{}
-\label{fig:sub3}
-\end{subfigure}
-\caption{FFT of }
-\label{fig:fft}
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fftx}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fftx}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}\\[1ex]
+	\begin{subfigure}{\linewidth}
+		\centering
+		\includegraphics[scale=0.4]{Figures/fftx}
+		\caption{}
+		\label{fig:sub3}
+	\end{subfigure}
+	\caption{FFT of }
+	\label{fig:fft}
 \end{figure}
+\FloatBarrier
 
 
-\section{Feature extraction}
-As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. In this project, five different feature sets will be created from either time domain, frequency domain or both. 
-The algorithm to extracting each step.
-\begin{enumerate}
-\item Having two global variable, one to say 
-\item The minimum value of the dataset in time domain
-\item Skew in time domain
-\item Kuortosis in time domain 
-\item Standard deviation in time domain
-\end{enumerate}
+
 
 \subsubsection{Time domain}
 
