@@ -645,6 +645,9 @@ This section will first describe how the measurement from sensor gathered. Next,
 \subsection{Data collection}
 Reading from the sensor is set to default 100Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure "!!".
 
+\begin{comment}
+
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
@@ -671,6 +674,41 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
 	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the soft mat.}
 	\label{fig:graphmm}
+\end{figure}
+\end{comment}
+
+\begin{figure} [h]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+		\caption{}
+		\label{fig:meanx} 
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{\textwidth}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+		\caption{}
+		\label{fig:meany}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+	\caption{}
+	\label{fig:meany}
+	\end{subfigure}
+
+\end{figure}
+\begin{figure}[h] \ContinuedFloat
+	\begin{subfigure}[b]{0.95\textwidth}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+		\caption{}
+		\label{fig:meanz}
+	\end{subfigure}
+	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
+		with a constant-curvature body shape showing the scaled leading-order veritcal 
+		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
+		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
+		values of $M,I$.}
 \end{figure}
 
 \FloatBarrier
@@ -704,7 +742,7 @@ Many runs has shown the length varied around 125-134.
 \centering
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
 \caption{Figure showing force in the x-direction}
-\label{fig:meanx}
+\label{fig:meanx2}
 \end{figure}
 
 \begin{figure}[h]
@@ -722,7 +760,66 @@ Many runs has shown the length varied around 125-134.
 \end{figure}
 \end{comment}
 
+\begin{figure} [h]
+	\centering
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
+		\caption{}
+		\label{fig:meanx} 
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
+		\caption{}
+		\label{fig:meany}
+	\end{subfigure}
+\end{figure}
+	\begin{figure}[h] \ContinuedFloat
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
+		\caption{}
+		\label{fig:meanz}
+	\end{subfigure}
+	
+	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
+		with a constant-curvature body shape showing the scaled leading-order veritcal 
+		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
+		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
+		values of $M,I$.}
+\end{figure}
 
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/fftx}
+		\caption{}
+		\label{fig:meanx} 
+	\end{subfigure}
+\end{figure}
+\begin{figure}[h] \ContinuedFloat	
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/ffty}
+		\caption{}
+		\label{fig:meany}
+	\end{subfigure}
+
+
+	\begin{subfigure}[h]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/fftz}
+		\caption{}
+		\label{fig:meanz}
+	\end{subfigure}
+	
+	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
+		with a constant-curvature body shape showing the scaled leading-order veritcal 
+		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
+		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
+		values of $M,I$.}
+\end{figure}
+\FloatBarrier
+
+\begin{comment}
 \begin{figure}[h]
 	\begin{subfigure}{0.5\linewidth}
 		\centering
@@ -745,10 +842,12 @@ Many runs has shown the length varied around 125-134.
 	\caption{Figur showing the mean}
 	\label{fig:meanx}
 \end{figure}
+\end{comment}
 
 
-\FloatBarrier
 
+\begin{comment}
+	content...
 \begin{figure}[h]
 	\begin{subfigure}{0.5\linewidth}
 		\centering
@@ -771,7 +870,8 @@ Many runs has shown the length varied around 125-134.
 	\caption{FFT of }
 	\label{fig:fft}
 \end{figure}
-\FloatBarrier
+\end{comment}
+
 
 
 
