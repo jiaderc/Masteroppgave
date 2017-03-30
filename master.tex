@@ -695,6 +695,8 @@ In time domain, figure \ref{fig:meanx} showing the mean of 10 samples in three z
 
 A mean of 10 samples in frequency domain is shown in figure \ref{fig:fft}. The soft mat differ from the other widely, while floor, carpet and hard mat is similar to each other.
 
+\subsection{Fix length}
+Many runs has shown the length varied around 125-134.
 
 
 \begin{comment}
@@ -1247,11 +1249,11 @@ On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix 
 \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 \end{tabular}%
 }
-\caption{decision tree featureset 1 filter
-}
+\caption{decision tree featureset 1 filter}
 \label{dt4}
 \end{table}
 \FloatBarrier
+
 \subsubsection{Decision Tree - Filter - Feature set one}
 On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. Another reason which may cause poor performance is that the parameters are all on defaults. The result is similar to the earlier, but this has a more stable accuracy. It vary has a variation on 2\% while the earlier is 5\%. The classifier have particulary issue to distinguish between hard mat and carpet. 
 
