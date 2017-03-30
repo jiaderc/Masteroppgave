@@ -563,7 +563,8 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 
 
 \section{Terrain}
-The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard mat. The reason of chosing those terrains is the similarity between the terrain. In this project it will be to see if the classifier can seperate different terrain even with minor differences. Floor and the hard mat is probably the most difficult to distinguish. The carpet also minor difference, but it has more friction than the floor and the hard mat. The last terrain, a soft mat, should be easy to predict since it distinguish by softness and high friction.Different terrains is shown on figure \ref{fig:terrains}.
+The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences.  Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
+
 \begin{comment}
 \begin{figure} 
 \centering
@@ -636,17 +637,20 @@ The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard m
         \label{fig:terrains}
     \end{figure*}
 
-
 \section{Setup?}
-The data is collected by letting the robot walk 10 step per run. The data is saved into rosbag, which make it possible resimulate the data from earlier test. Integrating the optoforce with ros has an advantage, which is rosbag. The project using this package \cite{optoRos} in order to integrate with ros. For each terrain let the robot walk 10 step. Totalt  50 step is gathered from each for four different terrain. Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. Since the data arrives as a stream, we window
+Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. The data is collected by using a stable gait and walked 10 step for each of terrains.  The data is recorded into rosbag, which make it possible re-simulate the run. Totalt  50 step is gathered from each for four different terrain. Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. 
+
+
+\section{Segmentation of data}
+This section will first describe how the measurement from sensor gathered. Next, it will present how the data is splittet into sequences and used as the basis for creating feature vectors.
+
+Since the data arrives as a stream, we window
 it into discrete chunks when creating the feature
 vector for the classifier. Larger data windows
 increase accuracy at the cost of increased latency
 when detecting change. We chose to use a one
 second sliding window.
 
-\section{Segmentation of data}
-This section will first describe how the measurement from sensor gathered. Next, it will present how the data is splittet into sequences and used as the basis for creating feature vectors.
 
 \subsection{Analyzing data from sensor}
 An important stage is get the gather the interest information from the data set. There are many approach to get data such as sliding window. In this project was to first analyzing how the data looks like and find whetere there are any characterizatic between each terrain. A run for each terrain is shown on \ref{fig:graphf}, it is collected by one sensor.
