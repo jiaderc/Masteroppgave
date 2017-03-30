@@ -550,7 +550,7 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 %\part{Conclusion}                     %% ... or Konklusjon
 
 \section{Robot}
-The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and connected with optical force sensors. The OptoForce sensor is attached to each feet on the robot. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
+The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and connected with optical force sensors. The OptoForce sensor is mounted on its feet. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
 (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
 
 
@@ -562,7 +562,7 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 \end{figure}
 
 
-\section{Terrain}
+\section{Terrain} \label{seq:terrain}
 The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences.  Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
 
 \begin{comment}
@@ -637,8 +637,8 @@ The robot will walk on 4 different terrains, floor, carpet, soft mat, and hard m
         \label{fig:terrains}
     \end{figure*}
 
-\section{Setup?}
-Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. The data is collected by using a stable gait and walked 10 step for each of terrains.  The data is recorded into rosbag, which make it possible re-simulate the run. Totalt  50 step is gathered from each for four different terrain. Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. 
+\section{Data collection}
+Reading from the sensor is set to default, 100Hz and filtering frequency, as a string to 15Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Each step represent a sample, and in total was 50 samples collected from each of terrains.
 
 
 \section{Segmentation of data}
