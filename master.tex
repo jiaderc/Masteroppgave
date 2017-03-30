@@ -673,28 +673,27 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\label{fig:graphmm}
 \end{figure}
 
-
 \FloatBarrier
 
+
+
 \subsection{Analyzing data from sensor}
-Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure "!!!!". The periodic sequence is for each step. A  common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
+Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure "!!!!". The periodic sequence is for each step. A common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
 
-
-
-\subsection{Segmentation of data}
+\subsection{Data segmentation}
 An appropriate method to segment data is sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining interesting data from the window and big window size is not efficient. Thus, an algorithm to segment data was created. 
 \\
 \\
-The idea of getting the interested data is to detect when a foot is in air. That is when there are minior change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
+In the thesis it is considered that the most informative from terrain is when the foot has with the ground until it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minior change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set. It has a restriction on when to use or not. Many runs the shortest with 125 length.
 
 
 \section{Feature extraction}
-As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. In this project, five different feature sets will be created from either time domain, frequency domain or both. 
-The algorithm to extracting each step. 
+As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. 
 \\
 \\
-To see how each terrain will differ to each other. A mean of ten steps for each terrain and each direction is shown \ref{fig:meanx}.
-Note that the soft mat is the one which differ from all of the terrains. The challenging will be to predict the hard mat and the carpet since the data is to close to each other. But it has a similar shape of graph as floor, which also could make it difficult to distinguish. Many researcher like to see the fequency domain. The figure \ref{fig:fft} showing a mean of ten step in fft.
+In time domain, figure \ref{fig:meanx} showing the mean of 10 samples in three z,y and z-direction. Carpet and Hard mat is most similar accordingly the values, which might be the most difficulty to discriminate. However, shapes of curves between floor and carpet is the most similar, which also may be not easy to predict. The soft mat differ from the other widely, and should be the easiest to predict. 
+
+A mean of 10 samples in frequency domain is shown in figure \ref{fig:fft}. The soft mat differ from the other widely, while floor, carpet and hard mat is similar to each other.
 
 
 
@@ -746,10 +745,6 @@ Note that the soft mat is the one which differ from all of the terrains. The cha
 \end{figure}
 
 
-
-
-
-
 \FloatBarrier
 
 \begin{figure}[h]
@@ -778,9 +773,7 @@ Note that the soft mat is the one which differ from all of the terrains. The cha
 
 
 
-
-\subsubsection{Time domain}
-
+\subsection{Feature sets}
 \paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to acheieve a constant length, in this case 125, and compressed into one feature vector. The feature vector can be seen in \ref{eq:f1}.
 
 \begin{equation} \label{eq:f1}
@@ -809,7 +802,6 @@ The feature set will be look like:
 
 The feature contain 7 features from each direction, which mean total 21 features. 
 
-\subsubsection{Frequency domain}
 \paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fft. After tranformation a decimation need to be used, to have a fixed length. 
 
 \begin{equation} \label{eq:f2}
@@ -836,9 +828,6 @@ The feature which will be feed into classifier:
 \end{align}
 
 \paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
-
-\subsection{Tuning Parameters}
-The parameter in this project is default values. 
 
 \section{Learning approach}
 \begin{figure}[h]
@@ -1422,7 +1411,7 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 
 
 
-\subsection{Furture work}
+\subsection{Future work}
 Improvment of classifier
 The classifier is based on the features of the robot motion and interaction with the terrain. However, the features of the terrain itself such as slopiness, slipperiness, convexity, hardness, are not analyzed directly - they may be hidden inside the classifier and could be addressed in the future work.
 
