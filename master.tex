@@ -795,8 +795,8 @@ The feature contain 125 feature from each 3 sensors, which mean 375 features.
 The feature set will be look like:
 
 \begin{align}
- f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz} \right.\nonumber\\
- &\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz} \right.\nonumber\\
+ f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
+ &\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
  &\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz} \right\}
 \end{align}
 
@@ -822,13 +822,21 @@ f_{set3}= \left\{ fx_1,\dotsc,fx_{61},fy_1, \dotsc,fy_{61},fz_1,\dotsc,fz_{61} \
 
 The feature which will be feed into classifier:
 \begin{align}
- f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E} \right.\nonumber\\
- &\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E} \right.\nonumber\\
+ f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
+ &\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
  &\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 \end{align}
 
 \paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
-
+\begin{align}
+f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
+&\qquad \left. {}  y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
+&\qquad \left. {}  z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz}, \right.\nonumber\\
+&\qquad \left. {} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
+&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
+\end{align}
+\newpage
 \section{Learning approach}
 \begin{figure}[h]
 \centering
