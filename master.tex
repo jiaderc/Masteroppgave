@@ -15,6 +15,7 @@
 \usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{rotating}
+\usepackage{listings}
 %\usepackage{graphicx}
 %\usepackage[table,xcdraw]{xcolor}
 %\usepackage[table]{xcolor}
@@ -643,7 +644,7 @@ Four different terrains will be used in all experiment, which are floor, carpet,
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 
 \subsection{Data collection}
-Reading from the sensor is set to default 100Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure "!!".
+Reading from the sensor is set to default 100Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
 
 \begin{comment}
 
@@ -682,43 +683,44 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
 		\caption{}
-		\label{fig:meanx} 
+		\label{fig:gulvgraf} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
 		\caption{}
-		\label{fig:meany}
+		\label{fig:teppegraf}
 	\end{subfigure}
 
-	\begin{subfigure}[b]{\textwidth}
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+	\begin{subfigure}[h]{\textwidth}
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
 	\caption{}
-	\label{fig:meany}
+	\label{fig:mattebgraf}
 	\end{subfigure}
 
 \end{figure}
 \begin{figure}[h] \ContinuedFloat
-	\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+	\begin{subfigure}[b]{\textwidth}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
 		\caption{}
-		\label{fig:meanz}
+		\label{fig:mykmattegraf}
 	\end{subfigure}
 	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
 		with a constant-curvature body shape showing the scaled leading-order veritcal 
 		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
 		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
 		values of $M,I$.}
+	\label{fig:gtmgraf}
 \end{figure}
+
 
 \FloatBarrier
 
 
-
 \subsection{Analyzing data from sensor}
-Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure "!!!!". The periodic sequence is for each step. A common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
+Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure \ref{fig:gtmgraf}. The periodic sequence is for each step. A common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
 
-\subsection{Data segmentation}
+\subsection{Data segmentation} \label{subseq:segmentation}
 An appropriate method to segment data is sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining interesting data from the window and big window size is not efficient. Thus, an algorithm to segment data was created. 
 \\
 \\
@@ -729,12 +731,10 @@ In the thesis it is considered that the most informative from terrain is when th
 As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. 
 \\
 \\
-In time domain, figure \ref{fig:meanx} showing the mean of 10 samples in three z,y and z-direction. Carpet and Hard mat is most similar accordingly the values, which might be the most difficulty to discriminate. However, shapes of curves between floor and carpet is the most similar, which also may be not easy to predict. The soft mat differ from the other widely, and should be the easiest to predict. 
-
-A mean of 10 samples in frequency domain is shown in figure \ref{fig:fft}. The soft mat differ from the other widely, while floor, carpet and hard mat is similar to each other.
-
-\subsection{Fix length}
-Many runs has shown the length varied around 125-134.
+In time domain, figure \ref{fig:meanxyz} showing the mean of 10 samples in three z,y and z-direction. Carpet and Hard mat is most similar accordingly the values, which might be the most difficulty to discriminate. However, shapes of curves between floor and carpet is the most similar, which also may be not easy to predict. The soft mat differ from the other widely, and should be the easiest to predict. 
+\\
+\\
+A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The soft mat differ from the other widely, while floor, carpet and hard mat is similar to each other.
 
 
 \begin{comment}
@@ -786,6 +786,7 @@ Many runs has shown the length varied around 125-134.
 		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
 		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
 		values of $M,I$.}
+	\label{fig:meanxyz}
 \end{figure}
 
 
@@ -794,21 +795,21 @@ Many runs has shown the length varied around 125-134.
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/fftx}
 		\caption{}
-		\label{fig:meanx} 
+		\label{fig:fftx} 
 	\end{subfigure}
 \end{figure}
 \begin{figure}[h] \ContinuedFloat	
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/ffty}
 		\caption{}
-		\label{fig:meany}
+		\label{fig:ffty}
 	\end{subfigure}
 
 
 	\begin{subfigure}[h]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/fftz}
 		\caption{}
-		\label{fig:meanz}
+		\label{fig:fftz}
 	\end{subfigure}
 	
 	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
@@ -816,6 +817,7 @@ Many runs has shown the length varied around 125-134.
 		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
 		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
 		values of $M,I$.}
+	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
 
@@ -875,8 +877,8 @@ Many runs has shown the length varied around 125-134.
 
 
 
-\subsection{Feature sets}
-\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to acheieve a constant length, in this case 125, and compressed into one feature vector. The feature vector can be seen in \ref{eq:f1}.
+\subsection{Feature sets}\label{sec:featuresets}
+\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in section \ref{subseq:FixLength}. The feature vector can be seen in \ref{eq:f1}.
 
 \begin{equation} \label{eq:f1}
 f_{set1}= \left\{ x_1,\dotsc,x_{125},y_1, \dotsc,y_{125},z_1,\dotsc,z_{125} \right\}
@@ -938,16 +940,83 @@ f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{tr
 &\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
 &\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 \end{align}
+
+\subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
+In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considerate that data in end and start are less important than in middle.
+  
+\begin{lstlisting}[language=Python]
+
+def fix_length(data_sequence):
+    fixed_length = 125
+    total_length = len(data_sequence)  
+    total_cut = total_length-fixed_length
+
+    #In case the sequence is odd
+    rest = total_cut%2
+    
+    #Calculate the start and end position
+    start_pos = total_cut/2 
+    end_pos = total_length - (total_cut/2)+rest 
+
+    #Retrieve fixed sequense data 
+    fixed_data_sequence = data_sequence[start_pos:end_pos] 
+    return fixed_data_sequence
+\end{lstlisting}
+
 \newpage
 \section{Learning approach}
+The learning approach is divided into to processes. First to divide the file and learning process.
+
+\subsection{Collecting samples}
+The samples used as training and test is a step before the learning procedure. This is to gather data sample for each terrain into a file, which will be used in the learning process. The procedure is shown in figure \ref{fig:createsamples}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=0.7,transform shape]
+	
+	% Draw diagram elements
+	\path \io{1}{Raw data};
+	
+	\path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+	\path (p2.south)+(0.0,-1.5) \etape{3}{Write to file};
+	
+
+	%  \node [below=of p5] (p6-7) {};
+	
+	% Draw arrows between elements
+	\path [line] (p1.south) -- node [above] {} (p2);
+	\path [line] (p2.south) -- node [above] {} (p3);
+	\end{tikzpicture}
+
+\caption{The figure showing steps } \label{fig:createsamples}
+\end{figure}
+
+\subsubsection{Procedure of creating samples} \label{sub:createsamples}
+\begin{enumerate}
+	\item \textbf{\underline{Raw data}}
+	\\
+	The dataset is retrieved from the optical force sensor.
+	
+	\item \textbf{\underline{Extract steps}}
+	\\
+	Raw data will be partitioned into samples as described in section \ref{subseq:segmentation}.
+	
+	\item \textbf{\underline{Write to file}}
+	\\
+	This step will write each of data sequence into file with label of the terrain name.
+	
+
+\end{enumerate}
+
+\subsection{Learning procedure}
+When the data samples of each terrain is collected into a file, the learning process is shown in figure \ref{fig:learningProcess}.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.7,transform shape]
 
   % Draw diagram elements
-  \path \io{1}{Raw data};
   
-  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+  \path \etape{2}{Read file};
   \path (p2.south)+(0.0,-1.5) \etape{3}{Extract features};
 
   \path (p3.south)+(0.0,-1.5) \etape{4}{Split data};
@@ -962,7 +1031,7 @@ f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{tr
 %  \node [below=of p5] (p6-7) {};
 
   % Draw arrows between elements
-  \path [line] (p1.south) -- node [above] {} (p2);
+ 
   \path [line] (p2.south) -- node [above] {} (p3);
   \path [line] (p3.south) -- node [above] {} (p4);
   \path [line] (p4.south) -| node [above] {Training set} (p5);
@@ -975,56 +1044,52 @@ f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{tr
   \path [line] (p9.south) -- node [above] {} (p7);
 %  \path [line] (p5.south) -- node [above] {Feature} (p9);
    \path [line,dashed] (p5) -- node [above]{Scaling factors} (p9);
-  \background{p3}{p4}{p5}{p7}{Loop} 
+  \background{p3}{p4}{p5}{p10}{Loop} 
   
 \end{tikzpicture}
 
 
 
-\caption{The figure showing steps } \label{fig:M1}
+\caption{The figure showing steps } \label{fig:learningProcess}
 \end{figure}
 
 \FloatBarrier
 
 \subsubsection{Details of the learning process}
 \begin{enumerate}
-\item \textbf{\underline{Raw data}}
+\item \textbf{\underline{Reading file with samples}}
 \\
-The dataset as it were when received/obtained from the optoforce sensor
-
-\item \textbf{\underline{Extract steps}}
-\\
-This step will extract the interested data from the raw data as described and reasoned in section
+This step will take a file as input, created from section \ref{sub:createsamples}.
 
 \item \textbf{\underline{Extract features}}
 \\
-Extract features This step will create one of the six feature sets
-mentioned in section 3.3.
+This step will create one of the five feature sets as mentioned in section \ref{sec:featuresets}.
 
 \item \textbf{\underline{Loop}}
 
-\begin{enumerate}
-\item \textbf{\underline{Split data}} 
+\begin{enumerate} 
+\item \textbf{\underline{Split data}} \label{en:loop}
 \\
 \\
-Split data set into a training set and testing set.
+The extracted feature vectors is partitioned into a training and testing set. The cross validation is LOOCV, thus the training set consists of 199 samples and one test sample.
 
-Train and test split Here, the dataset will be split into a training
-set and testing set as described in section 3.4. That is, the
-heartbeats from one animal that has not previously used as a
-testing test in the current realization, will be used as such, and
-the rest will be used in the training set.
+
 \item \textbf{\underline{Scaling}}
 \\
-This step takes the training set as input and standarazation as mention in section \ref{subsec:scaling}. It will first scale the training data, and then scaling factors are applied to the test data.
+This step takes the training set as input and standardization as mention in section \ref{subsec:scaling}. It will first scale the training data, and then scaling factors are applied to the test data.
 
 Scale first the training set and then transform the testing set.
 \item \textbf{\underline{Train the classifier}}
 \\
 The classifier will take the training set as input and train.
 
-\item \textbf{\underline{Test classifier}} This step use the model to predict the test set. It will store the score. If there are still more data that need to be predicted start from top again.
+\item \textbf{\underline{Test classifier}} This step use the model to predict the test set. It will store the score.
+
+
+\item \textbf{\underline{Store result}} This step will store the result of the test sample.If there are still more data to be predicted start from \ref{en:loop}.
+
 \end{enumerate}
+
 
 \item \textbf{\underline{Result}}
 \\
@@ -1035,7 +1100,7 @@ Compute the average results as mentioned in section \ref{subsec:evalclf}
 
 
 \chapter{Experiments and results}                     %% ... or ??
-The chapter present the results of all model in previous chapter. The two-class classification will be investiated first. Further will be to using methods to improve each of classifier. The best classifier will be used to test. 
+The chapter present the results of all model in previous chapter. The two-class classification will be investigated first. Further will be to using methods to improve each of classifier. The best classifier will be used to test. 
 
 \section{Results of classifier}\label{result_exp1}
 Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done twice, both with and without the feature scaling. 
@@ -1090,7 +1155,7 @@ The result shown that all classifier has a accuracy at least 70\%. The Decision 
 Regarding the feature scaling, SVM classifer is the one with huge affect of the scaled. The KNN which is also distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor change in their accuracy. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
 \\
 \\
-Note that the mostly highlig result is from feature set one. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. Conversely, by extraction features might loose important features, hence to not high accuracy.
+Note that the mostly highlight result is from feature set one. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. Conversely, by extraction features might loose important features, hence to not high accuracy.
 \\
 \\
 Even there are two classifier which outpeform the other, there are still a improving potensial to all of them. The improvement will be investigated in next section.
@@ -1105,9 +1170,9 @@ The classifier approach state earlier has leaved the feature selection out. The 
 \begin{tikzpicture}[scale=0.7,transform shape]
 
   % Draw diagram elements
-  \path \io{1}{Raw data};
-  
-  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+%  \path \io{1}{Raw data};
+  \path \io{2}{Read file};
+%  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
   \path (p2.south)+(0.0,-1.5) \etape{3}{Extract features};
   \path (p3.south)+(0.0,-1.5) \etape{11}{Feature selection};
   
@@ -1123,7 +1188,7 @@ The classifier approach state earlier has leaved the feature selection out. The 
 %  \node [below=of p5] (p6-7) {};
 
   % Draw arrows between elements
-  \path [line] (p1.south) -- node [above] {} (p2);
+ % \path [line] (p1.south) -- node [above] {} (p2);
   \path [line] (p2.south) -- node [above] {} (p3);
   \path [line] (p3.south) -- node [above] {} (p11);
   \path [line] (p11.south) -- node [above] {} (p4);
@@ -1359,7 +1424,7 @@ On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix 
 
 
 \section{Classification in real-time}
-To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments.
+To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
 
 \begin{enumerate}
 \item Hard mat to carpet/floor...
@@ -1369,12 +1434,14 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 \item From floor to carpet
 \end{enumerate}
 
+\subsection{Floor to carpet}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2}
     \caption{Figure showing an the optofoce used in this thesis \cite{OptoforceFig}}
-    \label{fig:optoforce}
+    \label{fig:gulvet4teppegraf}
 \end{figure}
 
 
@@ -1392,10 +1459,14 @@ Hard mat & 0.104 & 0.022 & 0.081 & 0.007 & 0.073 & 0.010 & 0.055 & 0.166 & 0.104
 \end{tabular}%
 }
 \caption{Gulvet4teppe}
-\label{my-label}
+\label{tab:Gulvet4teppe}
 \end{table}
+\FloatBarrier
 
-\begin{comment}
+
+\subsection{Hard mat to carpet}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3_3_Gulvet}
@@ -1436,8 +1507,10 @@ Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cell
 \caption{Hard mat eller gulv}
 \label{my-label}
 \end{table}
-\end{comment}
 
+
+\subsection{Hard matte to soft mate}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
 
 \begin{figure}[h]
     \centering
@@ -1461,6 +1534,9 @@ Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cell
 \caption{Hard matte 3 myk matte}
 \label{my-label}
 \end{table}
+
+\subsection{Soft mat to hard mat}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
 
 \begin{figure}[h]
     \centering
@@ -1486,8 +1562,8 @@ Hard mat & 0.300 & 0.086 & 0.054 & 0.344 & \cellcolor[HTML]{34FF34}0.921 & \cell
 \label{my-label}
 \end{table}
 
-
-\begin{figure}[h]
+\subsection{Soft mat to carpet}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2}
     \caption{Figure showing an the optofoce used in this thesis \cite{OptoforceFig}}
@@ -1511,6 +1587,7 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 \label{my-label}
 \end{table}
 
+\subsection{Summary}
 
 \section{Prediction next sensor?}
 
@@ -1532,6 +1609,9 @@ The learning is based on each step, maybe collect data from more than one step.
 Rely only on optoforce sensor, other sensor such as servo, knee etc....
 
 Teste om the holder å se på en retning?
+
+Ikke decimate - kan miste viktige features
+
 Oter experiments
 To og to bein på forskjellige underlag
 
