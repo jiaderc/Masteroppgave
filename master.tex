@@ -38,13 +38,14 @@
 \tikzstyle{ur}=[draw, text centered, minimum height=0.01em]
 \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
 \tikzstyle{container} = [rectangle, draw, inner sep=0.2 cm, dashed]
-
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 % Define distances for bordering
 \newcommand{\blockdist}{1.3}\newcommand{\edgedist}{1.5}
 
 \newcommand{\etape}[2]{node (p#1)[etape]{#2}}
 \newcommand{\io}[2]{node (p#1)[io]{#2}}
-  
+\newcommand{\dec}[2]{node (p#1)[decision]{#2}}  
 
 % Draw background
 \newcommand{\background}[5]{%
@@ -1423,6 +1424,8 @@ On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix 
 On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. Another reason which may cause poor performance is that the parameters are all on defaults. The result is similar to the earlier, but this has a more stable accuracy. It vary has a variation on 2\% while the earlier is 5\%. The classifier have particulary issue to distinguish between hard mat and carpet. 
 
 
+\subsection{Summary}
+
 \section{Classification in real-time}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
 
@@ -1433,6 +1436,72 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 \item Soft mat to carpet
 \item From floor to carpet
 \end{enumerate}
+
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[scale=0.7,transform shape]
+	
+	% Draw diagram elements
+	%  \path \io{1}{Raw data};
+	\path \io{1}{Read file};
+	%  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+	\path (p1.south)+(0.0,-1.5) \etape{2}{Extract features};
+	\path (p2.south)+(0.0,-1.5) \etape{3}{Feature selection};
+	
+	\path (p3.south)+(0.0,-1.5) \etape{4}{Scaling};
+	\path (p4.south)+(0.0,-1.5) \etape{12}{Training the model};
+	
+	\path (p12.south)+(0,-1.5) \etape{5}{Create server};
+	\path (p5.south)+(0,-1.5) \etape{6}{Waiting for request};
+	\path (p6.south)+(0,-2.5) \dec{7}{Request?};
+	\path (p7.south)+(0,-1.5) \etape{8}{Preprocess data};
+	\path (p8.south)+(0,-1.5) \etape{9}{Predict};
+	
+	
+	%\path (request?.south)+(0,-1.5) \etape{7}{Predicted};
+	
+	\path (p5.west)+(8.5,0) \etape{10}{Raw data stream};
+	\path (p10.south)+(0,-1.5) \etape{11}{Segment data};
+
+
+	
+
+
+	% Draw arrows between elements
+	\path [line] (p1.south) -- node [above] {} (p2);
+	\path [line] (p2.south) -- node [above] {} (p3);
+	\path [line] (p3.south) -- node [above] {} (p4);
+	\path [line] (p4.south) -- node [above] {} (p12);
+	\path [line] (p12.south) -- node [above] {} (p5);
+	\path [line] (p5.south) -- node [above] {} (p6);
+	\path [line] (p6.south) -- node [above] {} (p7);
+	\path [line] (p7.south) -- node [right] {Yes} (p8);
+	\path [line] (p7.west) -- ++(-2,0) |- node [above] {No} (p6);
+	\path [line] (p8.south) -- node [above] {} (p9);
+	\path [line] (p9.east) -| node [above] {} (p11);
+	
+	\path [line] (p10.south) -- node [above] {} (p11);
+	\path [line] (p11.west) -- node [above] {Data sample} (p6);
+%	\path [line] (p11.south) -- node [above] {} (p4);
+
+	
+%	\path [line] (p5.south) -- node [above] {} (p6);
+
+%	\path [line] (p4.south) -- node [right] {} (p9);
+
+%	\path [line,dashed] (p6) -- node [above]{Data sample} (p9);
+%	\path [line] (p9.south) -- node [right] {} (p7);
+	
+	\end{tikzpicture}
+	
+	\caption{The figure showing steps } \label{fig:M1}
+\end{figure}
+\FloatBarrier
+
+
+
 
 \subsection{Floor to carpet}
 The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
@@ -1508,9 +1577,10 @@ Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cell
 \label{my-label}
 \end{table}
 
+\FloatBarrier
 
-\subsection{Hard matte to soft mate}
-The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
+\subsection{Hard mat to soft mat}
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step in transition from hard mat to soft mat. The overall performance is 100\% accurate, while the mean of correct predicted is approximately 72\%. 
 
 \begin{figure}[h]
     \centering
@@ -1534,6 +1604,7 @@ Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cell
 \caption{Hard matte 3 myk matte}
 \label{my-label}
 \end{table}
+\FloatBarrier
 
 \subsection{Soft mat to hard mat}
 The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
@@ -1542,7 +1613,7 @@ The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gu
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM_4Resten_MB}
     \caption{Figure showing an the optoforce used in this thesis \cite{OptoforceFig}}
-    \label{fig:optoforce}
+    \label{fig:MM_4_Resten_BGraf}
 \end{figure}
 
 \begin{table}[h]
@@ -1559,11 +1630,14 @@ Hard mat & 0.300 & 0.086 & 0.054 & 0.344 & \cellcolor[HTML]{34FF34}0.921 & \cell
 \end{tabular}%
 }
 \caption{MM 4Resten MBNY}
-\label{my-label}
+\label{MM4MB}
 \end{table}
-
+\FloatBarrier
 \subsection{Soft mat to carpet}
-The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.\begin{figure}[h]
+The data is shown in figure \ref{fig:MM_4_Resten_BGraf} and the table \ref{MM4MB} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. It predicted 7/8 correct. As seen in the figure \ref{MM4MB}, there is a large variation from walking soft mat to carpet. On small soft mat the amplitude is significant smaller than carpet. At the step five, the probability of carpet is approximately 66.7\%, the number might seems low, but the other is significant lower which make it no confusion. Regarding step six, where it wrong prediction between carpet and hard mat. There is a high probability of hard hard mat. A few factors which might cause that, is looking to the figure \ref{fig:MM_4_Resten_BGraf}. The shape y direction differ from the other, and so do the amplitude too.
+
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2}
     \caption{Figure showing an the optofoce used in this thesis \cite{OptoforceFig}}
@@ -1586,8 +1660,9 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 \caption{MM4 Teppe}
 \label{my-label}
 \end{table}
-
+\FloatBarrier
 \subsection{Summary}
+Not training with transistion.
 
 \section{Prediction next sensor?}
 
@@ -1615,6 +1690,7 @@ Ikke decimate - kan miste viktige features
 Oter experiments
 To og to bein på forskjellige underlag
 
+Trening på forskjellige overgang
 http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 
 %Optical force (Legged Robots)
