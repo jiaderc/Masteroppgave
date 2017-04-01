@@ -1156,7 +1156,7 @@ The result shown that all classifier has a accuracy at least 70\%. The Decision 
 Regarding the feature scaling, SVM classifer is the one with huge affect of the scaled. The KNN which is also distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor change in their accuracy. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
 \\
 \\
-Note that the mostly highlight result is from feature set one. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. Conversely, by extraction features might loose important features, hence to not high accuracy.
+Note that the mostly higest result is from features with whole sequencse. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. Conversely, by extraction features might loose important features, hence to not high accuracy.
 \\
 \\
 Even there are two classifier which outpeform the other, there are still a improving potensial to all of them. The improvement will be investigated in next section.
@@ -1425,6 +1425,8 @@ On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix 
 
 
 \subsection{Summary}
+It can be seen that the SVM still got the higestest accurate. This can be that the feature selection plays an important rule. While the neural network got a worse. The soft mast is least confused cause of its characterstics. 
+
 
 \section{Classification in real-time}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
@@ -1580,14 +1582,15 @@ Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cell
 \FloatBarrier
 
 \subsection{Hard mat to soft mat}
-The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step in transition from hard mat to soft mat. The overall performance is 100\% accurate, while the mean of correct predicted is approximately 72\%. 
+The data is shown in figure \ref{fig:hardmatSoftMat} and the table \ref{hardmatSoftMat} show how the probability of each step in transition from hard mat to soft mat. The overall performance is 100\% accurate, while the mean of correct predicted is approximately 72\%. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3MM}
     \caption{Figure showing an the optofoce used in this thesis \cite{OptoforceFig}}
-    \label{fig:optoforce}
+    \label{fig:hardmatSoftMat}
 \end{figure}
+
 \begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{%
@@ -1602,12 +1605,12 @@ Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cell
 \end{tabular}%
 }
 \caption{Hard matte 3 myk matte}
-\label{my-label}
+\label{hardmatSoftMat}
 \end{table}
 \FloatBarrier
 
 \subsection{Soft mat to hard mat}
-The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
+The data is shown in figure \ref{fig:MM_4_Resten_BGraf} and the table \ref{MM4MB} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 100\%. The first step and the transistion step has the lowest probability it maight indicate that the data differ. It also can be seen that at the fourth step there is. Except for that the overall is high probability of predicting correct. 
 
 \begin{figure}[h]
     \centering
@@ -1662,12 +1665,12 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 \end{table}
 \FloatBarrier
 \subsection{Summary}
-It is shown that the probability at transistion is typcially low value. The might indicate that the sensor is sensitive. The training samples only trained with one each terrain, which may be better to train differently. Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step is strange, as the in the middle the robot got more stable, thus more training data and more accurately. 
+It is shown that the probability at transistion is typcially low value. The might indicate that the sensor is sensitive. The training samples only trained with one each terrain, which may be better to train differently. Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step is strange, as the in the middle the robot got more stable, thus more training data and more accurately. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
 
 \section{Prediction next sensor?}
 
 
-\section{Prediction different length of legs?}
+
 
 \chapter{Conclusion}
 
