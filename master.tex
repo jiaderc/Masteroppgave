@@ -156,7 +156,7 @@ fitness (how good the current solution is).
 
 
 \subsection{Classifier}
-The classifier is the component with the learning process and produce the inferred function. There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}. The following section will introduce technical background of five different classifiers which is intended to be used in this thesis.
+The classifier is the component with the learning process and produce the inferred function. The following section will introduce technical background of five different classifiers which is intended to be used in this thesis.
 
 \subsubsection{Neural network}
 Artificial Neural Network (ANN) is a computational model based on brain, and is one of the most used learning algortihm. It can be found in many different research field, such as signal processing, image processing, control, natural language processing etc. A simple model of neuron is shown in figure \ref{fig:NN}. A neuron consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether the neuron should fire with an output o, for the current input, $x_i$. 
@@ -466,7 +466,7 @@ An example of confusion matrix is shown on table \ref{tab:cmatrix}
 
 
 \section{Related work}
-\section{Terrain classification}
+\subsection{Terrain classification}
 Terrain classification is the process of identify different types of terrain such as rocks, wood, grass and sand. The challenging of discriminate terrain is the variation of its characteristics such as slope, roughness, hardness and friction. The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
 \\
 \\
@@ -486,6 +486,7 @@ Many types of legged robot has been used in terrain classification. The followin
 %file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
 %http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
 %http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
+%http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
 \paragraph{Monopod}
 The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an 
 
@@ -498,8 +499,6 @@ Biped robot is robot with two legs. The studies on biped robots have been popula
 Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. The BigDog has shown impressive in rough outdoor environment, and also great stability even when it get pushed. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}. The electrically actuated robot increases its mobility and has the ability to climb substantial obstacles. "However, the applied actuation
 principle with electric motors and gearboxes directly connected to the
 joints prohibit dynamic maneuvers due to lack of robustness."
-
-
 
 \paragraph{Hexapod}
 Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than robots with fewer legs.
@@ -515,26 +514,10 @@ The remote sensing obtain information of a terrain from a distance and do not me
 Filitchkin et al. \cite{littleDog} presents an visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three types of gaits were used during the experiment, "a gait that is optimized for speed on relatively flat surfaces, a gait designed for high clearance on rough terrain at the expense of speed and a mixture of the two first. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type is required. There were totally four different terrain small rocks, rocks, grass and tile. Lastly, the experiment was let the robot execute a terrain classification cycle every few steps and switched to one of three gait according which terrain it is on. To measure the robot performance, they compared the traversal time between for each three gait and the changing gait. The result indicate that changing gait for each terrain is faster than using a single gait to traverse.
 \\
 \\
-\begin{comment}
-
-Plagemann et al. \cite{4651026} used laser ranger finder to predict terrain elevation at unseen locations. Plagemann et al. (2008) presents a solution to the terrain mapping
-problem for a legged robot equipped with a laser range finder. The
-main focus of the publication is set on the reliable model of rough
-terrain, allowing to predict terrain elevation at unseen locations. In
-context of foothold selection, the authors apply a cost function that
-allows to reject a sample foothold, if the expected cost is above a
-threshold. The cost function is based on the terrain gradient (slope)
-and the uncertainty of the terrain model at the foothold location. This
-results in a discrete set of suitable footholds, that, in a next step, are
-used to generate stance graphs. A stance is an assignment of each foot
-to a foothold, such that the kinematic constraints of the robot are met
-and that the robot remains statically stable. A breadth-first search
-strategy is then employed, together with a constraint, that regulates
-the gait-order, to find the shortest feasible sequence of stances from
-start to goal.
-\end{comment}
-
-
+Plagemann et al. \cite{4651026} used laser ranger finder to predict terrain elevation at unseen locations.
+The researches extended the Gaussian process model to achieve a more accurate prediction of elevations. The result show that the researches' method is capable of accurately predicting elevations in the presence of noise even at unobserved locations. These features allowed them to plan foot trajectories of the robot to reach the goal location. 
+\\
+\\
 A weakness of using the remote sensors, is that does not give insight into the characteristic of currently terrain. For instance remote sensor has difficulties to distinguish between a terrain that is covered with either compacted or uncompacted snow. An another option is to measure terrain directly with local sensing. 
 
 \paragraph{Local sensing}
@@ -552,7 +535,8 @@ Hoepflinger et al. \cite{5509309} present a novel approach to terrain classifica
 \\
 Many other research of terrain classification can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
 
-
+\subsection{Learning algorithms}
+ There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
 
 \chapter{Implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
@@ -1567,7 +1551,7 @@ Hard mat & 0.104 & 0.022 & 0.081 & 0.007 & 0.073 & 0.010 & 0.055 & 0.166 & 0.104
 \FloatBarrier
 
 
-\subsection{Hard mat to carpet}
+\subsection{Hard mat to floor}
 The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
 
 \begin{figure}[h]
@@ -1576,22 +1560,6 @@ The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gu
     \caption{Figure showing an the optofoce used in this thesis \cite{OptoforceFig}}
     \label{fig:optoforce}
 \end{figure}
-\begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lllllll@{}}
-\toprule
-\rowcolor[HTML]{FFFFC7} 
-\textbf{Step} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\ \midrule
-Floor & 0.006 & 0.008 & 0.162 & 0.263 & 0.141 & 0.061 \\
-Carpet & 0.008 & 0.113 & \cellcolor[HTML]{F8FF00}0.426 & \cellcolor[HTML]{34FF34}0.641 & \cellcolor[HTML]{34FF34}0.615 & \cellcolor[HTML]{34FF34}0.841 \\
-Soft mat & 0.006 & 0.004 & 0.008 & 0.023 & 0.019 & 0.014 \\
-Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cellcolor[HTML]{FD6864}0.404 & 0.073 & 0.225 & 0.085 \\ \bottomrule
-\end{tabular}%
-}
-\caption{Hard mat Teppe}
-\label{my-label}
-\end{table}
 
 
 \begin{table}[h]
@@ -1601,10 +1569,10 @@ Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cell
 \toprule
 \rowcolor[HTML]{FFFFC7} 
 \textbf{Step} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\ \midrule
-Floor & 0.006 & 0.008 & \cellcolor[HTML]{F8FF00}0.162 & \cellcolor[HTML]{F8FF00}0.263 & \cellcolor[HTML]{F8FF00}0.141 & \cellcolor[HTML]{F8FF00}0.061 \\
-Carpet & 0.008 & 0.113 & 0.426 & \cellcolor[HTML]{FD6864}0.641 & \cellcolor[HTML]{FD6864}0.615 & \cellcolor[HTML]{FD6864}0.841 \\
+Floor & 0.006 & 0.008 & 0.172 & \cellcolor[HTML]{F8FF00}0.263 & \cellcolor[HTML]{F8FF00}0.141 & \cellcolor[HTML]{F8FF00}0.078 \\
+Carpet & 0.008 & 0.073 & 0.375 & \cellcolor[HTML]{FD6864}0.641 & \cellcolor[HTML]{FD6864}0.615 & \cellcolor[HTML]{FD6864}0.822 \\
 Soft mat & 0.006 & 0.004 & 0.008 & 0.023 & 0.019 & 0.014 \\
-Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.875 & \cellcolor[HTML]{FD6864}0.404 & 0.073 & 0.225 & 0.085 \\ \bottomrule
+Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.915 & \cellcolor[HTML]{34FF34}0.444 & 0.073 & 0.225 & 0.085 \\ \bottomrule
 \end{tabular}%
 }
 \caption{Hard mat eller gulv}
