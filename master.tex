@@ -115,13 +115,27 @@ Lastly, the conclusion chapter is discussion of experiments, along with suggesti
 Terrain classification is the process of identify different types of terrain such as rocks, wood, grass and sand. The challenging of discriminate terrain is the variation of its characteristics such as slope, roughness, hardness and friction. The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
 
 \subsection{Types of legged robots}
+Many types of legged robot has been used in terrain classification. The following paragraph will introduce several platform of different robots.
 
+http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
+file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
+http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
+http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
+\paragraph{Monopod}
+The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an 
+
+Three types of controller is usually used for one legged robot such as robot posture, hopping height and hopping distance.
 
 \paragraph{Biped}
+Biped robot is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. It is possible to do a lot, but there is also the challenging of finding the stability of it.  
 
 \paragraph{Quadruped}
+Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}.
+
 
 \paragraph{Hexapod}
+Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than robots with fewer legs.
+
 
 
 \subsection{Terrain classification for legged robots}
@@ -1156,7 +1170,7 @@ The result shown that all classifier has a accuracy at least 70\%. The Decision 
 Regarding the feature scaling, SVM classifer is the one with huge affect of the scaled. The KNN which is also distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor change in their accuracy. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
 \\
 \\
-Note that the mostly higest result is from features with whole sequencse. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. Conversely, by extraction features might loose important features, hence to not high accuracy.
+Note that the highest result is from features with whole sequences. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. However, it can be that it trained with noises. Conversely, by extraction features might loose important features, hence to not high accuracy.
 \\
 \\
 Even there are two classifier which outpeform the other, there are still a improving potensial to all of them. The improvement will be investigated in next section.
@@ -1164,7 +1178,14 @@ Even there are two classifier which outpeform the other, there are still a impro
 
 
 \section{Further improving all classifier}
-The classifier approach state earlier has leaved the feature selection out. The reason was to see how well each classifier predicted terrain based on all features. It has shown in section \ref{result_exp1} that it gave high accuracy for most of them. As stated in section \ref{selection}, selecting good features has benefit of increasing classifier perfomance. In this approach feature selection is implemented into the earlier approach. Two different feature selection methods is tested, filter and wrapper.
+The classifier approach has leaved the feature selection out. The reason was to see how well each classifier predicted terrain based on different features set. It has shown in section \ref{result_exp1} that it gave high accuracy for most of them. As stated in section \ref{selection}, selecting good features has benefit of increasing classifier perfomance. In this approach feature selection is implemented into the earlier approach. Two different feature selection methods is tested, filter and wrapper.
+
+\paragraph{Filter} 
+The filter method is removing features with low variance. 
+
+\paragraph{Wrapper}
+The wrapper method is recursive feature elimination from scikit
+
 
 \begin{figure}[h!]
 \centering
