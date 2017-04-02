@@ -111,16 +111,381 @@ Lastly, the conclusion chapter is discussion of experiments, along with suggesti
 
 \chapter{Background}                  %% ... or Bakgrunn
 
+%\section{Optical force sensor}
+%Snakke litt om historien om optical force sensor
+%Optical force sensors use the refracted light itensity to measure..
+\section{Optical force sensor}
+Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
+	\caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
+	\label{fig:OptoforceBuild}
+\end{figure}
+\FloatBarrier
+
+The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes will measure the force by measure the infared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Which direction x, y and z-direction is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
+	\caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
+	\label{fig:OptoforceAxis}
+\end{figure}
+
+\section {Machine learning}
+Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which can be used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement learning, evolutionary learning. Supervised learning is most common used within terrain classification, while few unsupervised learning. In this project will supervised learning be used. 
+
+\paragraph{Supervised learning}
+Supervised learning algorithms make predictions based on labled dataset. That is, the system know the correct answers to each dataset and make prediction based on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
+
+\paragraph{Unsupervised learning}
+Unsupervised learning algorithms make predictions from data points without label. That is, the system has to organize the data on its own and make prediction based on that. A commom method to organize the data is by clustering.
+
+
+\paragraph{Reinforcement learning}
+Reinforcement leanring algorithms will gets to choose an action in response to each dataset. It will then either receieve a reward indicating how good the decision was. Based on rewards, the algortihms modifies its strategy in order to get the highest reward.
+
+\paragraph{Evolutionary learning}
+Evolutionary learning: Biological organisms adapt
+to improve their survival rates and chance of having
+offspring in their environment, using the idea of
+fitness (how good the current solution is).
+
+
+
+\subsection{Classifier}
+The classifier is the component with the learning process and produce the inferred function. There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}. The following section will introduce technical background of five different classifiers which is intended to be used in this thesis.
+
+\subsubsection{Neural network}
+Artificial Neural Network (ANN) is a computational model based on brain, and is one of the most used learning algortihm. It can be found in many different research field, such as signal processing, image processing, control, natural language processing etc. A simple model of neuron is shown in figure \ref{fig:NN}. A neuron consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether the neuron should fire with an output o, for the current input, $x_i$. 
+\\
+\\
+A single neuron will not be able to generalize the data set. However, by connecting many neurons togehter, one will obtain neural network, which is more capable to generalize data. One of the most known neural network is the perceptron. Note that neurons in the perceptron are completely independet of each other, but are dependent of all inputs and its error. That is, a neuron will not be affected by other neurons performance. Each neurons gives a result based on own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+\\
+\\
+The process of perceptron in supervised learning, is to learn to reproduce a particular target, which is a pattern of firing and non-firing neurons for given input. If some of the neuron got a wrong output, for instance a neuron did not fired when it should, then its weights should be adjusted to make it fire right next time. This is a single layer perceptron and good use if a problem is linearly separable. Adding more layers will make the neural network more complex and powerful. This is also called multi-layer perceptron (MLP), or multi neural network.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.9]{Figures/neuron.PNG}
+	\caption{Figure showing The three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods \cite{Guyon2006}}
+	\label{fig:NN}
+\end{figure}
+
+\paragraph{Multi-Layer Perceptron}
+The difference of a multi-layer perceptron and a single-layer perceptron, it that it has two or more layers between the input and output. These layer is also called hidden layer because its values are not possible to change their values directly, and only observed in the training set. The training process can be divded into two parts: forward and backwards. The forward algorithm start first by calculating the activations of the first hidden layer, and use those activations and the next set of weights to calculate the activcation of the next layer which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights, firstly, between the output-layer to the hidden-layer, and the error in the hidden layer will be computed. The backwards algorithm stops when it has reach the inputs changed all their weights.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{Figures/MLP.png}
+	\caption{Figure showing a multi-layer perceptron with 1 hidden layer \cite{MLP}. It is possible to increase the number of hidden layers and nodes to each layer}
+	\label{fig:MLP}
+\end{figure}
+
+\subsubsection{SVM}
+SVM algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the bouandary line (dotted line) it will classify it as cross and circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the the optimal separating hyperplan. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly sepearable to make the classification.
+
+
+\begin{figure}[h]
+	\centering
+	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
+	\includegraphics{Figures/SVM.PNG}
+	\caption{Figure showing an example of the optimal margin for a two dimensional
+		two-class classification problem \cite{Cortes1995}. Each of features vector with values according to the x- and y-axis, represents as classes: circles and crosses. The 
+		vectors with values according to the x- and y-axis. The support vectors are the hatced classes which lies on the straight line. "The dotted line is the decision boundary/hyperplane created by the SVM".}
+	\label{fig:SVM}
+\end{figure}
+
+
+
+\subsubsection{Naive bayes}
+Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often to used to find the probability that a data set A occur, based on the data set B. Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
+
+\begin{equation}
+P(\theta_{l}\vert X)={p(X\vert \theta_{l})P(\theta_{l})\over p(X)}
+\label{eq:bayesNaivews}
+\end{equation}
+
+The $\theta_{l}$ represent the class, which would be the possible terrains the robot is expected to predict. The X represent the observations, which are information from different sensors, also called feature vector. On the formula the \ref{eq:bayesNaivews} $P(\theta_{l}\vert X)$ is the conditional probability distribution. $P(X\vert \theta_{l})$ is the likelihood that the terrain is has with these observations, and the $P(\theta_{l})$ is the priori distribution of the classes, and $p(x)$ is the
+distribution of the observation. Classification is done by selecting a class that maximizes the a posteriori probability $P(\theta_{l}\vert X)$ according to the Maximization of A Posteriori (MAP) decision rule
+
+\begin{equation}
+p(X\vert \theta_{l})P(\theta_{l})=\displaystyle\mathop{\max}_{j}\{p(X\vert \theta_{j})P(\theta_{j})\}
+\label{eq:decision}
+\end{equation}
+
+The CPDF for each class can be estimated either parametrically or non-parametrically. An accurate nonparametric density is hard to estimate, especially when the number of features is high. One of the most popular parametric probability density functions is the normal distribution, which only requires an estimate of the mean $M_l$ and covariance matrix $\sum_1$ for the class $\theta_l$
+
+\begin{equation}
+p(X\vert \theta_{l}) = {1\over (2\pi)^{N/2}\vert \Sigma_{l}\vert ^{1/2}} \times{exp}\{-{1\over 2}(X-M_{l})^{T}\Sigma_{l}^{-1}(X-M_{l})\} 
+\label{eq:bayesLast}
+\end{equation}
+
+
+\subsubsection{K-nearest neighbors }
+K-nearest neighbors (KNN) one of the simple classifiers presented by  T. M. Cover and P. E. Hart in \cite{1053964}. The classification process of new data consists of looking the k-nearest datapoints and classify the class which consist most classes. For instance if k is set to be 5, then it find the 5 nearest datapoint, and classify the the class which consist most of the 5 classes.  An example is shown \ref{fig:KNN}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{Figures/KNN.png}
+	\caption{Figure showing an example of a KNN\cite{KnnClassification}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to  3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the cicle will be classified as square.}
+	\label{fig:KNN}
+\end{figure}
+
+There are many approachs to find the k-nearest, but the most common is to calculate the Euclidean Distance. The euclidean distance can be expressed \cite{Bao2004}:
+
+
+\begin{equation}
+D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
+\label{eq:edistance}
+\end{equation}
+The Euclidean distance \ref{eq:edistance}, the x and y represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count k classes with shortest distance to determine which class the unseen data belongs to. A weakness of using Euclidean distance function is that if one of the vector has a large range, then it will dominate other attributes. In order to avoid this issue, it is common to scale the feature, described in section \ref{subsec:scaling}
+
+
+\subsubsection{Decision tree}
+The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. The process of the decision tree is constructing a tree consisting of nodes and edges using the dataset. Each of nodes represents a test on one features, and the edges represent an outcome of the test. Leaf nodes represent the outcome class. Predicting process is following a path from the root to a leaf node.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
+	\caption{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
+	\label{fig:SVM}
+\end{figure}
+
+
+\section{Features} \label{features}
+An important part of good classification, is finding good features from data from sensors. The features will be used as input, to the learning, and it is the data which distinguish between the classes. Finding good features will make learning to predict more accuracy.
+
+\subsection{Curse of dimensionality}
+The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
+
+\subsection{Features extraction} \label{feature_extraction}
+Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extraced should make it easy for a classifier to distinguish between the various classes. An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features.
+\\
+\\
+A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+
+\subsubsection{Statistical features}
+Formler\cite{Press:2007:NRE:1403886}
+\paragraph{Mean}
+The mean is generally referred to the average, and is defined as sum of the values divided by the number of values:
+
+\begin{equation}
+\bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
+\label{eq:mean}
+\end{equation}
+
+
+\paragraph{Variance}
+Variance describe the spread between numbers in a data set. The variance can bew written as:
+
+\begin{equation}
+Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
+\label{eq:variance}
+\end{equation}
+
+\paragraph{Standard deviation}
+Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance:
+
+\begin{equation}
+\sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
+\label{eq:std}
+\end{equation}
+
+\paragraph{Skewness} 
+Skewness describes asymmetry of a distribution. The formula is:
+\begin{equation}
+Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
+\label{eq:skew}
+\end{equation}
+
+The skewness can be either negative or positive depending on wheter data points are skewed to the left or to the right. If the data is skewed to the left indicate a negative skewness, while postivie skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/Skewness}
+	\caption{Skewness}
+	\label{fig:skew}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Kurtosis}
+Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is:
+\begin{equation}
+Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
+\label{eq:kurtosis}
+\end{equation}
+
+A positive kurtosis of a distribution has a sharper peak and heavier tails realative to normal distribution. While a negative kurtosis has flatter peak and lighter tails realative to normal distribution. An illustration of both positive and negative kurtosis is shown in figure \ref{fig:kurtosis}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/Kurtosis}
+	\caption{Kurtosis}
+	\label{fig:kurtosis}
+\end{figure}
+
+%http://greenteapress.com/thinkstats/thinkstats.pdf
+
+\paragraph{Time domain}
+\paragraph{Fourier transform}
+
+
+\subsection{Features selection}\label{selection}
+The process in feature selection is to select a subset of features from the orignial, that are relevant. Selecting good features has benefit of increasing classifier performance, reducing storage requirements and reducing training time, and defying curse of dimensionality. Note that a features can individually be completely useless can become relevant when used together with other features \cite{Guyon2006}. 
+There are three types of feature selection algorithms: filter-, wrapper- and embedded methods.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{Figures/FilterWrapperEmbedded.PNG}
+	\caption{The figure showing the three principal approaches of feature selection. The shades show the
+		components used by the three approaches: filters, wrappers and embedded methods. \cite{Guyon2006}.}
+	\label{fig:fitting}
+\end{figure}
+
+
+\paragraph{Filter}
+Filter feature selection is independent of any classifier. It uses statistical measure to assign each feature a score. Feature will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number the number of available training examples comparatively small.  
+
+
+\paragraph{Wrapper}
+Wrapper feature selection try different combination of the feature set, evaluated by a classifier and keep the feature set with best result.
+
+
+\paragraph{Embedded}
+Embedded feature selection perform feature selection as part of the learning procedure and are usually specific to given classifier.
+
+\subsection{Features scaling}
+\label{subsec:scaling}
+To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectores. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
+
+
+\section{Model validation}
+
+\subsection{No free lunch theorem}
+The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even a model has a great performance for one problem, might not hold for another problem. Previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
+
+\subsection{Ovefitting and underfitting}
+Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classifier. Overfitting the data occurs if there are too training data or if it has adapted to the noise in the data. While underfitting occurs if there are not enough training data and will not be able to generalize to new data. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{Figures/All.png}
+	\caption{The figure showing an example when the classifier is underfitted, overfitted or optimal.}
+	\label{fig:fitting}
+\end{figure}
+\FloatBarrier
+
+\subsection{Cross-Validation}
+Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins, and after the training, use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. There are several types of cross-validation. However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
+
+\paragraph{K-fold}
+The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting the k to the length of feature vectors, it is also know as leave-one-outcross validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set as shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{Figures/Kfold}
+	\caption{The figure showing an instance of k-fold cross valdiation. This is when k=n}
+	\label{fig:kfold}
+\end{figure}
+
+%Se: Rigidity-based surface recognition for a domestic legged robot.
+
+
+\subsection{Evaluating Classifiers}
+\label{subsec:evalclf}
+Evalution of the performance of the classifier can be shown by looking at the output, which could be either correct or wrong. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
+
+\begin{enumerate}
+	\item True postive (TP) is correct prediction of class positive
+	\item True negative (TN) is correct prediction of class negative
+	\item False positive (FP) is wrong prediction of class positive
+	\item False negative (FN) is wrong prediction of class positive
+\end{enumerate}
+
+Those four variables can be further used to calculate the precision, accuracy, recall and f-score.
+
+\paragraph{Precision}
+Precision gives the number of correct detected class members.
+\begin{equation}
+Precision = \frac{TP}{TP + FP}
+\label{eq:prec}
+\end{equation}
+
+\paragraph{Accuracy}
+Accuracy gives the ratio of correct prediction. 
+\begin{equation}
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\label{eq:acc}
+\end{equation}
+
+\paragraph{Recall}
+Reacall gives the number of detected actual class members.
+
+\begin{equation}
+Recall = \frac{TP}{TP + FN}
+\label{eq:recall}
+\end{equation}
+
+\paragraph{F-score}
+F-score is a balanced measure of recall and precision 
+\begin{equation}
+\textit{F-score} = 2*\frac{Precision*Recall}{Precision + Recall}
+\label{eq:fscore}
+\end{equation}
+%\part{The project}                    %% ... or ??
+\FloatBarrier
+It will be interesting to see which of class was easier to predict than others. This can be seen by using confusion matrix. The confusion matrix consists a square matrix with one row for predicted class, and and column for actual class (or vice-versa).
+An example of confusion matrix is shown on table \ref{tab:cmatrix}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ll|l|l|l|}
+		\cline{3-5}
+		&  & \multicolumn{3}{c|}{Actual} \\ \cline{3-5} 
+		&  & $C_1$ & $C_2$ & $C_3$ \\ \hline
+		\multicolumn{1}{|l|}{\multirow{3}{*}{Predicted}} & $C_1$ & 8 & 0 & 0 \\ \cline{2-5} 
+		\multicolumn{1}{|l|}{} & $C_2$ & 5 & 8 & 1 \\ \cline{2-5} 
+		\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 8 \\ \hline
+	\end{tabular}
+	\caption{A confusion matrix of 3-class classification.}
+	\label{tab:cmatrix}
+\end{table}
+
+
+
+
+
+
+
+\section{Related work}
 \section{Terrain classification}
 Terrain classification is the process of identify different types of terrain such as rocks, wood, grass and sand. The challenging of discriminate terrain is the variation of its characteristics such as slope, roughness, hardness and friction. The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
+\\
+\\
+The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability of the robot when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
+\\
+\\
+Bosworth et al. \cite{7487541} used a quadrupedal robot hopping on soft and hard terrain and showed that different controllers were better suited for different terrains. 
+\\
+\\
+Manjanna et al. \cite{6569179} investigated the effect of performance of with different gaits parameters on different terrains. Some of the result showed that the energy consumption and the walking speed is tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
+
 
 \subsection{Types of legged robots}
 Many types of legged robot has been used in terrain classification. The following paragraph will introduce several platform of different robots.
 
-http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
-file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
-http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
-http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
+%http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
+%file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
+%http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
+%http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 \paragraph{Monopod}
 The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an 
 
@@ -130,24 +495,16 @@ Three types of controller is usually used for one legged robot such as robot pos
 Biped robot is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. It is possible to do a lot, but there is also the challenging of finding the stability of it.  
 
 \paragraph{Quadruped}
-Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}.
+Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. The BigDog has shown impressive in rough outdoor environment, and also great stability even when it get pushed. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}. The electrically actuated robot increases its mobility and has the ability to climb substantial obstacles. "However, the applied actuation
+principle with electric motors and gearboxes directly connected to the
+joints prohibit dynamic maneuvers due to lack of robustness."
+
 
 
 \paragraph{Hexapod}
 Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than robots with fewer legs.
 
 
-
-\subsection{Terrain classification for legged robots}
-The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability of the robot when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
-\\
-\\
-Bosworth et al. \cite{7487541} used a quadrupedal robot hopping on soft and hard terrain and showed that different controllers were better suited for different terrains. 
-\\
-\\
-Manjanna et al. \cite{6569179} investigated the effect of performance of with different gaits parameters on different terrains. Some of the result showed that the energy consumption and the walking speed is tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
-\\
-\\
 \subsection{Terrain sensing}
 To be able to classify various of terrains, the system must obtain information from the terrain either by remote sensing, local sensing or both.
 
@@ -196,352 +553,6 @@ Hoepflinger et al. \cite{5509309} present a novel approach to terrain classifica
 Many other research of terrain classification can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
 
 
-%\section{Optical force sensor}
-%Snakke litt om historien om optical force sensor
-%Optical force sensors use the refracted light itensity to measure..
-\section{Optical force sensor}
-Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.8]{Figures/OptoforceBuild}
-    \caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
-    \label{fig:OptoforceBuild}
-\end{figure}
-\FloatBarrier
-
-The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes will measure the force by measure the infared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Which direction x, y and z-direction is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.8]{Figures/OptoforceAxis3}
-    \caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
-    \label{fig:OptoforceAxis}
-\end{figure}
-
-\section {Machine learning}
-Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which can be used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement learning, evolutionary learning. Supervised learning is most common used within terrain classification, while few unsupervised learning. In this project will supervised learning be used. 
-
-\paragraph{Supervised learning}
-Supervised learning algorithms make predictions based on labled dataset. That is, the system know the correct answers to each dataset and make prediction based on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
-
-\paragraph{Unsupervised learning}
-Unsupervised learning algorithms make predictions from data points without label. That is, the system has to organize the data on its own and make prediction based on that. A commom method to organize the data is by clustering.
-
-\paragraph{Reinforcement learning}
-Reinforcement leanring algorithms will gets to choose an action in response to each dataset. It will then either receieve a reward indicating how good the decision was. Based on rewards, the algortihms modifies its strategy in order to get the highest reward.
-
-\paragraph{Evolutionary learning}
-Evolutionary learning: Biological organisms adapt
-to improve their survival rates and chance of having
-offspring in their environment, using the idea of
-fitness (how good the current solution is).
-
-
-
-\subsection{Classifier}
-The classifier is the component with the learning process and produce the inferred function. There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}. The following section will introduce technical background of five different classifiers which is intended to be used in this thesis.
-
-\subsubsection{Neural network}
-Artificial Neural Network (ANN) is a computational model based on brain, and is one of the most used learning algortihm. It can be found in many different research field, such as signal processing, image processing, control, natural language processing etc. A simple model of neuron is shown in figure \ref{fig:NN}. A neuron consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether the neuron should fire with an output o, for the current input, $x_i$. 
-\\
-\\
-A single neuron will not be able to generalize the data set. However, by connecting many neurons togehter, one will obtain neural network, which is more capable to generalize data. One of the most known neural network is the perceptron. Note that neurons in the perceptron are completely independet of each other, but are dependent of all inputs and its error. That is, a neuron will not be affected by other neurons performance. Each neurons gives a result based on own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
-\\
-\\
-The process of perceptron in supervised learning, is to learn to reproduce a particular target, which is a pattern of firing and non-firing neurons for given input. If some of the neuron got a wrong output, for instance a neuron did not fired when it should, then its weights should be adjusted to make it fire right next time. This is a single layer perceptron and good use if a problem is linearly separable. Adding more layers will make the neural network more complex and powerful. This is also called multi-layer perceptron (MLP), or multi neural network.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.9]{Figures/neuron.PNG}
-    \caption{Figure showing The three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods \cite{Guyon2006}}
-    \label{fig:NN}
-\end{figure}
-
-\paragraph{Multi-Layer Perceptron}
-The difference of a multi-layer perceptron and a single-layer perceptron, it that it has two or more layers between the input and output. These layer is also called hidden layer because its values are not possible to change their values directly, and only observed in the training set. The training process can be divded into two parts: forward and backwards. The forward algorithm start first by calculating the activations of the first hidden layer, and use those activations and the next set of weights to calculate the activcation of the next layer which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights, firstly, between the output-layer to the hidden-layer, and the error in the hidden layer will be computed. The backwards algorithm stops when it has reach the inputs changed all their weights.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.6]{Figures/MLP.png}
-    \caption{Figure showing a multi-layer perceptron with 1 hidden layer \cite{MLP}. It is possible to increase the number of hidden layers and nodes to each layer}
-    \label{fig:MLP}
-\end{figure}
-
-\subsubsection{SVM}
-SVM algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the bouandary line (dotted line) it will classify it as cross and circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the the optimal separating hyperplan. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly sepearable to make the classification.
-
-
-\begin{figure}[h]
-    \centering
-%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
-    \includegraphics{Figures/SVM.PNG}
-    \caption{Figure showing an example of the optimal margin for a two dimensional
-two-class classification problem \cite{Cortes1995}. Each of features vector with values according to the x- and y-axis, represents as classes: circles and crosses. The 
-vectors with values according to the x- and y-axis. The support vectors are the hatced classes which lies on the straight line. "The dotted line is the decision boundary/hyperplane created by the SVM".}
-    \label{fig:SVM}
-\end{figure}
-
-
-
-\subsubsection{Naive bayes}
-Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often to used to find the probability that a data set A occur, based on the data set B. Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
-
-\begin{equation}
-    P(\theta_{l}\vert X)={p(X\vert \theta_{l})P(\theta_{l})\over p(X)}
-    \label{eq:bayesNaivews}
-\end{equation}
-
-The $\theta_{l}$ represent the class, which would be the possible terrains the robot is expected to predict. The X represent the observations, which are information from different sensors, also called feature vector. On the formula the \ref{eq:bayesNaivews} $P(\theta_{l}\vert X)$ is the conditional probability distribution. $P(X\vert \theta_{l})$ is the likelihood that the terrain is has with these observations, and the $P(\theta_{l})$ is the priori distribution of the classes, and $p(x)$ is the
-distribution of the observation. Classification is done by selecting a class that maximizes the a posteriori probability $P(\theta_{l}\vert X)$ according to the Maximization of A Posteriori (MAP) decision rule
-
-\begin{equation}
-    p(X\vert \theta_{l})P(\theta_{l})=\displaystyle\mathop{\max}_{j}\{p(X\vert \theta_{j})P(\theta_{j})\}
-    \label{eq:decision}
-\end{equation}
-
-The CPDF for each class can be estimated either parametrically or non-parametrically. An accurate nonparametric density is hard to estimate, especially when the number of features is high. One of the most popular parametric probability density functions is the normal distribution, which only requires an estimate of the mean $M_l$ and covariance matrix $\sum_1$ for the class $\theta_l$
-
-\begin{equation}
-p(X\vert \theta_{l}) = {1\over (2\pi)^{N/2}\vert \Sigma_{l}\vert ^{1/2}} \times{exp}\{-{1\over 2}(X-M_{l})^{T}\Sigma_{l}^{-1}(X-M_{l})\} 
-    \label{eq:bayesLast}
-\end{equation}
-
-
-\subsubsection{K-nearest neighbors }
-K-nearest neighbors (KNN) one of the simple classifiers presented by  T. M. Cover and P. E. Hart in \cite{1053964}. The classification process of new data consists of looking the k-nearest datapoints and classify the class which consist most classes. For instance if k is set to be 5, then it find the 5 nearest datapoint, and classify the the class which consist most of the 5 classes.  An example is shown \ref{fig:KNN}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.5]{Figures/KNN.png}
-    \caption{Figure showing an example of a KNN\cite{KnnClassification}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to  3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the cicle will be classified as square.}
-    \label{fig:KNN}
-\end{figure}
-
-There are many approachs to find the k-nearest, but the most common is to calculate the Euclidean Distance. The euclidean distance can be expressed \cite{Bao2004}:
-
-
-\begin{equation}
-    D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
-    \label{eq:edistance}
-\end{equation}
-The Euclidean distance \ref{eq:edistance}, the x and y represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count k classes with shortest distance to determine which class the unseen data belongs to. A weakness of using Euclidean distance function is that if one of the vector has a large range, then it will dominate other attributes. In order to avoid this issue, it is common to scale the feature, described in section \ref{subsec:scaling}
-
-
-\subsubsection{Decision tree}
-The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. The process of the decision tree is constructing a tree consisting of nodes and edges using the dataset. Each of nodes represents a test on one features, and the edges represent an outcome of the test. Leaf nodes represent the outcome class. Predicting process is following a path from the root to a leaf node.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.5]{Figures/decisionTree.PNG}
-    \caption{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
-    \label{fig:SVM}
-\end{figure}
-
-
-\section{Features} \label{features}
-An important part of good classification, is finding good features from data from sensors. The features will be used as input, to the learning, and it is the data which distinguish between the classes. Finding good features will make learning to predict more accuracy.
-
-\subsection{Curse of dimensionality}
-The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
-
-\subsection{Features extraction} \label{feature_extraction}
-Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extraced should make it easy for a classifier to distinguish between the various classes. An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features.
-\\
-\\
-A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
-
-\subsubsection{Statistical features}
-Formler\cite{Press:2007:NRE:1403886}
-\paragraph{Mean}
-The mean is generally referred to the average, and is defined as sum of the values divided by the number of values:
-
-\begin{equation}
-   \bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
-    \label{eq:mean}
-\end{equation}
-
-
-\paragraph{Variance}
-Variance describe the spread between numbers in a data set. The variance can bew written as:
-
-\begin{equation}
-  Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
-    \label{eq:variance}
-\end{equation}
-
-\paragraph{Standard deviation}
-Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance:
-
-\begin{equation}
-  \sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
-    \label{eq:std}
-\end{equation}
-
-\paragraph{Skewness} 
-Skewness describes asymmetry of a distribution. The formula is:
-\begin{equation}
-  Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
-    \label{eq:skew}
-\end{equation}
-
-The skewness can be either negative or positive depending on wheter data points are skewed to the left or to the right. If the data is skewed to the left indicate a negative skewness, while postivie skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.8]{Figures/Skewness}
-    \caption{Skewness}
-    \label{fig:skew}
-\end{figure}
-
-\FloatBarrier
-
-\paragraph{Kurtosis}
-Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is:
-\begin{equation}
-  Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
-    \label{eq:kurtosis}
-\end{equation}
-
-A positive kurtosis of a distribution has a sharper peak and heavier tails realative to normal distribution. While a negative kurtosis has flatter peak and lighter tails realative to normal distribution. An illustration of both positive and negative kurtosis is shown in figure \ref{fig:kurtosis}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.8]{Figures/Kurtosis}
-    \caption{Kurtosis}
-    \label{fig:kurtosis}
-\end{figure}
-
-%http://greenteapress.com/thinkstats/thinkstats.pdf
-
- \paragraph{Time domain}
-\paragraph{Fourier transform}
-
-
-\subsection{Features selection}\label{selection}
-The process in feature selection is to select a subset of features from the orignial, that are relevant. Selecting good features has benefit of increasing classifier performance, reducing storage requirements and reducing training time, and defying curse of dimensionality. Note that a features can individually be completely useless can become relevant when used together with other features \cite{Guyon2006}. 
-There are three types of feature selection algorithms: filter-, wrapper- and embedded methods.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.7]{Figures/FilterWrapperEmbedded.PNG}
-    \caption{The figure showing the three principal approaches of feature selection. The shades show the
-components used by the three approaches: filters, wrappers and embedded methods. \cite{Guyon2006}.}
-    \label{fig:fitting}
-\end{figure}
-
-
-\paragraph{Filter}
-Filter feature selection is independent of any classifier. It uses statistical measure to assign each feature a score. Feature will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number the number of available training examples comparatively small.  
-
-
-\paragraph{Wrapper}
-Wrapper feature selection try different combination of the feature set, evaluated by a classifier and keep the feature set with best result.
-
-
-\paragraph{Embedded}
-Embedded feature selection perform feature selection as part of the learning procedure and are usually specific to given classifier.
-
-\subsection{Features scaling}
-\label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectores. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
-
-
-\section{Model validation}
-
-\subsection{No free lunch theorem}
-The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even a model has a great performance for one problem, might not hold for another problem. Previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
-
-\subsection{Ovefitting and underfitting}
-Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classifier. Overfitting the data occurs if there are too training data or if it has adapted to the noise in the data. While underfitting occurs if there are not enough training data and will not be able to generalize to new data. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.6]{Figures/All.png}
-    \caption{The figure showing an example when the classifier is underfitted, overfitted or optimal.}
-    \label{fig:fitting}
-\end{figure}
-\FloatBarrier
-
-\subsection{Cross-Validation}
-Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins, and after the training, use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. There are several types of cross-validation. However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
-
-\paragraph{K-fold}
-The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting the k to the length of feature vectors, it is also know as leave-one-outcross validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set as shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.6]{Figures/Kfold}
-    \caption{The figure showing an instance of k-fold cross valdiation. This is when k=n}
-    \label{fig:kfold}
-\end{figure}
-
-%Se: Rigidity-based surface recognition for a domestic legged robot.
-
-
-\subsection{Evaluating Classifiers}
-\label{subsec:evalclf}
-Evalution of the performance of the classifier can be shown by looking at the output, which could be either correct or wrong. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
-
-\begin{enumerate}
-\item True postive (TP) is correct prediction of class positive
-\item True negative (TN) is correct prediction of class negative
-\item False positive (FP) is wrong prediction of class positive
-\item False negative (FN) is wrong prediction of class positive
-\end{enumerate}
-
-Those four variables can be further used to calculate the precision, accuracy, recall and f-score.
-
-\paragraph{Precision}
-Precision gives the number of correct detected class members.
-\begin{equation}
-    Precision = \frac{TP}{TP + FP}
-    \label{eq:prec}
-\end{equation}
-
-\paragraph{Accuracy}
-Accuracy gives the ratio of correct prediction. 
-\begin{equation}
-    Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
-    \label{eq:acc}
-\end{equation}
-
-\paragraph{Recall}
-Reacall gives the number of detected actual class members.
-
-\begin{equation}
-    Recall = \frac{TP}{TP + FN}
-    \label{eq:recall}
-\end{equation}
-
-\paragraph{F-score}
-F-score is a balanced measure of recall and precision 
-\begin{equation}
-    \textit{F-score} = 2*\frac{Precision*Recall}{Precision + Recall}
-    \label{eq:fscore}
-\end{equation}
-%\part{The project}                    %% ... or ??
-\FloatBarrier
-It will be interesting to see which of class was easier to predict than others. This can be seen by using confusion matrix. The confusion matrix consists a square matrix with one row for predicted class, and and column for actual class (or vice-versa).
-An example of confusion matrix is shown on table \ref{tab:cmatrix}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{ll|l|l|l|}
-\cline{3-5}
- &  & \multicolumn{3}{c|}{Actual} \\ \cline{3-5} 
- &  & $C_1$ & $C_2$ & $C_3$ \\ \hline
-\multicolumn{1}{|l|}{\multirow{3}{*}{Predicted}} & $C_1$ & 8 & 0 & 0 \\ \cline{2-5} 
-\multicolumn{1}{|l|}{} & $C_2$ & 5 & 8 & 1 \\ \cline{2-5} 
-\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 8 \\ \hline
-\end{tabular}
-\caption{A confusion matrix of 3-class classification.}
-\label{tab:cmatrix}
-\end{table}
 
 \chapter{Implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
