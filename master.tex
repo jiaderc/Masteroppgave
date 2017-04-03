@@ -375,8 +375,9 @@ To reduce bias effect cause by skewed distributions, it is common to standardiza
 
 
 \section{Model validation}
+Model validation relate to testing the performance of a classifier. 
 
-\subsection{No free lunch theorem}
+\subsection{No free lunch theorem} \label{seq:nofree}
 The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even a model has a great performance for one problem, might not hold for another problem. 
 
 \subsection{Ovefitting and underfitting}
@@ -570,16 +571,16 @@ Hoepflinger et al. \cite{5509309} present a novel approach to terrain classifica
 Many other research of terrain classification can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
 
 \subsection{Learning algorithms}
- There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
+There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
+\\
+\\
+The no free lunch theorem descirbed in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
  
- \paragraph{NO free lunch}
- Previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
- 
- \subsection{Features}
- An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
- 
- \subsection{Validation}
-  However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
+\subsection{Features}
+An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+
+\subsection{Validation}
+However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
 
 \chapter{Implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
@@ -591,11 +592,8 @@ This chapter intends to explain the various choices which has been made to creat
 The data segmentation is implemented in C++ and machine learning in python. Reading data from optical force sensor is also coded in python and taken from \cite{optoRos}. A software component framework developed for robot applications, Robot Operating System (ROS), is used to connecting each implementation as nodes. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collection and class prediction in real time whereas the python implementation runs sequentially.
 \\
 \\
-There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
+There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algoithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
 
-
-\paragraph{Python}
-Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algoithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.
 
 \paragraph{Scikit-learn}
 Scikit-learn is an open source library that provide tools for data mining and data analysis \cite{scikit-learn}. The library is dependent on Numpy, Scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
@@ -606,7 +604,7 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 %\part{Conclusion}                     %% ... or Konklusjon
 
 \subsection{Robot}
-The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and connected with optical force sensors. The OptoForce sensor is mounted on its feet. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
+The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
 (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
 
 
@@ -619,7 +617,7 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 \FloatBarrier
 
 \subsection{Terrain} \label{seq:terrain}
-Four different terrains will be used in all experiment, which are floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences.  Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
+Four different terrains will be used in all experiment, which are floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences. Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
 
 \begin{comment}
 \begin{figure} 
@@ -1516,9 +1514,15 @@ On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix 
 	\caption{My caption}
 	\label{my-label}
 \end{table}
+\FloatBarrier
 \subsection{KNN - Wrapper - Feature set five}
+The performance is KNN has decreased a little from previous experiment. It is shown that the it is confused especially between the hard mat and carpet. 
+ 
 \subsection{Summary}
-It can be seen that the SVM still got the higestest accurate. This can be that the feature selection plays an important rule. While the neural network got a worse. The soft mast is least confused cause of its characterstics. 
+It can be seen that the SVM still got the higestest accurate. This can be that the feature selection plays an important rule. While the neural network got a worse. The soft mast is least confused cause of its characterstics. A common confusion between terrain is the carpet and hard mat.
+\\
+\\
+Regarding using the raw data has shown a big decreased performance for three of the test. It might indicate that the model is overfitted, thus does not perform well. However, the SVM still got a high performance even using the whole spectrum. KNN on other hand performed better than the other, even it had a worse performance than them in previous experiment. This might indicate that extraction features is able to filter out noises and be able to generalize the data. 
 
 
 \section{Classification in real-time}
