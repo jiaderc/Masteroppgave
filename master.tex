@@ -110,7 +110,6 @@ Lastly, the conclusion chapter is discussion of experiments, along with suggesti
 
 
 \chapter{Background}                  %% ... or Bakgrunn
-
 %\section{Optical force sensor}
 %Snakke litt om historien om optical force sensor
 %Optical force sensors use the refracted light itensity to measure..
@@ -152,6 +151,7 @@ Evolutionary learning: Biological organisms adapt
 to improve their survival rates and chance of having
 offspring in their environment, using the idea of
 fitness (how good the current solution is).
+
 
 
 
@@ -203,7 +203,17 @@ SVM algorithm was introduced by Vapnik and Chervonekis in 1963, while the standa
 
 
 \subsubsection{Naive bayes}
-Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often to used to find the probability that a data set A occur, based on the data set B. Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
+Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often to used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
+\begin{equation}
+P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
+\label{eq:bayesNaivews2}
+\end{equation}
+The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
+
+\begin{comment}
+
+
+Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
 
 \begin{equation}
 P(\theta_{l}\vert X)={p(X\vert \theta_{l})P(\theta_{l})\over p(X)}
@@ -224,7 +234,7 @@ The CPDF for each class can be estimated either parametrically or non-parametric
 p(X\vert \theta_{l}) = {1\over (2\pi)^{N/2}\vert \Sigma_{l}\vert ^{1/2}} \times{exp}\{-{1\over 2}(X-M_{l})^{T}\Sigma_{l}^{-1}(X-M_{l})\} 
 \label{eq:bayesLast}
 \end{equation}
-
+\end{comment}
 
 \subsubsection{K-nearest neighbors }
 K-nearest neighbors (KNN) one of the simple classifiers presented by  T. M. Cover and P. E. Hart in \cite{1053964}. The classification process of new data consists of looking the k-nearest datapoints and classify the class which consist most classes. For instance if k is set to be 5, then it find the 5 nearest datapoint, and classify the the class which consist most of the 5 classes.  An example is shown \ref{fig:KNN}
@@ -265,15 +275,12 @@ An important part of good classification, is finding good features from data fro
 The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
 
 \subsection{Features extraction} \label{feature_extraction}
-Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extraced should make it easy for a classifier to distinguish between the various classes. An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features.
-\\
-\\
-A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extraced should make it easy for a classifier to distinguish between the various classes. A common of to use is the statistical features.
 
 \subsubsection{Statistical features}
 Formler\cite{Press:2007:NRE:1403886}
 \paragraph{Mean}
-The mean is generally referred to the average, and is defined as sum of the values divided by the number of values:
+The mean is generally referred to the average, and is defined as sum of the values divided by the number of values\cite{Press:2007:NRE:1403886}:
 
 \begin{equation}
 \bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
@@ -282,7 +289,7 @@ The mean is generally referred to the average, and is defined as sum of the valu
 
 
 \paragraph{Variance}
-Variance describe the spread between numbers in a data set. The variance can bew written as:
+Variance describe the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886}:
 
 \begin{equation}
 Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
@@ -290,7 +297,7 @@ Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
 \end{equation}
 
 \paragraph{Standard deviation}
-Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance:
+Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance\cite{Press:2007:NRE:1403886}:
 
 \begin{equation}
 \sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
@@ -298,7 +305,7 @@ Standard deviation is a measure of spread of a data set from its mean. High devi
 \end{equation}
 
 \paragraph{Skewness} 
-Skewness describes asymmetry of a distribution. The formula is:
+Skewness describes asymmetry of a distribution. The formula is\cite{Press:2007:NRE:1403886}:
 \begin{equation}
 Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
 \label{eq:skew}
@@ -316,7 +323,7 @@ The skewness can be either negative or positive depending on wheter data points 
 \FloatBarrier
 
 \paragraph{Kurtosis}
-Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is:
+Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is\cite{Press:2007:NRE:1403886}:
 \begin{equation}
 Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 \label{eq:kurtosis}
@@ -334,8 +341,8 @@ A positive kurtosis of a distribution has a sharper peak and heavier tails reala
 
 %http://greenteapress.com/thinkstats/thinkstats.pdf
 
-\paragraph{Time domain}
-\paragraph{Fourier transform}
+%\paragraph{Time domain}
+%\paragraph{Fourier transform}
 
 
 \subsection{Features selection}\label{selection}
@@ -370,7 +377,7 @@ To reduce bias effect cause by skewed distributions, it is common to standardiza
 \section{Model validation}
 
 \subsection{No free lunch theorem}
-The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even a model has a great performance for one problem, might not hold for another problem. Previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
+The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even a model has a great performance for one problem, might not hold for another problem. 
 
 \subsection{Ovefitting and underfitting}
 Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classifier. Overfitting the data occurs if there are too training data or if it has adapted to the noise in the data. While underfitting occurs if there are not enough training data and will not be able to generalize to new data. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
@@ -383,7 +390,7 @@ Overfitting and underfitting the data is a issue in machine learning which cause
 \FloatBarrier
 
 \subsection{Cross-Validation}
-Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins, and after the training, use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. There are several types of cross-validation. However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
+Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins, and after the training, use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 
 \paragraph{K-fold}
 The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting the k to the length of feature vectors, it is also know as leave-one-outcross validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set as shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
@@ -460,12 +467,8 @@ An example of confusion matrix is shown on table \ref{tab:cmatrix}
 \end{table}
 
 
-
-
-
-
-
 \section{Related work}
+
 \subsection{Terrain classification}
 Terrain classification is the process of identify different types of terrain such as rocks, wood, grass and sand. The challenging of discriminate terrain is the variation of its characteristics such as slope, roughness, hardness and friction. The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
 \\
@@ -487,13 +490,14 @@ Many types of legged robot has been used in terrain classification. The followin
 %http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
 %http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 %http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
+
 \paragraph{Monopod}
-The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an 
+The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an hopper \cite{Raibert:1986:LR:5948.5950}
 
 Three types of controller is usually used for one legged robot such as robot posture, hopping height and hopping distance.
 
 \paragraph{Biped}
-Biped robot is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. It is possible to do a lot, but there is also the challenging of finding the stability of it.  
+Biped robot is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. A sucessive of imitating the human is the NAO robot \cite{NAO}. With 7 different types of sensing. 
 
 \paragraph{Quadruped}
 Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. The BigDog has shown impressive in rough outdoor environment, and also great stability even when it get pushed. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}. The electrically actuated robot increases its mobility and has the ability to climb substantial obstacles. "However, the applied actuation
@@ -501,7 +505,41 @@ principle with electric motors and gearboxes directly connected to the
 joints prohibit dynamic maneuvers due to lack of robustness."
 
 \paragraph{Hexapod}
-Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than robots with fewer legs.
+Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than with fewer legs. An example developed from The FZI Research Center for Information Technology is the LAURON robot 
+
+\cite{6878051}
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Hopper}
+		\caption{One legged robot \cite{Raibert:1986:LR:5948.5950}}
+		\label{fig:gull}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Nao_Robot}
+		\caption{The NAO robot \cite{NAOImage}}
+		\label{fig:gull2}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/BigDog}
+		\caption{The bigdog \cite{Raibert200810822}.}
+		\label{fig:tiger}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Lauron}
+		\caption{Lauron V robot \cite{6878051}.}
+		\label{fig:mouse}
+	\end{subfigure}
+	\caption{Pictures of animals}\label{fig:animals}
+\end{figure}
+
+\FloatBarrier
 
 
 \subsection{Terrain sensing}
@@ -537,6 +575,15 @@ Many other research of terrain classification can be found in \cite{Giguere2009,
 
 \subsection{Learning algorithms}
  There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
+ 
+ \paragraph{NO free lunch}
+ Previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem.
+ 
+ \subsection{Features}
+ An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+ 
+ \subsection{Validation}
+  However the most common used in terrain classification is the k-fold cross-validation \cite{6784609,6386243,Hoffmann20141790,6849778,7387710}. 
 
 \chapter{Implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
@@ -1231,42 +1278,42 @@ The wrapper method is recursive feature elimination from scikit
 Table \ref{exp2} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done twice, both with filter and wrapper method.
 
 
-\begin{table}[]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}l|l|l|l|l@{}}
-\toprule
-\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{3}{c|}{\textbf{Accuracy}} \\ \cmidrule(l){3-5} 
- &  & \textbf{Old result} & \textbf{Filter} & \textbf{Wrapper} \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}} & Bayes Navies & 0.83 & 0.78 & 0.81 \\ \cmidrule(l){2-5} 
- & Decision tree & 0.96 & 0.96 & 0.93 \\ \cmidrule(l){2-5} 
- & KNN & 0.91 & 0.95 & 0.93 \\ \cmidrule(l){2-5} 
- & Neural network & 0.96 & 0.94 & 0.95 \\ \cmidrule(l){2-5} 
- & SVM & 0.93 & 0.91 & 0.94 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
- & Decision tree & 0.84 & 0.79 & 0.81 \\ \cmidrule(l){2-5} 
- & KNN & 0.84 & 0.82 & 0.82 \\ \cmidrule(l){2-5} 
- & Neural network & 0.88 & 0.81 & 0.84 \\ \cmidrule(l){2-5} 
- & SVM & 0.85 & 0.80 & 0.83 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}} & Bayes Navies & 0.91 & 0.76 & 0.94 \\ \cmidrule(l){2-5} 
- & Decision tree & 0.82 & 0.76 & 0.81 \\ \cmidrule(l){2-5} 
- & KNN & 0.88 & 0.83 & 0.91 \\ \cmidrule(l){2-5} 
- & Neural network & 0.93 & 0.78 & 0.95 \\ \cmidrule(l){2-5} 
- & SVM & 0.93 & 0.79 & 0.97 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}} & Bayes Navies & 0.81 & 0.75 & 0.79 \\ \cmidrule(l){2-5} 
- & Decision tree & 0.82 & 0.82 & 0.81 \\ \cmidrule(l){2-5} 
- & KNN & 0.84 & 0.85 & 0.86 \\ \cmidrule(l){2-5} 
- & Neural network & 0.88 & 0.84 & 0.90 \\ \cmidrule(l){2-5} 
- & SVM & 0.86 & 0.82 & 0.86 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
- & Decision tree & 0.80 & 0.82 & 0.84 \\ \cmidrule(l){2-5} 
- & KNN & 0.84 & 0.86 & 0.83 \\ \cmidrule(l){2-5} 
- & Neural network & 0.89 & 0.81 & 0.89 \\ \cmidrule(l){2-5} 
- & SVM & 0.86 & 0.83 & 0.86 \\ \bottomrule
-\end{tabular}%
-}
-\caption{My caption}
-\label{exp2}
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}l|l|l|l|l@{}}
+			\toprule
+			\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{3}{c|}{\textbf{Accuracy}} \\ \cmidrule(l){3-5} 
+			&  & \textbf{Old result} & \textbf{Filter} & \textbf{Wrapper} \\ \midrule
+			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}} & Bayes Navies & 0.83 & 0.78 & 0.81 \\ \cmidrule(l){2-5} 
+			& Decision tree & 0.96 & 0.96 & 0.93 \\ \cmidrule(l){2-5} 
+			& KNN & 0.91 & 0.95 & 0.93 \\ \cmidrule(l){2-5} 
+			& Neural network & 0.96 & 0.94 & 0.95 \\ \cmidrule(l){2-5} 
+			& SVM & 0.93 & 0.91 & 0.94 \\ \midrule
+			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
+			& Decision tree & 0.84 & 0.79 & 0.81 \\ \cmidrule(l){2-5} 
+			& KNN & 0.84 & 0.82 & 0.82 \\ \cmidrule(l){2-5} 
+			& Neural network & 0.88 & 0.81 & 0.83 \\ \cmidrule(l){2-5} 
+			& SVM & 0.85 & 0.80 & 0.83 \\ \midrule
+			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}} & Bayes Navies & 0.91 & 0.76 & 0.91 \\ \cmidrule(l){2-5} 
+			& Decision tree & 0.82 & 0.76 & 0.81 \\ \cmidrule(l){2-5} 
+			& KNN & 0.88 & 0.83 & 0.88 \\ \cmidrule(l){2-5} 
+			& Neural network & 0.93 & 0.78 & 0.94 \\ \cmidrule(l){2-5} 
+			& SVM & 0.93 & 0.79 & 0.97 \\ \midrule
+			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}} & Bayes Navies & 0.81 & 0.75 & 0.79 \\ \cmidrule(l){2-5} 
+			& Decision tree & 0.82 & 0.82 & 0.81 \\ \cmidrule(l){2-5} 
+			& KNN & 0.84 & 0.85 & 0.84 \\ \cmidrule(l){2-5} 
+			& Neural network & 0.88 & 0.84 & 0.85 \\ \cmidrule(l){2-5} 
+			& SVM & 0.86 & 0.82 & 0.86 \\ \midrule
+			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
+			& Decision tree & 0.80 & 0.82 & 0.82 \\ \cmidrule(l){2-5} 
+			& KNN & 0.84 & 0.86 & 0.86 \\ \cmidrule(l){2-5} 
+			& Neural network & 0.89 & 0.81 & 0.85 \\ \cmidrule(l){2-5} 
+			& SVM & 0.86 & 0.83 & 0.84 \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
 \end{table}
 \FloatBarrier
 
@@ -1289,36 +1336,36 @@ Note the training set and test set will be randomly shuffled, which might cause 
 
 
 \begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllllll@{}}
-\toprule
-\multirow{2}{*}{Run} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{Precision} & \multirow{2}{*}{Recall} & \multicolumn{4}{c}{Confusion matrix} \\ \cmidrule(l){5-8} 
- &  &  &  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & Hard mat \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p1}} & \multicolumn{1}{l|}{\multirow{4}{*}{r1}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p2}} & \multicolumn{1}{l|}{\multirow{4}{*}{r2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p3}} & \multicolumn{1}{l|}{\multirow{4}{*}{r3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p4}} & \multicolumn{1}{l|}{\multirow{4}{*}{r4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p5}} & \multicolumn{1}{l|}{\multirow{4}{*}{r5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \bottomrule
-\end{tabular}%
-}
-\caption{Dette er SVM wrapper feature set 2 fft}
-\label{svm1}
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}llllllll@{}}
+			\toprule
+			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){5-8} 
+			&  &  &  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p1}} & \multicolumn{1}{l|}{\multirow{4}{*}{r1}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p2}} & \multicolumn{1}{l|}{\multirow{4}{*}{r2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p3}} & \multicolumn{1}{l|}{\multirow{4}{*}{r3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p4}} & \multicolumn{1}{l|}{\multirow{4}{*}{r4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & 40 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p5}} & \multicolumn{1}{l|}{\multirow{4}{*}{r5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
 \end{table}
 \FloatBarrier
 
@@ -1440,6 +1487,40 @@ On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix 
 On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. Another reason which may cause poor performance is that the parameters are all on defaults. The result is similar to the earlier, but this has a more stable accuracy. It vary has a variation on 2\% while the earlier is 5\%. The classifier have particulary issue to distinguish between hard mat and carpet. 
 
 
+
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}llllllll@{}}
+			\toprule
+			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){5-8} 
+			&  &  &  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P1}} & \multicolumn{1}{l|}{\multirow{4}{*}{R1}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P2}} & \multicolumn{1}{l|}{\multirow{4}{*}{R2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P3}} & \multicolumn{1}{l|}{\multirow{4}{*}{R3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P4}} & \multicolumn{1}{l|}{\multirow{4}{*}{R4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P5}} & \multicolumn{1}{l|}{\multirow{4}{*}{R5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+\subsection{KNN - Wrapper - Feature set five}
 \subsection{Summary}
 It can be seen that the SVM still got the higestest accurate. This can be that the feature selection plays an important rule. While the neural network got a worse. The soft mast is least confused cause of its characterstics. 
 
