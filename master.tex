@@ -142,7 +142,7 @@ Supervised learning algorithms make predictions based on labled dataset. That is
 \paragraph{Unsupervised learning}
 Unsupervised learning algorithms make predictions from data points without label. That is, the system has to organize the data on its own and make prediction based on that. A commom method to organize the data is by clustering.
 
-
+\begin{comment}
 \paragraph{Reinforcement learning}
 Reinforcement leanring algorithms will gets to choose an action in response to each dataset. It will then either receieve a reward indicating how good the decision was. Based on rewards, the algortihms modifies its strategy in order to get the highest reward.
 
@@ -151,7 +151,7 @@ Evolutionary learning: Biological organisms adapt
 to improve their survival rates and chance of having
 offspring in their environment, using the idea of
 fitness (how good the current solution is).
-
+\end{comment}
 
 
 
@@ -483,7 +483,7 @@ Manjanna et al. \cite{6569179} investigated the effect of performance of with di
 
 
 \subsection{Types of legged robots}
-Many types of legged robot has been used in terrain classification. The following paragraph will introduce several platform of different robots.
+Many types of legged robot has been used in terrain classification. The following paragraph will introduce several platform of different legged robots.
 
 %http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
 %file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
@@ -492,22 +492,18 @@ Many types of legged robot has been used in terrain classification. The followin
 %http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
 
 \paragraph{Monopod}
-The monopod is the simplest legged robot design, with one leg. The locomotion of monopod robots is performed through hops. Thus, it can also be called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. The benefit of using monopod is that it can jump over obstacles, but has the drawback that is complex design and control. Marc Raibert in 1983 developed an hopper \cite{Raibert:1986:LR:5948.5950}
+The monopod is a simple legged robot design, with one leg. The locomotion of monopod robots is performed through hops and it is also called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. An example of one legged robot is developed by Marc Raibert is shown in figure \ref{fig:onlegg}.
 
-Three types of controller is usually used for one legged robot such as robot posture, hopping height and hopping distance.
 
 \paragraph{Biped}
-Biped robot is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. A sucessive of imitating the human is the NAO robot \cite{NAO}. With 7 different types of sensing. 
+Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. A sucessive of imitating the human is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel which is similar to human behavior. 
 
 \paragraph{Quadruped}
-Quadruped robot using four legs to walk, which is also common for most animals. A well known robot is the BigDog \cite{Raibert200810822}. The BigDog has shown impressive in rough outdoor environment, and also great stability even when it get pushed. A smaller version is the LittleDog \cite{doi:10.1177/0278364910387457}. The electrically actuated robot increases its mobility and has the ability to climb substantial obstacles. "However, the applied actuation
-principle with electric motors and gearboxes directly connected to the
-joints prohibit dynamic maneuvers due to lack of robustness."
+Quadruped is robot with four legs to walk and is inspired from animals. The BigDog \cite{Raibert200810822} has shown impressive performance, shown in figure \ref{fig:bigDog}. Because of hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg depend on the terrain. Other abilities is BigDog is capable to jump and run and maintain the stability even it get pushed or walking on slippery terrain. 
+
 
 \paragraph{Hexapod}
-Hexapod is six legged robot, and is biologically inspired of insect, mostly towards spiders. These robots provides greater stability than with fewer legs. An example developed from The FZI Research Center for Information Technology is the LAURON robot 
-
-\cite{6878051}
+Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}.
 
 
 \begin{figure}
@@ -516,27 +512,27 @@ Hexapod is six legged robot, and is biologically inspired of insect, mostly towa
 		\centering
 		\includegraphics[width=\linewidth]{Figures/Hopper}
 		\caption{One legged robot \cite{Raibert:1986:LR:5948.5950}}
-		\label{fig:gull}
+		\label{fig:onlegg}
 	\end{subfigure}\hfill
 	\begin{subfigure}[b]{0.22\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{Figures/Nao_Robot}
 		\caption{The NAO robot \cite{NAOImage}}
-		\label{fig:gull2}
+		\label{fig:nao}
 	\end{subfigure}\hfill
 	\begin{subfigure}[b]{0.22\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{Figures/BigDog}
 		\caption{The bigdog \cite{Raibert200810822}.}
-		\label{fig:tiger}
+		\label{fig:bigDog}
 	\end{subfigure}\hfill
 	\begin{subfigure}[b]{0.22\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{Figures/Lauron}
 		\caption{Lauron V robot \cite{6878051}.}
-		\label{fig:mouse}
+		\label{fig:LAURON}
 	\end{subfigure}
-	\caption{Pictures of animals}\label{fig:animals}
+	\caption{Pictures of animals}\label{fig:robots}
 \end{figure}
 
 \FloatBarrier
