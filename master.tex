@@ -271,7 +271,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 \section{Features} \label{features}
 An important part of good classification, is finding good features from data from sensors. The features will be used as input, to the learning, and it is the data which distinguish between the classes. Finding good features will make learning to predict more accuracy.
 
-\subsection{Curse of dimensionality}
+\subsection{Curse of dimensionality}\label{curseDim}
 The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
 
 \subsection{Features extraction} \label{feature_extraction}
@@ -1154,7 +1154,7 @@ Compute the average results as mentioned in section \ref{subsec:evalclf}
 The chapter present the results of all model in previous chapter. The two-class classification will be investigated first. Further will be to using methods to improve each of classifier. The best classifier will be used to test. 
 
 \section{Results of classifier}\label{result_exp1}
-Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done twice, both with and without the feature scaling. 
+Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done once, both with and without the feature scaling. 
 
 
 \begin{table}[]
@@ -1206,21 +1206,13 @@ The result shown that all classifier has a accuracy at least 70\%. The Decision 
 Regarding the feature scaling, SVM classifer is the one with huge affect of the scaled. The KNN which is also distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor change in their accuracy. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
 \\
 \\
-Note that the highest result is from features with whole sequences. The benefit of using raw data is ensuring that all the information is in the data. The more data might be easier to recognize a pattern or find characteristic for each terrain. However, it can be that it trained with noises. Conversely, by extraction features might loose important features, hence to not high accuracy.
-\\
-\\
-Even there are two classifier which outpeform the other, there are still a improving potensial to all of them. The improvement will be investigated in next section.
+Among the highest result is either from whole raw data sequence or complete frequency domain. These type of features has the benefit of ensuring that all the information is in the data. However, too many features has a risk learning from noises, and lead to overfitting as mentioned in section \ref{curseDim}.
 
 
 
 \section{Further improving all classifier}
-The classifier approach has leaved the feature selection out. The reason was to see how well each classifier predicted terrain based on different features set. It has shown in section \ref{result_exp1} that it gave high accuracy for most of them. As stated in section \ref{selection}, selecting good features has benefit of increasing classifier perfomance. In this approach feature selection is implemented into the earlier approach. Two different feature selection methods is tested, filter and wrapper.
+Even there are classifier which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without loosing any features. In following experiment, the feature selection will be applied to see if there any improvement.  In this approach feature selection is integrated into previous implementation. The filter and wrapper method will be used. Both is library provided by scikit. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination. Figure \ref{fig:approach2}
 
-\paragraph{Filter} 
-The filter method is removing features with low variance. 
-
-\paragraph{Wrapper}
-The wrapper method is recursive feature elimination from scikit
 
 
 \begin{figure}[h!]
@@ -1264,12 +1256,12 @@ The wrapper method is recursive feature elimination from scikit
   
 \end{tikzpicture}
 
-\caption{The figure showing steps } \label{fig:M1}
+\caption{The figure showing steps } \label{fig:approach2}
 \end{figure}
 
 
 \section{Experiment 2 - classifier improvement}
-Table \ref{exp2} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done twice, both with filter and wrapper method.
+Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
 
 
 \begin{table}[h]
@@ -1306,99 +1298,220 @@ Table \ref{exp2} shows the result when using the learning approach. The accuracy
 			& SVM & 0.86 & 0.83 & 0.84 \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption{My caption}
-	\label{my-label}
+	\caption{Table showing the results after following integrating  feature selection to the learning approach}
+	\label{tab:exp2}
 \end{table}
 \FloatBarrier
 
 \section{Analysis}
-From table \label{exp2} one can see that the filter selection has made the classifier more inaccurate. It seems that important features were removed. As in section. that one feature may not be important by itself, but might be important to others. The wrapper selection, on the other hand, provide a significant better result compared to the filter. It also has improved the SVM to 97\% accuracy.
+From table \ref{tab:exp2} one can see that the filter selection has made most of the classifier more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
 \\
 \\
-Note that the k-fold validation test using always use the same single set both for training and testing, which make it reffering to themselve than to generalize model of particular terrain class. In this case results from \ref{exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training set and testing set independed to each other, then the predicition will predict on new data in the k-fold \cite{hexapod}. The following experiment only four of the highest classifier shown in \ref{exp2} would be investigated further. As there are 3 second best classifier, all of them will be in further experiments. This is divided into further experiments.
+Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{hexapod}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, KNN using wrapper method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
 
 \section{Cross validation with unseen data}
-In this experiment 50 new samlpes for each terrain is collected. This is divided into further experiments to comparing the two best classifier.
+In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times.
 
 \begin{enumerate}
 \item SVM with wrapper and use feature set two
 \item Neural Network and use feature set one.
 \item Decision tree with feature set one
 \item Decision tree with filter and use feature set one
+\item KNN with wrapper and feature set five
 \end{enumerate}
-Note the training set and test set will be randomly shuffled, which might cause an inaccurate measurement of classifier. To achieve more accuracy measure of classifier, each test will be runned five times.
 
 
 \begin{table}[h]
 	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{94\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{97\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{94\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{94\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & 40 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{97\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \bottomrule
+	\end{tabular}
+	\caption{SVM}
+	\label{svmexp}
+\end{table}
+\FloatBarrier
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{96\%} & \multicolumn{1}{l|}{96\%} & \multicolumn{1}{l|}{96\%} & 96\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{80\%} & 94\% \\ \bottomrule
+	\end{tabular}
+	\caption{precision of svm}
+	\label{Precision of SVM}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{90.9\%} & \multicolumn{1}{l|}{92.6\%} & \multicolumn{1}{l|}{92.6\%} & \multicolumn{1}{l|}{92.6\%} & 92.6\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{87\%} & \multicolumn{1}{l|}{98\%} & \multicolumn{1}{l|}{87.2\%} & \multicolumn{1}{l|}{85.7\%} & 98\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \bottomrule
+	\end{tabular}
+	\caption{Recall of svm}
+	\label{recallsvm}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{96.2\%} & \multicolumn{1}{l|}{96.2\%} & \multicolumn{1}{l|}{96.2\%} & 96.2\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{90.4\%} & \multicolumn{1}{l|}{97\%} & \multicolumn{1}{l|}{91.4\%} & \multicolumn{1}{l|}{90.6\%} & 97\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{88\%} & 96.9\% \\ \bottomrule
+	\end{tabular}
+	\caption{F-score svm}
+	\label{fscoresvm}
+\end{table}
+\FloatBarrier
+\subsubsection{SVM - Wrapper - Feature set two}
+On the table \ref{svm1} showing accuracy, precision, recall and confusion matrix for each run. Results of SVM has not been change during each run. That indicate that the good features is kept and is able to distinguish between each terrain. There is shown a small confusion between floor, carpet and hard mat, which are three with similar terrain characteristic. While the soft mat has an own characteristic and easy to detect. 
+\begin{comment}
+\begin{table}[h]
+	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{@{}llllllll@{}}
+		\begin{tabular}{@{}llllllllll@{}}
 			\toprule
-			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){5-8} 
-			&  &  &  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p1}} & \multicolumn{1}{l|}{\multirow{4}{*}{r1}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p2}} & \multicolumn{1}{l|}{\multirow{4}{*}{r2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p3}} & \multicolumn{1}{l|}{\multirow{4}{*}{r3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.94}} & \multicolumn{1}{l|}{\multirow{4}{*}{p4}} & \multicolumn{1}{l|}{\multirow{4}{*}{r4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & 40 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.97}} & \multicolumn{1}{l|}{\multirow{4}{*}{p5}} & \multicolumn{1}{l|}{\multirow{4}{*}{r5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \bottomrule
+			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Terrain}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multirow{2}{*}{\textbf{F-score}} & \multirow{2}{*}{\textbf{Accuracy}} \\ \cmidrule(lr){3-6}
+			&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} &  &  &  &  \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){2-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){2-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){2-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{p2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.97 \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{p3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{p4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
+			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{p5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.97 \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \bottomrule
 		\end{tabular}%
 	}
 	\caption{My caption}
 	\label{my-label}
 \end{table}
-\FloatBarrier
-
-\subsubsection{SVM - Wrapper - Feature set two}
-On the table \ref{svm1} showing accuracy, precision, recall and confusion matrix for each run. Results of SVM has not been change during each run. That indicate that the good features is kept and is able to distinguish between each terrain. There is shown a small confusion between floor, carpet and hard mat, which are three with similar terrain characteristic. While the soft mat has an own characteristic and easy to detect. 
-
-
+\end{comment}
 
 \begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllllll@{}}
-\toprule
-\multirow{2}{*}{Run} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{Precision} & \multirow{2}{*}{Recall} & \multicolumn{4}{c}{Confusion matrix} \\ \cmidrule(l){5-8} 
- &  &  &  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & Hard mat \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.68}} & \multicolumn{1}{l|}{\multirow{4}{*}{P1}} & \multicolumn{1}{l|}{\multirow{4}{*}{R1}} & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 11 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.68}} & \multicolumn{1}{l|}{\multirow{4}{*}{P2}} & \multicolumn{1}{l|}{\multirow{4}{*}{R2}} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{30} & \multicolumn{1}{l|}{0} & 11 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.64}} & \multicolumn{1}{l|}{\multirow{4}{*}{P3}} & \multicolumn{1}{l|}{\multirow{4}{*}{R3}} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{30} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 2 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{29} & \multicolumn{1}{l|}{0} & 10 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.68}} & \multicolumn{1}{l|}{\multirow{4}{*}{P4}} & \multicolumn{1}{l|}{\multirow{4}{*}{R4}} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{23} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 9 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.69}} & \multicolumn{1}{l|}{\multirow{4}{*}{P5}} & \multicolumn{1}{l|}{\multirow{4}{*}{R5}} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
-\end{tabular}%
-}
-\caption{Neural Network - Feature set 1 without selection}
-\label{nn2}
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{68\%}} & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 11 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{68\%}} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{30} & \multicolumn{1}{l|}{0} & 11 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{64\%}} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{30} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 2 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{11} & \multicolumn{1}{l|}{29} & \multicolumn{1}{l|}{0} & 10 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{68\%}} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{23} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 9 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{69\%}} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
+	\end{tabular}
+	\caption{Neural network - Feature set 1 without selection}
+	\label{nn2}
+\end{table}
+\FloatBarrier
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{50\%} & \multicolumn{1}{l|}{52\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{54\%} & 52\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{98\%} & \multicolumn{1}{l|}{96\%} & \multicolumn{1}{l|}{96\%} & \multicolumn{1}{l|}{98\%} & 98\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{20\%} & \multicolumn{1}{l|}{18\%} & 24\% \\ \bottomrule
+	\end{tabular}
+	\caption{Precision Neural Network}
+	\label{nnPrecision}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{67.6\%} & \multicolumn{1}{l|}{72.2\%} & \multicolumn{1}{l|}{64.5\%} & \multicolumn{1}{l|}{75\%} & 72.2\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{48\%} & \multicolumn{1}{l|}{47.1\%} & \multicolumn{1}{l|}{44.9\%} & \multicolumn{1}{l|}{47\%} & 48.5\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{91.7\%} & \multicolumn{1}{l|}{83.3\%} & \multicolumn{1}{l|}{90\%} & 92.3\% \\ \bottomrule
+	\end{tabular}
+	\caption{Neural network recall}
+	\label{nnrecall}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{57.5\%} & \multicolumn{1}{l|}{60.5\%} & \multicolumn{1}{l|}{49.4\%} & \multicolumn{1}{l|}{62.8\%} & 60.5\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{64.4\%} & \multicolumn{1}{l|}{63.2\%} & \multicolumn{1}{l|}{61.2\%} & \multicolumn{1}{l|}{63.5\%} & 64.9\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{36.1\%} & \multicolumn{1}{l|}{35.5\%} & \multicolumn{1}{l|}{32.3\%} & \multicolumn{1}{l|}{30\%} & 38.1\% \\ \bottomrule
+	\end{tabular}
+	\caption{Neural network fscore}
+	\label{nnfscore}
 \end{table}
 \FloatBarrier
 
@@ -1406,77 +1519,165 @@ On the table \ref{svm1} showing accuracy, precision, recall and confusion matrix
 On the table \ref{nn2} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Neural Network is overfitted, and is not able generalize good data. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
 
 \begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllllll@{}}
-\toprule
-\multirow{2}{*}{Run} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{Precision} & \multirow{2}{*}{Recall} & \multicolumn{4}{c}{Confusion matrix} \\ \cmidrule(l){5-8} 
- &  &  &  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & Hard mat \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.72}} & \multicolumn{1}{l|}{\multirow{4}{*}{P1}} & \multicolumn{1}{l|}{\multirow{4}{*}{R1}} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{2} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{46} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{2} & 14 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.73}} & \multicolumn{1}{l|}{\multirow{4}{*}{P2}} & \multicolumn{1}{l|}{\multirow{4}{*}{R2}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{1} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{38} & \multicolumn{1}{l|}{2} & 5 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{1} & 17 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.75}} & \multicolumn{1}{l|}{\multirow{4}{*}{P3}} & \multicolumn{1}{l|}{\multirow{4}{*}{R3}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{0} & 17 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.72}} & \multicolumn{1}{l|}{\multirow{4}{*}{P4}} & \multicolumn{1}{l|}{\multirow{4}{*}{R4}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{4} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{46} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{1} & 14 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.77}} & \multicolumn{1}{l|}{\multirow{4}{*}{P5}} & \multicolumn{1}{l|}{\multirow{4}{*}{R5}} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{2} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & 1 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{3} & 18 \\ \bottomrule
-\end{tabular}%
-}
-\caption{Decision tree feature set 1 without filter}
-\label{dt3}
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{72\%}} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{2} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{46} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{2} & 14 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{73\%}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{1} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{38} & \multicolumn{1}{l|}{2} & 5 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{24} & \multicolumn{1}{l|}{1} & 17 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{75\%}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{0} & 17 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{72\%}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{4} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{46} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{1} & 14 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{77\%}} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{2} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{3} & 18 \\ \bottomrule
+	\end{tabular}
+	\caption{ecision tree precision without filter}
+	\label{dt1e}
+\end{table}
+\FloatBarrier
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{90\%} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{88\%} & 96\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{76\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{82\%} & 78\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{92\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 98\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{28\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{28\%} & 36\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree precision without filter}
+	\label{dt1Precision}
+\end{table}
+\FloatBarrier
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{77.6\%} & \multicolumn{1}{l|}{78.6\%} & \multicolumn{1}{l|}{75.9\%} & 78.7\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{56.9\%} & \multicolumn{1}{l|}{57.6\%} & \multicolumn{1}{l|}{58.6\%} & \multicolumn{1}{l|}{58.6\%} & 65\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{88.5\%} & \multicolumn{1}{l|}{92.2\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{90.2\%} & 87.5\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{66.7\%} & \multicolumn{1}{l|}{68\%} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{66.7\%} & 78.3\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree recall without filter}
+	\label{dt1recall}
 \end{table}
 \FloatBarrier
 
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{81.9\%} & \multicolumn{1}{l|}{83.3\%} & \multicolumn{1}{l|}{83\%} & \multicolumn{1}{l|}{81.5\%} & 86.5\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{67.2\%} & \multicolumn{1}{l|}{65.5\%} & \multicolumn{1}{l|}{68.4\%} & \multicolumn{1}{l|}{68.4\%} & 70.9\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{90.2\%} & \multicolumn{1}{l|}{93.1\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 92.5\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{39.4\%} & \multicolumn{1}{l|}{45.3\%} & \multicolumn{1}{l|}{45.9\%} & \multicolumn{1}{l|}{39.4\%} & 49.3\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree fscore without filter}
+	\label{dtfscore}
+\end{table}
+\FloatBarrier
 
 \subsubsection{Decision Tree - Feature set one}
 On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. It does predict better than the Neural Network. The Neural Network has more complicated learning process, where the weights is adjusted according to the error. The amount of the hidden layer and hidden nodes must also be adjusted. Another reason which may cause poor performance is that the parameters are all on defaults. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
 
 \begin{table}[h]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllllll@{}}
-\toprule
-\multirow{2}{*}{Run} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{Precision} & \multirow{2}{*}{Recall} & \multicolumn{4}{c}{Confusion matrix} \\ \cmidrule(l){5-8} 
- &  &  &  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & Hard mat \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.73}} & \multicolumn{1}{l|}{\multirow{4}{*}{P1}} & \multicolumn{1}{l|}{\multirow{4}{*}{R1}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{1} & 5 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{44} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{1} & 16 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.75}} & \multicolumn{1}{l|}{\multirow{4}{*}{P2}} & \multicolumn{1}{l|}{\multirow{4}{*}{R2}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{47} & 1 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 14 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.75}} & \multicolumn{1}{l|}{\multirow{4}{*}{P3}} & \multicolumn{1}{l|}{\multirow{4}{*}{R3}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{0} & 17 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.73}} & \multicolumn{1}{l|}{\multirow{4}{*}{P4}} & \multicolumn{1}{l|}{\multirow{4}{*}{R4}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{45} & 2 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{0} & 15 \\ \midrule
-\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.72}} & \multicolumn{1}{l|}{\multirow{4}{*}{P5}} & \multicolumn{1}{l|}{\multirow{4}{*}{R5}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{47} & 2 \\ \cmidrule(l){5-8} 
-\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
-\end{tabular}%
-}
-\caption{decision tree featureset 1 filter}
-\label{dt4}
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{73\%}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{1} & 5 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{44} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{1} & 16 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{75\%}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{47} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 14 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{75\%}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{26} & \multicolumn{1}{l|}{0} & 17 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{73\%}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{0} & 3 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{45} & 2 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{27} & \multicolumn{1}{l|}{0} & 15 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{72\%}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{3} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{0} & 4 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{47} & 2 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree}
+	\label{dt4}
 \end{table}
 \FloatBarrier
 
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{90\%} & 90\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{78\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{82\%} & 80\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{90\%} & 94\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{32\%} & \multicolumn{1}{l|}{28\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{30\%} & 24\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree filter - precision}
+	\label{dtfilterprecision}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{79.7\%} & \multicolumn{1}{l|}{77\%} & \multicolumn{1}{l|}{78.6\%} & \multicolumn{1}{l|}{76.3\%} & 78.9\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{56.5\%} & \multicolumn{1}{l|}{55.4\%} & \multicolumn{1}{l|}{58.6\%} & \multicolumn{1}{l|}{54.7\%} & 53.3\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{91.7\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{100\%} & 94\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{66.7\%} & \multicolumn{1}{l|}{77.8\%} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{65.2\%} & 66.7\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree filter recall}
+	\label{dtfilterrecall}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{86.3\%} & \multicolumn{1}{l|}{84.7\%} & \multicolumn{1}{l|}{83\%} & \multicolumn{1}{l|}{82.6\%} & 84.1\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{65.5\%} & \multicolumn{1}{l|}{66.1\%} & \multicolumn{1}{l|}{68.4\%} & \multicolumn{1}{l|}{65.6\%} & 64\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{89.8\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94.7\%} & 94\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{43.3\%} & \multicolumn{1}{l|}{41.2\%} & \multicolumn{1}{l|}{45.9\%} & \multicolumn{1}{l|}{41.1\%} & 35.3\% \\ \bottomrule
+	\end{tabular}
+	\caption{Decision tree filter fscore}
+	\label{dtfilterfscore}
+\end{table}
+\FloatBarrier
 \subsubsection{Decision Tree - Filter - Feature set one}
 On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. Another reason which may cause poor performance is that the parameters are all on defaults. The result is similar to the earlier, but this has a more stable accuracy. It vary has a variation on 2\% while the earlier is 5\%. The classifier have particulary issue to distinguish between hard mat and carpet. 
 
@@ -1484,37 +1685,84 @@ On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix 
 
 \begin{table}[h]
 	\centering
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{@{}llllllll@{}}
-			\toprule
-			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){5-8} 
-			&  &  &  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P1}} & \multicolumn{1}{l|}{\multirow{4}{*}{R1}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P2}} & \multicolumn{1}{l|}{\multirow{4}{*}{R2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{2} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P3}} & \multicolumn{1}{l|}{\multirow{4}{*}{R3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P4}} & \multicolumn{1}{l|}{\multirow{4}{*}{R4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{0.81}} & \multicolumn{1}{l|}{\multirow{4}{*}{P5}} & \multicolumn{1}{l|}{\multirow{4}{*}{R5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){5-8} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \bottomrule
-		\end{tabular}%
-	}
-	\caption{My caption}
-	\label{my-label}
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \bottomrule
+	\end{tabular}
+	\caption{KNN }
+	\label{knnexp}
 \end{table}
 \FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & 86\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & 40\% \\ \bottomrule
+	\end{tabular}
+	\caption{Knn precision}
+	\label{precisionKNN}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & 78.1\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & 66.2\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & 95.2\% \\ \bottomrule
+	\end{tabular}
+	\caption{KNN recall}
+	\label{knnrecall}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & 87.7\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & 74.8\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & 56.3\% \\ \bottomrule
+	\end{tabular}
+	\caption{KNN fscore}
+	\label{knnfscore}
+\end{table}
+\FloatBarrier
+
 \subsection{KNN - Wrapper - Feature set five}
 The performance is KNN has decreased a little from previous experiment. It is shown that the it is confused especially between the hard mat and carpet. 
  
