@@ -134,7 +134,7 @@ The sensor consists of a light emitter (LED) and four sensing elements(photodiod
 \end{figure}
 
 \section {Machine learning}
-Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which can be used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement learning, evolutionary learning. Supervised learning is most common used within terrain classification, while few unsupervised learning. In this project will supervised learning be used. 
+Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which can be used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement learning, evolutionary learning \cite{Marsland:2009:MLA:1571643}. In the thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between them.
 
 \paragraph{Supervised learning}
 Supervised learning algorithms make predictions based on labled dataset. That is, the system know the correct answers to each dataset and make prediction based on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
@@ -142,7 +142,6 @@ Supervised learning algorithms make predictions based on labled dataset. That is
 \paragraph{Unsupervised learning}
 Unsupervised learning algorithms make predictions from data points without label. That is, the system has to organize the data on its own and make prediction based on that. A commom method to organize the data is by clustering.
 
-\begin{comment}
 \paragraph{Reinforcement learning}
 Reinforcement leanring algorithms will gets to choose an action in response to each dataset. It will then either receieve a reward indicating how good the decision was. Based on rewards, the algortihms modifies its strategy in order to get the highest reward.
 
@@ -151,7 +150,6 @@ Evolutionary learning: Biological organisms adapt
 to improve their survival rates and chance of having
 offspring in their environment, using the idea of
 fitness (how good the current solution is).
-\end{comment}
 
 
 
@@ -171,7 +169,7 @@ The process of perceptron in supervised learning, is to learn to reproduce a par
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.9]{Figures/neuron.PNG}
-	\caption{Figure showing The three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods \cite{Guyon2006}}
+	\caption{Figure showing The three principal approaches of feature selection. The shades show the components used by the three approaches: filters, wrappers and embedded methods \cite{Marsland:2009:MLA:1571643}}
 	\label{fig:NN}
 \end{figure}
 
@@ -568,18 +566,20 @@ Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a
 Hoepflinger et al. \cite{5509309} present a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistor. The goal were to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments is done by having a robot walk through terrains. However in this experiment the author separated one of the legs robot and mounted to a sample holder of a testbed. The first experiment consist of distinguish four different shaped terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data were collected by the knee-joint oscillated slightly with an amplitude of about one degree on the terrain. In the second experiment were to distinguish between three different types of abrasive paper and a low friction PTFE coating. Collecting of data were done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. Convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge 95\% and 80\% on for the convex hemispherical bulge. Regarding surface classification show that the algorithm performed slightly worse. A type of a abrasive paper had a accuracy of 53.3\%. Even a low accuracy the author state it is overall an satisfy result, since the average correct prediction of different types of abrasive paper was 2 of 3, and prediction of teflon coated surface had an high accuracy 93.3\%.
 \\
 \\
-Terrain classification with other type of remote sensor research of can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
+Terrain classification with other type of local sensor research of can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
 
 \subsection{Learning algorithms}
 There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
 \\
 \\
 The no free lunch theorem descirbed in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem. 
-
-Mostly supervised but there are also some unsupervised 
+\\
+\\
+Mostly study is based on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method to terrain classification using unsupervised learning. This make a robot to be able automatically distinguish terrain without any human interaction or feedback. Another work of same authors
+\cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
  
 \subsection{Features}
-As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features either in the time domain, frequency domain or both.
+As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
 \\
 \\
 Giguere and Dudek \cite{5152662} extracted seven features in time-domain which five is statistical features such as mean, variance, skewness, kurtosis and fifth moment. The other feature is sum of the variation over time, and number of times 20 uniformly separated threshold are crossed. The author also extracted a feature in frequency domain which is the sum of higher half of amplitude spectrum. Also applied feature scaling.
@@ -595,9 +595,6 @@ Best el at.\cite{26b23e912c654fe4b7478fd910130195} extracted five statisical fea
 \\
 \\
 An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. 
-\\
-\\
-A variety of features is used to preprocess raw sensory streams. Leaving visual feature aside, the most common is the combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
 
 \subsection{Validation}
 A common method of validation is using the k-fold cross-validation \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However the choice of selecting k vary. A common k value is sat to either 2 \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal the length of feature vector\cite{26b23e912c654fe4b7478fd910130195}.
