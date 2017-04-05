@@ -380,12 +380,38 @@ The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning state
 
 \subsection{Ovefitting and underfitting}
 Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classifier. Overfitting the data occurs if there are too training data or if it has adapted to the noise in the data. While underfitting occurs if there are not enough training data and will not be able to generalize to new data. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
+\begin{comment}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.6]{Figures/All.png}
 	\caption{The figure showing an example when the classifier is underfitted, overfitted or optimal.}
 	\label{fig:fitting}
 \end{figure}
+\end{comment}
+\begin{figure}[h]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.43]{Figures/Overfitting}
+		\caption{Overfitting}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[scale=0.43]{Figures/Underfitting}
+		\caption{Underfitting}
+		\label{fig:sub2}
+	\end{subfigure}\\[1ex]
+	\begin{subfigure}{\linewidth}
+		\centering
+		\includegraphics[scale=0.43]{Figures/Finefitting}
+		\caption{Optimal}
+		\label{fig:sub3}
+	\end{subfigure}
+	\caption{Figur showing the mean}
+	\label{fig:meanx}
+\end{figure}
+
 \FloatBarrier
 
 \subsection{Cross-Validation}
