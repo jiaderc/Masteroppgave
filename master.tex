@@ -113,6 +113,9 @@ Lastly, the conclusion chapter is discussion of experiments, along with suggesti
 %\section{Optical force sensor}
 %Snakke litt om historien om optical force sensor
 %Optical force sensors use the refracted light itensity to measure..
+\section{Terrain classification}
+\subsection{Types of terrain}
+\section{Gaits}
 \section{Optical force sensor}
 Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
@@ -409,7 +412,7 @@ Overfitting and underfitting the data is a issue in machine learning which cause
 		\label{fig:sub3}
 	\end{subfigure}
 	\caption{Figur showing the mean}
-	\label{fig:meanx}
+	\label{fig:meanx}	
 \end{figure}
 
 \FloatBarrier
@@ -658,6 +661,8 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 \subsection{Robot}
 The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
 (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
+
+\paragraph{Gaits}
 
 
 \begin{figure}[h]
@@ -1416,7 +1421,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{80\%} & 94\% \\ \bottomrule
 	\end{tabular}
 	\caption{precision of svm}
-	\label{Precision of SVM}
+	\label{pressvm}
 \end{table}
 \FloatBarrier
 
@@ -1452,7 +1457,9 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 \end{table}
 \FloatBarrier
 \subsubsection{SVM - Wrapper - Feature set two}
-On the table \ref{svm1} showing accuracy, precision, recall and confusion matrix for each run. Results of SVM has not been change during each run. That indicate that the good features is kept and is able to distinguish between each terrain. There is shown a small confusion between floor, carpet and hard mat, which are three with similar terrain characteristic. While the soft mat has an own characteristic and easy to detect. 
+On the table \ref{svmexp} showing accuracy. The average is at least 94\%, and has the average 95.2\%. It can be seen that classifier simple distinguish floor and soft mat, while the carpet has a little confusion, and the hard mat is more confused. As seen in table \ref{fscoresvm} the soft mat has a f-score on 100\%, which means high precision and recall. Floor is second highest f-score with average 96\%. The recall is the reason of decreased f-score. The hard mat and carpet has relative equally f-score. However the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision. 
+
+
 \begin{comment}
 \begin{table}[h]
 	\centering
@@ -1568,7 +1575,8 @@ On the table \ref{svm1} showing accuracy, precision, recall and confusion matrix
 \FloatBarrier
 
 \subsubsection{Neuarl Network - Feature set one}
-On the table \ref{nn2} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Neural Network is overfitted, and is not able generalize good data. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
+On the table \ref{nn2} showing accuracy. Compared to the old result from \ref{tab:exp2} with accuracy on 96\%, the classifier perform more poorly on unseen data, with average accuracy 67.4\%. The classifier has most difficulty of distinguish the hard mat, but do have some problems with floor too. The soft mat is the easiest terrain to predict with f-score on 100\%, shown in \ref{nnfscore}. Carpet is second highest f-score with average... Even the precision is high, but the recall is low. Third highest f-score is floor. Recall and precision is factor which lead to low f-score. The least higest f-score is the hard mat with average... The recall is relative high, but the precision is low, which make a low f-score.
+
 
 \begin{table}[h]
 	\centering
@@ -1649,7 +1657,7 @@ On the table \ref{nn2} showing accuracy, precision, recall and confusion matrix 
 \FloatBarrier
 
 \subsubsection{Decision Tree - Feature set one}
-On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. It does predict better than the Neural Network. The Neural Network has more complicated learning process, where the weights is adjusted according to the error. The amount of the hidden layer and hidden nodes must also be adjusted. Another reason which may cause poor performance is that the parameters are all on defaults. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
+On the table \ref{dt1e} showing accuracy. Comparing to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat. It is confused by hard mat and carpet. However, when there is less confusion when the robot is on carpet. When it is on hard mat, the classifier tend to predict carpet than hard mat. That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
 
 \begin{table}[h]
 	\centering
@@ -1731,7 +1739,7 @@ On the table \ref{dt3} showing accuracy, precision, recall and confusion matrix 
 \end{table}
 \FloatBarrier
 \subsubsection{Decision Tree - Filter - Feature set one}
-On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. Another reason which may cause poor performance is that the parameters are all on defaults. The result is similar to the earlier, but this has a more stable accuracy. It vary has a variation on 2\% while the earlier is 5\%. The classifier have particulary issue to distinguish between hard mat and carpet. 
+Comparing the new result from table \ref{dt4} to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat, and the classifier has difficulty of decide wheter it is on hard mat or carpet. However there is less confusion when the robot is on the carpet.  That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
 
 
 
@@ -1816,13 +1824,15 @@ On the table \ref{dt4} showing accuracy, precision, recall and confusion matrix 
 \FloatBarrier
 
 \subsection{KNN - Wrapper - Feature set five}
-The performance is KNN has decreased a little from previous experiment. It is shown that the it is confused especially between the hard mat and carpet. 
+Comparing the new result from table \ref{dt4} to the old result from table \ref{tab:exp2}, the accuracy has decreased a little. It is shown that the it is confused especially between the hard mat and carpet. When it is on the hard mat it rather predict as carpet. However, there is less confusion when the robot is on carpet and is more able to predict correct.
+
  
 \subsection{Summary}
-It can be seen that the SVM still got the higestest accurate. This can be that the feature selection plays an important rule. While the neural network got a worse. The soft mast is least confused cause of its characterstics. A common terrain that each classifier has difficulty to predict is the hard mat. It has either achieved a high precision, but low recall or vice versa. It is seen that it rather predict the carpet when it is on hard mat.  
+Five different classifier with different feature sets were investigated. Compared to the old result from table \ref{tab:exp2}, every classifier has decreased their accuracy. SVM still have the highest accuracy, even on predicting unseen data. KNN on other hand, which were least highest among those five tested classifiers were the second best on predicting unseen data. Neural network is the classifier with least accuracy. The decision tree with and without feature selection has relative equal accuracy.
 \\
 \\
-Regarding using the raw data has shown a big decreased performance for three of the test. It might indicate that the model is overfitted, thus does not perform well. However, the SVM still got a high performance even using the whole spectrum. KNN on other hand performed better than the other, even it had a worse performance than them in previous experiment. This might indicate that extraction features is able to filter out noises and be able to generalize the data. 
+It can be seen a common confusion for each classifiers when the robot is on hard mat. Mostly of classifiers tend to chose carpet instead of hard mat. This is also the reason that the f-score of carpet and hard mat is relative low, even there are high precision on predicting carpet on carpet. The least confusion is the soft mat, where the every classifier has a average over 90\%. The floor also achieved a high f-score, except for the neural network without filter. The neural network had issues to distinguish between floor and carpet.
+
 
 
 \section{Classification in real-time}
@@ -1933,7 +1943,7 @@ Hard mat & 0.104 & 0.022 & 0.081 & 0.007 & 0.073 & 0.010 & 0.055 & 0.166 & 0.104
 
 
 \subsection{Hard mat to floor}
-The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step is predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
+The data is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 88.9\%. However, for each step where it predicted correctly (marked green on \ref{tab:Gulvet4teppe}), is lower. For the first four step when it walked on the floor the probability is low. From fourth to fifth step is the crossing to new terrain. As it can be seen the probability is decreased. The fifth step predicted is confused between carpet and floor. The rest has still a low probability of predicting correct.
 
 \begin{figure}[h]
     \centering
@@ -1991,7 +2001,7 @@ Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cell
 \FloatBarrier
 
 \subsection{Soft mat to hard mat}
-The data is shown in figure \ref{fig:MM_4_Resten_BGraf} and the table \ref{MM4MB} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 100\%. The first step and the transistion step has the lowest probability it maight indicate that the data differ. It also can be seen that at the fourth step there is. Except for that the overall is high probability of predicting correct. 
+The data is shown in figure \ref{fig:MM_4_Resten_BGraf} and the table \ref{MM4MB} show how the probability of each step. This experiment let the robot walk four step on floor and the rest on carpet. Even the overall accuracy in this test is approximately 100\%. The first step and the transistion step has the lowest probability it might indicate that the data differ. It also can be seen that at the fourth step there is. Except for that the overall is high probability of predicting correct. 
 
 \begin{figure}[h]
     \centering
@@ -2048,13 +2058,34 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 \subsection{Summary}
 It is shown that the probability at transistion is typcially low value. The might indicate that the sensor is sensitive. The training samples only trained with one each terrain, which may be better to train differently. Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step is strange, as the in the middle the robot got more stable, thus more training data and more accurately. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
 
-\section{Prediction next sensor?}
 
 
+
+\chapter{Discussion}
+\section{Feature selection vs non feature selection}
+
+\subsection{Feature sets}
+
+\subsection{Raw data vs extracted}
+
+\section{Overlapping terrains}
+
+\section{Five classifier}
+precision, recall and confusion matrix for each run. Results of SVM has not been change during each run. That indicate that the good features is kept and is able to distinguish between each terrain. There is shown a small confusion between floor, carpet and hard mat, which are three with similar terrain characteristic. While the soft mat has an own characteristic and easy to detect. 
+
+nn
+On the table \ref{nn2} showing accuracy, precision, recall and confusion matrix for the neural network. Comparing to the old result from \ref{exp2}, the classifier perform more poorly on unseen data. One of the reason can be that the Neural Network is overfitted, and is not able generalize good data. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
+
+dt feature set one
+One of the reason can be that the Decision tree is overfitted, and is not able generalize good data. It does predict better than the Neural Network. The Neural Network has more complicated learning process, where the weights is adjusted according to the error. The amount of the hidden layer and hidden nodes must also be adjusted. Another reason which may cause poor performance is that the parameters are all on defaults. The feature set is use is also raw data, which might cause learning with noises. The classifier has particulary difficulty of distinguish hard mat with floor and carpet. It is also shown that it has difficulty of chosing terrain between floor and carpet. While it has no problem of predicting the soft mat. 
+
+This can be that the feature selection plays an important rule
+Regarding using the raw data has shown a big decreased performance for three of the test. It might indicate that the model is overfitted, thus does not perform well. However, the SVM still got a high performance even using the whole spectrum. KNN on other hand performed better than the other, even it had a worse performance than them in previous experiment. This might indicate that extraction features is able to filter out noises and be able to generalize the data. 
+
+While the neural network got a worse. The soft mast is least confused cause of its characterstics. A common terrain that each classifier has difficulty to predict is the hard mat. It has either achieved a high precision, but low recall or vice versa. It is seen that it rather predict the carpet when it is on hard mat. 
 
 
 \chapter{Conclusion}
-
 
 
 \subsection{Future work}
