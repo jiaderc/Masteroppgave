@@ -1831,12 +1831,13 @@ Comparing the new result from table \ref{dt4} to the old result from table \ref{
 Five different classifier with different feature sets were investigated. Compared to the old result from table \ref{tab:exp2}, every classifier has decreased their accuracy. SVM still have the highest accuracy, even on predicting unseen data. KNN on other hand, which were least highest among those five tested classifiers were the second best on predicting unseen data. Neural network is the classifier with least accuracy. The decision tree with and without feature selection has relative equal accuracy.
 \\
 \\
-It can be seen a common confusion for each classifiers when the robot is on hard mat. Mostly of classifiers tend to chose carpet instead of hard mat. This is also the reason that the f-score of carpet and hard mat is relative low, even there are high precision on predicting carpet on carpet. The least confusion is the soft mat, where the every classifier has a average over 90\%. The floor also achieved a high f-score, except for the neural network without filter. The neural network had issues to distinguish between floor and carpet.
+It can be seen a common confusion for each classifiers when the robot is on hard mat. Mostly of classifiers tend to chose carpet instead of hard mat. This is also the reason that the f-score of carpet and hard mat is relative low, even there are high precision on predicting carpet on carpet. The least confusion is the soft mat, where the every classifier has a average over 90\%. The floor also achieved a high f-score, except for the neural network without filter. The neural network had issues to distinguish between floor and carpet. 
 
 
 
 \section{Classification in real-time}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
+
 
 \begin{enumerate}
 \item Hard mat to carpet/floor...
@@ -1846,6 +1847,8 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 \item From floor to carpet
 \end{enumerate}
 
+\subsection{Real time implementation}
+The real time implementation can be seen on figure \ref{fig:realtime}, which is a small modification of earlier approach. In this implementation will be creating a server node after model a classifier. The training is same set with 50 samples for each terrain. The server will be waiting for a request from another node, which is in this case segment data. The segment data gather data stream from the optoforce sensor. The method to collecting interesting data is described in \ref{subseq:segmentation}. After a step is extracted from sensor, it will then be passed to the server. The server will receive the data and start to preprocess the data. It will extracted features, select features and scale accordingly to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provide a probability function on SVM, which is used. In the documentation the probability might give wrong probability on very small data set. However, the data set is considered as not very small data set, and it is interesting to look at probability when it predict. After given a result, it will be waiting for new partitioned from segment data. 
 
 
 \begin{figure}[h!]
@@ -1905,7 +1908,7 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 	
 	\end{tikzpicture}
 	
-	\caption{The figure showing steps } \label{fig:M1}
+	\caption{The figure showing steps } \label{fig:realtime}
 \end{figure}
 \FloatBarrier
 
