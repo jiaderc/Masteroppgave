@@ -2136,7 +2136,21 @@ Having training samples where the robot traversing straight through each of one 
 Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step is strange, as the in the middle the robot got more stable, thus more training data and more accurately. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
 
 \subsection{Compared to earlier work}
-
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}lllll@{}}
+			\toprule
+			\textbf{Approach} & \textbf{Sensor used} & \textbf{Classifier} & \textbf{Number of terrains} & \textbf{Accuracy} \\ \midrule
+			\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Exploring surface detection \\ for a quadruped robot in households\end{tabular}} & accelerometer & \multirow{2}{*}{Naive Bayes} & \multirow{2}{*}{5} & \multirow{2}{*}{90.9\%} \\
+			& paw sensor &  &  &  \\
+			Terrain Classification for a Quadruped Robot & Tactile sensor & Reservoir Computing (RC) & 1 & 93.8\% \\
+			Thesis approach & Optical force sensor & SVM & 4 & 93\% \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
 \subsection{Future work}
 Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. Although, in the first two experiment has shown a reliable performance of classifiers, however it becomes unreliable when it comes to predicting unseen data. It could be that more training samples is needed. However, choosing a correct set of hyper parameters might increase its performance. Thus, having hyperparameter optimization could be further research, to see if there are other classifiers achieve a better performance than currently SVM.
 \\
