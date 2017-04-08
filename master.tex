@@ -202,12 +202,12 @@ SVM algorithm was introduced by Vapnik and Chervonekis in 1963, while the standa
 
 
 \subsubsection{Naive bayes}
-Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often to used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
+Naive Bayes algorithm is based on Bayes’ theorem the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
 \begin{equation}
 P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
+The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
 
 \begin{comment}
 
@@ -236,7 +236,7 @@ p(X\vert \theta_{l}) = {1\over (2\pi)^{N/2}\vert \Sigma_{l}\vert ^{1/2}} \times{
 \end{comment}
 
 \subsubsection{K-nearest neighbors }
-K-nearest neighbors (KNN) one of the simple classifiers presented by  T. M. Cover and P. E. Hart in \cite{1053964}. The classification process of new data consists of looking the k-nearest datapoints and classify the class which consist most classes. For instance if k is set to be 5, then it find the 5 nearest datapoint, and classify the the class which consist most of the 5 classes.  An example is shown \ref{fig:KNN}
+K-nearest neighbors (KNN) one of the simple classifiers presented by  T. M. Cover and P. E. Hart in \cite{1053964}. The classification process of new data consists of looking the k-nearest data points and classify the class which consist most classes. For instance if k is set to be 5, then it find the 5 nearest datapoint, and classify the class which consist most of the 5 classes.  An example is shown \ref{fig:KNN}
 
 \begin{figure}[h]
 	\centering
@@ -274,7 +274,7 @@ An important part of good classification, is finding good features from data fro
 The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
 
 \subsection{Features extraction} \label{feature_extraction}
-Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extraced should make it easy for a classifier to distinguish between the various classes. A common of to use is the statistical features.
+Feature extraction is the process one would use techniques to build a new set of features from the original set and use it as input. The features extracted should make it easy for a classifier to distinguish between the various classes. A common of to use is the statistical features.
 
 \subsubsection{Statistical features}
 
@@ -310,7 +310,7 @@ Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}
 \label{eq:skew}
 \end{equation}
 
-The skewness can be either negative or positive depending on wheter data points are skewed to the left or to the right. If the data is skewed to the left indicate a negative skewness, while postivie skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
+The skewness can be either negative or positive depending on whether data points are skewed to the left or to the right. If data is skewed to the left indicate a negative skewness, while positive skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
 
 \begin{figure}[h]
 	\centering
@@ -358,7 +358,7 @@ There are three types of feature selection algorithms: filter-, wrapper- and emb
 \end{figure}
 
 \paragraph{Filter}
-Filter feature selection is independent of any classifier. It uses statistical measure to assign each feature a score. Feature will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number the number of available training examples comparatively small.  
+Filter feature selection is independent of any classifier. It uses statistical measure to assign each feature a score. Feature will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number of available training examples comparatively small.  
 
 
 \paragraph{Wrapper}
@@ -370,7 +370,7 @@ Embedded feature selection perform feature selection as part of the learning pro
 
 \subsection{Features scaling}
 \label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectores. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
+To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectors. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
 
 
 \section{Model validation}
@@ -395,22 +395,22 @@ Overfitting and underfitting the data is a issue in machine learning which cause
 		\centering
 		\includegraphics[scale=0.43]{Figures/Overfitting}
 		\caption{Overfitting}
-		\label{fig:sub1}
+		\label{fig:over}
 	\end{subfigure}%
 	\begin{subfigure}{.5\linewidth}
 		\centering
 		\includegraphics[scale=0.43]{Figures/Underfitting}
 		\caption{Underfitting}
-		\label{fig:sub2}
+		\label{fig:under}
 	\end{subfigure}\\[1ex]
 	\begin{subfigure}{\linewidth}
 		\centering
 		\includegraphics[scale=0.43]{Figures/Finefitting}
 		\caption{Optimal}
-		\label{fig:sub3}
+		\label{fig:optimal}
 	\end{subfigure}
-	\caption{Figur showing the mean}
-	\label{fig:meanx}	
+	\caption{Figur illustrate when a model is \ref{fig:over} overfitted, \ref{fig:under} underfitted and \ref{fig:optimal}optimal }
+	\label{fig:fitting}	
 \end{figure}
 
 \FloatBarrier
@@ -434,7 +434,7 @@ The process of k-fold is to partitioned the data into k subset, where one subset
 
 \subsection{Evaluating Classifiers}
 \label{subsec:evalclf}
-Evalution of the performance of the classifier can be shown by looking at the output, which could be either correct or wrong. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
+Evaluation of the performance of the classifier can be shown by looking at the output, which could be either correct or wrong. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
 
 \begin{enumerate}
 	\item True postive (TP) is correct prediction of class positive
@@ -522,13 +522,13 @@ The monopod is a simple legged robot design, with one leg. The locomotion of mon
 
 
 \paragraph{Biped}
-Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. A sucessive of imitating the human is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel which is similar to human behavior. However, using a biped for terrain classification is still unsuitable since it is hard to maintain stability when it for instance walking on small slope.
+Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans, such as the walking, running, jump, traverse on stairs. A successive of imitating the human is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel which is similar to human behavior. However, using a biped for terrain classification is still unsuitable since it is hard to maintain stability when it for instance walking on small slope.
 
 \paragraph{Quadruped}
 Quadruped is robot with four legs to walk and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. With hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg depend on the terrain. Other abilities are being able to jump, run and maintain the stability even it get pushed or walking on slippery terrain. A reason of mostly work using quadruped is its stability. By having more legs make the more stable and is capable to traverse through terrain without falling. However it is more complex to control their legs.
 
 \paragraph{Hexapod}
-Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. Plenty study of terrain classification is based on hexapod, because of its stability.
+Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. Because of its stability, hexapod is popular used robot within terrain classification studies.
 
 \begin{figure}
 	\centering
@@ -597,14 +597,14 @@ Terrain classification with other type of local sensor research of can be found 
 There is a vast number of classifiers and various of each classifier has been used within the terrain classification, neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
 \\
 \\
-The no free lunch theorem descirbed in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem. 
+The no free lunch theorem described in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and NB gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} show that NB, SVM and DT were better than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem. 
 \\
 \\
 Mostly study is based on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method to terrain classification using unsupervised learning. This make a robot to be able automatically distinguish terrain without any human interaction or feedback. Another work of same authors
 \cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
  
 \subsection{Features}
-As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of stastical moments (mean, varianc,skewness, kurtosis etc.) in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of statistical features in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
 \\
 \\
 Giguere and Dudek \cite{5152662} extracted seven features in time-domain which five is statistical features such as mean, variance, skewness, kurtosis and fifth moment. The other feature is sum of the variation over time, and number of times 20 uniformly separated threshold are crossed. The author also extracted a feature in frequency domain which is the sum of higher half of amplitude spectrum. Also applied feature scaling.
@@ -613,10 +613,10 @@ Giguere and Dudek \cite{5152662} extracted seven features in time-domain which f
 Hoffmann el at. \cite{Hoffmann20141790} defined features in time and frequency domain. In time domain features extracted were such as, minimum, maximum, mean, kurtosis, skewness, median, standard deviation, approximation of the integral, amplitude of Hilbert transform. Also a the maximum and mean values of the first and second differences is used. Other features was extracted in frequency domain such as frequency with highest amplitude and its magnitude, and similar to the second and third highest amplitude, in total 6 features. 
 \\
 \\
-Kertész \cite{7387710} computed median, maximum, skewness and root mean square (RMS) from of the accelerometer angles in x, y and z-direction. Those features were also extracted also in frequency domain for the z axis. For the force sensors, interquartile range (IQR), maximum, skewness, RMS amplitude and the highest amplitude in frequency domain.  
+Kertész \cite{7387710} computed median, maximum, skewness and root mean square (RMS) from of the accelerometer angles in x, y and z-direction. Those features were also extracted in frequency domain for the z axis. For the force sensors, interquartile range (IQR), maximum, skewness, RMS amplitude and the highest amplitude in frequency domain.  
 \\
 \\
-Best el at.\cite{26b23e912c654fe4b7478fd910130195} extracted five statisical features in domain such as minimum, maximum, mean median and standard deviation. However some of staticial features is also calculated in frequency, and additonally the energy is also suggested.
+Best el at.\cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in domain such as minimum, maximum, mean median and standard deviation. However some of statistical features is also calculated in frequency, and additonally the energy is also suggested.
 \\
 \\
 An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. 
@@ -626,12 +626,12 @@ A common method of validation is using the k-fold cross-validation \cite{DBLP:co
 Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved a overall accuracy 99.4\%, and states that they can get 100\% with more folds. Best el at. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation let the classifier being confused between grass and concrete terrains. 
 \\
 \\
-Some of the author is aware of the k-fold only gives an indication on how good the classifier is, since the experiment always use samples where it involve in either training or testing. The model might be less generalized, data are more likely referring to themselves and will have difficulty of predicting unseen data. This can be rectified by having more realistic scenario, where the evaluation is based on the robot traverse through different terrains \cite{DBLP:conf/itat/MrvaF15}. An another method is to partitioned the samples to make the training and test set independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and test is from other set. 
+As stated in \cite{7387710}, the k-fold gives a reasonable estimate of the performance, however, it does not how well it predict on unseen data. This is because the experiment always use samples where it involve in either training or testing. The model might be less generalized, data are more likely referring to themselves and will have difficulty of predicting unseen data. Mostly authors is aware of the this and has rectified it by having more realistic scenario, where the evaluation is based on the robot traverse through different terrains \cite{DBLP:conf/itat/MrvaF15}. An another method is to partitioned the samples to make the training and test set independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and test is from other set. 
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to partitioned randomly the data set with 70\% used for training, and the rest used for testing \cite{5752869}.  
 
-As stated in \cite{7387710}"The k-fold cross-validation does not replace the model verification on unseen data, but it gives a reasonable estimate about the model performance"
+
 
 \chapter{Implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
@@ -643,7 +643,7 @@ This chapter intends to explain the various choices which has been made to creat
 The data segmentation is implemented in C++ and machine learning in python. Reading data from optical force sensor is also coded in python and taken from \cite{optoRos}. A software component framework developed for robot applications, Robot Operating System (ROS), is used to connecting each implementation as nodes. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collection and class prediction in real time whereas the python implementation runs sequentially.
 \\
 \\
-There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algoithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
+There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algorithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
 
 
 \paragraph{Scikit-learn}
@@ -655,7 +655,7 @@ Runstats is library is used to compute statistics, such as max, mean, skew, vari
 %\part{Conclusion}                     %% ... or Konklusjon
 
 \subsection{Robot}
-The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get deattach. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
+The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get demounted. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
 (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
 
 \paragraph{Gaits}
