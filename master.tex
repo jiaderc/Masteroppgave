@@ -84,13 +84,13 @@ This thesis will use optical force sensor for terrain classification. The experi
 \mainmatter{}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans will adapt their walking style on different terrain to have a stable locomotion, and to avoid falling. Adapting the walking style comes of past experiences. For instance one has experienced that running on icy road may cause a fall, while running on dry road will be fine. To achieve this ability, the robot must have the ability of distinguish different terrains.
+Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes of past experiences. For instance, one might experienced the difficulty of running on icy road and may cause a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to distinguish different terrains.
 \\
 \\ 
-New and improved sensors have made it possible to distinguish terrain even more accuracy. A popular sensor used is gather information visually from terrain such as camera \cite{littleDog}, laser scanners \cite{4651026}. These types of sensor gather information from terrain indirectly. While other use sensor that measure the properties of the terrain more directly such as tactile, joint angle, accelerometer and gyroscope. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a Quadruped Robot to identify which of them is suitable and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of sensor which use refracted light intensity to measure the contact force has been less focused within terrain classification, that is the 3-axis optical force sensor. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor suit to obtain information from terrain and distinguish them. The goal of this thesis is to use an 3D optical force sensor and investigate whether it can distinguish terrains with slightly difference such as floor and carpet.
+New and improved sensors have made it possible to distinguish terrain even more accuracy. A popular sensor used is gather information visually from terrain such as camera \cite{littleDog}, laser scanners \cite{4651026}. These types of sensor gather information from terrain indirectly. While other rather to measure the properties of the terrain more directly such as tactile, joint angle, accelerometer and gyroscope. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a Quadruped Robot to identify which of them is suitable and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of sensor which use refracted light intensity to measure the contact force has been less focused within terrain classification, that is the 3-axis optical force sensor. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor suit to obtain information from terrain and distinguish them. The goal of this thesis is to use an 3D optical force sensor and investigate whether it can distinguish terrains with slightly difference such as floor and carpet.
 \\
 \\
-To evaluate quality of the sensor in terrain classification, several learning techniques will be applied. As there are many different learning algorithms and some is more suitable for some sensor than other sensor, the thesis will look into how to preprocess data, select different features and perform on several classifier to find a reliable approach.
+To evaluate quality use of the sensor in terrain classification, this thesis will be investigating several learning algorithms and find a reliable approach. The thesis will also look into how to preprocess data, create features and select features.
 
 
 \section{Outline}
@@ -117,7 +117,8 @@ The discussion chapter will discuss results from the experiments, along with sug
 %Snakke litt om historien om optical force sensor
 %Optical force sensors use the refracted light itensity to measure..
 \section{Terrain classification}
-Terrain classification is the process of identify different types of terrain such as rocks, wood, grass and sand. The challenging of discriminate terrain is the variation of its characteristics such as slope, roughness, hardness and friction. Outdoor terrains has unstructured environment and the terrain will change their properties accordingly to the weather which make it more unpredictable. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it is more structured environment and the terrain will not be highly affected of other factor.
+Terrain classification is the process of identify different types of terrain by looking on its characteristics such as texture, slope, roughness, hardness and friction. For instance sand has a soft consistency while rocks is hard. Outdoor terrains is more unpredictable cause of its unstructured environment and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of any factors.
+
 
 \section{Optical force sensor}
 Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
@@ -129,7 +130,7 @@ Optical force sensors use the refracted light intensity to measure the deformati
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes will measure the force by measure the infared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Which direction x, y and z-direction is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
 
 
 \begin{figure}[h]
@@ -140,22 +141,22 @@ The sensor consists of a light emitter (LED) and four sensing elements(photodiod
 \end{figure}
 
 \section {Machine learning}
-Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which can be used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement learning, evolutionary learning \cite{Marsland:2009:MLA:1571643}. In the thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between them.
+Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector, with an class for each dataset as output. The training process consists of analyzing the each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
 
 \paragraph{Supervised learning}
-Supervised learning algorithms make predictions based on labeled dataset. That is, the system know the correct answers to each dataset and make prediction based on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
+Supervised learning algorithms predict new data based on labeled dataset. That is, the system in learning process know correct answers to each dataset and will base the prediction on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
 
 \paragraph{Unsupervised learning}
-Unsupervised learning algorithms make predictions from data points without label. That is, the system has to organize the data on its own and make prediction based on that. A common method to organize the data is by clustering.
+Unsupervised learning algorithms make predictions from data points without label. The system has to organize the data on its own and make prediction based on that. A common method to organize the data is by clustering.
 
 \paragraph{Reinforcement learning}
-Reinforcement learning algorithms will gets to choose an action in response to each dataset. It will then either receive a reward indicating how good the decision was. Based on rewards, the algorithms modifies its strategy in order to get the highest reward.
+Reinforcement learning algorithms will choose an action in response to each dataset. It will then either receive a reward indicating how good the decision was. Based on rewards, the algorithms modifies its strategy in order to get the highest reward.
 
 \paragraph{Evolutionary learning}
 Evolutionary learning use the biological evolution such as reproduction, mutation, recombination, and selection as learning process. It is often used to find how good the current solution is.
 
 \subsection{Classifier}
-The classifier is the component with learning process and produce the inferred function. The following section will introduce technical background of five different classifiers which is intended to be used in this thesis.
+The classifier is where the learning process occur and produce the inferred function. Following sections will introduce technical background of five different classifiers which is intended to be used in this thesis.
 
 \subsubsection{Neural network}
 Artificial Neural Network (ANN) is a computational model based on brain, and is one of the most used learning algortihm. It can be found in many different research field, such as signal processing, image processing, control, natural language processing etc. A simple model of neuron is shown in figure \ref{fig:NN}. A neuron consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether the neuron should fire with an output o, for the current input, $x_i$. 
@@ -494,8 +495,6 @@ An example of confusion matrix is shown on table \ref{tab:cmatrix}
 
 
 \section{Related work}
-
-\subsection{Terrain classification}
 The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
 
 \subsection{Importance of terrain classification}
@@ -1571,7 +1570,7 @@ On the table \ref{svmexp} showing accuracy. The average is at least 94\%, and ha
 \FloatBarrier
 
 \subsubsection{Neuarl Network - Feature set one}
-On the table \ref{nn2} showing accuracy. Compared to the old result from \ref{tab:exp2} with accuracy on 96\%, the classifier perform more poorly on unseen data, with average accuracy 67.4\%. The classifier has most difficulty of distinguish the hard mat, but do have some problems with floor too. The soft mat is the easiest terrain to predict with f-score on 100\%, shown in \ref{nnfscore}. Carpet is second highest f-score with average... Even the precision is high, but the recall is low. Third highest f-score is floor. Recall and precision is factor which lead to low f-score. The least higest f-score is the hard mat with average... The recall is relative high, but the precision is low, which make a low f-score.
+On the table \ref{nn2} showing accuracy. Compared to the old result from \ref{tab:exp2} with accuracy on 96\%, the classifier perform more poorly on unseen data, with average accuracy 67.4\%. The classifier has most difficulty of distinguish the hard mat, but do have some problems with floor too. The soft mat is the easiest terrain to predict with f-score on 100\%, shown in \ref{nnfscore}. Carpet is second highest f-score with average... Even the precision is high, but the recall is low. Third highest f-score is floor. Recall and precision is factor which lead to low f-score. The least highest f-score is the hard mat with average... The recall is relative high, but the precision is low, which make a low f-score.
 
 
 \begin{table}[h]
@@ -1836,11 +1835,11 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 
 
 \begin{enumerate}
-\item Hard mat to carpet/floor...
+\item Floor to carpet
+\item Hard mat to floor
 \item Hard mat to soft mat
 \item Soft mat to hard mat
 \item Soft mat to carpet
-\item From floor to carpet
 \end{enumerate}
 
 \subsection{Real time implementation}
@@ -1907,7 +1906,6 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 	\caption{The figure showing steps } \label{fig:realtime}
 \end{figure}
 \FloatBarrier
-
 
 
 
@@ -2141,16 +2139,30 @@ Is also seen that in the beginning the probability of correct terrain is also ty
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{@{}lllll@{}}
 			\toprule
-			\textbf{Approach} & \textbf{Sensor used} & \textbf{Classifier} & \textbf{Number of terrains} & \textbf{Accuracy} \\ \midrule
-			\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Exploring surface detection \\ for a quadruped robot in households\end{tabular}} & accelerometer & \multirow{2}{*}{Naive Bayes} & \multirow{2}{*}{5} & \multirow{2}{*}{90.9\%} \\
-			& paw sensor &  &  &  \\
-			Terrain Classification for a Quadruped Robot & Tactile sensor & Reservoir Computing (RC) & 1 & 93.8\% \\
-			Thesis approach & Optical force sensor & SVM & 4 & 93\% \\ \bottomrule
+			\textbf{Approach} & \textbf{Sensor used} & \textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of\\ terrains\end{tabular}} & \textbf{Accuracy} \\ \midrule
+			\multirow{3}{*}{Hoepflinger el at. \cite{5509309}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Force sensing\\ Joint motor currents\end{tabular}} & \multirow{3}{*}{Adaboost} & \multirow{3}{*}{4} & \multirow{3}{*}{73.3\%} \\
+			&  &  &  &  \\
+			&  &  &  &  \\
+			\multirow{3}{*}{Kim el at. \cite{5602459}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Ground reaction force \\ Torque sensors\end{tabular}} & \multirow{3}{*}{SVM} & \multirow{3}{*}{4} & \multirow{3}{*}{78.75\%} \\
+			&  &  &  &  \\
+			&  &  &  &  \\
+			\multirow{3}{*}{Kertész \cite{6849778}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Accelerometer\\ Paw sensor\end{tabular}} & \multirow{3}{*}{Naive Bayes} & \multirow{3}{*}{5} & \multirow{3}{*}{90.9\%} \\
+			&  &  &  &  \\
+			&  &  &  &  \\
+			\multirow{2}{*}{Weiss el at. \cite{4059113}} & \multirow{2}{*}{Vibration} & \multirow{2}{*}{SVM} & \multirow{2}{*}{7} & \multirow{2}{*}{91.7\%} \\
+			&  &  &  &  \\
+			\multirow{2}{*}{Degrave el at. \cite{6784609}} & \multirow{2}{*}{Tactile sensor} & \multirow{2}{*}{Reservoir Computing} & \multirow{2}{*}{5} & \multirow{2}{*}{93.8\%} \\
+			&  &  &  &  \\
+			\multirow{2}{*}{Giguere and Dudek \cite{5752869}} & \multirow{2}{*}{Tactile probe} & \multirow{2}{*}{Neural network} & \multirow{2}{*}{5} & \multirow{2}{*}{94.3\%} \\
+			&  &  &  &  \\
+			\multirow{2}{*}{Thesis approach} & \multirow{2}{*}{Optical force sensor} & \multirow{2}{*}{SVM} & \multirow{2}{*}{4} & \multirow{2}{*}{95.2\%} \\
+			&  &  &  &  \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption{My caption}
-	\label{my-label}
+	\caption{Table showing a comparison between thesis approach with other approaches}
+	\label{table:compareEarly}
 \end{table}
+
 \subsection{Future work}
 Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. Although, in the first two experiment has shown a reliable performance of classifiers, however it becomes unreliable when it comes to predicting unseen data. It could be that more training samples is needed. However, choosing a correct set of hyper parameters might increase its performance. Thus, having hyperparameter optimization could be further research, to see if there are other classifiers achieve a better performance than currently SVM.
 \\
