@@ -988,7 +988,6 @@ The feature set will be look like:
  &\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
  &\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz} \right\}
 \end{align}
-
 The vector contain 5 features from each direction, which is in total 15 features. 
 
 \paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
@@ -997,7 +996,6 @@ The vector contain 5 features from each direction, which is in total 15 features
 \begin{equation} \label{eq:f2}
 f_{set3}= \left\{ fx_1,\dotsc,fx_{61},fy_1, \dotsc,fy_{61},fz_1,\dotsc,fz_{61} \right\}
 \end{equation}
-
 The vector contain 61 features from each direction, which is in total 183 features. 
 
 \paragraph{Feature set four - staticial features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
@@ -1010,7 +1008,6 @@ The vector contain 61 features from each direction, which is in total 183 featur
 \item Standard deviation in frequency domain
 \item Energy 
 \end{enumerate}
-
 The feature which will be feed into classifier:
 \begin{align}
  f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
@@ -1018,6 +1015,7 @@ The feature which will be feed into classifier:
  &\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 \end{align}
 The vector contain 6 features from each direction, which is in total 18 features. 
+
 \paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
 \begin{align}
 f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
@@ -1387,7 +1385,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 47 \\ \bottomrule
 	\end{tabular}
-	\caption{SVm, the row show the actual terrains and the columns how they were classified}
+	\caption{Table showing the accuracy and confusion matrix for SVM with wrapper and feature set two. The row show the actual terrains and the columns is predicted terrain}
 	\label{svmexp}
 \end{table}
 \FloatBarrier
@@ -1402,7 +1400,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{80\%} & 94\% \\ \bottomrule
 	\end{tabular}
-	\caption{precision of svm}
+	\caption{Table shows precision of SVM}
 	\label{pressvm}
 \end{table}
 \FloatBarrier
@@ -1418,7 +1416,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \bottomrule
 	\end{tabular}
-	\caption{Recall of svm}
+	\caption{Table shows recall of SVM}
 	\label{recallsvm}
 \end{table}
 \FloatBarrier
@@ -1434,7 +1432,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{88\%} & 96.9\% \\ \bottomrule
 	\end{tabular}
-	\caption{F-score svm}
+	\caption{Table shows f-score of SVM}
 	\label{fscoresvm}
 \end{table}
 \FloatBarrier
@@ -2046,6 +2044,11 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 \subsection{Summary}
 In this experiment five different transition between two terrains. A common characteristic is that the probability decrease particular on the transition step. It predict correct when the terrain has a huge difference to the other such as soft mat. While transition between more similar terrain has a wrong prediction at the transition. The first step has tend to either have relative high probability approximately 90\% or low probability approximately 54\%.
 
+
+\section{Prediction on other sensor}
+The classification has been based on only one sensor on front left foot, thus it will be interesting to see whether it is possible to use the currently training set to classify accurately on front right foot. If it achieve a high accuracy might indicate that one the both feet on the front can be using the same training set instead of separately which is more convenient.
+
+\section{Result} 
 
 \begin{comment}
 
