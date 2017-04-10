@@ -1095,7 +1095,7 @@ The samples used as training and test is a step before the learning procedure. T
 	
 
 \end{enumerate}
-
+\clearpage
 \subsection{Learning procedure}
 When the data samples of each terrain is collected into a file, the learning process is shown in figure \ref{fig:learningProcess}.
 \begin{figure}[h]
@@ -1142,7 +1142,7 @@ When the data samples of each terrain is collected into a file, the learning pro
 \end{figure}
 
 \FloatBarrier
-
+\clearpage
 \subsubsection{Details of the learning process}
 \begin{enumerate}
 \item \textbf{\underline{Reading file with samples}}
@@ -1893,7 +1893,7 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 \FloatBarrier
 
 
-
+\clearpage
 \subsection{Floor to carpet}
 The data stream is shown in figure \ref{fig:gulvet4teppegraf} and the table \ref{tab:Gulvet4teppe} show probability of the terrains for each step. In this experiment the robot walked four step on floor and the rest on carpet. The accuracy of predicting correct is 88.9\%. However, looking how certain the classifier to predict correct is lower. Fifth step is the transition and as it can be seen it is confused. It is worth noticing that at fourth step the carpet has almost same probability as the floor. The soft mat and hard mat has small probability and is more likely not to be predicted.
 
@@ -1923,7 +1923,7 @@ Hard mat & 0.104 & 0.022 & 0.081 & 0.007 & 0.073 & 0.010 & 0.055 & 0.166 & 0.104
 \end{table}
 \FloatBarrier
 
-
+\clearpage
 \subsection{Hard mat to floor} \label{subsec:hmf}
 The data is shown in figure \ref{fig:mb3Gulvet} and the table \ref{tab:mb3Gulvet} show how the probability of each step, walking from hard mat to floor. The overall accuracy of predicting correct is 50\%. It can be seen that the first two step it is clearly what terrain it is on. While the third step start to be confused between hard mat and carpet. When it is on floor it rather predicting the floor.
 
@@ -1955,7 +1955,7 @@ Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.915 & \cell
 \end{table}
 
 \FloatBarrier
-
+\clearpage
 \subsection{Hard mat to soft mat} \label{sec:hmssm}
 The data is shown in figure \ref{fig:hardmatSoftMat} and the table \ref{hardmatSoftMat} show how the probability of each step in transition from hard mat to soft mat. As seen on the figure \ref{fig:hardmatSoftMat} there is a clearly difference between walking on hard mat and soft mat. Hard mat has a higher force in every direction. However, there are some uncertain of prediction on the first, third and sixth step, where it has a probability under 54\%. 
 
@@ -1984,6 +1984,7 @@ Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cell
 \label{hardmatSoftMat}
 \end{table}
 \FloatBarrier
+\clearpage
 
 \subsection{Soft mat to hard mat}
 The data stream is shown in figure \ref{fig:MM_4_Resten_BGraf} and the table \ref{MM4MB} show probability of the terrains for each step. Again, the accuracy of predicting correct is 100\%. In this experiment the classifier is able without any problem. However prediction at beginning (first step), and the step right before new terrain (fourth step), has probability under 53\%.
@@ -2012,6 +2013,7 @@ Hard mat & 0.300 & 0.086 & 0.054 & 0.344 & \cellcolor[HTML]{34FF34}0.921 & \cell
 \label{MM4MB}
 \end{table}
 \FloatBarrier
+\clearpage
 \subsection{Soft mat to carpet}
 The data stream is shown in figure \ref{fig:softcarpet} and the table \ref{tab:softcarpet} show probability of the terrains for each step. It has predicted 7 of 8 correctly. As seen in the figure \ref{fig:softcarpet}, there is a large variation from walking soft mat to carpet. On small soft mat the amplitude is significant smaller than carpet. At the fifth step is when the robot walked from the old terrain to the new one, and the probability of carpet is approximately 66.7\%. However the second highest has a probability of 21.6\%, which it clear what terrain it is. Regarding sixth step, the classifier has a wrong prediction between carpet and hard mat. There is a high probability of hard hard mat. A few factors which might cause that, is looking to the figure \ref{fig:softcarpet}. The shape y direction differ from the other after it, and so is for the amplitude.
 
