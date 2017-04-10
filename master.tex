@@ -155,7 +155,7 @@ Reinforcement learning algorithms will choose an action to each dataset and it w
 \paragraph{Evolutionary learning}
 Evolutionary learning use the biological evolution such as reproduction, mutation, recombination, and selection as learning process. It is often used to find how good the current solution is.
 
-\subsection{Classifier}
+\subsection{Classifier} \label{sub:classifier}
 The classifier is where the learning process occur and produce the inferred function. Following sections will introduce technical background of five different classifiers which is intended to be used in this thesis.
 
 \subsubsection{Neural network}
@@ -204,7 +204,7 @@ Naive Bayes algorithm is based on Bayes’ theorem with the assumption of indepe
 P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
+The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
 
 \begin{comment}
 
@@ -597,7 +597,7 @@ The no free lunch theorem described in section \ref{seq:nofree} can be seen in p
 Mostly study based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method to terrain classification using unsupervised learning. This make a robot to be able automatically distinguish terrain without any human interaction or feedback. Another work of the same authors
 \cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
  
-\subsection{Features}
+\subsection{Features} \label{sub:relatedfeatures}
 As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of statistical features in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
 \\
 \\
@@ -629,32 +629,28 @@ Not all studies evaluated their models by k-fold cross-validation, but either wi
 
 
 
-\chapter{Implementation}        %% ... or ??
+\chapter{Implementation}\label{ch:implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
 
 
 \section{Tools and environment}
 
 \subsection{Implementation language}
-The data segmentation is implemented in C++ and machine learning in python. Reading data from optical force sensor is also coded in python and taken from \cite{optoRos}. A software component framework developed for robot applications, Robot Operating System (ROS), is used to connecting each implementation as nodes. In the ROS implementation the algorithm split into several ROS nodes to allow parallell execution of the data collection and class prediction in real time whereas the python implementation runs sequentially.
+There are many choices of programming language, however the robot use a software framework developed for robot applications, Robot Operating System (ROS). The benefit of ROS is that processes can be grouped into packages, which can be easily shared and distributed. This allow parallel execution of the data collection and class prediction in real time. Thus, it is recommended to use programming language which are supported for ROS such as C++ and Python. 
 \\
 \\
-There are many choices of programming language, but few is limited to integrate it with ROS, which are Python, C++, Lisp and MatLab. Using Java and Lua in ROS is under development. The reason of implementing data segmentation in C++ is faster Python which can deal to store and delete data stream better. Since the C++ does not has many learning library, the learning approach is implemented in Python. Python provide lots of libraries which provide multiple learning algorithms. The libaray's are well-documented and have the freedom to customize each algorithm to use. The library's used in this project to test different classifiers are scikit-learn, numpy, scipy and runstats.Python has a library called scikit-learn. It has many different type of supervised- and unsupervised learning. With all of this library it will be easy to test different classifier to find out what is the best. C++ is much faster than Python, but does not come with many learning algorithm, and it can be difficult to debug it. MatLab could also be used, it has labraries, so it would not matter whether langauge it was chosen between these two.
-
+Reading data from optical force sensor is using the package from \cite{optoRos}. The implementation publish data from the sensor, which make it possible for other module to fetch the data by subscribing to the node. Segmentation, which will be described later in section \ref{subseq:segmentation} is implemented in C++. The reason of implementing data segmentation in C++ is because it is faster than Python which can deal to store and delete data stream better. However, C++ does not provide many learning libraries, so the learning approach is implemented in Python. Python provide lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use. In this project libraries such as scikit-learn, scipy and runstats will be used to test each of different classifiers described in section \ref{sub:classifier}.
 
 \paragraph{Scikit-learn}
-Scikit-learn is an open source library that provide tools for data mining and data analysis \cite{scikit-learn}. The library is dependent on Numpy, Scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
+Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
 
 \paragraph{Runstats}
-Runstats is library is used to compute statistics, such as max, mean, skew, variance and standard deviation \cite{runstats}
+Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew, variance and standard deviation where some of them is described in section \ref{sub:statical}.
 
 %\part{Conclusion}                     %% ... or Konklusjon
 
 \subsection{Robot}
-The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. For simply set the sensor is placed in such way that it has the same direction as y-axis, which will easier to reproduce the experiments if the foot get demounted. As long one of the axis point same direction as the robot, it will be easier to reproduce experiments. Since the sensor is sensitive to x,y and z-direction, it is important that attaching both sensor in front the same way, and the for back also the same. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization
-(MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck (slow gait) or tipped down(fast gait). The gait is a balanced gait which let the robot go straight forward, how many steps it should walk can be done by changing a parameter in code. 
-
-\paragraph{Gaits}
+The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait or fallen down with fast gait. The gait used is a balanced gait which let the robot go straight forward. 
 
 
 \begin{figure}[h]
@@ -666,7 +662,7 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 \FloatBarrier
 
 \subsection{Terrain} \label{seq:terrain}
-Four different terrains will be used in all experiment, which are floor, carpet, soft mat, and hard mat, shown in figure \ref{fig:terrains}. A reason of choosing those is a more challenging task for classifier to distinguish them, cause of similarity between them. If the algorithm manage to discriminate between floor and hard mat, it might indicate that the sensor did sense some differences. Floor, hard mat and carpet are the most difficult to distinguish, cause of similar properties. They are all slippery and has the equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
+Four different terrains is used in all experiment: floor, carpet, soft mat, and hard mat shown in figure \ref{fig:terrains}. A reason of choosing those is to get a more challenging task for classifier to distinguish them, because of similar properties between them. The intuition is that if the algorithm manage to discriminate between floor and carpet might indicate that it is able to distinguish mostly of the terrains. Floor, carpet and hard mat  has the most similar properties and is also the most difficult to distinguish. They are all slippery and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
 
 \begin{comment}
 \begin{figure} 
@@ -782,19 +778,19 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
-		\caption{}
+		\caption{Floor}
 		\label{fig:gulvgraf} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{\textwidth}
 			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
-		\caption{}
+		\caption{Carpet}
 		\label{fig:teppegraf}
 	\end{subfigure}
 
 	\begin{subfigure}[h]{\textwidth}
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
-	\caption{}
+	\caption{Hard mat}
 	\label{fig:mattebgraf}
 	\end{subfigure}
 
@@ -802,14 +798,10 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 \begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[b]{\textwidth}
 			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
-		\caption{}
+		\caption{Soft mat}
 		\label{fig:mykmattegraf}
 	\end{subfigure}
-	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
-		with a constant-curvature body shape showing the scaled leading-order veritcal 
-		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
-		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
-		values of $M,I$.}
+	\caption[]{Figure showing data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat }
 	\label{fig:gtmgraf}
 \end{figure}
 
@@ -818,23 +810,22 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 
 
 \subsection{Analyzing data from sensor}
-Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream, as shown in figure \ref{fig:gtmgraf}. The periodic sequence is for each step. A common characteristic for all terrain is when the foot is in the air, x,y, z-direction will have minor change almost constant.
+Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
 
 \subsection{Data segmentation} \label{subseq:segmentation}
-An appropriate method to segment data is sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining interesting data from the window and big window size is not efficient. Thus, an algorithm to segment data was created. 
+An appropriate method to segment data is by sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window and too big window size is not efficient. Thus, an algorithm to segment data was created. 
 \\
 \\
-In the thesis it is considered that the most informative from terrain is when the foot has with the ground until it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minior change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set. It has a restriction on when to use or not. Many runs the shortest with 125 length.
+In the thesis it is considered that the most informative data of terrain is from when the foot is on ground to it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minor change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
 
-
-\section{Feature extraction}
-As mentioned in section \ref{features}, a good classifier is depended of  good features. In the section \ref{feature_extraction} previous work have extracted features both in time domain and frequency domain. 
+\section{Feature extraction}\label{sec:featuex}
+As mentioned in section \ref{features}, a good classifier is depended of good features. In the section \ref{feature_extraction} has shown that mostly of previous work have been extracting features both in time domain and frequency domain. In this thesis will also be looking on both domains.
 \\
 \\
-In time domain, figure \ref{fig:meanxyz} showing the mean of 10 samples in three z,y and z-direction. Carpet and Hard mat is most similar accordingly the values, which might be the most difficulty to discriminate. However, shapes of curves between floor and carpet is the most similar, which also may be not easy to predict. The soft mat differ from the other widely, and should be the easiest to predict. 
+Figure \ref{fig:meanxyz} showing the mean of 10 samples in x,y and z-direction in time domain. Looking on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
 \\
 \\
-A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The soft mat differ from the other widely, while floor, carpet and hard mat is similar to each other.
+A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
 
 
 \begin{comment}
@@ -864,28 +855,24 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	\centering
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
-		\caption{}
+		\caption{Mean of 10 samples in x-direction}
 		\label{fig:meanx} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
-		\caption{}
+		\caption{Mean of 10 samples in y-direction}
 		\label{fig:meany}
 	\end{subfigure}
 \end{figure}
 	\begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
-		\caption{}
+		\caption{Mean of 10 samples in z-direction}
 		\label{fig:meanz}
 	\end{subfigure}
 	
-	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
-		with a constant-curvature body shape showing the scaled leading-order veritcal 
-		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
-		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
-		values of $M,I$.}
+	\caption[]{The figure showing the mean of each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
 	\label{fig:meanxyz}
 \end{figure}
 
@@ -894,29 +881,25 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	\centering
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/fftx}
-		\caption{}
+		\caption{Mean of 10 samples in x-direction}
 		\label{fig:fftx} 
 	\end{subfigure}
 \end{figure}
 \begin{figure}[h] \ContinuedFloat	
 	\begin{subfigure}[b]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/ffty}
-		\caption{}
+		\caption{Mean of 10 samples in y-direction}
 		\label{fig:ffty}
 	\end{subfigure}
 
 
 	\begin{subfigure}[h]{0.95\textwidth}
 		\includegraphics[width=1\linewidth]{Figures/fftz}
-		\caption{}
+		\caption{Mean of 10 samples in z-direction}
 		\label{fig:fftz}
 	\end{subfigure}
 	
-	\caption[Two numerical solutions]{(a) Numerical solutions for the small-time system 
-		with a constant-curvature body shape showing the scaled leading-order veritcal 
-		reaction force $N_0$ versus the scaled body mass $M$ for various values of $g$. 
-		Again, $I=M$ for definiteness and $A=0.7$. (b) As for (a) but over a wider range of 
-		values of $M,I$.}
+	\caption[]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
 	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
@@ -978,21 +961,23 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 
 
 \subsection{Feature sets}\label{sec:featuresets}
-\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in section \ref{subseq:FixLength}. The feature vector can be seen in \ref{eq:f1}.
+\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in next section \ref{subseq:FixLength}. The feature vector will be:
 
 \begin{equation} \label{eq:f1}
 f_{set1}= \left\{ x_1,\dotsc,x_{125},y_1, \dotsc,y_{125},z_1,\dotsc,z_{125} \right\}
 \end{equation}
-The feature contain 125 feature from each 3 sensors, which mean 375 features.
+The vector contain 125 feature from each 3 sensors, which mean 375 features.
 
 
-\paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. Earlie work is it well used. This is using some of the features from this article \cite{Hoffmann20141790}. The features from this set will be for each direction x,y and z:
+\paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
+
+%This is using some of the features from this article \cite{Hoffmann20141790}. 
 
 \begin{enumerate}
 \item The maximum value of the dataset in time domain
 \item The minimum value of the dataset in time domain
 \item Skew in time domain
-\item Kuortosis in time domain 
+\item Kurtosis in time domain 
 \item Standard deviation in time domain
 \end{enumerate}
 
@@ -1004,23 +989,25 @@ The feature set will be look like:
  &\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz} \right\}
 \end{align}
 
-The feature contain 7 features from each direction, which mean total 21 features. 
+The vector contain 5 features from each direction, which is in total 15 features. 
 
-\paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fft. After tranformation a decimation need to be used, to have a fixed length. 
+\paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
+ 
 
 \begin{equation} \label{eq:f2}
 f_{set3}= \left\{ fx_1,\dotsc,fx_{61},fy_1, \dotsc,fy_{61},fz_1,\dotsc,fz_{61} \right\}
 \end{equation}
 
+The vector contain 61 features from each direction, which is in total 183 features. 
 
-\paragraph{Feature set four - staticial features} This feature set compute the frequency domain of each direction of the raw data. The features mostly same as feature set two and additionally the energy of the spectrum.
+\paragraph{Feature set four - staticial features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
 
 \begin{enumerate}
-\item The maximum value of the dataset in fequency domain
-\item The minimum value of the dataset in fequency domain
-\item Skew in fequency domain
-\item Kuortosis in fequency domain 
-\item Standard deviation in fequency domain
+\item The maximum value of the dataset in frequency domain
+\item The minimum value of the dataset in frequency domain
+\item Skew in frequency domain
+\item Kurtosis in frequency domain 
+\item Standard deviation in frequency domain
 \item Energy 
 \end{enumerate}
 
@@ -1030,7 +1017,7 @@ The feature which will be feed into classifier:
  &\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
  &\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 \end{align}
-
+The vector contain 6 features from each direction, which is in total 18 features. 
 \paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
 \begin{align}
 f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
@@ -1040,15 +1027,18 @@ f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{tr
 &\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
 &\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 \end{align}
+The vector contain 13 features from each direction, which is in total 39 features. 
 
 \subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considerate that data in end and start are less important than in middle.
+In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considered that data in end and start are less important than in middle.
   
 \begin{lstlisting}[language=Python]
 
 def fix_length(data_sequence):
     fixed_length = 125
     total_length = len(data_sequence)  
+
+    #Total amount data to be removed
     total_cut = total_length-fixed_length
 
     #In case the sequence is odd
@@ -1058,7 +1048,7 @@ def fix_length(data_sequence):
     start_pos = total_cut/2 
     end_pos = total_length - (total_cut/2)+rest 
 
-    #Retrieve fixed sequense data 
+    #Retrieve fixed length of sequense data 
     fixed_data_sequence = data_sequence[start_pos:end_pos] 
     return fixed_data_sequence
 \end{lstlisting}
@@ -1088,7 +1078,7 @@ The samples used as training and test is a step before the learning procedure. T
 	\path [line] (p2.south) -- node [above] {} (p3);
 	\end{tikzpicture}
 
-\caption{The figure showing steps } \label{fig:createsamples}
+\caption{The figure showing process of creating training file.} \label{fig:createsamples}
 \end{figure}
 
 \subsubsection{Procedure of creating samples} \label{sub:createsamples}
@@ -1150,7 +1140,7 @@ When the data samples of each terrain is collected into a file, the learning pro
 
 
 
-\caption{The figure showing steps } \label{fig:learningProcess}
+\caption{Figure showing the steps in creating a model and obtain a result.} \label{fig:learningProcess}
 \end{figure}
 
 \FloatBarrier
@@ -1241,7 +1231,7 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
  & SVM & 0.83 & 0.86 \\ \bottomrule
 \end{tabular}%
 }
-\caption{My caption}
+\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess} }
 \label{exp1}
 \end{table}
 
@@ -1305,7 +1295,7 @@ Even there are classifier which outperform the other, there are still improvemen
   
 \end{tikzpicture}
 
-\caption{The figure showing steps } \label{fig:approach2}
+\caption{Figure showing the new approach with added feature selection.} \label{fig:approach2}
 \end{figure}
 
 
@@ -1900,7 +1890,7 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 	
 	\end{tikzpicture}
 	
-	\caption{The figure showing steps } \label{fig:realtime}
+	\caption{Figure showing the real-time implementation} \label{fig:realtime}
 \end{figure}
 \FloatBarrier
 
@@ -2057,6 +2047,8 @@ Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933
 In this experiment five different transition between two terrains. A common characteristic is that the probability decrease particular on the transition step. It predict correct when the terrain has a huge difference to the other such as soft mat. While transition between more similar terrain has a wrong prediction at the transition. The first step has tend to either have relative high probability approximately 90\% or low probability approximately 54\%.
 
 
+\begin{comment}
+
 \section{Less traning samples}
 As mentioned section \ref{subseq:validation}, mostly study k equally two or ten and still has a high accuracy. Thus, it will be interesting to see the performance of the classifier with a smaller set of training set by setting k to two or ten.
 
@@ -2109,16 +2101,18 @@ As mentioned section \ref{subseq:validation}, mostly study k equally two or ten 
 	\label{my-label}
 \end{table}
 \FloatBarrier
+\end{comment}
+
 \chapter{Discussion}
 
 \section{Five classifier prediction on unseen data}
-It is shown that the many classifiers has decreased performance when it come to predicting unseen data. As seen in section \ref{seq:crossunseen}, the neural network and decision tree does not show adequate performance. A reason could be that the classifier is overfitted and not able to generalize the data. Note that those classifiers of raw data sequences. However, the method achieving fixed length has a weakness in this approach, especially when the sequence vary from 125 - 135. In this approach it is considered that data at start and the end of sequence is less important. However, the longer the sequence is, the more data must be removed from the feature vector and risk of removing important features. Default values were used and might have affected classifier especially neural network. The neural network is a complex classifier with many parameter need to be set such as hidden layers and. The Neural Network has more complicated learning process, where the weights is adjusted according to the error. The amount of the hidden layer and hidden nodes must also be adjusted. The feature set is used also raw data, which might cause learning with noises.
+It is shown that the many classifiers has decreased performance when it come to predicting unseen data. As seen in section \ref{seq:crossunseen}, the neural network and decision tree does not show adequate performance. A reason could be that the classifier is overfitted and not able to generalize the data. Note that those classifiers of raw data sequences, and the method of achieving fixed length by decimate data described in section \ref{subseq:FixLength} might been affecting the performance. In this approach it is considered that data at start and the end of sequence is less important. However, the longer the sequence is, the more data must be removed from the feature vector and has a risk of removing important features. Another weakness of using raw data is the risk of learning with noises. Learning with noises might cause of not generalization the model and achieve a poor performance. However, noises are inherent in real world measurement, thus by discarding the noises might also give a poor result. Note each classifier use their default values which also affect the performance, especially neural network. The neural network is a complex classifier with many parameter that need to be adjusted such as size of hidden layers. Amount of hidden layers and hidden nodes provide significant improvement in their performance.  
 \\
 \\
-Regarding a common confusion on hard mat, for each of classifier tend to predict it as carpet, while the soft mat has a high probability.
+Regarding a common confusion on hard mat, for each of classifier tend to predict it as carpet, while the soft mat has a high probability. As seen on previous chapter \ref{ch:implementation} in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}, the hard mat and carpet has the most similar characteristic and is most likely to be confused.
 \\
 \\
-Regarding SVM, the results has not been change during each run. That indicate that the good features is kept and is able to distinguish between each terrain. There is shown a small confusion between floor, carpet and hard mat, which are three with similar terrain characteristic. While the soft mat has an own characteristic and easy to detect. 
+Regarding SVM, the results has not been change during each run. That indicate that the good features is kept and able to distinguish between each terrain. However, there is still a small confusion between floor, carpet and hard mat. 
 
 
 \section{Transition between terrains}
@@ -2128,9 +2122,10 @@ The result achieved in transition between terrains, done in section \ref{sec:rea
 Having training samples where the robot traversing straight through each of one terrain have shown some significant appreciable in their performance. Observations on steps before crossing to new terrain has a less probability of predicting correct. A feasible method to prevent this, is to have training samples where it traverse through different terrains. However, misclassifying terrain when it cross should not be important when it is able to identify terrains after few step.    
 \\
 \\
-Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step is strange, as the in the middle the robot got more stable, thus more training data and more accurately. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
+Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step has a particular behavior, as the in the middle the robot got more stable, thus more training data on the first step to achieved higher probability on first step. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
 
 \subsection{Compared to earlier work}
+Looking of early similar approaches on table \ref{table:compareEarly}, the thesis approach has achieved reliable result by using the optical force sensor....  
 \begin{table}[h]
 	\centering
 	\resizebox{\textwidth}{!}{%
@@ -2156,9 +2151,11 @@ Is also seen that in the beginning the probability of correct terrain is also ty
 			&  &  &  &  \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption{Table showing a comparison between thesis approach with other approaches}
+	\caption{Table showing a comparison between thesis approach with other approaches. Result of this approach is the mean of the accuracy from LOOCV on unseen data.}
 	\label{table:compareEarly}
 \end{table}
+\FloatBarrier
+
 
 \subsection{Future work}
 Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. Although, in the first two experiment has shown a reliable performance of classifiers, however it becomes unreliable when it comes to predicting unseen data. It could be that more training samples is needed. However, choosing a correct set of hyper parameters might increase its performance. Thus, having hyperparameter optimization could be further research, to see if there are other classifiers achieve a better performance than currently SVM.
@@ -2167,8 +2164,7 @@ Every classifier has parameters that can be optimized. Using default values is m
 The classifier is based on the features from contact force. However, features of terrain itself such as hardness and friction are not analyzed directly. It might be hidden inside the classifier and could be addressed in future work. 
 \\
 \\
-"Fusion of more sensors to get increased reliability and include other surface types in the experiments"
-Instead of only base the terrain identification with force sensor, other type of sensor could be used such as body motion of the robot might provide more information of the terrain.  
+The terrains in this thesis has only been experimented with flat terrain. It will be interesting to include more rough surface or other type. By adding more terrains it will also be interesting to fusion more sensor to achieve a higher reliability. Other type of sensor could be used such as body motion of the robot might provide more information of the terrain.  
 \\
 \\
 Unsupervised has been addressed to few authors.
