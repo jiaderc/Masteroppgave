@@ -2052,6 +2052,26 @@ The classification has been based on only one sensor on front left foot, thus it
 
 \section{Result} 
 
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}lllll@{}}
+			\toprule
+			\textbf{Terrain} & \textbf{Floor} & \textbf{Carpet} & \textbf{Soft mat} & \textbf{Hard mat} \\ \midrule
+			\textbf{Floor} & \cellcolor[HTML]{FFFFC7}29 & 1 & 0 & 0 \\
+			\textbf{Carpet} & 3 & \cellcolor[HTML]{FFFFC7}27 & 0 & 0 \\
+			\textbf{Soft mat} & 0 & 0 & \cellcolor[HTML]{FFFFC7}30 & 0 \\
+			\textbf{Hard mat} & 2 & 13 & 0 & \cellcolor[HTML]{FFFFC7}16 \\ \midrule
+			\textbf{Precision} & 96.7\% & 90\% & 100\% & 53.3\% \\
+			\textbf{Recall} & 85.3\% & 65.9\% & 100\% & 100\% \\
+			\textbf{F-score} & 90.6\% & 76.1\% & 100\% & 69.5\% \\ \midrule
+			\textbf{Accuracy} & \multicolumn{4}{c}{84.3\%} \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+\FloatBarrier
 \begin{comment}
 
 \section{Less traning samples}
