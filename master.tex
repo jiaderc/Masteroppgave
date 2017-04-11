@@ -1194,44 +1194,44 @@ The chapter present the results of all model in previous chapter. The two-class 
 Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done once, both with and without the feature scaling. 
 
 
-\begin{table}[]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}l|l|l|l@{}}
-\toprule
-\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{2}{c|}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
- &  & \textbf{Not scaled} & \textbf{Scaled} \\ \midrule
-\multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}} & \multirow{2}{*}{Bayes Navies} & \multirow{2}{*}{0.83} & \multirow{2}{*}{0.83} \\
- &  &  &  \\ \cmidrule(l){2-4} 
- & Decision tree & 0.94 & 0.96 \\ \cmidrule(l){2-4} 
- & KNN & 0.89 & 0.91 \\ \cmidrule(l){2-4} 
- & Neural network & 0.95 & 0.96 \\ \cmidrule(l){2-4} 
- & SVM & 0.89 & 0.93 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}} & Bayes Navies & 0.82 & 0.82 \\ \cmidrule(l){2-4} 
- & Decision tree & 0.83 & 0.84 \\ \cmidrule(l){2-4} 
- & KNN & 0.84 & 0.84 \\ \cmidrule(l){2-4} 
- & Neural network & 0.83 & 0.88 \\ \cmidrule(l){2-4} 
- & SVM & 0.76 & 0.85 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}} & Bayes Navies & 0.91 & 0.91 \\ \cmidrule(l){2-4} 
- & Decision tree & 0.83 & 0.82 \\ \cmidrule(l){2-4} 
- & KNN & 0.91 & 0.88 \\ \cmidrule(l){2-4} 
- & Neural network & 0.93 & 0.93 \\ \cmidrule(l){2-4} 
- & SVM & 0.52 & 0.93 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}} & Bayes Navies & 0.81 & 0.81 \\ \cmidrule(l){2-4} 
- & Decision tree & 0.80 & 0.82 \\ \cmidrule(l){2-4} 
- & KNN & 0.88 & 0.84 \\ \cmidrule(l){2-4} 
- & Neural network & 0.85 & 0.88 \\ \cmidrule(l){2-4} 
- & SVM & 0.83 & 0.86 \\ \midrule
-\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}} & Bayes Navies & 0.82 & 0.82 \\ \cmidrule(l){2-4} 
- & Decision tree & 0.79 & 0.80 \\ \cmidrule(l){2-4} 
- & KNN & 0.88 & 0.84 \\ \cmidrule(l){2-4} 
- & Neural network & 0.87 & 0.89 \\ \cmidrule(l){2-4} 
- & SVM & 0.83 & 0.86 \\ \bottomrule
-\end{tabular}%
-}
-\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess} }
-\label{exp1}
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}llll@{}}
+			\toprule
+			\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
+			&  & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{83\%} & 83\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{94\%} & 96\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{89\%} & 91\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{95\%} & 96\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{89\%} & 93\% \\ \midrule
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & 82\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{83\%} & 84\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & 84\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{83\%} & 88\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{76\%} & 85\% \\ \midrule
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{91\%} & 91\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{83\%} & 82\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{91\%} & 88\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{93\%} & 93\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{52\%} & 93\% \\ \midrule
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & 81\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & 82\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & 84\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{85\%} & 88\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{83\%} & 86\% \\ \midrule
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & 82\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{79\%} & 80\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & 84\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{87\%} & 89\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{83\%} & 86\% \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess}}
+	\label{exp1}
 \end{table}
+
 
 \FloatBarrier
 
@@ -1298,46 +1298,44 @@ Even there are classifier which outperform the other, there are still improvemen
 
 
 \section{Experiment 2 - classifier improvement}
-Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
-
-
 \begin{table}[h]
 	\centering
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{@{}l|l|l|l|l@{}}
+		\begin{tabular}{@{}lllll@{}}
 			\toprule
-			\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{3}{c|}{\textbf{Accuracy}} \\ \cmidrule(l){3-5} 
-			&  & \textbf{Old result} & \textbf{Filter} & \textbf{Wrapper} \\ \midrule
-			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}} & Bayes Navies & 0.83 & 0.78 & 0.81 \\ \cmidrule(l){2-5} 
-			& Decision tree & 0.96 & 0.96 & 0.93 \\ \cmidrule(l){2-5} 
-			& KNN & 0.91 & 0.95 & 0.93 \\ \cmidrule(l){2-5} 
-			& Neural network & 0.96 & 0.94 & 0.95 \\ \cmidrule(l){2-5} 
-			& SVM & 0.93 & 0.91 & 0.94 \\ \midrule
-			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
-			& Decision tree & 0.84 & 0.79 & 0.81 \\ \cmidrule(l){2-5} 
-			& KNN & 0.84 & 0.82 & 0.82 \\ \cmidrule(l){2-5} 
-			& Neural network & 0.88 & 0.81 & 0.83 \\ \cmidrule(l){2-5} 
-			& SVM & 0.85 & 0.80 & 0.83 \\ \midrule
-			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}} & Bayes Navies & 0.91 & 0.76 & 0.91 \\ \cmidrule(l){2-5} 
-			& Decision tree & 0.82 & 0.76 & 0.81 \\ \cmidrule(l){2-5} 
-			& KNN & 0.88 & 0.83 & 0.88 \\ \cmidrule(l){2-5} 
-			& Neural network & 0.93 & 0.78 & 0.94 \\ \cmidrule(l){2-5} 
-			& SVM & 0.93 & 0.79 & 0.97 \\ \midrule
-			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}} & Bayes Navies & 0.81 & 0.75 & 0.79 \\ \cmidrule(l){2-5} 
-			& Decision tree & 0.82 & 0.82 & 0.81 \\ \cmidrule(l){2-5} 
-			& KNN & 0.84 & 0.85 & 0.84 \\ \cmidrule(l){2-5} 
-			& Neural network & 0.88 & 0.84 & 0.85 \\ \cmidrule(l){2-5} 
-			& SVM & 0.86 & 0.82 & 0.86 \\ \midrule
-			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}} & Bayes Navies & 0.82 & 0.74 & 0.84 \\ \cmidrule(l){2-5} 
-			& Decision tree & 0.80 & 0.82 & 0.82 \\ \cmidrule(l){2-5} 
-			& KNN & 0.84 & 0.86 & 0.86 \\ \cmidrule(l){2-5} 
-			& Neural network & 0.89 & 0.81 & 0.85 \\ \cmidrule(l){2-5} 
-			& SVM & 0.86 & 0.83 & 0.84 \\ \bottomrule
+			&  & \multicolumn{3}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-5} 
+			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Old result}} & \multicolumn{1}{l|}{\textbf{Filter}} & \textbf{Wrapper} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{83\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 78\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Decision tree}} & \multicolumn{1}{l|}{\textbf{96\%}} & \multicolumn{1}{l|}{\textbf{96\%}} & {\color[HTML]{FE0000} 93\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{91\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 95\%}} & {\color[HTML]{009901} 93\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Neural network}} & \multicolumn{1}{l|}{\textbf{96\%}} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 94\%}} & {\color[HTML]{FE0000} 95\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 91\%}} & {\color[HTML]{009901} 94\%} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 79\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{FE0000} 82\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 84\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{85\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 80\%}} & {\color[HTML]{FE0000} 83\%} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{91\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 76\%}} & {\color[HTML]{FE0000} 94\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 76\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & 88\% \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 78\%}} & {\color[HTML]{009901} 94\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}}} & \multicolumn{1}{l|}{\textbf{SVM}} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 79\%}} & {\color[HTML]{009901} \textbf{97\%}} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 75\%}} & {\color[HTML]{FE0000} 79\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{82\%} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 85\%}} & {\color[HTML]{009901} 86\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 84\%}} & {\color[HTML]{009901} 90\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{009901} 86\%} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 82\%}} & {\color[HTML]{009901} 82\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{KNN}} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 86\%}} & {\color[HTML]{009901} \textbf{86\%}} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{89\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 85\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{009901} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
 	\caption{Table showing the results after following integrating  feature selection to the learning approach}
 	\label{tab:exp2}
 \end{table}
+
 \FloatBarrier
 
 \section{Analysis}
@@ -2138,7 +2136,9 @@ Regarding a common confusion on hard mat, for each of classifier tend to predict
 \\
 \\
 Regarding SVM, the results has not been change during each run. That indicate that the good features is kept and able to distinguish between each terrain. However, there is still a small confusion between floor, carpet and hard mat. 
-
+\\
+\\
+Regarding different result on each run may indicate some training samples are important than other.
 
 \section{Transition between terrains}
 The result achieved in transition between terrains, done in section \ref{sec:realtime}, indicates that the classifier is able to identify terrains even with minor differences in their properties. By adding each step and divide by total, the overall accuracy is  86.8\%. Misclassification is mostly cause of transition between hard mat to floor, seen in table \ref{sec:hmssm}. After traversing from hard mat to carpet, the classifier tend to predict floor. Looking on estimation of unseen data in table \ref{svmexp}, show a that the carpet tend to have small misclassification to floor. But, as mentioned in section \ref{sec:realtime}, the robot tend to not walking straight, which might cause misclassification. All of the training samples has been gathered when the robot walked straight. Thus, since the sensor is highly sensitive it might be affected when it walks toward right or left.
@@ -2148,6 +2148,12 @@ Having training samples where the robot traversing straight through each of one 
 \\
 \\
 Is also seen that in the beginning the probability of correct terrain is also typically low. It might indicate that the first step has a particular behavior, as the in the middle the robot got more stable, thus more training data on the first step to achieved higher probability on first step. It is shown that the sensor is capable to distinguish minor differently terrain, even the probability is low. Soft mat has a low start.
+
+
+
+\section{Conclusion}
+
+
 
 \subsection{Compared to earlier work}
 Looking of early similar approaches on table \ref{table:compareEarly}, the thesis approach has achieved reliable result by using the optical force sensor....  
@@ -2183,7 +2189,7 @@ Looking of early similar approaches on table \ref{table:compareEarly}, the thesi
 
 
 \subsection{Future work}
-Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. Although, in the first two experiment has shown a reliable performance of classifiers, however it becomes unreliable when it comes to predicting unseen data. It could be that more training samples is needed. However, choosing a correct set of hyper parameters might increase its performance. Thus, having hyperparameter optimization could be further research, to see if there are other classifiers achieve a better performance than currently SVM.
+Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. Although, in the first two experiment has shown a reliable performance of classifiers, however it becomes unreliable when it comes to predicting unseen data. It could be that more training samples is needed. However, choosing a correct set of hyper parameters might increase its performance. Thus, having hyper parameter optimization could be further research, to see if there are other classifiers achieve a better performance than currently SVM.
 \\
 \\
 The classifier is based on the features from contact force. However, features of terrain itself such as hardness and friction are not analyzed directly. It might be hidden inside the classifier and could be addressed in future work. 
@@ -2210,11 +2216,6 @@ Oter experiments
 %https://link.springer.com/referenceworkentry/10.1007/978-3-540-30301-5_17
 
 %An Overview of Legged Robots
-
-
-
-\chapter{Conclusion}
-
 
 \backmatter{}
 \bibliography{bib}
