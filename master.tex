@@ -74,10 +74,10 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
-An important ability for every mobile robots is be able to identify different terrains. Although most currently researchers have show promising results, new and improved sensors have made it possible to distinguish almost identical terrain even more accurately. A type of 3-axis optical force sensor which use refracted light intensity to measure the contact force has paid a little attention within terrain classification. Due to high sensitivity, small size, light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify four different terrains. Three of the terrains have similar properties, while the last one stand out from the other. The intuition is, if the sensor is able to discriminate between two similar terrains, it will be able to identify two more distinct terrains. Evaluation of quality to the sensor will base on using several techniques to preprocessing data and test it on five different learning algorithms.
+An important ability for every mobile robots is be able to identify different terrains. Although past and current works have show promising results, new and improved sensors have made it possible to distinguish even more accurately on almost identical terrains. A type of 3-axis optical force sensor which use refracted light intensity to measure the contact force has paid a little attention within terrain classification. Due to high sensitivity, small size, 	light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify four different terrains. Three of the terrains have similar properties, while the last one stand out from the other. The intuition is, if the sensor is able to discriminate between two similar terrains, it will be able to identify two more distinct terrains. Evaluation of quality to the sensor will base on using several techniques to preprocessing data and test it on five different learning algorithms.
 \\
 \\
-Results show that the combination of SVM and selected features from frequency domain with wrapper method, gives an accuracy over 90\% on unseen data, which is a high result compared to similar earlier work.
+Results show that the combination of SVM and selected features from frequency domain with wrapper method, gives an accuracy over 90\% on unseen data, which is feasible result compared to similar earlier work.
 	
 
 	
@@ -86,7 +86,7 @@ Results show that the combination of SVM and selected features from frequency do
 \listoftables{}
 	
 \chapter*{Preface}                    %% ... or Forord
-I want to thank my supervisor, Kyrre Glette for the guidance and support throughout the thesis work. I would also thank my second supervisor, phd student Tønnes Frostad Nygaard, for his advisement on technical discussion.
+I want to thank my supervisor, Kyrre Glette for the guidance and support throughout the thesis work. I would also thank my second supervisor, PhD candidate Tønnes Frostad Nygaard, for his advisement and technical discussion.
 \\
 \\
 Last, but not least, I would like to thank my fellow students, friends, and family for support.
@@ -104,98 +104,98 @@ New and improved sensors have made it possible to distinguish terrain even more 
 To evaluate quality use of the sensor in terrain classification, this thesis will be investigating several learning algorithms and find a reliable approach. The thesis will also look into how to preprocess data, create features and select features.
 	
 	
-	\section{Outline}
-	The thesis is divided into five chapters: introduction, background, implementation,  experiments and results and conclusion. 
+\section{Outline}
+The thesis is divided into five chapters: introduction, background, implementation,  experiments and results and conclusion. 
 	
-	\paragraph{Chapter 1: Introduction}
-	The introduction chapter gives a brief introduction of the terrain classification, and the motivation in this project.
+\paragraph{Chapter 1: Introduction}
+The introduction chapter gives a brief introduction of the terrain classification, and the motivation in this project.
 	
-	\paragraph{Chapter 2: Background}
-	The background chapter presents first a brief what terrain classification is about. The second section will be presenting the optical sensor used in this thesis. Following will be briefly presents background of machine learning used in this thesis. Lastly, related work of terrain classification will be presented.
+\paragraph{Chapter 2: Background}
+The background chapter presents first a brief what terrain classification is about. The second section will be presenting the optical sensor used in this thesis. Following will be briefly presents background of machine learning used in this thesis. Lastly, related work of terrain classification will be presented.
 	
-	\paragraph{Chapter 3: Implementation}
-	The implementation chapter present the experiment setup, how the data is preprocessed and used in learning process.
+\paragraph{Chapter 3: Implementation}
+The implementation chapter present the experiment setup, how the data is preprocessed and used in learning process.
 	
-	\paragraph{Chapter 4: Experiments and results}
-	The experiments and results chapter presents experiments and its results along with a short analysis.
+\paragraph{Chapter 4: Experiments and results}
+The experiments and results chapter presents experiments and its results along with a short analysis.
 	
-	\paragraph{Chapter 5: Discussion}
-	The discussion chapter will discuss results from the experiments, along with suggestions for future work. Lastly is a conclusion of this thesis. 
-	
-	
-	\chapter{Background}                  %% ... or Bakgrunn
-	%\section{Optical force sensor}
-	%Snakke litt om historien om optical force sensor
-	%Optical force sensors use the refracted light itensity to measure..
-	\section{Terrain classification}
-	Terrain classification is the process of identify different types of terrain by looking on its characteristics such as texture, slope, roughness, hardness and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might has less friction than grass. Outdoor terrains is more unpredictable cause of its unstructured environment and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of any factors.
+\paragraph{Chapter 5: Discussion}
+The discussion chapter will discuss results from the experiments, along with suggestions for future work. Lastly is a conclusion of this thesis. 
 	
 	
-	\section{Optical force sensor}
-	Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.8]{Figures/OptoforceBuild}
-		\caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
-		\label{fig:OptoforceBuild}
-	\end{figure}
-	\FloatBarrier
-	
-	The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
+\chapter{Background}                  %% ... or Bakgrunn
+%\section{Optical force sensor}
+%Snakke litt om historien om optical force sensor
+%Optical force sensors use the refracted light itensity to measure..
+\section{Terrain classification}
+Terrain classification is the process of identify different types of terrain by looking on its characteristics such as texture, slope, roughness, hardness and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might has less friction than grass. Outdoor terrains is more unpredictable cause of its unstructured environment and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of any factors.
 	
 	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
-		\caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
-		\label{fig:OptoforceAxis}
-	\end{figure}
+\section{Optical force sensor}
+Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
+	\caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
+	\label{fig:OptoforceBuild}
+\end{figure}
+\FloatBarrier
 	
-	\section {Machine learning}
-	Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing for each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
-	
-	\paragraph{Supervised learning}
-	Supervised learning algorithms predict new data based on labeled dataset. That is, the system in learning process know correct answers to each dataset and will base the prediction on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
-	
-	\paragraph{Unsupervised learning}
-	Unsupervised learning algorithms make predictions from data points without label. The system has to organize the data on its own and make prediction based on that. A common method to organize the data is by clustering.
-	
-	\paragraph{Reinforcement learning}
-	Reinforcement learning algorithms will choose an action to each dataset and it will receive a reward indicating how good the decision was. Based on rewards, the algorithms modifies its strategy in order to get the highest reward. 
-	
-	\paragraph{Evolutionary learning}
-	Evolutionary learning use the biological evolution such as reproduction, mutation, recombination, and selection as learning process. It is often used to find how good the current solution is.
-	
-	\subsection{Classifier} \label{sub:classifier}
-	The classifier is where the learning process occur and produce the inferred function. Following sections will introduce technical background of five different classifiers which is intended to be used in this thesis.
-	
-	\subsubsection{Neural network}
-	Neural network (NN) is inspired of neurons in human brain, and is one of the popular learning algorithm. It can be found in many different research field, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain neural network. Note that neurons only dependent on its inputs and error. That is, a neuron will not be affected by other neurons performance. Each neurons gives a result based on own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
-	\\
-	\\
-	The learning process of perceptron in supervised learning is be able to reproduce a particular pattern to a class, which consist of firing and non-firing neurons for a given input. If some of the neuron yield a wrong output, for instance a neuron did not fire when it should, then its weights will be adjusted to make it fire right next time. There is a possible to add more layers to the neural network, which make it able to handle non linearly separable problems. This is also called multi-layer perceptron (MLP), or multi neural network.
+The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
 	
 	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.9]{Figures/neuron.PNG}
-		\caption{Figure showing a simple model of a single perceptron \cite{Marsland:2009:MLA:1571643}}
-		\label{fig:NN}
-	\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
+	\caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
+	\label{fig:OptoforceAxis}
+\end{figure}
 	
-	\paragraph{Multi-Layer Perceptron}
-	Multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layer because its value cannot be change directly, and it is only observed in the training set. The training process can be divided into forward algorithm and backward algorithm. The forward algorithm start first by calculating the activations of the first hidden layer. Those activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights between the output-layer and hidden-layer. The algorithm stops when it has reach the inputs and changed entire weights.
+\section {Machine learning}
+Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing for each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
+	
+\paragraph{Supervised learning}
+Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in learning process known correct answers to each dataset, and will base the prediction on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
+	
+\paragraph{Unsupervised learning}
+Unsupervised learning algorithms make predictions from data points without label. The system has to organize the data on its own and make prediction based on that. A common method to organize the data is by clustering.
+	
+\paragraph{Reinforcement learning}
+Reinforcement learning algorithms will choose an action to each dataset and it will receive a reward indicating how good the decision was. Based on rewards, the algorithms modifies its strategy in order to get the highest reward. 
+	
+\paragraph{Evolutionary learning}
+Evolutionary learning use biological evolution such as reproduction, mutation, recombination, and selection as a learning process. 
+	
+\subsection{Classifier} \label{sub:classifier}
+The classifier is where the learning process occur and produce the inferred function. Following sections will introduce technical background of five different classifiers which is intended to be used in this thesis.
+	
+\subsubsection{Artificial neural networks}
+Artificial neural networks (ANN) is inspired of neurons in human brain, and is one of the popular learning algorithm. It can be found in many different research field, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain neural network. Note that neurons only dependent on its inputs and error. That is, a neuron will not be affected by other neurons performance. Each neurons gives a result based on own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+\\
+\\
+The learning process of perceptron in supervised learning is be able to reproduce a particular pattern to a class, which consist of firing and non-firing neurons for a given input. If some of the neuron yield a wrong output, for instance a neuron did not fire when it should, then its weights will be adjusted to make it fire right next time. There is a possible to add more layers to the neural network, which make it able to handle non linearly separable problems. This is also called multi-layer perceptron (MLP), or multi neural network.
+
+	
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.9]{Figures/neuron.PNG}
+	\caption{Figure showing a simple model of a single perceptron \cite{Marsland:2009:MLA:1571643}}
+	\label{fig:NN}
+\end{figure}
+	
+\paragraph{Multi-Layer Perceptron}
+Multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layer because its value cannot be change directly, and it is only observed in the training set. The training process can be divided into forward algorithm and backward algorithm. The forward algorithm start first by calculating the activations of the first hidden layer. Those activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights between the output-layer and hidden-layer. The algorithm stops when it has reach the inputs and changed entire weights.
 	
 	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.6]{Figures/MLP.png}
-		\caption{Figure showing a multi-layer perceptron with 1 hidden layer \cite{MLP}. It is possible to increase the number of hidden layers and nodes to each layer}
-		\label{fig:MLP}
-	\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{Figures/MLP.png}
+	\caption{Figure showing a multi-layer perceptron with 1 hidden layer \cite{MLP}. It is possible to increase the number of hidden layers and nodes to each layer}
+	\label{fig:MLP}
+\end{figure}
 	
-	\subsubsection{Support vector machines}
-	Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the boundary line (dotted line) it will classify as cross, while circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the optimal separating hyperplane. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly separable to make the classification.
+\subsubsection{Support vector machines}
+Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the boundary line (dotted line) it will classify as cross, while circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the optimal separating hyperplane. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly separable to make the classification.
 	
 	
 	\begin{figure}[h]
