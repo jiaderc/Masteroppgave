@@ -74,7 +74,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
-An important ability for every mobile robots is be able to identify different terrains. Although past and current works have show promising results, new and improved sensors have made it possible to distinguish even more accurately on almost identical terrains. A type of 3-axis optical force sensor which use refracted light intensity to measure the contact force has paid a little attention within terrain classification. Due to high sensitivity, small size, 	light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify four different terrains. Three of the terrains have similar properties, while the last one stand out from the other. The intuition is, if the sensor is able to discriminate between two similar terrains, it will be able to identify two more distinct terrains. Evaluation of quality to the sensor will base on using several techniques to preprocessing data and test it on five different learning algorithms.
+An important ability for every mobile robots is be able to identify different terrains. Although past and current works have show promising results, new and improved sensors have made it possible to distinguish even more accurately on almost identical terrains. A type of 3-axis optical force sensor, use optoelectronic components to measure the contact force has paid a little attention within terrain classification. Due to high sensitivity, small size, 	light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify four different terrains. Three of the terrains have similar properties, while the last one stand out from the other. The intuition is, if the sensor is able to discriminate between two similar terrains, it will be able to identify two more distinct terrains. Evaluation of quality to the sensor will base on using several techniques to preprocessing data and test it on five different learning algorithms.
 \\
 \\
 Results show that the combination of SVM and selected features from frequency domain with wrapper method, gives an accuracy over 90\% on unseen data, which is feasible result compared to similar earlier work.
@@ -98,7 +98,7 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes of past experiences. For instance, one might experienced the difficulty of running on icy road and may cause a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to distinguish different terrains.
 \\
 \\ 
-New and improved sensors have made it possible to distinguish terrain even more accuracy. A popular sensor used is gather information visually from terrain such as camera \cite{littleDog}, laser scanners \cite{4651026}. These types of sensor gather information from terrain indirectly. While other rather to measure the properties of the terrain more directly such as tactile, joint angle, accelerometer and gyroscope. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a Quadruped Robot to identify which of them is suitable and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of sensor which use refracted light intensity to measure the contact force has been less focused within terrain classification, that is the 3-axis optical force sensor. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor suit to obtain information from terrain and distinguish them. The goal of this thesis is to use an 3D optical force sensor and investigate whether it can distinguish terrains with slightly difference such as floor and carpet.
+New and improved sensors have made it possible to distinguish terrain even more accuracy. A popular sensor used is gather information visually from terrain such as camera \cite{littleDog}, laser scanners \cite{4651026}. These types of sensor gather information from terrain indirectly. While other rather to measure the properties of the terrain more directly such as tactile, joint angle, accelerometer and gyroscope. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a Quadruped Robot to identify which of them is suitable and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of tactile sensor which use refracted light intensity to measure the contact force has been less focused within terrain classification, that is the 3-axis optical force sensor. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor suit to obtain information from terrain and distinguish them. The goal of this thesis is to use an 3D optical force sensor and investigate whether it can distinguish terrains with slightly difference such as floor and carpet.
 \\
 \\
 To evaluate quality use of the sensor in terrain classification, this thesis will be investigating several learning algorithms and find a reliable approach. The thesis will also look into how to preprocess data, create features and select features.
@@ -131,26 +131,12 @@ The discussion chapter will discuss results from the experiments, along with sug
 Terrain classification is the process of identify different types of terrain by looking on its characteristics such as texture, slope, roughness, hardness and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might has less friction than grass. Outdoor terrains is more unpredictable cause of its unstructured environment and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of any factors.
 	
 	
-\section{Optical force sensor}
-Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
-	\caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
-	\label{fig:OptoforceBuild}
-\end{figure}
-\FloatBarrier
-	
-The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
-	
-	
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
-	\caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
-	\label{fig:OptoforceAxis}
-\end{figure}
-	
+\section{Tactile sensor}
+Tactile sensor are designed for measure properties through direct physical interaction. The tactile sensing can be used with three different activity, manipulation, exploration and response \cite{Cutkosky2008}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. 
+
+\subsection{Optical tactile force sensor}
+Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components.	
+
 \section {Machine learning}
 Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing for each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
 	
@@ -424,11 +410,11 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	
 	\FloatBarrier
 	
-	\subsection{Cross-Validation}
-	Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
+\subsection{Cross-Validation}
+Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
-	\paragraph{K-fold}
-	The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also know as leave-one-out cross-validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
+\paragraph{K-fold}
+The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also know as leave-one-out cross-validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
 	
 	
 	\begin{figure}[h]
@@ -504,11 +490,11 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	\end{table}
 	
 	
-	\section{Related work}
-	The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
+\section{Related work}
+The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
 	
-	\subsection{Types of legged robots}
-	Many types of legged robot has been addressed in terrain classification. Mostly reviewed study has been using quadruped \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapod \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179} cause of its stability. However a few has used one legged robot \cite{5602459}. The following paragraphs will introduce several platform of different legged robots.
+\subsection{Types of legged robots}
+Many types of legged robot has been addressed in terrain classification. Mostly reviewed study has been using quadruped \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapod \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179} cause of its stability. However a few has used one legged robot \cite{5602459}. The following paragraphs will introduce several platform of different legged robots.
 	
 	%http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
 	%file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
@@ -516,18 +502,18 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	%http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 	%http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
 	
-	\paragraph{Monopod}
-	The monopod is a simple legged robot design, with one leg. The locomotion of monopod robots is performed through hops and it is also called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. An example of one legged robot is developed by Marc Raibert shown in figure \ref{fig:onlegg}.
+\paragraph{Monopod}
+The monopod is a simple legged robot design, with one leg. The locomotion of monopod robots is performed through hops and it is also called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. An example of one legged robot is developed by Marc Raibert shown in figure \ref{fig:onlegg}.
 	
 	
-	\paragraph{Biped}
-	Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans behavior, such as the walking, running, jump, traverse on stairs. A successive humanoid is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel. However, using a biped for terrain classification is still unsuitable since it is hard to maintain stability on rough terrain.
+\paragraph{Biped}
+Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans behavior, such as the walking, running, jump, traverse on stairs. A successive humanoid is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel. However, using a biped for terrain classification is still unsuitable since it is hard to maintain stability on rough terrain.
 	
-	\paragraph{Quadruped}
-	Quadruped is robot with four legs to walk and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. With hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg depend on the terrain. Other abilities are being able to jump, run and maintain the stability even it get pushed or walking on slippery terrain. A reason of mostly work using quadruped is its stability. By having more legs make the more stable and is capable to traverse through terrain without falling. However it is more complex to control their legs.
-	
-	\paragraph{Hexapod}
-	Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. Because of its stability like the quadruped, hexapod is also popular used robot within terrain classification studies.
+\paragraph{Quadruped}
+Quadruped is robot with four legs to walk and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. With hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg depend on the terrain. Other abilities are being able to jump, run and maintain the stability even it get pushed or walking on slippery terrain. A reason of mostly work using quadruped is its stability. By having more legs make the more stable and is capable to traverse through terrain without falling. However it is more complex to control their legs.
+
+\paragraph{Hexapod}
+Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. Because of its stability like the quadruped, hexapod is also popular used robot within terrain classification studies.
 	
 	\begin{figure}
 		\centering
@@ -560,87 +546,108 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	
 	\FloatBarrier
 	
-	\subsection{Importance of terrain classification}
-	The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
-	\\
-	\\
-	It has been shown that different controllers were suited for different terrain by letting quadrupedal robot hopping on soft and hard terrain \cite{7487541}. Other has investigated the effect of performance with different gaits parameters on different terrains \cite{6569179}. Some of the result showed that the energy consumption and the walking speed is tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
+\subsection{Gait}
+
+	
+\subsection{Importance of terrain classification}
+The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
+\\
+\\
+It has been shown that different controllers were suited for different terrain by letting quadrupedal robot hopping on soft and hard terrain \cite{7487541}. Other has investigated the effect of performance with different gaits parameters on different terrains \cite{6569179}. Some of the result showed that the energy consumption and the walking speed is tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
 	
 	
-	\subsection{Terrain sensing}
-	In order to classify various of terrains, the system must obtain information from the terrain either by remote sensing, local sensing or both.
+\subsection{Terrain sensing}
+In order to classify various of terrains, the system must obtain information from the terrain either by remote sensing, local sensing or both.
 	
-	\paragraph{Remote sensing}
-	The remote sensing obtain information of a terrain from a distance and do not measure the terrain physically. The camera is most widely used and discriminating the terrain is based on analyzing images.
-	\\
-	\\ 
-	Filitchkin et al. \cite{littleDog} presents an visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three types of gaits were used during the experiment, a gait designed for flat surface, a gait for rough terrain and a mixture of the two first. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type is required. There were totally four different terrain: small rocks, rocks, grass and tile. Lastly, the experiment was let the robot execute a terrain classification cycle every few steps and switched to one of three gait according which terrain it is on. Robot performance was measured by comparing the traversal time between for each three gait and the changing gait. The result shown that the changing gait is able to terrain classification and traverse through the terrain faster. The other two gait were fast, but was not able to classify big rocks, while the last gait was able to classify all terrain but had slower traverse time.
-	\\
-	\\
-	Plagemann et al. \cite{4651026} used laser ranger finder to predict terrain elevation at unseen locations.
-	The researches extended the Gaussian process model to achieve a more accurate prediction of elevations. The result show that the proposed method is capable of accurately predicting elevations in the presence of noise even at unobserved locations. These features allowed them to plan foot trajectories of the robot to reach the goal location. 
-	\\
-	\\
-	A weakness of using the remote sensors, is that it does not give insight into the characteristic of currently terrain. For instance remote sensor might has difficulties to distinguish between a terrain that is covered with either compacted or uncompacted snow. An another option to measure terrain directly is by local sensing. 
+\paragraph{Remote sensing}
+The remote sensing obtain information of a terrain from a distance and do not measure the terrain physically. The camera is most widely used and discriminating the terrain is based on analyzing images.
+\\
+\\ 
+Filitchkin et al. \cite{littleDog} presents an visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three types of gaits were used during the experiment, a gait designed for flat surface, a gait for rough terrain and a mixture of the two first. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type is required. There were totally four different terrain: small rocks, rocks, grass and tile. Lastly, the experiment was let the robot execute a terrain classification cycle every few steps and switched to one of three gait according which terrain it is on. Robot performance was measured by comparing the traversal time between for each three gait and the changing gait. The result shown that the changing gait is able to terrain classification and traverse through the terrain faster. The other two gait were fast, but was not able to classify big rocks, while the last gait was able to classify all terrain but had slower traverse time.
+\\
+\\
+Plagemann et al. \cite{4651026} used laser ranger finder to predict terrain elevation at unseen locations.
+The researches extended the Gaussian process model to achieve a more accurate prediction of elevations. The result show that the proposed method is capable of accurately predicting elevations in the presence of noise even at unobserved locations. These features allowed them to plan foot trajectories of the robot to reach the goal location. 
+\\
+\\
+A weakness of using the remote sensors, is that it does not give insight into the characteristic of currently terrain. For instance remote sensor might has difficulties to distinguish between a terrain that is covered with either compacted or uncompacted snow. An another option to measure terrain directly is by local sensing. 
 	
-	\paragraph{Local sensing}
-	Local sensing measure aspects of the interaction between the robot and terrain as the robot walk through. This gives a measurement of mechanical terrain properties and provide useful information such as how the environment is affecting currently robot performance. 
-	\\
-	\\ 
-	Stejskal et al. \cite{7487544} present a road following hexapod robot by using the feedback from robot servo drives. The road following consists of let the robot blindly walk on road. After each gait cycle, the robot will determines whether it is on new terrain or on road. If it is determined as off road, then the robot will steer back to the road. Data from the servo provides information about the leg motion which were position error, current speed and torque. Three different terrains, asphalt, dirt and grass were used during the experiment. The robot was most confused by dirt, which had about 86\% of misclassified samples. The author states that the transition from asphalt to dirt was usually flat, which means that the leg motion of walking on flat dirt has a similar leg motion as walking on asphalt. Beside of that, the overall result of terrain classification had an accuracy of 96.2\%, which can be considered as feasible approach and data from leg motion keeps the robot on the road.
-	\\
-	\\
-	Kim et al. \cite{5602459} used the ground reaction force and torque sensors of an one-legged robot due to terrain classification. The goal of the research was to compare the performance between neural network and support vector machine. Four different terrains were used in the experiments which were flat, grass, sand, and gravel. The data were collected by walking through each terrain many times. Different features were extracted from the data, and partitioned into a training and test set. The result shown the support vector machine got an accuracy on 78.75\%, which performed slightly better than neural network on 78.6\%.
-	\\
-	\\
-	Hoepflinger et al. \cite{5509309} present a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistor. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments is done by having a robot walk through terrains. However in this experiment the author separated one of the legs robot and mounted to a sample holder of a testbed. The first experiment consist of distinguish four different shaped terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data were collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. In the second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data were done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. Convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge 95\% and 80\% on for the convex hemispherical bulge. Regarding surface classification show that the algorithm performed slightly worse. A type of an abrasive paper had a accuracy of 53.3\%. Even a low accuracy the author state it is overall an satisfy result, since the average correct prediction of different types of abrasive paper was two of three, and prediction of teflon coated surface had an high accuracy 93.3\%.
-	\\
-	\\
-	Terrain classification with other type of local sensor research of can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
+\paragraph{Local sensing}
+Local sensing measure aspects of the interaction between the robot and terrain as the robot walk through. This gives a measurement of mechanical terrain properties and provide useful information such as how the environment is affecting currently robot performance. 
+\\
+\\ 
+Stejskal et al. \cite{7487544} present a road following hexapod robot by using the feedback from robot servo drives. The road following consists of let the robot blindly walk on road. After each gait cycle, the robot will determines whether it is on new terrain or on road. If it is determined as off road, then the robot will steer back to the road. Data from the servo provides information about the leg motion which were position error, current speed and torque. Three different terrains, asphalt, dirt and grass were used during the experiment. The robot was most confused by dirt, which had about 86\% of misclassified samples. The author states that the transition from asphalt to dirt was usually flat, which means that the leg motion of walking on flat dirt has a similar leg motion as walking on asphalt. Beside of that, the overall result of terrain classification had an accuracy of 96.2\%, which can be considered as feasible approach and data from leg motion keeps the robot on the road.
+\\
+\\
+Kim et al. \cite{5602459} used the ground reaction force and torque sensors of an one-legged robot due to terrain classification. The goal of the research was to compare the performance between neural network and support vector machine. Four different terrains were used in the experiments which were flat, grass, sand, and gravel. The data were collected by walking through each terrain many times. Different features were extracted from the data, and partitioned into a training and test set. The result shown the support vector machine got an accuracy on 78.75\%, which performed slightly better than neural network on 78.6\%.
+\\
+\\
+Hoepflinger et al. \cite{5509309} present a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistor. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments is done by having a robot walk through terrains. However in this experiment the author separated one of the legs robot and mounted to a sample holder of a testbed. The first experiment consist of distinguish four different shaped terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data were collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. In the second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data were done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. Convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge 95\% and 80\% on for the convex hemispherical bulge. Regarding surface classification show that the algorithm performed slightly worse. A type of an abrasive paper had a accuracy of 53.3\%. Even a low accuracy the author state it is overall an satisfy result, since the average correct prediction of different types of abrasive paper was two of three, and prediction of teflon coated surface had an high accuracy 93.3\%.
+\\
+\\
+Terrain classification with other type of local sensor research of can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
 	
-	\subsection{Learning algorithms}
-	There is a vast number of classifiers and various has been used within the terrain classification such as neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
-	\\
-	\\
-	The no free lunch theorem described in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and naive bayes gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} achieved a better performance on SVM, decision tree and naive bayes than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem. 
-	\\
-	\\
-	Mostly study based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method to terrain classification using unsupervised learning. This make a robot to be able automatically distinguish terrain without any human interaction or feedback. Another work of the same authors
-	\cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
+\subsection{Learning algorithms}
+There is a vast number of classifiers and various has been used within the terrain classification such as neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
+\\
+\\
+The no free lunch theorem described in section \ref{seq:nofree} can be seen in previous work has shown that SVM, KNN and naive bayes gave higher accuracy than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} achieved a better performance on SVM, decision tree and naive bayes than KNN. It is therefore common to build several algorithms, and chose the best of them for the specified problem. 
+\\
+\\
+Mostly study based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method to terrain classification using unsupervised learning. This make a robot to be able automatically distinguish terrain without any human interaction or feedback. Another work of the same authors  \cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
 	
-	\subsection{Features} \label{sub:relatedfeatures}
-	As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of statistical features in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
-	\\
-	\\
-	Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment and sum of the variation over time in time domain. While in frequency domain where the sum of higher half of amplitude spectrum extracted.
-	\\
-	\\
-	Hoffmann el at. \cite{Hoffmann20141790} defined features in time domain such as, minimum, maximum, mean, kurtosis, skewness, median, standard deviation, approximation of the integral, amplitude of Hilbert transform. Other features was extracted in frequency domain such as frequency with highest amplitude and its magnitude, and similar to the second and third highest amplitude. 
-	\\
-	\\
-	Kertész \cite{7387710} computed median, maximum, skewness and root mean square from of the accelerometer angles in x, y and z-direction. Those features were also extracted in frequency domain for the z-direction. Features extracted from force sensors were interquartile range, maximum, skewness, RMS amplitude and the highest amplitude in frequency domain.
-	\\
-	\\
-	Best el at.\cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in domain such as minimum, maximum, mean median and standard deviation. However some of statistical features is also calculated in frequency domain with the energy additionally.
-	\\
-	\\
-	As it can be seen that many of the features is extracted by statistical features which is described in section \ref{sub:statical}. An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. 
+\subsection{Features} \label{sub:relatedfeatures}
+As mentioned in section \ref{features} finding good features is a crucial part of classification process. Earlier work has extracted features in combination of statistical features in the time domain with frequency domain features \cite{5152662} \cite{Giguere2009} \cite{5509309}. While others only use the frequency domain \cite{4543710} \cite{5979766}.
+\\
+\\
+Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment and sum of the variation over time in time domain. While in frequency domain where the sum of higher half of amplitude spectrum extracted.
+\\
+\\
+Hoffmann el at. \cite{Hoffmann20141790} defined features in time domain such as, minimum, maximum, mean, kurtosis, skewness, median, standard deviation, approximation of the integral, amplitude of Hilbert transform. Other features was extracted in frequency domain such as frequency with highest amplitude and its magnitude, and similar to the second and third highest amplitude. 
+\\
+\\
+Kertész \cite{7387710} computed median, maximum, skewness and root mean square from of the accelerometer angles in x, y and z-direction. Those features were also extracted in frequency domain for the z-direction. Features extracted from force sensors were interquartile range, maximum, skewness, RMS amplitude and the highest amplitude in frequency domain.
+\\
+\\
+Best el at.\cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in domain such as minimum, maximum, mean median and standard deviation. However some of statistical features is also calculated in frequency domain with the energy additionally.
+\\
+\\
+As it can be seen that many of the features is extracted by statistical features which is described in section \ref{sub:statical}. An example of extracting good features can be seen in \cite{5602459}. Using statistic with support vector machine gave an accuracy on 40\%, while principal component analysis gave an accuracy on 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features. 
 	
-	\subsection{Validation}\label{subseq:validation}
-	A common method of validation is using the k-fold cross-validation \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However the choice of selecting k vary. A common k value is to be set either two \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal the length of feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
-	\\
-	\\
-	Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved a overall accuracy 99.4\%, and states the possibility of obtaining 100\% with more folds. Best el at. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation let the classifier being confused between grass and concrete terrains. 
-	\\
-	\\
-	As stated in \cite{7387710}, the k-fold gives a reasonable estimate of the performance, however, it does not tell how well it predict on unseen data. This is because the experiment always use same samples where it involve in either training or testing. The model might be less generalized, data are more likely referring to themselves and will have difficulty of predicting unseen data. Mostly authors is aware of the this and has rectified it by partitioned the samples to make the training and test set independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and test is from other set.
-	\\
-	\\
-	Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to partitioned randomly the data set with 70\% used for training, and the rest used for testing \cite{5752869}. The most realistic scenario is to base the evaluation by having a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
-	
+\subsection{Validation}\label{subseq:validation}
+A common method of validation is using the k-fold cross-validation \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However the choice of selecting k vary. A common k value is to be set either two \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal the length of feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
+\\
+\\
+Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved a overall accuracy 99.4\%, and states the possibility of obtaining 100\% with more folds. Best el at. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation let the classifier being confused between grass and concrete terrains. 
+\\
+\\
+As stated in \cite{7387710}, the k-fold gives a reasonable estimate of the performance, however, it does not tell how well it predict on unseen data. This is because the experiment always use same samples where it involve in either training or testing. The model might be less generalized, data are more likely referring to themselves and will have difficulty of predicting unseen data. Mostly authors is aware of the this and has rectified it by partitioned the samples to make the training and test set independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and test is from other set.
+\\
+\\
+Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to partitioned randomly the data set with 70\% used for training, and the rest used for testing \cite{5752869}. The most realistic scenario is to base the evaluation by having a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
+
+
 \chapter{Softwares and tools}
 	
 \section{Optical force sensor}
+Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
+	\caption{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
+	\label{fig:OptoforceBuild}
+\end{figure}
+\FloatBarrier
+
+The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
+	\caption{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
+	\label{fig:OptoforceAxis}
+\end{figure}
 
 \section{Robot}
 	
