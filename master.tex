@@ -111,15 +111,18 @@ The thesis is divided into five chapters: introduction, background, implementati
 The introduction chapter gives a brief introduction of the terrain classification, and the motivation in this project.
 	
 \paragraph{Chapter 2: Background}
-The background chapter presents first a brief what terrain classification is about. The second section will be presenting the optical sensor used in this thesis. Following will be briefly presents background of machine learning used in this thesis. Lastly, related work of terrain classification will be presented.
+The background chapter presents first a brief what terrain classification is about. The second section will be presenting background of the optical sensor. Following will be briefly presents background of machine learning used in this thesis. Lastly, related work of terrain classification will be presented.
+
+\paragraph{Chapter 3: Software and tools}
+The software and tools chapter present the sensor along with programming framework and libraries used in this thesis. The experimental environment is also presented. 
 	
-\paragraph{Chapter 3: Implementation}
+\paragraph{Chapter 4: Implementation}
 The implementation chapter present the experiment setup, how the data is preprocessed and used in learning process.
 	
-\paragraph{Chapter 4: Experiments and results}
+\paragraph{Chapter 5: Experiments and results}
 The experiments and results chapter presents experiments and its results along with a short analysis.
 	
-\paragraph{Chapter 5: Discussion}
+\paragraph{Chapter 6: Discussion}
 The discussion chapter will discuss results from the experiments, along with suggestions for future work. Lastly is a conclusion of this thesis. 
 	
 	
@@ -132,7 +135,7 @@ Terrain classification is the process of identify different types of terrain by 
 	
 	
 \section{Tactile sensor}
-Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. For manipulation it means that it is possible to control for instance the grip force on an object. In figure is showing  The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. For manipulation it means that it is possible to control for instance the grip force on an object. In figure \ref{fig:tactiles} an example of each activities. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
 
 
 	\begin{figure}
@@ -141,21 +144,21 @@ Tactile sensor are designed for measure properties through direct physical inter
 		\centering
 		\includegraphics[width=\linewidth]{Figures/tactiles1}
 		\caption{Manipulation}
-		\label{fig:onlegg}
+		\label{fig:tact1}
 	\end{subfigure}\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{Figures/tactiles2}
 		\caption{Exploration}
-		\label{fig:nao}
+		\label{fig:tact2}
 	\end{subfigure}\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{Figures/tactiles3}
 		\caption{Response}
-		\label{fig:bigDog}
+		\label{fig:tact3}
 	\end{subfigure}\hfill
-	\caption{Figures showing three types of application by using the tactile sensor \cite{Cutkosky2008}. }
+	\caption{Figures showing three types of application by using the tactile sensor \cite{Cutkosky2008}.}
 	\label{fig:tactiles}
 \end{figure}
 
@@ -224,15 +227,15 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	
 	
 	
-	\subsubsection{Naive bayes}
-	Naive Bayes algorithm is based on Bayes’ theorem with the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
-	\begin{equation}
-	P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
-	\label{eq:bayesNaivews2}
-	\end{equation}
-	The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
+\subsubsection{Naive bayes}
+Naive Bayes algorithm is based on Bayes’ theorem with the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
+\begin{equation}
+P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
+\label{eq:bayesNaivews2}
+\end{equation}
+The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
 	
-	\begin{comment}
+\begin{comment}
 	
 	
 	Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
@@ -258,83 +261,83 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	\end{equation}
 	\end{comment}
 	
-	\subsubsection{K-nearest neighbors }
-	K-nearest neighbors (KNN) is one of the simple classifiers presented by Cover and Hart \cite{1053964}. The classification process of new data consists of looking the k-nearest data points and classify the class which consist most classes. An example is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to  3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the circle will be classified as square.
+\subsubsection{K-nearest neighbors }
+K-nearest neighbors (KNN) is one of the simple classifiers presented by Cover and Hart \cite{1053964}. The classification process of new data consists of looking the k-nearest data points and classify the class which consist most classes. An example is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to  3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the circle will be classified as square.
 	
-	\begin{figure}[h]
+\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/KNN.png}
 		\caption{Figure showing an example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The straight circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
-	\end{figure}
+\end{figure}
 	
-	The most common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The euclidean distance can be expressed as \cite{Bao2004}:
+The most common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The euclidean distance can be expressed as \cite{Bao2004}:
 	
 	
-	\begin{equation}
+\begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
 	\label{eq:edistance}
-	\end{equation}
-	The x and y from equation \ref{eq:edistance} represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count k classes with shortest distance to determine which class the unseen data belongs to. A weakness of using Euclidean distance function is that if one of the vector has a large range, then it will dominate other attributes. In order to avoid this issue, it is common to scale the feature, described in section \ref{subsec:scaling}
+\end{equation}
+The x and y from equation \ref{eq:edistance} represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count k classes with shortest distance to determine which class the unseen data belongs to. A weakness of using Euclidean distance function is that if one of the vector has a large range, then it will dominate other attributes. In order to avoid this issue, it is common to scale the feature, described in section \ref{subsec:scaling}
 	
 	
-	\subsubsection{Decision tree}
-	The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. The process of the decision tree is constructing a tree consisting of nodes and edges using the dataset. Each of nodes represents a test on one features, and the edges represent an outcome of the test. Leaf nodes represent the outcome class. Predicting process is following a path from the root to a leaf node.
+\subsubsection{Decision tree}
+The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. The process of the decision tree is constructing a tree consisting of nodes and edges using the dataset. Each of nodes represents a test on one features, and the edges represent an outcome of the test. Leaf nodes represent the outcome class. Predicting process is following a path from the root to a leaf node.
 	
 	
-	\begin{figure}[h]
+\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
 		\caption{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
 		\label{fig:SVM}
-	\end{figure}
+\end{figure}
 	
 	
-	\section{Features} \label{features}
-	An important part of achieving a good classification, is finding good features from sensor data. The features is what distinguish between classes and will be used as learning set. Thus, finding good features is crucial to achieve a accurate classifier.
+\section{Features} \label{features}
+An important part of achieving a good classification, is finding good features from sensor data. The features is what distinguish between classes and will be used as learning set. Thus, finding good features is crucial to achieve a accurate classifier.
 	
-	\subsection{Curse of dimensionality}\label{curseDim}
-	The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
+\subsection{Curse of dimensionality}\label{curseDim}
+The curse of dimensionality occurs when one include too many features to the input vector. When the dimensionality of features vector increase, the complexity of underlying pattern might increase and the performance of the classifier will be degrade. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
 	
-	\subsection{Features extraction} \label{feature_extraction}
-	Feature extraction is the process to build a new set of features from the original set and use it as training set. Those extracted features should make it easy for a classifier to distinguish between the various classes. A common method is extracting statistical features.
+\subsection{Features extraction} \label{feature_extraction}
+Feature extraction is the process to build a new set of features from the original set and use it as training set. Those extracted features should make it easy for a classifier to distinguish between the various classes. A common method is extracting statistical features.
 	
-	\subsubsection{Statistical features} \label{sub:statical}
-	The following paragraphs will be explaining five different statical features, which will be used in this thesis.
+\subsubsection{Statistical features} \label{sub:statical}
+The following paragraphs will be explaining five different statical features, which will be used in this thesis.
 	
-	\paragraph{Mean}
-	The mean is generally referred to the average, and is defined as sum of the values divided by the number of values\cite{Press:2007:NRE:1403886}:
+\paragraph{Mean}
+The mean is generally referred to the average, and is defined as sum of the values divided by the number of values\cite{Press:2007:NRE:1403886}:
 	
-	\begin{equation}
-	\bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
-	\label{eq:mean}
-	\end{equation}
+\begin{equation}
+\bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
+\label{eq:mean}
+\end{equation}
 	
 	
-	\paragraph{Variance}
-	Variance describe the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886}:
+\paragraph{Variance}
+Variance describe the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886}:
 	
 	\begin{equation}
 	Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
 	\label{eq:variance}
 	\end{equation}
-	
-	\paragraph{Standard deviation}
-	Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance\cite{Press:2007:NRE:1403886}:
+
+\paragraph{Standard deviation}
+Standard deviation is a measure of spread of a data set from its mean. High deviation indicate that the data points are further from the mean. This can be calculated by taking the square root from variance\cite{Press:2007:NRE:1403886}:
 	
 	\begin{equation}
 	\sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
 	\label{eq:std}
 	\end{equation}
 	
-	\paragraph{Skewness} 
-	Skewness describes asymmetry of a distribution. The formula is\cite{Press:2007:NRE:1403886}:
+\paragraph{Skewness} 
+Skewness describes asymmetry of a distribution. The formula is\cite{Press:2007:NRE:1403886}:
 	\begin{equation}
 	Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
 	\label{eq:skew}
 	\end{equation}
 	
-	The skewness can be either negative or positive depending on whether data points are skewed to the left or to the right. If data is skewed to the left indicate a negative skewness, while positive skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
+The skewness can be either negative or positive depending on whether data points are skewed to the left or to the right. If data is skewed to the left indicate a negative skewness, while positive skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
 	
 	\begin{figure}[h]
 		\centering
@@ -345,14 +348,14 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	
 	\FloatBarrier
 	
-	\paragraph{Kurtosis}
-	Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is\cite{Press:2007:NRE:1403886}:
+\paragraph{Kurtosis}
+Kurtosis measure the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is\cite{Press:2007:NRE:1403886}:
 	\begin{equation}
 	Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
 	\end{equation}
 	
-	A positive kurtosis of a distribution has a sharper peak and heavier tails relative to normal distribution. While a negative kurtosis has flatter peak and lighter tails relative to normal distribution. An illustration of both positive and negative kurtosis is shown in figure \ref{fig:kurtosis}
+A positive kurtosis of a distribution has a sharper peak and heavier tails relative to normal distribution. While a negative kurtosis has flatter peak and lighter tails relative to normal distribution. An illustration of both positive and negative kurtosis is shown in figure \ref{fig:kurtosis}
 	
 	
 	\begin{figure}[h]
@@ -368,9 +371,8 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	%\paragraph{Fourier transform}
 	
 	
-	\subsection{Features selection}\label{selection}
-	The process in feature selection is to select a subset of features from the original set. Selecting good features has benefit of increasing classifier performance, prevent the curse of dimensionality mentioned in section \ref{curseDim} and reducing storage requirements and training time. Note that a features can individually be completely useless, but relevant when used together with other features \cite{Guyon2006}. 
-	There are three types of feature selection algorithms: filter-, wrapper- and embedded methods as shown in figure \ref{fig:selection}. 
+\subsection{Features selection}\label{selection}	
+The process in feature selection is to select a subset of features from the original set. Selecting good features has benefit of increasing classifier performance, prevent the curse of dimensionality mentioned in section \ref{curseDim} and reducing storage requirements and training time. Note that a features can individually be completely useless, but relevant when used together with other features \cite{Guyon2006}. There are three types of feature selection algorithms: filter-, wrapper- and embedded methods as shown in figure \ref{fig:selection}. 
 	
 	
 	\begin{figure}[h]
@@ -381,30 +383,30 @@ Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis
 	\end{figure}
 	
 	
-	\paragraph{Filter}
-	Filter feature selection is independent of any classifier. It uses statistical measures to assign each feature a score. Features will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number of available training examples comparatively small.  
+\paragraph{Filter}
+Filter feature selection is independent of any classifier. It uses statistical measures to assign each feature a score. Features will either be kept or removed based on the score. The filter methods are considered fast and effective, specially when the number of features is large and the number of available training examples comparatively small.  
 	
 	
-	\paragraph{Wrapper}
-	Wrapper feature selection will try different combination of the feature set, evaluate by a classifier and keep the feature set with best result.
+\paragraph{Wrapper}
+Wrapper feature selection will try different combination of the feature set, evaluate by a classifier and keep the feature set with best result.
 	
 	
-	\paragraph{Embedded}
-	Embedded feature selection perform feature selection as part of the learning procedure and are usually specific to given classifier.
+\paragraph{Embedded}
+Embedded feature selection perform feature selection as part of the learning procedure and are usually specific to given classifier.
+
+\subsection{Features scaling}
+\label{subsec:scaling}
+To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectors. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
 	
-	\subsection{Features scaling}
-	\label{subsec:scaling}
-	To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectors. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
 	
+\section{Model validation}
+Model validation relate to evaluate the performance of a classifier. 
 	
-	\section{Model validation}
-	Model validation relate to evaluate the performance of a classifier. 
+\subsection{No free lunch theorem} \label{seq:nofree}
+The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieve great performance for one problem, might not hold for another problem. Thus, it is recommended to apply several classifier.
 	
-	\subsection{No free lunch theorem} \label{seq:nofree}
-	The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieve great performance for one problem, might not hold for another problem. Thus, it is recommended to apply several classifier.
-	
-	\subsection{Ovefitting and underfitting}
-	Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classification. Overfitting occurs if there are too many training data or if it has adapted to the noise within data set. While underfitting occurs if there are not enough training data and will not be able to generalize new data set. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
+\subsection{Ovefitting and underfitting}
+Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classification. Overfitting occurs if there are too many training data or if it has adapted to the noise within data set. While underfitting occurs if there are not enough training data and will not be able to generalize new data set. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
 	\begin{comment}
 	
 	\begin{figure}[h]
@@ -498,11 +500,11 @@ The process of k-fold is to partitioned the data into k subset, where one subset
 	\end{equation}
 	%\part{The project}                    %% ... or ??
 	\FloatBarrier
-	The accuracy will tell the overall performance of the model. However, there is a possibility that the model only classify three of four terrains correctly and still get a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicate that the class either has a low precision, recall or both. Low precision indicate that the classifier has difficulty to predict the currently terrain, while low recall indicate that is more likely that a terrain is to be classified in other terrains.
-	\\
-	\\
-	It will be interesting to see which of class was easier to predict than others. This can be seen by using confusion matrix. The confusion matrix consists a square matrix with one row for predicted class, and and column for actual class (or vice-versa).
-	An example of confusion matrix is shown on table \ref{tab:cmatrix}
+The accuracy will tell the overall performance of the model. However, there is a possibility that the model only classify three of four terrains correctly and still get a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicate that the class either has a low precision, recall or both. Low precision indicate that the classifier has difficulty to predict the currently terrain, while low recall indicate that is more likely that a terrain is to be classified in other terrains.
+\\
+\\
+It will be interesting to see which of class was easier to predict than others. This can be seen by using confusion matrix. The confusion matrix consists a square matrix with one row for predicted class, and and column for actual class (or vice-versa).
+An example of confusion matrix is shown on table \ref{tab:cmatrix}
 	
 	\begin{table}[h]
 		\centering
