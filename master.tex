@@ -132,10 +132,39 @@ Terrain classification is the process of identify different types of terrain by 
 	
 	
 \section{Tactile sensor}
-Tactile sensor are designed for measure properties through direct physical interaction. The tactile sensing can be used with three different activity, manipulation, exploration and response \cite{Cutkosky2008}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. For manipulation it means that it is possible to control for instance the grip force on an object. In figure is showing  The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+
+
+	\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/tactiles1}
+		\caption{Manipulation}
+		\label{fig:onlegg}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/tactiles2}
+		\caption{Exploration}
+		\label{fig:nao}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/tactiles3}
+		\caption{Response}
+		\label{fig:bigDog}
+	\end{subfigure}\hfill
+	\caption{Figures showing three types of application by using the tactile sensor \cite{Cutkosky2008}. }
+	\label{fig:tactiles}
+\end{figure}
+
+\FloatBarrier
+
+
 
 \subsection{Optical tactile force sensor}
-Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+A type of optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
 
 \section {Machine learning}
 Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing for each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
@@ -634,7 +663,7 @@ Not all studies evaluated their models by k-fold cross-validation, but either wi
 \chapter{Softwares and tools}
 	
 \section{Optical force sensor}
-Optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
