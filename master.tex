@@ -737,14 +737,27 @@ Four different terrains is used in all experiment: floor, carpet, soft mat, and 
 	\label{fig:terrains}
 \end{figure*}
 
-\section{Software framework and language}
-This section will be presenting framework and programming language used in thesis. 
 
-\subsection{Robot operating system}
-There are many choices of programming language, however the robot use a software framework developed for robot applications, Robot Operating System (ROS). The benefit of ROS is that processes can be grouped into packages, which can be easily shared and distributed. This allow parallel execution of the data collection and class prediction in real time. Thus, it is recommended to use programming language which are supported for ROS such as C++ and Python. 	
+\section{Robot operating system}
+The robot used in all experiments operate on a Robot operating system (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages and be shared and distributed. A node is a process that perform computation. For instance a node could be controlling the robot, while the other one control prediction of terrain. This allow parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
+
+\subsection{Messages and topics}
+A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message to send out a message by publishing it a given topic \cite{ROSconcept}. The topic is used to identify the content of the message where a node has the possibility to subscribe to the appropriate topic. This can be seen as many-to-many one-way transport.
+
+\subsection{Services}
+When a many-to-many one-way transport is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The cliet calls the service by sending the request meassage and awaiting the reply.
 
 
-\section{Python}
+\subsection{Bag}
+Rosbag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
+
+
+\subsection{ROS driver for the Optoforce sensor}  
+A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream to a topic. 
+
+
+\section{Algorithms libraries}
+Python provide lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use. In this project libraries such as scikit-learn, scipy and runstats will be used to test each of different classifiers described in section \ref{sub:classifier}.
 
 \paragraph{Scikit-learn}
 Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
@@ -752,32 +765,20 @@ Scikit-learn \cite{scikit-learn} is an open source library that provide tools fo
 \paragraph{Runstats}
 Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew, variance and standard deviation where some of them is described in section \ref{sub:statical}.
 
-\subsection{Neural network}
-
-\subsection{KNN}
-
-\subsection{SVM}
-
-\subsection{Decision tree}
-
-\subsection{Bayes Naives}
 
 \chapter{Implementation}\label{ch:implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
 	
-\section{Tools and environment}
+
 	
-\subsection{Implementation language}
-Reading data from optical force sensor is using the package from \cite{optoRos}. The implementation publish data from the sensor, which make it possible for other module to fetch the data by subscribing to the node. Segmentation, which will be described later in section \ref{subseq:segmentation} is implemented in C++. The reason of implementing data segmentation in C++ is because it is faster than Python which can deal to store and delete data stream better. However, C++ does not provide many learning libraries, so the learning approach is implemented in Python. Python provide lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use. In this project libraries such as scikit-learn, scipy and runstats will be used to test each of different classifiers described in section \ref{sub:classifier}.
-		
-%\part{Conclusion}                     %% ... or Konklusjon
-	
-	
+\section{Choice of implementation language}
+The robot operating on ROS which is compatible with C++, Python and Lisp. Thus, segmentation of data, which will be described later in section \ref{subseq:segmentation} is implemented in C++. The reason of implementing data segmentation in C++ is because it is fast which can deal to store and delete data stream better. However, C++ does not provide many learning libraries, thus the learning approach is implemented in Python. 
+			
 \section{Data from optical force sensor}
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Reading from the sensor is set to default 100Hz. A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
+A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
 	
 	\begin{comment}
 	
@@ -846,23 +847,23 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\FloatBarrier
 	
 	
-	\subsection{Analyzing data from sensor}
-	Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
+\subsection{Analyzing data from sensor}
+Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
 	
-	\subsection{Data segmentation} \label{subseq:segmentation}
-	An appropriate method to segment data is by sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window and too big window size is not efficient. Thus, an algorithm to segment data was created. 
-	\\
-	\\
-	In the thesis it is considered that the most informative data of terrain is from when the foot is on ground to it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minor change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
+\subsection{Data segmentation} \label{subseq:segmentation}
+An appropriate method to segment data is by sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window and too big window size is not efficient. Thus, an algorithm to segment data was created. 
+\\
+\\
+In the thesis it is considered that the most informative data of terrain is from when the foot is on ground to it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minor change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
 	
-	\section{Feature extraction}\label{sec:featuex}
-	As mentioned in section \ref{features}, a good classifier is depended of good features. In the section \ref{feature_extraction} has shown that mostly of previous work have been extracting features both in time domain and frequency domain. In this thesis will also be looking on both domains.
-	\\
-	\\
-	Figure \ref{fig:meanxyz} showing the mean of 10 samples in x,y and z-direction in time domain. Looking on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
-	\\
-	\\
-	A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
+\section{Feature extraction}\label{sec:featuex}
+As mentioned in section \ref{features}, a good classifier is depended of good features. In the section \ref{feature_extraction} has shown that mostly of previous work have been extracting features both in time domain and frequency domain. In this thesis will also be looking on both domains.
+\\
+\\
+Figure \ref{fig:meanxyz} showing the mean of 10 samples in x,y and z-direction in time domain. Looking on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
+\\
+\\
+A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
 	
 	
 	\begin{comment}
@@ -997,8 +998,8 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	
 	
 	
-	\subsection{Feature sets}\label{sec:featuresets}
-	\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in next section \ref{subseq:FixLength}. The feature vector will be:
+\subsection{Feature sets}\label{sec:featuresets}
+\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in next section \ref{subseq:FixLength}. The feature vector will be:
 	
 	\begin{equation} \label{eq:f1}
 	f_{set1}= \left\{ x_1,\dotsc,x_{125},y_1, \dotsc,y_{125},z_1,\dotsc,z_{125} \right\}
@@ -1006,7 +1007,7 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	The vector contain 125 feature from each 3 sensors, which mean 375 features.
 	
 	
-	\paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
+\paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
 	
 	%This is using some of the features from this article \cite{Hoffmann20141790}. 
 	
@@ -1018,16 +1019,16 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 		\item Standard deviation in time domain
 	\end{enumerate}
 	
-	The feature set will be look like:
+The feature set will be look like:
 	
-	\begin{align}
+\begin{align}
 	f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
 	&\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
 	&\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz} \right\}
-	\end{align}
-	The vector contain 5 features from each direction, which is in total 15 features. 
+\end{align}
+The vector contain 5 features from each direction, which is in total 15 features. 
 	
-	\paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
+\paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
 	
 	
 	\begin{equation} \label{eq:f2}
@@ -1035,25 +1036,25 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	\end{equation}
 	The vector contain 61 features from each direction, which is in total 183 features. 
 	
-	\paragraph{Feature set four - staticial features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
+\paragraph{Feature set four - staticial features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
 	
-	\begin{enumerate}
+\begin{enumerate}
 		\item The maximum value of the dataset in frequency domain
 		\item The minimum value of the dataset in frequency domain
 		\item Skew in frequency domain
 		\item Kurtosis in frequency domain 
 		\item Standard deviation in frequency domain
 		\item Energy 
-	\end{enumerate}
-	The feature which will be feed into classifier:
-	\begin{align}
+\end{enumerate}
+The feature which will be feed into classifier:
+\begin{align}
 	f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
 	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
 	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 	\end{align}
 	The vector contain 6 features from each direction, which is in total 18 features. 
 	
-	\paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
+\paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
 	\begin{align}
 	f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
 	&\qquad \left. {}  y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
@@ -1062,10 +1063,10 @@ Reading from the sensor is set to default 100Hz. A stable gait is used to walk 1
 	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
 	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
 	\end{align}
-	The vector contain 13 features from each direction, which is in total 39 features. 
+The vector contain 13 features from each direction, which is in total 39 features. 
 	
-	\subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-	In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considered that data in end and start are less important than in middle.
+\subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
+In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considered that data in end and start are less important than in middle.
 	
 \begin{lstlisting}[language=Python]
 	
@@ -1088,12 +1089,12 @@ def fix_length(data_sequence):
     return fixed_data_sequence
 \end{lstlisting}
 	
-	\newpage
-	\section{Learning approach}
-	The learning approach is divided into to processes. First to divide the file and learning process.
+\newpage
+\section{Learning approach}
+The learning approach is divided into to processes. First to divide the file and learning process.
 	
-	\subsection{Collecting samples}
-	The samples used as training and test is a step before the learning procedure. This is to gather data sample for each terrain into a file, which will be used in the learning process. The procedure is shown in figure \ref{fig:createsamples}
+\subsection{Collecting samples}
+The samples used as training and test is a step before the learning procedure. This is to gather data sample for each terrain into a file, which will be used in the learning process. The procedure is shown in figure \ref{fig:createsamples}
 	
 	\begin{figure}[h]
 		\centering
