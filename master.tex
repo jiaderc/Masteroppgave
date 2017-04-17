@@ -684,9 +684,6 @@ The sensor consists of a light emitter (LED) and four sensing elements(photodiod
 	\label{fig:OptoforceAxis}
 \end{figure}
 
-\section{Software language}
-There are many choices of programming language, however the robot use a software framework developed for robot applications, Robot Operating System (ROS). The benefit of ROS is that processes can be grouped into packages, which can be easily shared and distributed. This allow parallel execution of the data collection and class prediction in real time. Thus, it is recommended to use programming language which are supported for ROS such as C++ and Python. 
-
 \subsection{Robot}
 The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait or fallen down with fast gait. The gait used is a balanced gait which let the robot go straight forward. 
 
@@ -739,10 +736,16 @@ Four different terrains is used in all experiment: floor, carpet, soft mat, and 
 	{\small Four different terrain used for classification} 
 	\label{fig:terrains}
 \end{figure*}
-	
-\section{ROS}
+
+\section{Software framework and language}
+This section will be presenting framework and programming language used in thesis. 
+
+\subsection{Robot operating system}
+There are many choices of programming language, however the robot use a software framework developed for robot applications, Robot Operating System (ROS). The benefit of ROS is that processes can be grouped into packages, which can be easily shared and distributed. This allow parallel execution of the data collection and class prediction in real time. Thus, it is recommended to use programming language which are supported for ROS such as C++ and Python. 	
+
 
 \section{Python}
+
 \paragraph{Scikit-learn}
 Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
 
