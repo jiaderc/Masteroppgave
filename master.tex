@@ -74,13 +74,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
-An important ability for every mobile robots is be able to identify different terrains. Although past and current works have show promising results, new and improved sensors have made it possible to distinguish even more accurately on almost identical terrains. A type of 3-axis optical force sensor, use optoelectronic components to measure the contact force has paid a little attention within terrain classification. Due to high sensitivity, small size, 	light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify four different terrains. Three of the terrains have similar properties, while the last one stand out from the other. The intuition is, if the sensor is able to discriminate between two similar terrains, it will be able to identify two more distinct terrains. Evaluation of quality to the sensor will base on using several techniques to preprocessing data and test it on five different learning algorithms.
-\\
-\\
-Results show that the combination of SVM and selected features from frequency domain with wrapper method, gives an accuracy over 90\% on unseen data, which is feasible result compared to similar earlier work.
-	
-
-	
+An important ability for every mobile robots is being able to identify different terrains. Past works has been studied on variety of sensors and achieved a promising result. However, a type of optical tactile sensor, which use optoelectronic components to measure the contact force has paid a little attention. Due to high sensitivity, small size, light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robot to identify different terrains. This thesis will also present a novel algorithm to segment interesting data from the sensor. These data consists of steps on different terrains, and is used as training and test samples. Five different feature sets were created from the data samples, and tested on five different classifiers. The highest accuracy achieved to classify four different terrains is 95.2\%, by using the SVM. Evaluation shows that the suggested optical tactile sensor is able to discriminate nearly identical terrains, and is good candidate to use on terrain classification. 
 \tableofcontents{}
 \listoffigures{}
 \listoftables{}
@@ -95,23 +89,23 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 \mainmatter{}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes of past experiences. For instance, one might experienced the difficulty of running on icy road and may cause a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to distinguish different terrains.
-	\\
+Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes from past experiences. For instance, one might experienced difficulty of running on icy road, resulting in a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to detect and distinguish different terrains.
+\\
 \\ 
-New and improved sensors have made it possible to distinguish terrain even more accuracy. A popular sensor used is gather information visually from terrain such as camera \cite{littleDog}, laser scanners \cite{4651026}. These types of sensor gather information from terrain indirectly. While other rather to measure the properties of the terrain more directly such as tactile, joint angle, accelerometer and gyroscope. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a Quadruped Robot to identify which of them is suitable and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of tactile sensor which use refracted light intensity to measure the contact force has been less focused within terrain classification, that is the 3-axis optical force sensor. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor suit to obtain information from terrain and distinguish them. The goal of this thesis is to use an 3D optical force sensor and investigate whether it can distinguish terrains with slightly difference such as floor and carpet.
+New and improved sensors have made it possible to distinguish terrain even more accurately. Examples of popular sensors used to gather information visually from terrain are camera \cite{littleDog} and laser scanners \cite{4651026}. These types of sensors gather information from terrain indirectly. Other sensors measure the properties of the terrain more directly such as tactile, joint angle, accelerometers and gyroscopes. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which of them is suitable, and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of tactile sensor, 3-axis optical force sensor, use refracted light intensity to measure the contact force has not been used much within terrain classification. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor is suitable to obtain information from terrain. The goal of this thesis is to use 3-axis optical force sensor and investigate whether it can distinguish terrains with slight differences such as floor and carpet.
 \\
 \\
-To evaluate quality use of the sensor in terrain classification, this thesis will be investigating several learning algorithms and find a reliable approach. The thesis will also look into how to preprocess data, create features and select features.
-	
+This thesis will also be investigating on how to preprocess data, create and select features and test on several learning algorithms to find a reliable approach. 
+
 	
 \section{Outline}
-The thesis is divided into five chapters: introduction, background, implementation,  experiments and results and conclusion. 
+The thesis is divided into five chapters: introduction, background, implementation,  experiments and results, and conclusion. 
 	
 \paragraph{Chapter 1: Introduction}
 The introduction chapter gives a brief introduction of the terrain classification, and the motivation in this project.
 	
 \paragraph{Chapter 2: Background}
-The background chapter presents first a brief what terrain classification is about. The second section will be presenting background of the optical sensor. Following will be briefly presents background of machine learning used in this thesis. Lastly, related work of terrain classification will be presented.
+The background chapter presents first a brief what terrain classification is about. Followed with different types of legged robots and explaining the gait. The second section will be presenting background of the optical sensor.  will be briefly presents background of machine learning. Lastly, related work of terrain classification will be presented.
 
 \paragraph{Chapter 3: Software and tools}
 The software and tools chapter present the sensor along with programming framework and libraries used in this thesis. The experimental environment is also presented. 
@@ -123,7 +117,7 @@ The implementation chapter present the experiment setup, how the data is preproc
 The experiments and results chapter presents experiments and its results along with a short analysis.
 	
 \paragraph{Chapter 6: Discussion}
-The discussion chapter will discuss results from the experiments, along with suggestions for future work. Lastly is a conclusion of this thesis. 
+The discussion chapter will discuss results from the experiments. Lastly is a conclusion along with future work of the thesis. 
 	
 	
 \chapter{Background}                  %% ... or Bakgrunn
@@ -131,9 +125,63 @@ The discussion chapter will discuss results from the experiments, along with sug
 %Snakke litt om historien om optical force sensor
 %Optical force sensors use the refracted light itensity to measure..
 \section{Terrain classification}
-Terrain classification is the process of identify different types of terrain by looking on its characteristics such as texture, slope, roughness, hardness and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might has less friction than grass. Outdoor terrains is more unpredictable cause of its unstructured environment and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor in other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of any factors.
-	
-	
+Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might have less friction than grass. Outdoor terrains is more unpredictable due to its unstructured environment, and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor on other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of the same factors.
+
+\section{Legged robots}
+The following paragraphs will introduce several platform of different legged robots.
+
+%http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
+%file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
+%http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
+%http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
+%http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
+
+\paragraph{Monopod}
+The monopod is a simple one legged robot design. The locomotion of the monopod robots is performed through hops, and it is also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of one legged robot is developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
+
+\paragraph{Biped}
+A biped is a robot with two legs. The studies on biped robots have been a popular research field, especially towards developing humanoids. Creating a humanoid implicates that the robot is able to imitate humans behavior, such as walking, running, jumping, traversing on stairs etc. The well-kown NAO robot \cite{NAO}, shown in figure \ref{fig:nao} has impressive abilities. Not only is NAO robot able to walk, but it is also capable of see, hear and speak. 
+
+\paragraph{Quadruped}
+The quadruped is robot designed with four legs and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg, depending on the terrain. Other abilities includes being able to jump, run, and maintain the stability even it get pushed or walking on slippery terrain. More legs makes robots more stable, and is capable to traverse through terrain without falling. However it is more complex to control the legs.
+
+\paragraph{Hexapod}
+A hexapod is six legged robot, and is inspired by insects, mostly spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Hopper}
+		\caption{One legged robot \cite{Raibert:1986:LR:5948.5950}}
+		\label{fig:onlegg}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Nao_Robot}
+		\caption{The NAO robot \cite{NAOImage}}
+		\label{fig:nao}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/BigDog}
+		\caption{The bigdog \cite{Raibert200810822}.}
+		\label{fig:bigDog}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.22\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figures/Lauron}
+		\caption{Lauron V robot \cite{6878051}.}
+		\label{fig:LAURON}
+	\end{subfigure}
+	\caption{Pictures of animals}\label{fig:robots}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Gait}
+Stable locomotion of legged robots is achieved through the gait. A gait is a cyclic motion of sequence of foot contacts with the ground that produce locomotion \cite{1641859}. A characteristic is by the sequence of which legs are lifted and placed on the ground. Different style of locomotion is produced by different gaits.
+
+
 \section{Tactile sensor}
 Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. For manipulation it means that it is possible to control for instance the grip force on an object. In figure \ref{fig:tactiles} an example of each activities. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
 
@@ -170,7 +218,7 @@ Tactile sensor are designed for measure properties through direct physical inter
 A type of optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
 
 \section {Machine learning}
-Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing for each features vector and produce an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. The thesis will be focusing on supervised learning. However, the following paragraphs will briefly introduce the difference between each type.
+Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed to do so. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. 
 	
 \paragraph{Supervised learning}
 Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in learning process known correct answers to each dataset, and will base the prediction on that. The learning process usually stops when the algorithm converge towards an acceptable level of performance.
@@ -185,13 +233,13 @@ Reinforcement learning algorithms will choose an action to each dataset and it w
 Evolutionary learning use biological evolution such as reproduction, mutation, recombination, and selection as a learning process. 
 	
 \subsection{Classifier} \label{sub:classifier}
-The classifier is where the learning process occur and produce the inferred function. Following sections will introduce technical background of five different classifiers which is intended to be used in this thesis.
+The classifier is where the learning process occur, and produceS the inferred function. The following sections will introduce technical background of five classifiers; artifical neural network, support vector machine, Naive Bayes, k-nearest neighbors and decision tree.
 	
 \subsubsection{Artificial neural networks}
-Artificial neural networks (ANN) is inspired of neurons in human brain, and is one of the popular learning algorithm. It can be found in many different research field, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain neural network. Note that neurons only dependent on its inputs and error. That is, a neuron will not be affected by other neurons performance. Each neurons gives a result based on own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+Artificial neural networks (ANN) is inspired by neurons in the human brain, and is one of the most popular learning algorithms. It can be found in many different research fields, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only dependent on its inputs and error. That is, a neuron will not be affected by other neurons performance. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
 \\
 \\
-The learning process of perceptron in supervised learning is be able to reproduce a particular pattern to a class, which consist of firing and non-firing neurons for a given input. If some of the neuron yield a wrong output, for instance a neuron did not fire when it should, then its weights will be adjusted to make it fire right next time. There is a possible to add more layers to the neural network, which make it able to handle non linearly separable problems. This is also called multi-layer perceptron (MLP), or multi neural network.
+The learning process of a perceptron in supervised learning is to be able to reproduce a particular pattern to a class, which consist of firing and non-firing neurons for a given input. If some of the neurons yield a wrong output, for instance a neuron did not fire when it should, then its weights will be adjusted to make it fire right the next time. There is a possible to add more layers to the neural network, which make it able to handle non linearly separable problems. This is also called multi-layer perceptron (MLP), or multi neural network.
 
 	
 \begin{figure}[h]
@@ -202,7 +250,7 @@ The learning process of perceptron in supervised learning is be able to reproduc
 \end{figure}
 	
 \paragraph{Multi-Layer Perceptron}
-Multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layer because its value cannot be change directly, and it is only observed in the training set. The training process can be divided into forward algorithm and backward algorithm. The forward algorithm start first by calculating the activations of the first hidden layer. Those activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights between the output-layer and hidden-layer. The algorithm stops when it has reach the inputs and changed entire weights.
+A multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layers because its value cannot be changed directly, and it is only observed in the training set. The training process can be divided into forward algorithm and backward algorithm. The forward algorithm start first by calculating the activations of the first hidden layer. Those activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will be using the error to adjust the weights between the output-layer and hidden-layer. The algorithm stops when it has reach the inputs and changed weights in the entire graph.
 	
 	
 \begin{figure}[h]
@@ -212,8 +260,8 @@ Multi-layer perceptron consists of two or more layers between the input and outp
 	\label{fig:MLP}
 \end{figure}
 	
-\subsubsection{Support vector machines}
-Support vector machines (SVM) algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the boundary line (dotted line) it will classify as cross, while circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the optimal separating hyperplane. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly separable to make the classification.
+\subsubsection{Support vector machine}
+Support vector machine (SVM) algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the boundary line (dotted line) it will classify as cross, while circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the optimal separating hyperplane. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly separable to make the classification.
 	
 	
 	\begin{figure}[h]
@@ -233,7 +281,7 @@ Naive Bayes algorithm is based on Bayes’ theorem with the assumption of indepe
 P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor. The prediction is by use the highest probability among the possible terrains. 
+The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The prediction is by use the highest probability among the possible terrains. 
 	
 \begin{comment}
 	
@@ -289,7 +337,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 		\centering
 		\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
 		\caption{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
-		\label{fig:SVM}
+		\label{fig:decisiontree}
 \end{figure}
 	
 	
@@ -303,7 +351,7 @@ The curse of dimensionality occurs when one include too many features to the inp
 Feature extraction is the process to build a new set of features from the original set and use it as training set. Those extracted features should make it easy for a classifier to distinguish between the various classes. A common method is extracting statistical features.
 	
 \subsubsection{Statistical features} \label{sub:statical}
-The following paragraphs will be explaining five different statical features, which will be used in this thesis.
+The following paragraphs will be explaining five commonly used statical features; mean, variance, standard deviation, skewness and kurtosis.
 	
 \paragraph{Mean}
 The mean is generally referred to the average, and is defined as sum of the values divided by the number of values\cite{Press:2007:NRE:1403886}:
@@ -342,7 +390,7 @@ The skewness can be either negative or positive depending on whether data points
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.8]{Figures/Skewness}
-		\caption{Skewness}
+		\caption{Skewness \cite{Press:2007:NRE:1403886}}
 		\label{fig:skew}
 	\end{figure}
 	
@@ -361,7 +409,7 @@ A positive kurtosis of a distribution has a sharper peak and heavier tails relat
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.8]{Figures/Kurtosis}
-		\caption{Kurtosis}
+		\caption{Kurtosis \cite{Press:2007:NRE:1403886}}
 		\label{fig:kurtosis}
 	\end{figure}
 	
@@ -485,7 +533,7 @@ The process of k-fold is to partitioned the data into k subset, where one subset
 	\end{equation}
 	
 	\paragraph{Recall}
-	Reacall gives the number of detected actual class members.
+	Recall gives the number of detected actual class members.
 	
 	\begin{equation}
 	Recall = \frac{TP}{TP + FN}
@@ -500,7 +548,7 @@ The process of k-fold is to partitioned the data into k subset, where one subset
 	\end{equation}
 	%\part{The project}                    %% ... or ??
 	\FloatBarrier
-The accuracy will tell the overall performance of the model. However, there is a possibility that the model only classify three of four terrains correctly and still get a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicate that the class either has a low precision, recall or both. Low precision indicate that the classifier has difficulty to predict the currently terrain, while low recall indicate that is more likely that a terrain is to be classified in other terrains.
+The accuracy will tell the overall performance of the model. However, there is a possibility that the model only classify three of four terrains correctly and still get a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicate that the class either has a low precision, recall or both. Low precision indicate that the classifier has difficulty to predict the currently class, while low recall indicate that is more likely that a class is to be classified in other classes.
 \\
 \\
 It will be interesting to see which of class was easier to predict than others. This can be seen by using confusion matrix. The confusion matrix consists a square matrix with one row for predicted class, and and column for actual class (or vice-versa).
@@ -521,69 +569,21 @@ An example of confusion matrix is shown on table \ref{tab:cmatrix}
 	\end{table}
 	
 	
-\section{Related work}
-The terrain classification has been applied both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. In this thesis a legged robot will be used to perform terrain classification.
-	
-\subsection{Types of legged robots}
-Many types of legged robot has been addressed in terrain classification. Mostly reviewed study has been using quadruped \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapod \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179} cause of its stability. However a few has used one legged robot \cite{5602459}. The following paragraphs will introduce several platform of different legged robots.
-	
+\section{Existing work on terrain classification}
+The terrain classification has been applied to both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of traverse on more difficult terrains. 
+\\
+\\
+The most commonly used legged robot in terrain classification is using quadruped \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapod \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179}, due to its stability on rough terrain. However a few has used one legged robot \cite{5602459}. Biped for terrain classification is still unsuitable since it is hard to maintain stability on rough terrain.
+\\
+\\
+The bayes theorem suit to mathematical express the terrain identification problem, and allow to evaluate unexpected mismatch between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that is expected to predict, while B is the data from sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that the terrain is this with these data from senor.
+
 	%http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
 	%file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
 	%http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
 	%http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 	%http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
-	
-\paragraph{Monopod}
-The monopod is a simple legged robot design, with one leg. The locomotion of monopod robots is performed through hops and it is also called as hopping robots. Having only a single point of ground contact, the challenging is achieving the stability. An example of one legged robot is developed by Marc Raibert shown in figure \ref{fig:onlegg}.
-	
-	
-\paragraph{Biped}
-Biped is robot with two legs. The studies on biped robots have been popular research field, especially towards developing humanoids. Creating a humanoid implicate that the robot is able to imitate humans behavior, such as the walking, running, jump, traverse on stairs. A successive humanoid is the NAO robot \cite{NAO}, shown in figure \ref{fig:nao}. Not only is NAO robot able to walk, but it is also capable to see, hear, speak and feel. However, using a biped for terrain classification is still unsuitable since it is hard to maintain stability on rough terrain.
-	
-\paragraph{Quadruped}
-Quadruped is robot with four legs to walk and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. With hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg depend on the terrain. Other abilities are being able to jump, run and maintain the stability even it get pushed or walking on slippery terrain. A reason of mostly work using quadruped is its stability. By having more legs make the more stable and is capable to traverse through terrain without falling. However it is more complex to control their legs.
-
-\paragraph{Hexapod}
-Hexapod is six legged robot and is inspired of insect, mostly towards spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. Because of its stability like the quadruped, hexapod is also popular used robot within terrain classification studies.
-	
-	\begin{figure}
-		\centering
-		\begin{subfigure}[b]{0.22\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{Figures/Hopper}
-			\caption{One legged robot \cite{Raibert:1986:LR:5948.5950}}
-			\label{fig:onlegg}
-		\end{subfigure}\hfill
-		\begin{subfigure}[b]{0.22\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{Figures/Nao_Robot}
-			\caption{The NAO robot \cite{NAOImage}}
-			\label{fig:nao}
-		\end{subfigure}\hfill
-		\begin{subfigure}[b]{0.22\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{Figures/BigDog}
-			\caption{The bigdog \cite{Raibert200810822}.}
-			\label{fig:bigDog}
-		\end{subfigure}\hfill
-		\begin{subfigure}[b]{0.22\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{Figures/Lauron}
-			\caption{Lauron V robot \cite{6878051}.}
-			\label{fig:LAURON}
-		\end{subfigure}
-		\caption{Pictures of animals}\label{fig:robots}
-	\end{figure}
-	
-	\FloatBarrier
-	
-\subsection{Gait}
-A gait is the pattern of a walking style. It will be looking at which legs are lifted and placed. 
-
-The coordinated manner of lifting and placing the legs is called a gait. A gait is characterized by the sequence in which the legs are lifted and placed. The lifting or placing of a leg is
-called an event of the gait, and the sequence in which the legs are lifted and placed
-is called a gait event sequence
-	
+		
 \subsection{Importance of terrain classification}
 The importance of terrain classification for legged robots is that the terrain has a major factor affecting the decision for the gait change \cite{6569179}. Most of the legged robot has the benefit of changing their gait and walking speed to achieve a stable locomotion. For instance a running gait can be efficient on flat road, but fail to maintain the stability when used on ice, cause of slipping. An example of application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where a amphibious legged robot can switch from walking to swimming gait, according to which of the terrain it is on. 
 \\
@@ -665,7 +665,7 @@ Not all studies evaluated their models by k-fold cross-validation, but either wi
 \chapter{Softwares and tools}
 	
 \section{Optical force sensor}
-The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
@@ -674,7 +674,7 @@ The sensor used in this thesis is OptoForce(3D force sensor) \cite{Optoforce}. A
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements(photodiodes) which is wrapped within two layers, a reflective layer and a sensing surface. The four photodiodes obtain the force by measure the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is relative new sensor(2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. A several work where the sensor is used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which is wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is a relative new sensor (2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
 
 
 \begin{figure}[h]
@@ -684,7 +684,7 @@ The sensor consists of a light emitter (LED) and four sensing elements(photodiod
 	\label{fig:OptoforceAxis}
 \end{figure}
 
-\subsection{Robot}
+\section{Robot}
 The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait or fallen down with fast gait. The gait used is a balanced gait which let the robot go straight forward. 
 
 
@@ -696,7 +696,7 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 \end{figure}
 \FloatBarrier
 
-\subsection{Terrain} \label{seq:terrain}
+\section{Terrain} \label{seq:terrain}
 Four different terrains is used in all experiment: floor, carpet, soft mat, and hard mat shown in figure \ref{fig:terrains}. A reason of choosing those is to get a more challenging task for classifier to distinguish them, because of similar properties between them. The intuition is that if the algorithm manage to discriminate between floor and carpet might indicate that it is able to distinguish mostly of the terrains. Floor, carpet and hard mat  has the most similar properties and is also the most difficult to distinguish. They are all slippery and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
 
 \begin{figure*}[h]
@@ -892,7 +892,7 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	\begin{figure} [h]
 		\centering
 		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/xmeans2}
 			\caption{Mean of 10 samples in x-direction}
 			\label{fig:meanx} 
 		\end{subfigure}
@@ -1001,13 +1001,22 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 \subsection{Feature sets}\label{sec:featuresets}
 \paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in next section \ref{subseq:FixLength}. The feature vector will be:
 	
-	\begin{equation} \label{eq:f1}
-	f_{set1}= \left\{ x_1,\dotsc,x_{125},y_1, \dotsc,y_{125},z_1,\dotsc,z_{125} \right\}
-	\end{equation}
+	
+
+\begin{align}\label{eq:f1}
+f_{set1} &= \left\{ x_1,\dotsc,x_{125}, \right.\nonumber\\
+&\qquad \left. {} y_1, \dotsc,y_{125}, \right.\nonumber\\
+&\qquad \left. {} z_1,\dotsc,z_{125} \right\}
+\end{align}
+
+
 	The vector contain 125 feature from each 3 sensors, which mean 375 features.
 	
+
+		
+		
 	
-\paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
+ \paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
 	
 	%This is using some of the features from this article \cite{Hoffmann20141790}. 
 	
@@ -1030,13 +1039,15 @@ The vector contain 5 features from each direction, which is in total 15 features
 	
 \paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
 	
+\begin{align}\label{eq:f1}
+f_{set3} &= \left\{ fx_1,\dotsc,fx_{61}, \right.\nonumber\\
+&\qquad \left. {} fy_1, \dotsc,fy_{61}, \right.\nonumber\\
+&\qquad \left. {} fz_1,\dotsc,fz_{61}\right\}
+\end{align}
+
+The vector contain 61 features from each direction, which is in total 183 features. 
 	
-	\begin{equation} \label{eq:f2}
-	f_{set3}= \left\{ fx_1,\dotsc,fx_{61},fy_1, \dotsc,fy_{61},fz_1,\dotsc,fz_{61} \right\}
-	\end{equation}
-	The vector contain 61 features from each direction, which is in total 183 features. 
-	
-\paragraph{Feature set four - staticial features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
+\paragraph{Feature set four - statistical features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
 	
 \begin{enumerate}
 		\item The maximum value of the dataset in frequency domain
@@ -1185,6 +1196,7 @@ The samples used as training and test is a step before the learning procedure. T
 	\begin{enumerate}
 		\item \textbf{\underline{Reading file with samples}}
 		\\
+		\\
 		This step will take a file as input, created from section \ref{sub:createsamples}.
 		
 		\item \textbf{\underline{Extract features}}
@@ -1199,8 +1211,8 @@ The samples used as training and test is a step before the learning procedure. T
 			\\
 			The extracted feature vectors is partitioned into a training and testing set. The cross validation is LOOCV, thus the training set consists of 199 samples and one test sample.
 			
-			
 			\item \textbf{\underline{Scaling}}
+			\\
 			\\
 			This step takes the training set as input and standardization as mention in section \ref{subsec:scaling}. It will first scale the training data, and then scaling factors are applied to the test data.
 			
@@ -1255,7 +1267,7 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{91\%} & 88\% \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{93\%} & 93\% \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{52\%} & 93\% \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & 81\% \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ statistical features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & 81\% \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & 82\% \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & 84\% \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{85\%} & 88\% \\ \cmidrule(l){2-4} 
@@ -1382,14 +1394,30 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 \end{table}
 \FloatBarrier
 	
-	\section{Analysis}
-	From table \ref{tab:exp2} one can see that the filter selection has made most of the classifier more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
-	\\
-	\\
-	Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, KNN using wrapper method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
-	
-	\section{Cross validation with unseen data} \label{seq:crossunseen}
-	In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times.
+\section{Analysis}
+From table \ref{tab:exp2} one can see that the filter selection has made most of the classifier more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
+\\
+\\
+Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, KNN using wrapper method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
+
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}llll@{}}
+			\toprule
+			\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \midrule
+			Set 1 & 375 & 230 & 187 \\
+			Set 2 & 21 & 8 & 10 \\
+			Set 3 & 183 & 2 & 91 \\
+			Set 4 & 24 & 11 & 12 \\
+			Set 5 & 45 & 19 & 22 \\ \bottomrule
+		\end{tabular}%
+	}
+	\caption{Table showing new length of each features}
+	\label{my-label}
+\end{table}
+\section{Cross validation with unseen data} \label{seq:crossunseen}
+In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times.
 	
 	\begin{enumerate}
 		\item SVM with wrapper and use feature set two
@@ -2322,8 +2350,84 @@ Unsupervised has been addressed to few authors.
 	%https://link.springer.com/referenceworkentry/10.1007/978-3-540-30301-5_17
 	
 	%An Overview of Legged Robots
-	
-	
+
+Set 2
+Filter
+\begin{align}
+f_{set4} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
+\end{align}
+
+Wrapper
+\begin{align}
+f_{set4} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
+&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
+\end{align}
+
+  
+Set 3
+Filter
+\begin{align}
+f_{set4} &= \left\{ x_{1}, z_{1} \right\}
+\end{align}
+
+
+Wrapper
+
+	\begin{align}
+f_{set5} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
+&\qquad \left. {}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
+&\qquad \left. {}  y_{1},y_{21} \right.\nonumber\\
+&\qquad \left. {} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
+&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
+\end{align}
+
+\dotsc
+
+ f_{1} ,  f_{2} ,  f_{3} ,  f_{4} ,  f_{5} ,  f_{6} ,  f_{7} ,  f_{8} ,  f_{10} ,  f_{13} ,  f_{14} ,  f_{15} ,  f_{16} ,  f_{17} ,  f_{18} ,  f_{19} ,  f_{21} ,  f_{22} ,  f_{24} ,  f_{27} ,  f_{30} ,  f_{32} ,  f_{33} ,  f_{34} ,  f_{37} ,  f_{38} ,  f_{39} ,  f_{62} ,  f_{64} ,  f_{65} ,  f_{67} ,  f_{68} ,  f_{69} ,  f_{70} ,  f_{71} ,  f_{72} ,  f_{73} ,  f_{74} ,  f_{76} ,  f_{77} ,  f_{81} ,  f_{83} ,  f_{85} ,  f_{86} ,  f_{88} ,  f_{89} ,  f_{90} ,  f_{92} ,  f_{93} ,  f_{94} ,  f_{97} ,  f_{98} ,  f_{99} ,  f_{100} ,  f_{112} ,  f_{123} ,  f_{124} ,  f_{125} ,  f_{126} ,  f_{127} ,  f_{128} ,  f_{129} ,  f_{130} ,  f_{131} ,  f_{132} ,  f_{133} ,  f_{135} ,  f_{139} ,  f_{140} ,  f_{141} ,  f_{142} ,  f_{143} ,  f_{144} ,  f_{146} ,  f_{147} ,  f_{148} ,  f_{149} ,  f_{150} ,  f_{151} ,  f_{152} ,  f_{153} ,  f_{154} ,  f_{155} ,  f_{156} ,  f_{158} ,  f_{160} ,  f_{161} ,  f_{173} ,  f_{181} ,  f_{182} ,  f_{183}
+
+
+
+Set 4
+Filter
+\begin{align}
+f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
+
+  
+
+Wrapper
+\begin{align}
+f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
+\end{align}
+
+    
+Set 5
+Filter
+\begin{align}
+f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
+ 
+
+
+Wrapper
+\begin{align}
+	f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
+	&\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
+	&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
+\end{align}
+
+
+
 	\backmatter{}
 	\bibliography{bib}
 	\bibliographystyle{ieeetr}
