@@ -32,11 +32,15 @@
 minimum height=1.5em,drop shadow]
 \tikzstyle{etape} = [materia, text width=8em, minimum width=10em,
 minimum height=3em, rounded corners, drop shadow]
+\tikzstyle{etapeTo} = [materia, text width=8em, minimum width=10em,
+minimum height=3em, rounded corners, drop shadow,dashed]
+\tikzstyle{etapeTre} = [materia, text width=8em, minimum width=10em,
+minimum height=3em, rounded corners, drop shadow, fill=red!50]
 \tikzstyle{texto} = [above, text width=6em, text centered]
 \tikzstyle{linepart} = [draw, thick, color=black!50, -latex', dashed]
 \tikzstyle{line} = [draw, thick, color=black!50, -latex']
 \tikzstyle{ur}=[draw, text centered, minimum height=0.01em]
-\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!20]
 \tikzstyle{container} = [rectangle, draw, inner sep=0.2 cm, dashed]
 \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
 text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
@@ -44,6 +48,8 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 \newcommand{\blockdist}{1.3}\newcommand{\edgedist}{1.5}
 
 \newcommand{\etape}[2]{node (p#1)[etape]{#2}}
+\newcommand{\etapeTo}[2]{node (p#1)[etapeTo]{#2}}
+\newcommand{\etapeTre}[2]{node (p#1)[etapeTre]{#2}}
 \newcommand{\io}[2]{node (p#1)[io]{#2}}
 \newcommand{\dec}[2]{node (p#1)[decision]{#2}}  
 
@@ -183,7 +189,7 @@ Stable locomotion of legged robots is achieved through the gait. A gait is a cyc
 
 
 \section{Tactile sensor}
-Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. For manipulation it means that it is possible to control for instance the grip force on an object. In figure \ref{fig:tactiles} an example of each activities. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
 
 
 	\begin{figure}
@@ -215,6 +221,7 @@ Tactile sensor are designed for measure properties through direct physical inter
 
 
 \subsection{Optical tactile force sensor}
+
 A type of optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
 
 \section {Machine learning}
@@ -663,7 +670,9 @@ Not all studies evaluated their models by k-fold cross-validation, but either wi
 
 
 \chapter{Softwares and tools}
-	
+This chapter gives an introduction to different tools and libraries used throughout the thesis.
+
+
 \section{Optical force sensor}
 The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
@@ -685,7 +694,7 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \end{figure}
 
 \section{Robot}
-The robot used in this thesis is an Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective (SO), while the other multi-objective optimization (MO). Only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait or fallen down with fast gait. The gait used is a balanced gait which let the robot go straight forward. 
+The robot used in this thesis is a Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective, while the other multi-objective. However, only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait, or fell with fast gait. The gait used is a balanced multi-objective gait which let the robot go straight forward. 
 
 
 \begin{figure}[h]
@@ -697,7 +706,7 @@ The robot used in this thesis is an Quadruped Robot developed at the University 
 \FloatBarrier
 
 \section{Terrain} \label{seq:terrain}
-Four different terrains is used in all experiment: floor, carpet, soft mat, and hard mat shown in figure \ref{fig:terrains}. A reason of choosing those is to get a more challenging task for classifier to distinguish them, because of similar properties between them. The intuition is that if the algorithm manage to discriminate between floor and carpet might indicate that it is able to distinguish mostly of the terrains. Floor, carpet and hard mat  has the most similar properties and is also the most difficult to distinguish. They are all slippery and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish terrain with minor differences.
+Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat shown in figure \ref{fig:terrains}. A reason for choosing these is to get a more challenging task for classifier to distinguish them, because of similar properties. The intuition is that if the algorithm manages to discriminate between floor and carpet, it should be to distinguish other terrains as well. Floor, carpet and hard mat has the most similar properties, and is also the most difficult to distinguish. They are all slippery, and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 
 \begin{figure*}[h]
 	\centering
@@ -745,7 +754,7 @@ The robot used in all experiments operate on a Robot operating system (ROS) \cit
 A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message to send out a message by publishing it a given topic \cite{ROSconcept}. The topic is used to identify the content of the message where a node has the possibility to subscribe to the appropriate topic. This can be seen as many-to-many one-way transport.
 
 \subsection{Services}
-When a many-to-many one-way transport is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The cliet calls the service by sending the request meassage and awaiting the reply.
+When a many-to-many one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
 
 \subsection{Bag}
@@ -753,7 +762,7 @@ Rosbag is a package for recording and playing back ROS message data \cite{ROScon
 
 
 \subsection{ROS driver for the Optoforce sensor}  
-A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream to a topic. 
+A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. 
 
 
 \section{Algorithms libraries}
@@ -778,7 +787,7 @@ The robot operating on ROS which is compatible with C++, Python and Lisp. Thus, 
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-A stable gait is used to walk 10 step on each terrains. The runs were recorded into rosbag, which make it possible re-simulate the run. Five runs for each terrain, and in total 20 runs were recorded. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
+Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
 	
 	\begin{comment}
 	
@@ -821,7 +830,7 @@ A stable gait is used to walk 10 step on each terrains. The runs were recorded i
 		\end{subfigure}
 		
 		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf2}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
 			\caption{Carpet}
 			\label{fig:teppegraf}
 		\end{subfigure}
@@ -847,23 +856,17 @@ A stable gait is used to walk 10 step on each terrains. The runs were recorded i
 	\FloatBarrier
 	
 	
-\subsection{Analyzing data from sensor}
-Analyzing the data is to find common characteristics and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
+\subsection{Analyzing data from sensor}\label{sec:analyzopto}
+Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
 	
 \subsection{Data segmentation} \label{subseq:segmentation}
-An appropriate method to segment data is by sliding window algorithm. However, there are factors taken in account, which made it not to use the algorithm. It is difficult to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window and too big window size is not efficient. Thus, an algorithm to segment data was created. 
+An appropriate method to segment data is by sliding window algorithm, however, difficulty to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window, and too big window size is not efficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-In the thesis it is considered that the most informative data of terrain is from when the foot is on ground to it is in the air. In order to collect the interested data is firstly to detect when a foot is in air. That is when there are minor change in x,y,z-direction. When there are big change in each direction, start to store the data from sensor into an array, and stop when it is in the air again. Each step will be used as a sample in training and test set.
+In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{ sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Two thresholds have to be sets; one for considered as minor change, one for considered minimum length of the minor change sequence. When a foot reach the ground, there will be a big change in each direction for the sensor, and start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set.
 	
 \section{Feature extraction}\label{sec:featuex}
-As mentioned in section \ref{features}, a good classifier is depended of good features. In the section \ref{feature_extraction} has shown that mostly of previous work have been extracting features both in time domain and frequency domain. In this thesis will also be looking on both domains.
-\\
-\\
-Figure \ref{fig:meanxyz} showing the mean of 10 samples in x,y and z-direction in time domain. Looking on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
-\\
-\\
-A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
+As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains.
 	
 	
 	\begin{comment}
@@ -889,59 +892,7 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	\end{figure}
 	\end{comment}
 	
-	\begin{figure} [h]
-		\centering
-		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/xmeans2}
-			\caption{Mean of 10 samples in x-direction}
-			\label{fig:meanx} 
-		\end{subfigure}
-		
-		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
-			\caption{Mean of 10 samples in y-direction}
-			\label{fig:meany}
-		\end{subfigure}
-	\end{figure}
-	\begin{figure}[h] \ContinuedFloat
-		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
-			\caption{Mean of 10 samples in z-direction}
-			\label{fig:meanz}
-		\end{subfigure}
-		
-		\caption[]{The figure showing the mean of each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
-		\label{fig:meanxyz}
-	\end{figure}
-	
-	
-	\begin{figure}[h]
-		\centering
-		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=1\linewidth]{Figures/fftx}
-			\caption{Mean of 10 samples in x-direction}
-			\label{fig:fftx} 
-		\end{subfigure}
-	\end{figure}
-	\begin{figure}[h] \ContinuedFloat	
-		\begin{subfigure}[b]{0.95\textwidth}
-			\includegraphics[width=1\linewidth]{Figures/ffty}
-			\caption{Mean of 10 samples in y-direction}
-			\label{fig:ffty}
-		\end{subfigure}
-		
-		
-		\begin{subfigure}[h]{0.95\textwidth}
-			\includegraphics[width=1\linewidth]{Figures/fftz}
-			\caption{Mean of 10 samples in z-direction}
-			\label{fig:fftz}
-		\end{subfigure}
-		
-		\caption[]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
-		\label{fig:fftxyz}
-	\end{figure}
-	\FloatBarrier
-	
+
 	\begin{comment}
 	\begin{figure}[h]
 	\begin{subfigure}{0.5\linewidth}
@@ -999,8 +950,10 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	
 	
 \subsection{Feature sets}\label{sec:featuresets}
-\paragraph{Feature set one - raw data} This feature set use all of the data from each step in x,y and z-direction. The raw data is decimated in order to achieve a constant length, in this case 125, and compressed into one feature vector. Achieving the fixed length is described in next section \ref{subseq:FixLength}. The feature vector will be:
-	
+Five different feature set will be created and used to learn and evaluate each of classifiers. The following paragraphs will be introducing each sets.
+
+\paragraph{Feature set one - raw data} 
+This feature set use all data from each step in x, y and z-direction. As the length vary, the feature vector is decimated in front and end of the sequence to achieve a fixed length, in this case 125.  Choices of the sequence length and method of decimating is described in next section \ref{subseq:FixLength}. The feature vector set will look like:
 	
 
 \begin{align}\label{eq:f1}
@@ -1010,19 +963,22 @@ f_{set1} &= \left\{ x_1,\dotsc,x_{125}, \right.\nonumber\\
 \end{align}
 
 
-	The vector contain 125 feature from each 3 sensors, which mean 375 features.
+The vector contain 125 features from each 3 directions, which is in total 375 features.
 	
 
 		
 		
 	
- \paragraph{Feature set two - statistical features} This feature set extracting statistical feature from the dataset. As mentioned in section \ref{sub:relatedfeatures} that many early work has been extracting the features with statistical metrics. Thus, the thesis will be using similar features. Calculation of some of statistical metrics are described in section \ref{sub:statical}. The features from this set will be for each direction x,y and z: 
+\paragraph{Feature set two - statistical features} 
+This feature set extracts statistical features from the dataset. As mentioned in section \ref{sub:relatedfeatures}, much of early work has been extracting the features with statistical metrics. Thus, this thesis will be using similar features. Calculation of some statistical metrics are described in section \ref{sub:statical}. The features created in this set will be from each direction, x,y and z in time domain: 
 	
 	%This is using some of the features from this article \cite{Hoffmann20141790}. 
 	
 	\begin{enumerate}
 		\item The maximum value of the dataset in time domain
 		\item The minimum value of the dataset in time domain
+		\item The mean of the dataset in time domain
+		\item The variance of the data set in time domain
 		\item Skew in time domain
 		\item Kurtosis in time domain 
 		\item Standard deviation in time domain
@@ -1031,13 +987,14 @@ f_{set1} &= \left\{ x_1,\dotsc,x_{125}, \right.\nonumber\\
 The feature set will be look like:
 	
 \begin{align}
-	f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
-	&\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
-	&\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz} \right\}
+	f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
+	&\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
+	&\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean} \right\}
 \end{align}
-The vector contain 5 features from each direction, which is in total 15 features. 
+The vector contains 7 features from each direction, which is in total 21 features. 
 	
-\paragraph{Feature set three - complete frequency spectrum} Previous work has shown that using frequency has shown good result. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating it to a length of 61. Only data at the end of sequence, since it is considered as less important than in front. 
+\paragraph{Feature set three - complete frequency spectrum} 
+Previous work has shown that using frequency has given good results. In this feature set, the raw data from time domain is transformed into the frequency domain by fast Fourier transform. After transformation, a decimation is used to achieve a fixed length. Since the minimum of length in time domain is 125, and the fast Fourier transform is symmetric, the minimum length of entire spectrum will be 62.5, however in this approach will be decimating to a length of 61. Contrary to decimate in front and end of the sequence, it is considered that data at end of the sequence is less important than in front, hence, these features will be discarded.
 	
 \begin{align}\label{eq:f1}
 f_{set3} &= \left\{ fx_1,\dotsc,fx_{61}, \right.\nonumber\\
@@ -1045,90 +1002,78 @@ f_{set3} &= \left\{ fx_1,\dotsc,fx_{61}, \right.\nonumber\\
 &\qquad \left. {} fz_1,\dotsc,fz_{61}\right\}
 \end{align}
 
-The vector contain 61 features from each direction, which is in total 183 features. 
+The vector contains 61 features from each direction, which is in total 183 features. 
 	
-\paragraph{Feature set four - statistical features} This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
+\paragraph{Feature set four - statistical features} 
+This feature set compute the statistical metrics similar to feature set two, but in frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes is also used.
 	
 \begin{enumerate}
 		\item The maximum value of the dataset in frequency domain
 		\item The minimum value of the dataset in frequency domain
+		\item The mean of the dataset in frequency domain
+		\item The variance of the data set in frequency domain
 		\item Skew in frequency domain
 		\item Kurtosis in frequency domain 
 		\item Standard deviation in frequency domain
 		\item Energy 
 \end{enumerate}
-The feature which will be feed into classifier:
+The feature vector which will be fed into the classifier:
 \begin{align}
-	f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
-	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
-	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
+	f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
+	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
+	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
 	\end{align}
-	The vector contain 6 features from each direction, which is in total 18 features. 
+The vector contains 8 features from each direction, which is in total 24 features. 
 	
-\paragraph{Feature set five - set two and four} Good feature might come from different feature sets. The features from set two and four will be collected as a one set. 
+\paragraph{Feature set five - set two and four} 
+Good features might come from different feature sets. This set will collect feature set two and four into one unified set:
 	\begin{align}
-	f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{trapz}, \right.\nonumber\\
-	&\qquad \left. {}  y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{trapz}, \right.\nonumber\\
-	&\qquad \left. {}  z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{trapz}, \right.\nonumber\\
-	&\qquad \left. {} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{E}, \right.\nonumber\\
-	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{E}, \right.\nonumber\\
-	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{E} \right\}
+	f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
+	&\qquad \left. {}   y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
+	&\qquad \left. {}  z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean}, \right.\nonumber\\
+	&\qquad \left. {} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
+	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
+	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
 	\end{align}
-The vector contain 13 features from each direction, which is in total 39 features. 
+	
+The vector contains 15 features from each direction, which is in total 45 features. 
 	
 \subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, an fixed length is required. The steps have been decimated in order for to achieve a constant length of 125. It is shown that each step is vary between 125-135. A simplified method for achieving fixed length is shown. Note the technique is simplified to one-dimensional array, while in thesis has 3 dimensional array, but the intention is same. Using this technique it is considered that data in end and start are less important than in middle.
+In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125-135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is listed in \ref{code1}. Note the technique is simplified to one-dimensional array, while in thesis has 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
 	
-\begin{lstlisting}[language=Python]
+\lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1}]{code/fix_length.py}
 	
-def fix_length(data_sequence):
-    fixed_length = 125
-    total_length = len(data_sequence)  
-	
-    #Total amount data to be removed
-    total_cut = total_length-fixed_length
-	
-    #In case the sequence is odd
-    rest = total_cut%2
 
-    #Calculate the start and end position
-    start_pos = total_cut/2 
-    end_pos = total_length - (total_cut/2)+rest 
-	
-    #Retrieve fixed length of sequense data 
-    fixed_data_sequence = data_sequence[start_pos:end_pos] 
-    return fixed_data_sequence
-\end{lstlisting}
 	
 \newpage
 \section{Learning approach}
-The learning approach is divided into to processes. First to divide the file and learning process.
+The procedure of learning approach is divided into two processes: collecting data samples into files and the learning process.
 	
 \subsection{Collecting samples}
-The samples used as training and test is a step before the learning procedure. This is to gather data sample for each terrain into a file, which will be used in the learning process. The procedure is shown in figure \ref{fig:createsamples}
+The first process is to gather data for each terrain and will be stored into files. Those files will be collected into a single file, and used as training and test samples in the next process. The procedure is shown in figure \ref{fig:createsamples}.
 	
-	\begin{figure}[h]
-		\centering
-		\begin{tikzpicture}[scale=0.7,transform shape]
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=0.7,transform shape]
 		
-		% Draw diagram elements
-		\path \io{1}{Raw data};
+	% Draw diagram elements
+	\path \io{1}{Raw data};
 		
-		\path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
-		\path (p2.south)+(0.0,-1.5) \etape{3}{Write to file};
-		
-		
-		%  \node [below=of p5] (p6-7) {};
-		
-		% Draw arrows between elements
-		\path [line] (p1.south) -- node [above] {} (p2);
-		\path [line] (p2.south) -- node [above] {} (p3);
-		\end{tikzpicture}
-		
-		\caption{The figure showing process of creating training file.} \label{fig:createsamples}
-	\end{figure}
+	\path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+	\path (p2.south)+(0.0,-1.5) \etape{3}{Write to file};
 	
-	\subsubsection{Procedure of creating samples} \label{sub:createsamples}
+
+	%  \node [below=of p5] (p6-7) {};
+	
+	% Draw arrows between elements
+	\path [line] (p1.south) -- node [above] {} (p2);
+	\path [line] (p2.south) -- node [above] {} (p3);
+	\end{tikzpicture}
+	
+	\caption{The figure showing process of creating a training file.} \label{fig:createsamples}
+\end{figure}
+	
+\subsubsection{Procedure of creating samples} \label{sub:createsamples}
 	\begin{enumerate}
 		\item \textbf{\underline{Raw data}}
 		\\
@@ -1143,10 +1088,12 @@ The samples used as training and test is a step before the learning procedure. T
 		This step will write each of data sequence into file with label of the terrain name.
 		
 		
-	\end{enumerate}
-	\clearpage
-	\subsection{Learning procedure} \label{subsec:learningProc}
-	When the data samples of each terrain is collected into a file, the learning process is shown in figure \ref{fig:learningProcess}.
+\end{enumerate}
+\clearpage
+
+\subsection{Learning process} \label{subsec:learningProc}
+When the data samples of each terrain is unified into a single file, the learning process is shown in figure \ref{fig:learningProcess}, is to evaluate each classifier. Rectangles are a processes that takes an given input and produces an output. The dashed rectangles are processes that can be skipped.
+
 	\begin{figure}[h]
 		\centering
 		\begin{tikzpicture}[scale=0.7,transform shape]
@@ -1157,9 +1104,9 @@ The samples used as training and test is a step before the learning procedure. T
 		\path (p2.south)+(0.0,-1.5) \etape{3}{Extract features};
 		
 		\path (p3.south)+(0.0,-1.5) \etape{4}{Split data};
-		\path (p4.south)+(8,-2.0) \etape{5}{Scaling};
+		\path (p4.south)+(8,-2.0) \etapeTo{5}{Scaling};
 		\path (p5.south)+(0,-1.8) \etape{6}{Model};
-		\path (p4.south)+(0,-3.3) \etape{9}{Scaling};
+		\path (p4.south)+(0,-3.3) \etapeTo{9}{Scaling};
 		\path (p9.south)+(0,-4.0) \etape{7}{Test classifier};
 		
 		\path (p7.south)+(0,-1.5) \etape{10}{Store result};
@@ -1185,59 +1132,66 @@ The samples used as training and test is a step before the learning procedure. T
 		
 		\end{tikzpicture}
 		
-		
-		
-		\caption{Figure showing the steps in creating a model and obtain a result.} \label{fig:learningProcess}
+		\caption{Figure showing process to evaluate a certain classifier.} \label{fig:learningProcess}
 	\end{figure}
 	
 	\FloatBarrier
 	\clearpage
-	\subsubsection{Details of the learning process}
-	\begin{enumerate}
-		\item \textbf{\underline{Reading file with samples}}
-		\\
-		\\
-		This step will take a file as input, created from section \ref{sub:createsamples}.
+\subsubsection{Details of the learning process}
+\begin{enumerate}
+\item \textbf{\underline{Reading file with samples}}
+\\
+\\
+This step will take a file as input, created from section \ref{sub:createsamples}.
 		
-		\item \textbf{\underline{Extract features}}
-		\\
-		This step will create one of the five feature sets as mentioned in section \ref{sec:featuresets}.
+\item \textbf{\underline{Extract features}}
+\\
+This step will create one of the five feature sets as mentioned in section \ref{sec:featuresets}.
 		
-		\item \textbf{\underline{Loop}}
+\item \textbf{\underline{Loop}}
 		
-		\begin{enumerate} 
-			\item \textbf{\underline{Split data}} \label{en:loop}
-			\\
-			\\
-			The extracted feature vectors is partitioned into a training and testing set. The cross validation is LOOCV, thus the training set consists of 199 samples and one test sample.
+\begin{enumerate} 
+\item \textbf{\underline{Split data}} \label{en:loop}
+\\
+\\
+The extracted feature vectors is partitioned into a training and testing set. The cross validation is LOOCV, thus the training set consists of 199 samples and one test sample.
 			
-			\item \textbf{\underline{Scaling}}
-			\\
-			\\
-			This step takes the training set as input and standardization as mention in section \ref{subsec:scaling}. It will first scale the training data, and then scaling factors are applied to the test data.
+\item \textbf{\underline{Scaling}}
+\\
+\\
+This step takes the training set as input and standardization as mention in section \ref{subsec:scaling}. It will first scale the training data, and then apply the scaling factors on the test data.
 			
-			Scale first the training set and then transform the testing set.
-			\item \textbf{\underline{Train the classifier}}
-			\\
-			The classifier will take the training set as input and train.
+\item \textbf{\underline{Train the classifier}}
+\\
+The classifier will take the training set as input and train.
 			
-			\item \textbf{\underline{Test classifier}} This step use the model to predict the test set. It will store the score.
-			
-			
-			\item \textbf{\underline{Store result}} This step will store the result of the test sample.If there are still more data to be predicted start from \ref{en:loop}.
-			
-		\end{enumerate}
+\item \textbf{\underline{Test classifier}} 
+This step use the model to predict the test set. It will store the score.
+						
+\item \textbf{\underline{Store result}} 
+This step will store the result of the test sample.If there are still more data to be predicted start from \ref{en:loop}.
+\end{enumerate}
 		
 		
-		\item \textbf{\underline{Result}}
-		\\
-		\\
-		Compute the average results as mentioned in section \ref{subsec:evalclf} 
-	\end{enumerate}
+\item \textbf{\underline{Result}}
+\\
+\\
+This step will compute the overall results as mentioned in section \ref{subsec:evalclf}, of performance to a certain chosen classifier. 
+\end{enumerate}
 	
-\subsection{Summary}
-This chapter has introduces an own approach of collecting samples from each step from the data stream. Those samples were manually collected into one single file to experiment. The learning approach is described in section \ref{subsec:learningProc}, and five different classifier are used to compare.
-	
+\clearpage
+\subsection{The evaluation}
+Investigation of finding optimal feature combination and algorithm, following steps will be find the best solution:
+
+\begin{enumerate}
+	\item Evaluate the accuracy performance of each five classifiers. Additionally, investigate whether a feature scaling is suitable.  
+	\item The learning process will integrating two different feature selection methods which might increase the performance. 
+	\item Some of the top performer will be further tested on new test samples.
+	\item Evaluate the performance when the robot walks through two different terrains.
+	\item Using the training sample to predict other sensor. 
+\end{enumerate}
+
+
 \chapter{Experiments and results}                     %% ... or ??
 The chapter present the results of all model in previous chapter. The two-class classification will be investigated first. Further will be to using methods to improve each of classifier. The best classifier will be used to test. 
 	
@@ -1286,24 +1240,78 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 	\FloatBarrier
 	
 	
-	\subsection{Analysis}
-	The result shown that all classifier has a accuracy at least 70\%. The Decision tree and Neural Network has the highest accuracy with 96\% from scaled feature set one. 
-	\\
-	\\
-	Regarding the feature scaling, SVM classifer is the one with huge affect of the scaled. The KNN which is also distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor change in their accuracy. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
-	\\
-	\\
-	Among the highest result is either from whole raw data sequence or complete frequency domain. These type of features has the benefit of ensuring that all the information is in the data. However, too many features has a risk learning from noises, and lead to overfitting as mentioned in section \ref{curseDim}.
+\subsection{Analysis}
+The result shown that all classifiers have an accuracy of at least 70\%. The Decision tree and Neural Network has the highest accuracy with 96\% from scaled feature set one. 
+\\
+\\
+Regarding the feature scaling, SVM is the one with huge effect. The KNN which also using distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor effect on the performance. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
+\\
+\\
+Among the highest result is either from whole raw data sequence or complete frequency domain. These type of features has the benefit of ensuring that all the information is in the data. However, too many features has a risk learning from noises, and lead to overfitting as mentioned in section \ref{curseDim}.
+\\
+\\
+Figure \ref{fig:meanxyz} shows the mean of 10 samples in x,y and z-direction in the time domain. As seen on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
+\\
+\\
+A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
+\begin{figure} [h]
+	\centering
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/xmeans2}
+		\caption{Mean of 10 samples in x-direction}
+		\label{fig:meanx} 
+	\end{subfigure}
 	
-	\subsection{Filter versus wrapper}
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
+		\caption{Mean of 10 samples in y-direction}
+		\label{fig:meany}
+	\end{subfigure}
+\end{figure}
+\begin{figure}[h] \ContinuedFloat
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
+		\caption{Mean of 10 samples in z-direction}
+		\label{fig:meanz}
+	\end{subfigure}
+	
+	\caption[]{The figure showing the mean of each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
+	\label{fig:meanxyz}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/fftx}
+		\caption{Mean of 10 samples in x-direction}
+		\label{fig:fftx} 
+	\end{subfigure}
+\end{figure}
+\begin{figure}[h] \ContinuedFloat	
+	\begin{subfigure}[b]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/ffty}
+		\caption{Mean of 10 samples in y-direction}
+		\label{fig:ffty}
+	\end{subfigure}
+	
+	
+	\begin{subfigure}[h]{0.95\textwidth}
+		\includegraphics[width=1\linewidth]{Figures/fftz}
+		\caption{Mean of 10 samples in z-direction}
+		\label{fig:fftz}
+	\end{subfigure}
+	
+	\caption[]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
+	\label{fig:fftxyz}
+\end{figure}
+\FloatBarrier
+
 	
 	
 	
-	
-	
-	
-	\section{Further improving all classifier}
-	Even there are classifier which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without loosing any features. In following experiment, the feature selection will be applied to see if there any improvement.  In this approach feature selection is integrated into previous implementation. The filter and wrapper method will be used. Both is library provided by scikit. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination. Figure \ref{fig:approach2}
+\section{Further improving all classifier}
+Even there are classifier which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without losing any features. In following experiment, the feature selection will be integrated on previous implementation to see if there any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is marked as red. The filter and wrapper method will be used. Both is library provided by scikit. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination.
 	
 	
 	
@@ -1316,7 +1324,7 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 		\path \io{2}{Read file};
 		%  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
 		\path (p2.south)+(0.0,-1.5) \etape{3}{Extract features};
-		\path (p3.south)+(0.0,-1.5) \etape{11}{Feature selection};
+		\path (p3.south)+(0.0,-1.5) \etapeTre{11}{Feature selection};
 		
 		\path (p11.south)+(0.0,-1.5) \etape{4}{Split data};
 		\path (p4.south)+(8,-2.0) \etape{5}{Scaling};
@@ -1352,8 +1360,8 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 	\end{figure}
 	
 	
-	\section{Experiment 2 - classifier improvement}
-	Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
+\section{Result of added feature selection}
+Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
 	
 \begin{table}[h]
 	\centering
@@ -1400,22 +1408,142 @@ From table \ref{tab:exp2} one can see that the filter selection has made most of
 \\
 Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, KNN using wrapper method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
 
+
+\section{Features from filter and wrapper}
+
 \begin{table}[h]
 	\centering
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{@{}llll@{}}
-			\toprule
-			\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \midrule
-			Set 1 & 375 & 230 & 187 \\
-			Set 2 & 21 & 8 & 10 \\
-			Set 3 & 183 & 2 & 91 \\
-			Set 4 & 24 & 11 & 12 \\
-			Set 5 & 45 & 19 & 22 \\ \bottomrule
-		\end{tabular}%
-	}
+	\begin{tabular}{llll}
+		\hline
+		\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \hline
+		Set 1 & 375 & 230 & 187 \\
+		Set 2 & 21 & 8 & 10 \\
+		Set 3 & 183 & 2 & 91 \\
+		Set 4 & 24 & 11 & 12 \\
+		Set 5 & 45 & 19 & 22 \\ \hline
+	\end{tabular}
 	\caption{Table showing new length of each features}
 	\label{my-label}
 \end{table}
+\FloatBarrier
+
+\subsection{Set 1}
+Filter
+\begin{align}
+f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
+&\qquad \left. {}  x_{86},\dotsc,x_{119} \right.\nonumber\\
+&\qquad \left. {}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
+&\qquad \left. {} z_{1},\dotsc,z_{125} \right\}
+\end{align}
+
+Wrapper
+\begin{align}
+f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_{20},x_{23},x_{25},x_{26},  \right.\nonumber\\
+&\qquad \left. {}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
+&\qquad \left. {}  x_{72},x_{73},x_{74},x_{76},x_{80},x_{81},x_{84},x_{88},x_{91},x_{93},x_{94},x_{97},x_{98},x_{103}, \right.\nonumber\\
+&\qquad \left. {}  x_{105},x_{107},x_{108},x_{109},x_{111},x_{113},x_{114},x_{116},x_{118},x_{119},x_{120},x_{123},x_{124},x_{125}, \right.\nonumber\\
+&\qquad \left. {}  y_{1},y_{2},y_{3},y_{6},y_{9},\dotsc,y_{13},y_{16}, y_{17},y_{26},\dotsc,y_{30},y_{33}, y_{34},y_{37},\dotsc,y_{40}, \right.\nonumber\\
+&\qquad \left. {}  y_{42}, y_{44}, y_{47},\dotsc, y_{52}, y_{54}, y_{57},\dotsc, y_{60}, y_{63}, y_{65}, y_{66}, y_{67}, y_{69}, \right.\nonumber\\
+&\qquad \left. {}  y_{70}, y_{71}, y_{73}, y_{74}, y_{76}, y_{77}, y_{78}, y_{81}, y_{83}, y_{85}, y_{86}, y_{89}, y_{91}, y_{94}, y_{97}, y_{98}, \right.\nonumber\\
+&\qquad \left. {}  y_{101}, y_{102}, y_{103}, y_{105}, y_{106}, y_{109}, y_{110}, y_{114}, y_{116}, y_{118}, y_{121}, y_{122}, y_{124}, y_{125}, \right.\nonumber\\
+&\qquad \left. {}  z_{2}, z_{3}, z_{4}, z_{6}, z_{9}, z_{10}, z_{11}, z_{13},z_{27},\dotsc,z_{30},z_{32}, z_{35}, z_{36}, z_{38}, z_{39}, z_{40}, \right.\nonumber\\
+&\qquad \left. {}  z_{43}, z_{44}, z_{47}, z_{48}, z_{49}, z_{51}, z_{53}, z_{54}, z_{55}, z_{58}, z_{59}, z_{60}, z_{63}, z_{64}, z_{66}, z_{67}, z_{68}, \right.\nonumber\\
+&\qquad \left. {}  z_{72},\dotsc , z_{75}, z_{78}, z_{79}, z_{81},\dotsc, z_{84}, z_{88}, z_{89}, z_{92}, z_{95}, \right.\nonumber\\
+&\qquad \left. {} z_{100}, z_{103}, z_{106},\dotsc ,z_{109}, z_{115}, z_{116}, z_{119}, z_{120}, z_{121}, z_{122}, z_{125}\right\}
+\end{align}
+
+
+\subsection{Set 2}
+\paragraph{Filter}
+\begin{align}
+f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
+\end{align}
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
+&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
+\end{align}
+
+
+\subsection{Set 3}
+\paragraph{Filter}
+\begin{align}
+f_{set3} &= \left\{ x_{1}, z_{1} \right\}
+\end{align}
+
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
+&\qquad \left. {}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
+&\qquad \left. {}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
+&\qquad \left. {} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
+&\qquad \left. {} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
+&\qquad \left. {} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
+\end{align}
+
+
+\subsection{Set 4}
+\paragraph{Filter}
+\begin{align}
+f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
+\end{align}
+
+
+\subsection{Set 5}
+\paragraph{Filter}
+\begin{align}
+f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
+\end{align}
+
+\subsection{Analysis}
+Will only be looking on set 3. 
+
+\begin{figure} [h]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featurex}
+		\caption{Features in x-direction}
+		\label{fig:featurex} 
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featurey}
+		\caption{Features in y-direction}
+		\label{fig:featurey}
+	\end{subfigure}
+	
+	\begin{subfigure}[h]{\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featurez}
+		\caption{Features in z-direction}
+		\label{fig:featurez}
+	\end{subfigure}
+	\caption{Figure showing comparison of each features for each terrain on feature set three}
+\end{figure}
+\FloatBarrier
+
 \section{Cross validation with unseen data} \label{seq:crossunseen}
 In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times.
 	
@@ -1883,7 +2011,7 @@ Five different classifier with different feature sets were investigated. Compare
 \\
 It can be seen a common confusion for each classifiers when the robot is on hard mat. Mostly of classifiers tend to chose carpet instead of hard mat. This is also the reason that the f-score of carpet and hard mat is relative low, even there are high precision on predicting carpet on carpet. The least confusion is the soft mat, where the every classifier has a average over 90\%. The floor also achieved a high f-score, except for the neural network without filter. The neural network had issues to distinguish between floor and carpet. 
 	
-	
+
 	
 \section{Classification in real-time} \label{sec:realtime}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
@@ -1898,7 +2026,7 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 	\end{enumerate}
 	
 \subsection{Real time implementation}
-The real time implementation can be seen on figure \ref{fig:realtime}, which is a small modification of earlier approach. In this implementation will be creating a server node after model a classifier. The training is same set with 50 samples for each terrain. The server will be waiting for a request from another node, which is in this case segment data. The segment data gather data stream from the optoforce sensor. The method to collecting interesting data is described in \ref{subseq:segmentation}. After a step is extracted from sensor, it will then be passed to the server. The server will receive the data and start to preprocess the data. It will extracted features, select features and scale accordingly to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provide a probability function on SVM, which is used. In the documentation the probability might give wrong probability on very small data set. However, the data set is considered as not very small data set, and it is interesting to look at probability when it predict. After given a result, it will be waiting for new partitioned from segment data. 
+The real time implementation can be seen on figure \ref{fig:realtime}, which is a small modification of earlier approach. In this implementation will be creating a server node after model a classifier. The training is same set with 50 samples for each terrain. The server will be waiting for a request from another node, which is in this case segment data. The segment data gather data stream from the optoforce sensor. The method to collecting interesting data is described in \ref{subseq:segmentation}. After a step is extracted from sensor, it will then be passed to the server. The server will receive the data and start to preprocess the data. It will extracted features, select features and scale accordingly to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provide a probability function on SVM, which is used. In the documentation the probability might give wrong probability on very small data set. However, the data set is considered as not very small data set, and it is interesting to look at probability when it predict. After given a result, it will be waiting for new partitioned from segment data. Even many of the methods is same as early, however a detail of this process is to clarify the implementation.
 	
 	
 	\begin{figure}[h!]
@@ -1907,15 +2035,15 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 		
 		% Draw diagram elements
 		%  \path \io{1}{Raw data};
-		\path \io{1}{Read file};
+		\path \etape{1}{Read file};
 		%  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
 		\path (p1.south)+(0.0,-1.5) \etape{2}{Extract features};
 		\path (p2.south)+(0.0,-1.5) \etape{3}{Feature selection};
 		
 		\path (p3.south)+(0.0,-1.5) \etape{4}{Scaling};
-		\path (p4.south)+(0.0,-1.5) \etape{12}{Training the model};
+		\path (p4.south)+(0.0,-1.5) \etape{12}{Training};
 		
-		\path (p12.south)+(0,-1.5) \etape{5}{Create server};
+		\path (p12.south)+(0,-1.5) \etape{5}{Create service};
 		\path (p5.south)+(0,-1.5) \etape{6}{Waiting for request};
 		\path (p6.south)+(0,-2.5) \dec{7}{Request?};
 		\path (p7.south)+(0,-1.5) \etape{8}{Preprocess data};
@@ -1924,7 +2052,7 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 		
 		%\path (request?.south)+(0,-1.5) \etape{7}{Predicted};
 		
-		\path (p5.west)+(8.5,0) \etape{10}{Raw data stream};
+		\path (p5.west)+(8.5,0) \io{10}{Raw data stream};
 		\path (p10.south)+(0,-1.5) \etape{11}{Segment data};
 		
 		
@@ -1946,16 +2074,6 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 		
 		\path [line] (p10.south) -- node [above] {} (p11);
 		\path [line] (p11.west) -- node [above] {Data sample} (p6);
-		%	\path [line] (p11.south) -- node [above] {} (p4);
-		
-		
-		%	\path [line] (p5.south) -- node [above] {} (p6);
-		
-		%	\path [line] (p4.south) -- node [right] {} (p9);
-		
-		%	\path [line,dashed] (p6) -- node [above]{Data sample} (p9);
-		%	\path [line] (p9.south) -- node [right] {} (p7);
-		
 		\end{tikzpicture}
 		
 		\caption{Figure showing the real-time implementation} \label{fig:realtime}
@@ -2351,75 +2469,6 @@ Unsupervised has been addressed to few authors.
 	
 	%An Overview of Legged Robots
 
-Set 2
-Filter
-\begin{align}
-f_{set4} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
-\end{align}
-
-Wrapper
-\begin{align}
-f_{set4} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
-&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
-\end{align}
-
-  
-Set 3
-Filter
-\begin{align}
-f_{set4} &= \left\{ x_{1}, z_{1} \right\}
-\end{align}
-
-
-Wrapper
-
-\begin{align}
-f_{set5} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
-&\qquad \left. {}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
-&\qquad \left. {}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
-&\qquad \left. {} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
-&\qquad \left. {} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
-&\qquad \left. {} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
-\end{align}
-
-
-Set 4
-Filter
-\begin{align}
-f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
-\end{align}
-
-  
-
-Wrapper
-\begin{align}
-f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
-\end{align}
-
-    
-Set 5
-Filter
-\begin{align}
-f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
-\end{align}
- 
-
-
-Wrapper
-\begin{align}
-	f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
-	&\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
-	&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
-\end{align}
 
 
 
