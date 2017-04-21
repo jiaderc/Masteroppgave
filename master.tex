@@ -16,11 +16,15 @@
 \usepackage{booktabs}
 \usepackage{rotating}
 \usepackage{listings}
+\usepackage{appendix}
+\usepackage{filecontents}
 %\usepackage{graphicx}
 %\usepackage[table,xcdraw]{xcolor}
 %\usepackage[table]{xcolor}
 
 \usepackage{tikz}
+
+%Tegne diagrammer
 \usetikzlibrary{shadows,arrows,positioning,shapes.geometric,fit,calc}
 % Define the layers to draw the diagram
 \pgfdeclarelayer{background}
@@ -67,6 +71,22 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 
 \newcommand{\transreceptor}[3]{% 
 	\path [linepart] (#1.east) -- node [above] {\scriptsize #2} (#3);}
+%End tegne diagrammer
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+	backgroundcolor=\color{white},   % choose the background color
+	basicstyle=\footnotesize,        % size of fonts used for the code
+	breaklines=true,                 % automatic line breaking only at whitespace
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	keywordstyle=\color{blue},       % keyword style
+	stringstyle=\color{mymauve},     % string literal style
+}
 
 
 \title{Terrain classification using 3D optical force sensor}        %% ... or whatever
@@ -779,9 +799,11 @@ The robot operating on ROS which is compatible with C++, Python and Lisp. Thus, 
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
+Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together.
 
-	
+
+
+\begin{comment}
 \begin{figure} [h]
 		\centering
 		\begin{subfigure}[b]{\textwidth}
@@ -813,17 +835,27 @@ Data was gathered by having the robot walking 10 steps on each terrain. The runs
 		\label{fig:gtmgraf}
 	\end{figure}
 	\FloatBarrier
-	
+\end{comment}	
+
 	
 \subsection{Analyzing data from sensor}\label{sec:analyzopto}
 Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
-	
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2}
+	\caption{Figure showing an example of data stream from a terrain}
+	\label{fig:gtmgraf}
+\end{figure}
+\FloatBarrier
+
 \subsection{Data segmentation} \label{subseq:segmentation}
 An appropriate method to segment data is by sliding window algorithm, however, difficulty to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window, and too big window size is not efficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
 In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{ sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Two thresholds have to be sets; one for considered as minor change, one for considered minimum length of the minor change sequence. When a foot reach the ground, there will be a big change in each direction for the sensor, and start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set.
-	
+
+\lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
 \section{Feature extraction}\label{sec:featuex}
 As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains.
 	
@@ -921,7 +953,7 @@ The vector contains 15 features from each direction, which is in total 45 featur
 \subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
 In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125-135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is listed in \ref{code1}. Note the technique is simplified to one-dimensional array, while in thesis has 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
 	
-\lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1}]{code/fix_length.py}
+\lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/fix_length.py}
 	
 
 	
@@ -2258,9 +2290,14 @@ Unsupervised has been addressed to few authors.
 	%An Overview of Legged Robots
 
 
+\part*{Appendices} 
+\addcontentsline{toc}{chapter}{Appendices}
+\appendix
+\chapter{First Appendix}
 
+\backmatter{}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bib}
+\bibliographystyle{ieeetr}
 
-	\backmatter{}
-	\bibliography{bib}
-	\bibliographystyle{ieeetr}
 \end{document}

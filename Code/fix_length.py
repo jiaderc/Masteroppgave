@@ -13,5 +13,5 @@ def fix_length(data_sequence):
     end_pos = total_length - (total_cut/2)+rest 
 	
     #Retrieve fixed length of sequense data 
-    fixed_data_sequence = data_sequence[start_pos:end_pos] 
-    return fixed_data_sequence
+    fixed_sequence = data_sequence[start_pos:end_pos] 
+    return fixed_sequence
