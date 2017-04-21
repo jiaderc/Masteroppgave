@@ -462,15 +462,7 @@ The well-known no free lunch theorem\cite{NOFREELUNCH} in machine learning state
 	
 \subsection{Ovefitting and underfitting}
 Overfitting and underfitting the data is a issue in machine learning which cause a poor performance of classification. Overfitting occurs if there are too many training data or if it has adapted to the noise within data set. While underfitting occurs if there are not enough training data and will not be able to generalize new data set. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimate how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
-	\begin{comment}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{Figures/All.png}
-	\caption{The figure showing an example when the classifier is underfitted, overfitted or optimal.}
-	\label{fig:fitting}
-	\end{figure}
-	\end{comment}
+
 	\begin{figure}[h]
 		\begin{subfigure}{0.5\linewidth}
 			\centering
@@ -788,40 +780,9 @@ This section will first describe how the measurement from sensor gathered. Next,
 	
 \subsection{Data collection}
 Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. Data stream from one sensor for each run in each terrain is shown in figure \ref{fig:gtmgraf}.
+
 	
-	\begin{comment}
-	
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
-	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the floor.}
-	\label{fig:graphf}
-	\end{figure}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
-	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the carpet terrain.}
-	\label{fig:grapht}
-	\end{figure}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
-	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the hard mat terrain.}
-	\label{fig:graphhm}
-	\end{figure}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
-	\caption{Figure showing \texttt{rqt\_plot} of a testrun on the soft mat.}
-	\label{fig:graphmm}
-	\end{figure}
-	\end{comment}
-	
-	\begin{figure} [h]
+\begin{figure} [h]
 		\centering
 		\begin{subfigure}[b]{\textwidth}
 			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
@@ -851,8 +812,6 @@ Data was gathered by having the robot walking 10 steps on each terrain. The runs
 		\caption[]{Figure showing data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat }
 		\label{fig:gtmgraf}
 	\end{figure}
-	
-	
 	\FloatBarrier
 	
 	
@@ -868,86 +827,7 @@ In the thesis, it is considered that the most informative data of terrain is fro
 \section{Feature extraction}\label{sec:featuex}
 As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains.
 	
-	
-	\begin{comment}
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanx}
-	\caption{Figure showing force in the x-direction}
-	\label{fig:meanx2}
-	\end{figure}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
-	\caption{Figure showing force in the y-direction}
-	\label{fig:optoforce}
-	\end{figure}
-	
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
-	\caption{Figure showing force in the z-direction}
-	\label{fig:optoforce}
-	\end{figure}
-	\end{comment}
-	
 
-	\begin{comment}
-	\begin{figure}[h]
-	\begin{subfigure}{0.5\linewidth}
-	\centering
-	\includegraphics[scale=0.42]{Figures/meanx}
-	\caption{}
-	\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.5\linewidth}
-	\centering
-	\includegraphics[scale=0.42]{Figures/meany}
-	\caption{}
-	\label{fig:sub2}
-	\end{subfigure}\\[1ex]
-	\begin{subfigure}{\linewidth}
-	\centering
-	\includegraphics[scale=0.42]{Figures/meanz}
-	\caption{}
-	\label{fig:sub3}
-	\end{subfigure}
-	\caption{Figur showing the mean}
-	\label{fig:meanx}
-	\end{figure}
-	\end{comment}
-	
-	
-	
-	\begin{comment}
-	content...
-	\begin{figure}[h]
-	\begin{subfigure}{0.5\linewidth}
-	\centering
-	\includegraphics[scale=0.4]{Figures/fftx}
-	\caption{}
-	\label{fig:sub1}
-	\end{subfigure}%
-	\begin{subfigure}{.5\linewidth}
-	\centering
-	\includegraphics[scale=0.4]{Figures/fftx}
-	\caption{}
-	\label{fig:sub2}
-	\end{subfigure}\\[1ex]
-	\begin{subfigure}{\linewidth}
-	\centering
-	\includegraphics[scale=0.4]{Figures/fftx}
-	\caption{}
-	\label{fig:sub3}
-	\end{subfigure}
-	\caption{FFT of }
-	\label{fig:fft}
-	\end{figure}
-	\end{comment}
-	
-	
-	
 	
 \subsection{Feature sets}\label{sec:featuresets}
 Five different feature set will be created and used to learn and evaluate each of classifiers. The following paragraphs will be introducing each sets.
@@ -1637,42 +1517,6 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 	\subsubsection{SVM - Wrapper - Feature set two}
 	On the table \ref{svmexp} showing accuracy. The average is at least 94\%, and has the average 95.2\%. It can be seen that classifier simple distinguish floor and soft mat, while the carpet has a little confusion, and the hard mat is more confused. As seen in table \ref{fscoresvm} the soft mat has a f-score on 100\%, which means high precision and recall. Floor is second highest f-score with average 96\%. The recall is the reason of decreased f-score. The hard mat and carpet has relative equally f-score. However the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision. 
 	
-	
-	\begin{comment}
-	\begin{table}[h]
-	\centering
-	\resizebox{\textwidth}{!}{%
-	\begin{tabular}{@{}llllllllll@{}}
-	\toprule
-	\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Terrain}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} & \multirow{2}{*}{\textbf{Precision}} & \multirow{2}{*}{\textbf{Recall}} & \multirow{2}{*}{\textbf{F-score}} & \multirow{2}{*}{\textbf{Accuracy}} \\ \cmidrule(lr){3-6}
-	&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} &  &  &  &  \\ \midrule
-	\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){2-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){2-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){2-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
-	\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{p2}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.97 \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
-	\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{p3}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{41} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
-	\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{p4}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.94 \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \midrule
-	\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{p5}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & 0.97 \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \cmidrule(l){3-10} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  \\ \bottomrule
-	\end{tabular}%
-	}
-	\caption{My caption}
-	\label{my-label}
-	\end{table}
-	\end{comment}
-	
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{@{}llllll@{}}
@@ -2296,63 +2140,7 @@ The classification has been based on only one sensor on front left foot, thus it
 	
 	\FloatBarrier
 	
-	\begin{comment}
-	
-	
-	\section{Less traning samples}
-	As mentioned section \ref{subseq:validation}, mostly study k equally two or ten and still has a high accuracy. Thus, it will be interesting to see the performance of the classifier with a smaller set of training set by setting k to two or ten.
-	
-	\subsection{K = 2}
-	\begin{table}[h]
-	\centering
-	\begin{tabular}{llllll}
-	\hline
-	\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cline{3-6} 
-	&  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & Hard mat \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{92\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{46} & \multicolumn{1}{l|}{0} & 1 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{0} & 39 \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{87.5\%}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{0} & 1 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{15} & \multicolumn{1}{l|}{0} & 34 \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{89\%}} & \multicolumn{1}{l|}{37} & \multicolumn{1}{l|}{13} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & 41
-	\end{tabular}
-	\caption{My caption}
-	\label{my-label}
-	\end{table}
-	\FloatBarrier
-	
-	\subsection{K = 10}
-	\begin{table}[h]
-	\centering
-	\begin{tabular}{llllll}
-	\hline
-	\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cline{3-6} 
-	&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{95\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{0} & 42 \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{93\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{0} & 40 \\ \hline
-	\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{94\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{0} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cline{3-6} 
-	\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41
-	\end{tabular}
-	\caption{My caption}
-	\label{my-label}
-	\end{table}
-	\FloatBarrier
-	\end{comment}
-	
+
 \chapter{Discussion}
 	
 \section{Five classifier prediction on unseen data}
