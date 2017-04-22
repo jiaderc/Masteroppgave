@@ -21,8 +21,9 @@
 %\usepackage{graphicx}
 %\usepackage[table,xcdraw]{xcolor}
 %\usepackage[table]{xcolor}
-
+\usepackage{pdfpages}
 \usepackage{tikz}
+\usepackage{fancyhdr}
 
 %Tegne diagrammer
 \usetikzlibrary{shadows,arrows,positioning,shapes.geometric,fit,calc}
@@ -89,6 +90,18 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 }
 
 
+
+
+
+\fancypagestyle{MyStyle}{%
+	\fancyhead{} %Clean headers
+	\fancyhead[RE]{\rightmark}
+	\fancyhead[LO ]{\rightmark}
+
+}
+
+%https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
+
 \title{Terrain classification using 3D optical force sensor}        %% ... or whatever
 \subtitle{A machine learning approach}  
 \author{Jiader Chou}                      %% ... or whoever 
@@ -111,8 +124,9 @@ I want to thank my supervisor, Kyrre Glette for the guidance and support through
 \\
 Last, but not least, I would like to thank my fellow students, friends, and family for support.
 	
-	
+
 \mainmatter{}
+\pagestyle{MyStyle}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
 Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes from past experiences. For instance, one might experienced difficulty of running on icy road, resulting in a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to detect and distinguish different terrains.
@@ -125,25 +139,22 @@ This thesis will also be investigating on how to preprocess data, create and sel
 
 	
 \section{Outline}
-The thesis is divided into five chapters: introduction, background, implementation,  experiments and results, and conclusion. 
-	
-\paragraph{Chapter 1: Introduction}
-The introduction chapter gives a brief introduction of the terrain classification, and the motivation in this project.
+The thesis is divided into five additionally chapters: background, software and tools, implementation, experiments and results, and conclusion. 
 	
 \paragraph{Chapter 2: Background}
-The background chapter presents first a brief what terrain classification is about. Followed with different types of legged robots and explaining the gait. The second section will be presenting background of the optical sensor.  will be briefly presents background of machine learning. Lastly, related work of terrain classification will be presented.
+The background chapter presents theory which this thesis is based on, including an survey of existing work.
 
 \paragraph{Chapter 3: Software and tools}
-The software and tools chapter present the sensor along with programming framework and libraries used in this thesis. The experimental environment is also presented. 
-	
+The software and tools chapter gives an overview of tools, programming framework and libraries, and the experimental environment used in this thesis. 	
+
 \paragraph{Chapter 4: Implementation}
-The implementation chapter present the experiment setup, how the data is preprocessed and used in learning process.
+The implementation chapter explain and reason behind the various choices of implementations used to preprocess data from sensor, and evaluate a learning model.
 	
 \paragraph{Chapter 5: Experiments and results}
 The experiments and results chapter presents experiments and its results along with a short analysis.
 	
 \paragraph{Chapter 6: Discussion}
-The discussion chapter will discuss results from the experiments. Lastly is a conclusion along with future work of the thesis. 
+The discussion chapter discuss results from the experiments. Lastly, is a conclusion along with future work of this thesis. 
 	
 	
 \chapter{Background}                  %% ... or Bakgrunn
@@ -209,7 +220,15 @@ Stable locomotion of legged robots is achieved through the gait. A gait is a cyc
 
 
 \section{Tactile sensor}
-Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing can be used with three different activity, manipulation, exploration and response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing has the opportunity to obtain information
+
+\begin{itemize}
+	\item more work
+	\item more responsibility
+	\item more satisfaction
+\end{itemize}
+
+ amount of contact force, mechanical properties such as friction coeffficient, roughness or thermal,simple geometrical information, The tactile sensing can be used with three different activity, manipulation, exploration and response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
 
 
 	\begin{figure}
@@ -239,10 +258,22 @@ Tactile sensor are designed for measure properties through direct physical inter
 \FloatBarrier
 
 
-
 \subsection{Optical tactile force sensor}
+Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent acrylic or silicate glass, which is illuminated along its edge by a light source. This technology has the opportunity to measure the force, but does not provide force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The sensor is composed of an acrylic hemispherical dome, a light source, an array of rubber sensing elements, and a CCD camera.
+\\
+\\
+Kolker el at. \cite{7559098}
+\\
+\\
+Instead of using CCD camera to measure light source, Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+%http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7559098
 
+
+
+\begin{comment}
+\subsection{Optical tactile force sensor}
 A type of optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+\end{comment}
 
 \section {Machine learning}
 Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed to do so. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. 
@@ -790,10 +821,9 @@ Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew,
 \chapter{Implementation}\label{ch:implementation}        %% ... or ??
 This chapter intends to explain the various choices which has been made to create machine learning models.
 	
-
 	
 \section{Choice of implementation language}
-The robot operating on ROS which is compatible with C++, Python and Lisp. Thus, segmentation of data, which will be described later in section \ref{subseq:segmentation} is implemented in C++. The reason of implementing data segmentation in C++ is because it is fast which can deal to store and delete data stream better. However, C++ does not provide many learning libraries, thus the learning approach is implemented in Python. 
+The robot operating on ROS which is compatible with C++, Python and Lisp. Segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, thus the learning approach is implemented in Python. 
 			
 \section{Data from optical force sensor}
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
@@ -855,7 +885,6 @@ An appropriate method to segment data is by sliding window algorithm, however, d
 \\
 In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{ sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Two thresholds have to be sets; one for considered as minor change, one for considered minimum length of the minor change sequence. When a foot reach the ground, there will be a big change in each direction for the sensor, and start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set.
 
-\lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
 \section{Feature extraction}\label{sec:featuex}
 As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains.
 	
@@ -2293,7 +2322,10 @@ Unsupervised has been addressed to few authors.
 \part*{Appendices} 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
-\chapter{First Appendix}
+\chapter{Code}
+\lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
+\chapter{Sensor datasheet}
+\includepdf[pages=-]{Datasheet/Sensor.pdf}
 
 \backmatter{}
 \addcontentsline{toc}{chapter}{Bibliography}
