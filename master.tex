@@ -24,7 +24,7 @@
 \usepackage{pdfpages}
 \usepackage{tikz}
 \usepackage{fancyhdr}
-
+\usepackage[parfill]{parskip} %For å unngaa mellom i ny avsnitt
 %Tegne diagrammer
 \usetikzlibrary{shadows,arrows,positioning,shapes.geometric,fit,calc}
 % Define the layers to draw the diagram
@@ -102,6 +102,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 
 \title{Terrain classification using 3D optical force sensor}        %% ... or whatever
 \subtitle{A machine learning approach}  
+\date{}
 \author{Jiader Chou}                      %% ... or whoever 
 
 \begin{document}
@@ -234,7 +235,7 @@ Tactile sensor are designed for measure properties through direct physical inter
 	\item \textbf{Mechanical properties} such as slip condition, thermal or roughness.
 \end{itemize}
 
-Based on these information from tactile make it possibility of using it as manipulation, exploration or response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Based on these information from tactile make it possibility of using it as manipulation, exploration or response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  
 
 
 	\begin{figure}
@@ -265,7 +266,7 @@ Based on these information from tactile make it possibility of using it as manip
 
 
 \subsection{Optical tactile force sensor}
-Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use camera to analysis the images. These approaches where uniaxial, that is the sensor only capable of measure the force applied, but not the force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It shown promising result, when the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widley used to capture deformation of a surface cause by external force \cite{1381228,7559098}
+Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use camera to analysis the images. These approaches are uniaxial, that is the sensor only capable of measure the force applied, but not the force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It shown promising result, when the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widley used to capture deformation of a surface cause by external force \cite{1381228,7559098}
 \\
 \\
 Another design and very common technology is base on Fibre Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
@@ -280,10 +281,6 @@ Another interesting approach use three sets of optical sensor to develop a 6-axi
 
 %http://download.springer.com/static/pdf/934/bok%253A978-3-319-27340-2.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fbook%2F10.1007%2F978-3-319-27340-2&token2=exp=1492951378~acl=%2Fstatic%2Fpdf%2F934%2Fbok%25253A978-3-319-27340-2.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fbook%252F10.1007%252F978-3-319-27340-2*~hmac=6e881e187a3cc0e1e04f4aabdf3f48393795889f42c9942e87077771bb132d4e
 
-\begin{comment}
-\subsection{Optical tactile force sensor}
-A type of optical force sensors use the refracted light intensity to measure the deformation of the silicon \cite{6027100}\cite{6907805}. Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
-\end{comment}
 
 \section {Machine learning}
 Machine learning is a type of artificial intelligence where it can learn to adapt or predict from earlier dataset without being explicitly programmed to do so. Each dataset consists of an feature vector which belong to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for comparing new and unseen dataset to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}. 
@@ -393,24 +390,26 @@ Prediction is based by selecting the class $C_i$, with the highest probability.
 	\end{equation}
 	\end{comment}
 	
-\subsubsection{K-nearest neighbors }
-K-nearest neighbors (KNN) is one of the simple classifiers presented by Cover and Hart \cite{1053964}. The classification process of new data consists of looking the k-nearest data points and classify the class which consist most classes. An example is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle is to be classified. The straight and dashed circle illustrate which data set is taken account when k is set either 3 or 5. If k set to  3, the circle will be classified as triangle, since the tree nearest neighbor consist more triangles than squares. If k set to 5, then the circle will be classified as square.
-	
+\subsubsection{K-nearest neighbors}
+K-nearest neighbors (KNN) is one of the simple classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classify the new data as the class with biggest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate effect of performance on different k values is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represent new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, and illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. However, if k is set to 5, then the green circle will be classified as square.
+
+
+
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/KNN.png}
-		\caption{Figure showing an example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The straight circle is when k = 3, while the dashed circle is when k = 5.}
+		\caption{Figure showing an example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
 \end{figure}
 	
-The most common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The euclidean distance can be expressed as \cite{Bao2004}:
-	
+A commonly method to find the k-nearest datapoint is to calculate the Euclidean Distance. The euclidean distance can be expressed as shown in equation\ref{eq:edistance} \cite{Bao2004}.
 	
 \begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
 	\label{eq:edistance}
 \end{equation}
-The x and y from equation \ref{eq:edistance} represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count k classes with shortest distance to determine which class the unseen data belongs to. A weakness of using Euclidean distance function is that if one of the vector has a large range, then it will dominate other attributes. In order to avoid this issue, it is common to scale the feature, described in section \ref{subsec:scaling}
+
+The x and y in equation \ref{eq:edistance} represent the actual and unseen class, and m is the number of features to each of classes in x and y. The algorithm will then count the k classes with shortest distance to determine which class the unseen data belongs to.
 	
 	
 \subsubsection{Decision tree}
@@ -530,10 +529,9 @@ Wrapper feature selection will try different combination of the feature set, eva
 \paragraph{Embedded}
 Embedded feature selection perform feature selection as part of the learning procedure and are usually specific to given classifier.
 
-\subsection{Features scaling}
-\label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardization the feature vectors. By scaling each features, it that avoid features with big number dominate compared features with small numeric ranges. It particularly affect classifier which use distance between classifier such as KNN and SVM.  By standardized feature values the features will weights equally in their representation.
-	
+\subsection{Features scaling} \label{subsec:scaling}
+To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier}, involve distances in their computation, might cause poor performance when one of the vector has a large range, then it will dominate other attributes.
+
 	
 \section{Model validation}
 Model validation relate to evaluate the performance of a classifier. 
@@ -739,7 +737,7 @@ Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achie
 As stated in \cite{7387710}, the k-fold gives a reasonable estimate of the performance, however, it does not tell how well it predict on unseen data. This is because the experiment always use same samples where it involve in either training or testing. The model might be less generalized, data are more likely referring to themselves and will have difficulty of predicting unseen data. Mostly authors is aware of the this and has rectified it by partitioned the samples to make the training and test set independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and test is from other set.
 \\
 \\
-Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to partitioned randomly the data set with 70\% used for training, and the rest used for testing \cite{5752869}. The most realistic scenario is to base the evaluation by having a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
+Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to randomly partition the data set with 70\% used for training, and the rest used for testing \cite{5752869}. The most realistic scenario is to base the evaluation by having a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
 
 
 \chapter{Softwares and tools}
@@ -747,7 +745,7 @@ This chapter gives an introduction to different tools and libraries used through
 
 
 \section{Optical force sensor}
-The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce}. It has similar to Tar and Cserey \cite{6027100}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce} is similar to Tar and Cserey \cite{6027100}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
@@ -860,52 +858,87 @@ This section will first describe how the measurement from sensor gathered. Next,
 	
 \subsection{Data collection}
 Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together.
-
-
-
-\begin{comment}
-\begin{figure} [h]
-		\centering
-		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
-			\caption{Floor}
-			\label{fig:gulvgraf} 
-		\end{subfigure}
-		
-		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
-			\caption{Carpet}
-			\label{fig:teppegraf}
-		\end{subfigure}
-		
-		\begin{subfigure}[h]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
-			\caption{Hard mat}
-			\label{fig:mattebgraf}
-		\end{subfigure}
-		
-	\end{figure}
-	\begin{figure}[h] \ContinuedFloat
-		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
-			\caption{Soft mat}
-			\label{fig:mykmattegraf}
-		\end{subfigure}
-		\caption[]{Figure showing data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat }
-		\label{fig:gtmgraf}
-	\end{figure}
-	\FloatBarrier
-\end{comment}	
-
 	
 \subsection{Analyzing data from sensor}\label{sec:analyzopto}
 Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
-
+\begin{comment}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2}
 	\caption{Figure showing an example of data stream from a terrain}
 	\label{fig:gtmgraf}
+\end{figure}
+\FloatBarrier
+\end{comment}	
+
+\begin{comment}
+\begin{figure} [t]
+\centering
+\begin{subfigure}[t]{\textwidth}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+\caption{Floor}
+\label{fig:gulvgraf} 
+\end{subfigure}
+
+\begin{subfigure}[t]{\textwidth}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
+\caption{Carpet}
+\label{fig:teppegraf}
+\end{subfigure}
+
+\begin{subfigure}[t]{\textwidth}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
+\caption{Hard mat}
+\label{fig:mattebgraf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[ht] \ContinuedFloat
+\begin{subfigure}[t]{\textwidth}  
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
+\caption{Soft mat}
+\label{fig:mykmattegraf}
+\end{subfigure}
+\caption{Figure showing data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat }
+\label{fig:gtmgraf}
+\end{figure}
+\FloatBarrier
+\end{comment}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+	\captionsetup{labelformat=empty}
+	\caption{(a) Floor}
+	\label{fig:gulvgraf}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
+	\captionsetup{labelformat=empty}
+	\caption{(b) Carpet}
+	\label{fig:teppegraf}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
+	\captionsetup{labelformat=empty}
+	\caption{(c) Soft mat}
+	\label{fig:mykmattegraf}
+\end{figure}
+
+\setcounter{figure}{0}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[t]{\textwidth}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
+		\captionsetup{labelformat=empty}
+		\caption{(d) Hard mat}
+		\label{fig:mattebgraf} 
+	\end{subfigure}
+	\caption{Figure showing an example data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat.}
 \end{figure}
 \FloatBarrier
 
@@ -1164,7 +1197,7 @@ Investigation of finding optimal feature combination and algorithm, following st
 
 
 \chapter{Experiments and results}                     %% ... or ??
-The chapter present the results of all model in previous chapter. The two-class classification will be investigated first. Further will be to using methods to improve each of classifier. The best classifier will be used to test. 
+The chapter presents results of all models in the previous chapter. The result of classification is in will first be presented. Further improvement for  
 	
 \section{Results of classifier}\label{result_exp1}
 Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done once, both with and without the feature scaling. 
@@ -1212,7 +1245,7 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 	
 	
 \subsection{Analysis}
-The result shown that all classifiers have an accuracy of at least 70\%. The Decision tree and Neural Network has the highest accuracy with 96\% from scaled feature set one. 
+The result shown that all classifier has accuracy of at least 70\%. The Decision tree and Neural Network has the highest accuracy with 96\% from scaled feature set one. 
 \\
 \\
 Regarding the feature scaling, SVM is the one with huge effect. The KNN which also using distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor effect on the performance. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
@@ -1221,6 +1254,7 @@ Regarding the feature scaling, SVM is the one with huge effect. The KNN which al
 Among the highest result is either from whole raw data sequence or complete frequency domain. These type of features has the benefit of ensuring that all the information is in the data. However, too many features has a risk learning from noises, and lead to overfitting as mentioned in section \ref{curseDim}.
 \\
 \\
+Beside of looking at the result, it is also interesting to look how data from sensor differ from the other.
 Figure \ref{fig:meanxyz} shows the mean of 10 samples in x,y and z-direction in the time domain. As seen on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
 \\
 \\
@@ -1398,46 +1432,6 @@ Note that the k-fold validation test using always use the same single set both f
 \end{table}
 \FloatBarrier
 
-\subsection{Set 1}
-Filter
-\begin{align}
-f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
-&\qquad \left. {}  x_{86},\dotsc,x_{119} \right.\nonumber\\
-&\qquad \left. {}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
-&\qquad \left. {} z_{1},\dotsc,z_{125} \right\}
-\end{align}
-
-Wrapper
-\begin{align}
-f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_{20},x_{23},x_{25},x_{26},  \right.\nonumber\\
-&\qquad \left. {}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
-&\qquad \left. {}  x_{72},x_{73},x_{74},x_{76},x_{80},x_{81},x_{84},x_{88},x_{91},x_{93},x_{94},x_{97},x_{98},x_{103}, \right.\nonumber\\
-&\qquad \left. {}  x_{105},x_{107},x_{108},x_{109},x_{111},x_{113},x_{114},x_{116},x_{118},x_{119},x_{120},x_{123},x_{124},x_{125}, \right.\nonumber\\
-&\qquad \left. {}  y_{1},y_{2},y_{3},y_{6},y_{9},\dotsc,y_{13},y_{16}, y_{17},y_{26},\dotsc,y_{30},y_{33}, y_{34},y_{37},\dotsc,y_{40}, \right.\nonumber\\
-&\qquad \left. {}  y_{42}, y_{44}, y_{47},\dotsc, y_{52}, y_{54}, y_{57},\dotsc, y_{60}, y_{63}, y_{65}, y_{66}, y_{67}, y_{69}, \right.\nonumber\\
-&\qquad \left. {}  y_{70}, y_{71}, y_{73}, y_{74}, y_{76}, y_{77}, y_{78}, y_{81}, y_{83}, y_{85}, y_{86}, y_{89}, y_{91}, y_{94}, y_{97}, y_{98}, \right.\nonumber\\
-&\qquad \left. {}  y_{101}, y_{102}, y_{103}, y_{105}, y_{106}, y_{109}, y_{110}, y_{114}, y_{116}, y_{118}, y_{121}, y_{122}, y_{124}, y_{125}, \right.\nonumber\\
-&\qquad \left. {}  z_{2}, z_{3}, z_{4}, z_{6}, z_{9}, z_{10}, z_{11}, z_{13},z_{27},\dotsc,z_{30},z_{32}, z_{35}, z_{36}, z_{38}, z_{39}, z_{40}, \right.\nonumber\\
-&\qquad \left. {}  z_{43}, z_{44}, z_{47}, z_{48}, z_{49}, z_{51}, z_{53}, z_{54}, z_{55}, z_{58}, z_{59}, z_{60}, z_{63}, z_{64}, z_{66}, z_{67}, z_{68}, \right.\nonumber\\
-&\qquad \left. {}  z_{72},\dotsc , z_{75}, z_{78}, z_{79}, z_{81},\dotsc, z_{84}, z_{88}, z_{89}, z_{92}, z_{95}, \right.\nonumber\\
-&\qquad \left. {} z_{100}, z_{103}, z_{106},\dotsc ,z_{109}, z_{115}, z_{116}, z_{119}, z_{120}, z_{121}, z_{122}, z_{125}\right\}
-\end{align}
-
-
-\subsection{Set 2}
-\paragraph{Filter}
-\begin{align}
-f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
-\end{align}
-
-\paragraph{Wrapper}
-\begin{align}
-f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
-&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
-\end{align}
 
 
 \subsection{Set 3}
@@ -1455,22 +1449,6 @@ f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22
 &\qquad \left. {} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
 &\qquad \left. {} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
 &\qquad \left. {} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
-\end{align}
-
-
-\subsection{Set 4}
-\paragraph{Filter}
-\begin{align}
-f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
-\end{align}
-
-\paragraph{Wrapper}
-\begin{align}
-f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
 
 
@@ -2340,8 +2318,68 @@ The main focus has been using one of the sensor to evaluate the quality of data.
 \appendix
 \chapter{Code}
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
+
+\chapter{Selected features}
+\section{Set 1}
+Filter
+\begin{align}
+f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
+&\qquad \left. {}  x_{86},\dotsc,x_{119} \right.\nonumber\\
+&\qquad \left. {}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
+&\qquad \left. {} z_{1},\dotsc,z_{125} \right\}
+\end{align}
+
+Wrapper
+\begin{align}
+f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_{20},x_{23},x_{25},x_{26},  \right.\nonumber\\
+&\qquad \left. {}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
+&\qquad \left. {}  x_{72},x_{73},x_{74},x_{76},x_{80},x_{81},x_{84},x_{88},x_{91},x_{93},x_{94},x_{97},x_{98},x_{103}, \right.\nonumber\\
+&\qquad \left. {}  x_{105},x_{107},x_{108},x_{109},x_{111},x_{113},x_{114},x_{116},x_{118},x_{119},x_{120},x_{123},x_{124},x_{125}, \right.\nonumber\\
+&\qquad \left. {}  y_{1},y_{2},y_{3},y_{6},y_{9},\dotsc,y_{13},y_{16}, y_{17},y_{26},\dotsc,y_{30},y_{33}, y_{34},y_{37},\dotsc,y_{40}, \right.\nonumber\\
+&\qquad \left. {}  y_{42}, y_{44}, y_{47},\dotsc, y_{52}, y_{54}, y_{57},\dotsc, y_{60}, y_{63}, y_{65}, y_{66}, y_{67}, y_{69}, \right.\nonumber\\
+&\qquad \left. {}  y_{70}, y_{71}, y_{73}, y_{74}, y_{76}, y_{77}, y_{78}, y_{81}, y_{83}, y_{85}, y_{86}, y_{89}, y_{91}, y_{94}, y_{97}, y_{98}, \right.\nonumber\\
+&\qquad \left. {}  y_{101}, y_{102}, y_{103}, y_{105}, y_{106}, y_{109}, y_{110}, y_{114}, y_{116}, y_{118}, y_{121}, y_{122}, y_{124}, y_{125}, \right.\nonumber\\
+&\qquad \left. {}  z_{2}, z_{3}, z_{4}, z_{6}, z_{9}, z_{10}, z_{11}, z_{13},z_{27},\dotsc,z_{30},z_{32}, z_{35}, z_{36}, z_{38}, z_{39}, z_{40}, \right.\nonumber\\
+&\qquad \left. {}  z_{43}, z_{44}, z_{47}, z_{48}, z_{49}, z_{51}, z_{53}, z_{54}, z_{55}, z_{58}, z_{59}, z_{60}, z_{63}, z_{64}, z_{66}, z_{67}, z_{68}, \right.\nonumber\\
+&\qquad \left. {}  z_{72},\dotsc , z_{75}, z_{78}, z_{79}, z_{81},\dotsc, z_{84}, z_{88}, z_{89}, z_{92}, z_{95}, \right.\nonumber\\
+&\qquad \left. {} z_{100}, z_{103}, z_{106},\dotsc ,z_{109}, z_{115}, z_{116}, z_{119}, z_{120}, z_{121}, z_{122}, z_{125}\right\}
+\end{align}
+
+
+\section{Set 2}
+\paragraph{Filter}
+\begin{align}
+f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
+\end{align}
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
+&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
+\end{align}
+
+\section{Set 4}
+\paragraph{Filter}
+\begin{align}
+f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
+&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
+\end{align}
+
+
 \chapter{Sensor datasheet}
 \includepdf[pages=-]{Datasheet/Sensor.pdf}
+
 
 \backmatter{}
 \addcontentsline{toc}{chapter}{Bibliography}
