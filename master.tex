@@ -95,9 +95,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 
 \fancypagestyle{MyStyle}{%
 	\fancyhead{} %Clean headers
-	\fancyhead[RE]{\rightmark}
-	\fancyhead[LO ]{\rightmark}
-
+	\fancyhead[RE,LO]{\rightmark}
 }
 
 %https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
@@ -132,12 +130,19 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 Humans naturally adapt their walking style on different terrain to have a stable locomotion to prevent falls. Adaption of the walking style comes from past experiences. For instance, one might experienced difficulty of running on icy road, resulting in a fall, while running on dry road will be fine. To achieve this ability, the robot must be able to detect and distinguish different terrains.
 \\
 \\ 
-New and improved sensors have made it possible to distinguish terrain even more accurately. Examples of popular sensors used to gather information visually from terrain are camera \cite{littleDog} and laser scanners \cite{4651026}. These types of sensors gather information from terrain indirectly. Other sensors measure the properties of the terrain more directly such as tactile, joint angle, accelerometers and gyroscopes. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which of them is suitable, and provide most information on the terrain. The result showed that the most informative sensors were a combination of tactile sensors and proprioceptive joint angle sensors. A type of tactile sensor, 3-axis optical force sensor, use refracted light intensity to measure the contact force has not been used much within terrain classification. Due to high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, the sensor is suitable to obtain information from terrain. The goal of this thesis is to use 3-axis optical force sensor and investigate whether it can distinguish terrains with slight differences such as floor and carpet.
+New and improved sensors have made it possible to distinguish terrain even more accurately. Examples of popular sensors used to gather information visually from terrain are camera \cite{littleDog} and laser scanners \cite{4651026}. These types of sensors gather information from terrain indirectly. Other sensors measure the properties of the terrain more directly such as tactile, joint angle, accelerometers and gyroscopes. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which of them is suitable, and provide most information on the terrain. The result showed that the tactile sensor, was the one of the most informative among the other sensors. 
 \\
 \\
-This thesis will also be investigating on how to preprocess data, create and select features and test on several learning algorithms to find a reliable approach. 
+Tactile sensor is designed for measure properties through direct physical interaction \cite{Cutkosky2008}, and several researcher \cite{6784609,ROB:ROB20332,5752869,6584154} have explored due to terrain classification. The potential of the tactile sensor, is instead of measure body motion by joint angle etc. of the robot, it measure the physically contact force between the sensor and surfaces. However, there is various of approaches that have been developed and based on different modalities, for instance, resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}. Among the sensor the optical sensor which has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, and encounter problems such as difficulty of the integration into small space, complex conditioning electronics and high costs, has not been used much within terrain classification.
+%optical\cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312,6027100,6907805,6290303}
+\\
+\\
+This thesis will investigate a type 3-axis optical force sensor, use refracted light intensity to measure the contact force and test whether it is able to distinguish terrains with slight differences such as floor and carpet. This thesis will also be investigating on how to preprocess data, create and select features and test on several learning algorithms to find a reliable approach. 
 
-	
+
+\begin{comment}
+	The tactile sensor needed to achieve both the objective of slipping prevention and minimal deformation of the object during subtle manipulation tasks has to provide information not only on contact forces between the object and fingers but also on contact geometry and contact friction characteristics. Among the various tactile sensors proposed in the literature and based on different technologies, e.g. resistive [8], [9], piezoelectric [10], [11], capacitive [12], [13], magnetic [14], [15] and optoelectronic [16], [17], the authors have recently proposed a force/tactile sensor in [18]. The sensor is based on the use of optoelectronic technologies and it aims to overcome most of the problems encountered in the works cited above, mainly: difficulty of the integration into small spaces, high costs, repeatability and complex conditioning electronics. The sensor has different capabilities, i.e. it can measure the six components of the force and torque vectors applied to it, and it can be used as a tactile sensor providing a spatial and geometrical information about the contact with an external object.http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6290303
+\end{comment}
 \section{Outline}
 The thesis is divided into five additionally chapters: background, software and tools, implementation, experiments and results, and conclusion. 
 	
@@ -220,15 +225,16 @@ Stable locomotion of legged robots is achieved through the gait. A gait is a cyc
 
 
 \section{Tactile sensor}
-Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing has the opportunity to obtain information
+Tactile sensor are designed for measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing provide many types of information which is can be obtained:
 
 \begin{itemize}
-	\item more work
-	\item more responsibility
-	\item more satisfaction
+	\item \textbf{Contact} is the most simple obtained from the sensor, which can detect touch from external agents. Further, one might want to measure the force of the contact. Once the sensor is able  
+	\item \textbf{Force} provide amount of locally applied force.
+	\item \textbf{Geometrical information} has the possibility to give geometrical shape the contact area, and also possible to deduce type of object, for instance sphere or cylinder.
+	\item \textbf{Mechanical properties} such as slip condition, thermal or roughness.
 \end{itemize}
 
- amount of contact force, mechanical properties such as friction coeffficient, roughness or thermal,simple geometrical information, The tactile sensing can be used with three different activity, manipulation, exploration and response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
+Based on these information from tactile make it possibility of using it as manipulation, exploration or response. These activities is shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control for instance the grip force on an object. The exploration has possibility of identify objects by assimilate information properties such as hardness, friction, and roughness from materials and surface. Response refer to detection and reaction to contacts from external agents, which could be sense if it was a gentle touch or impact.  There is many types tactile sensor, one of sensor modality looking on skin deformation and optical components to measure force.
 
 
 	\begin{figure}
@@ -259,16 +265,20 @@ Tactile sensor are designed for measure properties through direct physical inter
 
 
 \subsection{Optical tactile force sensor}
-Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent acrylic or silicate glass, which is illuminated along its edge by a light source. This technology has the opportunity to measure the force, but does not provide force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The sensor is composed of an acrylic hemispherical dome, a light source, an array of rubber sensing elements, and a CCD camera.
+Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use camera to analysis the images. These approaches where uniaxial, that is the sensor only capable of measure the force applied, but not the force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It shown promising result, when the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widley used to capture deformation of a surface cause by external force \cite{1381228,7559098}
 \\
 \\
-Kolker el at. \cite{7559098}
+Another design and very common technology is base on Fibre Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
 \\
-\\
-Instead of using CCD camera to measure light source, Tar and Cserey \cite{6027100} developed a 3D optical compliant tactile force sensor by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+\\ 
+An alternative to low cost 3-axis optical sensor is presented by Tar and Cserey \cite{6027100}, by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
 %http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7559098
+%the light power variation is due to the variation of both the angle of view and the length of the optical path between the optoelectronic components
+\\
+\\
+Another interesting approach use three sets of optical sensor to develop a 6-axial force sensor by Hirose and Yoneda \cite{125944}. The design of the sensor is cylindrical and contains three photosensors which measure the force around the cylinder. Another design of 6-axial optical force sensor can be found in \cite{6907805,6290303}.
 
-
+%http://download.springer.com/static/pdf/934/bok%253A978-3-319-27340-2.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fbook%2F10.1007%2F978-3-319-27340-2&token2=exp=1492951378~acl=%2Fstatic%2Fpdf%2F934%2Fbok%25253A978-3-319-27340-2.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fbook%252F10.1007%252F978-3-319-27340-2*~hmac=6e881e187a3cc0e1e04f4aabdf3f48393795889f42c9942e87077771bb132d4e
 
 \begin{comment}
 \subsection{Optical tactile force sensor}
@@ -302,7 +312,7 @@ The learning process of a perceptron in supervised learning is to be able to rep
 	
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.9]{Figures/neuron.PNG}
+	\includegraphics[scale=0.9]{Figures/neuron2.PNG}
 	\caption{Figure showing a simple model of a single perceptron \cite{Marsland:2009:MLA:1571643}}
 	\label{fig:NN}
 \end{figure}
@@ -319,27 +329,43 @@ A multi-layer perceptron consists of two or more layers between the input and ou
 \end{figure}
 	
 \subsubsection{Support vector machine}
-Support vector machine (SVM) algorithm was introduced by Vapnik and Chervonekis in 1963, while the standard used today is introduced by Cortes and Vapnik in 1995 \cite{Cortes1995}. In figure \ref{fig:SVM} is an instance of 2-class classification, SVM. The dotted line is the boundary for the two classes: circle and cross. To predict new set of data, it will check which side of the decision boundary it lies. If a dataset lies under the boundary line (dotted line) it will classify as cross, while circle if above. If the decision boundary was moved small amount, there is it has a high risk of misclassifying the dataset which lie close to it. This is why SVM will find the optimal separating hyperplane. It will classifies training data more correctly, and will also generalize better with new unseen data. To find the best decision boundary will be the maximizing the margin. It will be found by find the furthest hyperplane from a data point. If a dataset is non-linearly separable data, the SVM will transform the data into higher dimensional where the data is linearly separable to make the classification.
+Support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provide significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents as classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved with small amount, it has a risk that a datapoint from one class that lies close to the boundary, be on the wrong side. To find the best decision boundary is by defining the optimal margin. The margin is defined as the largest region it can put that separate the classes without having any points inside. The hatched classes lies on the margin, and support vectors. This can process can be done by the dot product between each datapoints \cite{Cortes1995}.
 	
+\begin{figure}[h]
+	\centering
+	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
+	\includegraphics{Figures/SVM.PNG}
+	\caption{Figure showing an example of a optimal hyperplane create by SVM on a two-class classification problem  \cite{Cortes1995}.}
+	\label{fig:SVM}
+\end{figure}
+\FloatBarrier
+
+A weakness of the SVM, is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue is prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoints, which means the transformation itself is not needed, but instead, using a function to that implicitly computes the high-dimensional dot-product, and is referred as the kernel function.
 	
-	\begin{figure}[h]
-		\centering
-		%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
-		\includegraphics{Figures/SVM.PNG}
-		\caption{Figure showing an example of the optimal margin for a two dimensional
-			two-class classification problem \cite{Cortes1995}. Each of features vector with values according to the x- and y-axis, represents as classes: circles and crosses. The dotted line is the decision boundary and tell where each class belongs to. The classes that are hatched indicate they lies on the straight line. }
-		\label{fig:SVM}
-	\end{figure}
-	
-	
+\begin{figure}[h]
+	\centering
+	\includegraphics{Figures/svmtransform}
+	\caption{Figure showing transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
+	\label{fig:svmtransform}
+\end{figure}
+\FloatBarrier
 	
 \subsubsection{Naive bayes}
-Naive Bayes algorithm is based on Bayes’ theorem with the assumption of independence between every pair of features, hence the name “naive”. Bayes's theorem in machine learning is often used to find the probability that a data set A occur, based on the data set B. The bayes theorem can be formulated as \cite{Press:2007:NRE:1403886}:
-\begin{equation}
-P(A \vert B) = P(A)\frac{P(B \vert A)}{P(B)}
+Naive Bayes algorithm is a probabilistic classifier based on Bayes’ theorem with the assumption that the effect of a feature on a given class is independent of the values of other variables \cite{Marsland:2009:MLA:1571643}. The assumption simplify computation, and is the reason to be considered as naive. Consider a vector with n features, $X_j$, and a class, $C_i$, then the Bayes theorem can be formulated equation \ref{eq:bayesNaivews2}.
+\begin{equation} 
+P(C_i \vert X_j) = \frac{P(X_j \vert C_i)P(C_i)}{P(X_j)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The $P(A \vert B)$ is the probability of A given that B has occurred, while $P(A \vert B)$ is the probability of B given that A has occured. $P(A)$ and $P(B)$ are unconditional probabilities. The prediction is by use the highest probability among the possible terrains. 
+The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belongs to a class $C_i$, while $P(X_j \vert C_i)$, is the probability of the class $C_i$, belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probability of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occur, when the number of features increase, which require more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
+\begin{equation} 
+P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
+\label{eq:naiveB}
+\end{equation}
+Prediction is based by selecting the class $C_i$, with the highest probability. 
+
+
+
+
 	
 \begin{comment}
 	
@@ -388,8 +414,9 @@ The x and y from equation \ref{eq:edistance} represent the actual and unseen cla
 	
 	
 \subsubsection{Decision tree}
-The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. The process of the decision tree is constructing a tree consisting of nodes and edges using the dataset. Each of nodes represents a test on one features, and the edges represent an outcome of the test. Leaf nodes represent the outcome class. Predicting process is following a path from the root to a leaf node.
-	
+The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. A tree consists of nodes, which represent one of the features, and leaf nodes are associated with classes. The process of the decision tree is constructing a tree consisting of nodes and edges, and predict by following a path from the root to a leaf node. In figure \ref{fig:decisiontree} shows an example of a decision tree.
+
+
 	
 \begin{figure}[h]
 		\centering
@@ -397,7 +424,10 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 		\caption{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
 		\label{fig:decisiontree}
 \end{figure}
-	
+\FloatBarrier
+
+An important aspect of decision trees is how to construct one, based on the features. Although there are few different methods, mostly are based on same principle, by starting at the root, and chose the most discriminative feature at each step \cite{Marsland:2009:MLA:1571643}. The attractiveness with trees, are efficient, and easy to understand and interpret the data. 
+
 	
 \section{Features} \label{features}
 An important part of achieving a good classification, is finding good features from sensor data. The features is what distinguish between classes and will be used as learning set. Thus, finding good features is crucial to achieve a accurate classifier.
@@ -556,8 +586,8 @@ The process of k-fold is to partitioned the data into k subset, where one subset
 	%Se: Rigidity-based surface recognition for a domestic legged robot.
 	
 	
-	\subsection{Evaluating Classifiers}\label{subsec:evalclf}
-	Evaluation of the performance to classifier can be done by calculate metrics based on correct or wrong output. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
+\subsection{Evaluating Classifiers}\label{subsec:evalclf}
+Evaluation of the performance to classifier can be done by calculate metrics based on correct or wrong output. For instance a two-class classifier with classes, "postive" and "negative" will have four different outcomes:
 	
 	\begin{enumerate}
 		\item True postive (TP) is correct prediction of class positive
@@ -670,7 +700,7 @@ Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a
 Hoepflinger et al. \cite{5509309} present a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistor. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments is done by having a robot walk through terrains. However in this experiment the author separated one of the legs robot and mounted to a sample holder of a testbed. The first experiment consist of distinguish four different shaped terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data were collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. In the second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data were done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. Convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge 95\% and 80\% on for the convex hemispherical bulge. Regarding surface classification show that the algorithm performed slightly worse. A type of an abrasive paper had a accuracy of 53.3\%. Even a low accuracy the author state it is overall an satisfy result, since the average correct prediction of different types of abrasive paper was two of three, and prediction of teflon coated surface had an high accuracy 93.3\%.
 \\
 \\
-Terrain classification with other type of local sensor research of can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}
+Other examples of terrain classification can be found in \cite{Giguere2009,6386243,6569179,6569179,4399500}.
 	
 \subsection{Learning algorithms}
 There is a vast number of classifiers and various has been used within the terrain classification such as neural network \cite{6784609,5752869,4654717}, adaptive bayesian filtering \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision tree \cite{6849778}.
@@ -717,7 +747,7 @@ This chapter gives an introduction to different tools and libraries used through
 
 
 \section{Optical force sensor}
-The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce}. It has similar to Tar and Cserey \cite{6027100}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
@@ -2296,27 +2326,13 @@ The terrains in this thesis has only been experimented with flat terrain. It wil
 \\
 \\
 The main focus has been using one of the sensor to evaluate the quality of data. There has been a little experiment using one of the training sets to predict other sensor. It has show good results. However having all four sensors together to predict terrain could be addressed as further work. Incorporate all four legs. 
-\\
-\\
-Unsupervised has been addressed to few authors.
+
+%http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 	
-	other features extraction.
-	Ikke decimate - kan miste viktige features
-	\\
-	\\
-	The learning is based on each step, maybe collect data from more than one step.
-	\\
-	\\
-	Oter experiments
-	\\
-	\\
-	linear and non linear?
-	%http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
+%Optical force (Legged Robots)
+%https://link.springer.com/referenceworkentry/10.1007/978-3-540-30301-5_17
 	
-	%Optical force (Legged Robots)
-	%https://link.springer.com/referenceworkentry/10.1007/978-3-540-30301-5_17
-	
-	%An Overview of Legged Robots
+%An Overview of Legged Robots
 
 
 \part*{Appendices} 
