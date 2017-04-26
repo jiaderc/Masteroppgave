@@ -24,7 +24,8 @@
 \usepackage{pdfpages}
 \usepackage{tikz}
 \usepackage{fancyhdr}
-\usepackage[parfill]{parskip} %For å unngaa mellom i ny avsnitt
+\usepackage[parfill]{parskip} %For aa unngaa mellom i ny avsnitt
+\usepackage{emptypage} %Ingen header paa empty page
 %Tegne diagrammer
 \usetikzlibrary{shadows,arrows,positioning,shapes.geometric,fit,calc}
 % Define the layers to draw the diagram
@@ -95,7 +96,8 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 
 \fancypagestyle{MyStyle}{%
 	\fancyhead{} %Clean headers
-	\fancyhead[RE,LO]{\rightmark}
+	\fancyhead[RO,LE]{\rightmark}
+	%\fancyhead[RE,LO]{\rightmark}
 }
 
 %https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
@@ -507,15 +509,17 @@ A positive kurtosis of a distribution has a sharper peak and heavier tails relat
 	
 	
 \subsection{Features selection}\label{selection}	
-The process in feature selection is to select a subset of features from the original set. Selecting good features has benefit of increasing classifier performance, prevent the curse of dimensionality mentioned in section \ref{curseDim} and reducing storage requirements and training time. Note that a features can individually be completely useless, but relevant when used together with other features \cite{Guyon2006}. There are three types of feature selection algorithms: filter-, wrapper- and embedded methods as shown in figure \ref{fig:selection}. 
+The process in feature selection is to select a subset of features from the original set. Selecting good features has benefit of increasing classifier performance, prevent the curse of dimensionality mentioned in section \ref{curseDim} and reducing storage requirements and training time. Note that a features can individually be completely useless, but relevant when used together with other features \cite{Guyon2006}. There are three types of feature selection algorithms: filter-, wrapper- and embedded methods. %as shown in figure \ref{fig:selection}. 
 	
-	
+
+\begin{comment}
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.7]{Figures/FilterWrapperEmbedded.PNG}
 		\caption{The figure showing the three approaches of feature selection \cite{Guyon2006}. (a) filter method (b) wrapper method and (c) embedded method.  The shades show the components used by the three methods.}
 		\label{fig:selection}
 	\end{figure}
+\end{comment}
 	
 	
 \paragraph{Filter}
@@ -948,13 +952,8 @@ An appropriate method to segment data is by sliding window algorithm, however, d
 \\
 In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{ sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Two thresholds have to be sets; one for considered as minor change, one for considered minimum length of the minor change sequence. When a foot reach the ground, there will be a big change in each direction for the sensor, and start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set.
 
-\section{Feature extraction}\label{sec:featuex}
-As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains.
-	
-
-	
-\subsection{Feature sets}\label{sec:featuresets}
-Five different feature set will be created and used to learn and evaluate each of classifiers. The following paragraphs will be introducing each sets.
+\section{Feature sets}\label{sec:featuresets}
+As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature set will be created and used to learn and evaluate each of classifiers. The following paragraphs will be introducing each sets.
 
 \paragraph{Feature set one - raw data} 
 This feature set use all data from each step in x, y and z-direction. As the length vary, the feature vector is decimated in front and end of the sequence to achieve a fixed length, in this case 125.  Choices of the sequence length and method of decimating is described in next section \ref{subseq:FixLength}. The feature vector set will look like:
@@ -1043,9 +1042,9 @@ Good features might come from different feature sets. This set will collect feat
 The vector contains 15 features from each direction, which is in total 45 features. 
 	
 \subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125-135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is listed in \ref{code1}. Note the technique is simplified to one-dimensional array, while in thesis has 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
+In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125-135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to one-dimensional array, while in thesis has 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
 	
-\lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/fix_length.py}
+\lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={lst:fix_length},frame=single,breaklines=true]{code/fix_length.py}
 	
 
 	
@@ -1939,7 +1938,7 @@ To get a more realistic practical scenario  is based on evaluation of the classi
 	\end{enumerate}
 	
 \subsection{Real time implementation}
-The real time implementation can be seen on figure \ref{fig:realtime}, which is a small modification of earlier approach. In this implementation will be creating a server node after model a classifier. The training is same set with 50 samples for each terrain. The server will be waiting for a request from another node, which is in this case segment data. The segment data gather data stream from the optoforce sensor. The method to collecting interesting data is described in \ref{subseq:segmentation}. After a step is extracted from sensor, it will then be passed to the server. The server will receive the data and start to preprocess the data. It will extracted features, select features and scale accordingly to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provide a probability function on SVM, which is used. In the documentation the probability might give wrong probability on very small data set. However, the data set is considered as not very small data set, and it is interesting to look at probability when it predict. After given a result, it will be waiting for new partitioned from segment data. Even many of the methods is same as early, however a detail of this process is to clarify the implementation.
+The real time implementation can be seen on figure \ref{fig:realtime}, which is a small modification of earlier approach. In this implementation will be creating a service node after model a classifier. The training is same set with 50 samples for each terrain. The server will be waiting for a request from another node, which is in this case segment data. The segment data gather data stream from the optoforce sensor. The method to collecting interesting data is described in \ref{subseq:segmentation}. After a step is extracted from sensor, it will then be passed to the server. The server will receive the data and start to preprocess the data. It will extracted features, select features and scale accordingly to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provide a probability function on SVM, which is used. In the documentation the probability might give wrong probability on very small data set. However, the data set is considered as not very small data set, and it is interesting to look at probability when it predict. After given a result, it will be waiting for new partitioned from segment data. Even many of the methods is same as early, however a detail of this process is to clarify the implementation.
 	
 	
 	\begin{figure}[h!]
@@ -2378,7 +2377,7 @@ f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
 
 
 \chapter{Sensor datasheet}
-\includepdf[pages=-]{Datasheet/Sensor.pdf}
+%\includepdf[pages=-]{Datasheet/Sensor.pdf}
 
 
 \backmatter{}
