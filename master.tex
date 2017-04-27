@@ -301,7 +301,7 @@ Evolutionary learning use biological evolution such as reproduction, mutation, r
 	
 \subsection{Classifier} \label{sub:classifier}
 The classifier is where the learning process occur, and produceS the inferred function. The following sections will introduce technical background of five classifiers; artifical neural network, support vector machine, Naive Bayes, k-nearest neighbors and decision tree.
-	
+
 \subsubsection{Artificial neural networks}
 Artificial neural networks (ANN) is inspired by neurons in the human brain, and is one of the most popular learning algorithms. It can be found in many different research fields, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted inputs signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only dependent on its inputs and error. That is, a neuron will not be affected by other neurons performance. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
 \\
@@ -362,36 +362,6 @@ P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
 \end{equation}
 Prediction is based by selecting the class $C_i$, with the highest probability. 
 
-
-
-
-	
-\begin{comment}
-	
-	
-	Several research based the terrain classification on naive bayes which has given good result \cite{6225128, 5981563}. The bayes' theorem suit to mathematical express the terrain identification problem \cite{Giguere06environmentidentification,6225128}. This is mathematically simple and allow to evaluate unexpected mismatch between sample classes and the real environments. The terrain classification problem can be expressed as \cite{6225128}:
-	
-	\begin{equation}
-	P(\theta_{l}\vert X)={p(X\vert \theta_{l})P(\theta_{l})\over p(X)}
-	\label{eq:bayesNaivews}
-	\end{equation}
-	
-	The $\theta_{l}$ represent the class, which would be the possible terrains the robot is expected to predict. The X represent the observations, which are information from different sensors, also called feature vector. On the formula the \ref{eq:bayesNaivews} $P(\theta_{l}\vert X)$ is the conditional probability distribution. $P(X\vert \theta_{l})$ is the likelihood that the terrain is has with these observations, and the $P(\theta_{l})$ is the priori distribution of the classes, and $p(x)$ is the
-	distribution of the observation. Classification is done by selecting a class that maximizes the a posteriori probability $P(\theta_{l}\vert X)$ according to the Maximization of A Posteriori (MAP) decision rule
-	
-	\begin{equation}
-	p(X\vert \theta_{l})P(\theta_{l})=\displaystyle\mathop{\max}_{j}\{p(X\vert \theta_{j})P(\theta_{j})\}
-	\label{eq:decision}
-	\end{equation}
-	
-	The CPDF for each class can be estimated either parametrically or non-parametrically. An accurate nonparametric density is hard to estimate, especially when the number of features is high. One of the most popular parametric probability density functions is the normal distribution, which only requires an estimate of the mean $M_l$ and covariance matrix $\sum_1$ for the class $\theta_l$
-	
-	\begin{equation}
-	p(X\vert \theta_{l}) = {1\over (2\pi)^{N/2}\vert \Sigma_{l}\vert ^{1/2}} \times{exp}\{-{1\over 2}(X-M_{l})^{T}\Sigma_{l}^{-1}(X-M_{l})\} 
-	\label{eq:bayesLast}
-	\end{equation}
-	\end{comment}
-	
 \subsubsection{K-nearest neighbors}
 K-nearest neighbors (KNN) is one of the simple classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classify the new data as the class with biggest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate effect of performance on different k values is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represent new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, and illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. However, if k is set to 5, then the green circle will be classified as square.
 
