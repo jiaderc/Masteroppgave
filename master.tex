@@ -181,16 +181,16 @@ The following paragraphs will introduce several platform of different legged rob
 %http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 %http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
 
-\paragraph{Monopod}
+\subsection{Monopod}
 The monopod is a simple one legged robot design. The locomotion of the monopod robots is performed through hops, and it is also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of one legged robot is developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
 
-\paragraph{Biped}
+\subsection{Biped}
 A biped is a robot with two legs. The studies on biped robots have been a popular research field, especially towards developing humanoids. Creating a humanoid implicates that the robot is able to imitate humans behavior, such as walking, running, jumping, traversing on stairs etc. The well-kown NAO robot \cite{NAO}, shown in figure \ref{fig:nao} has impressive abilities. Not only is NAO robot able to walk, but it is also capable of see, hear and speak. 
 
-\paragraph{Quadruped}
+\subsection{Quadruped}
 The quadruped is robot designed with four legs and is inspired from animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and is able to carry load from 50kg to 150kg, depending on the terrain. Other abilities includes being able to jump, run, and maintain the stability even it get pushed or walking on slippery terrain. More legs makes robots more stable, and is capable to traverse through terrain without falling. However it is more complex to control the legs.
 
-\paragraph{Hexapod}
+\subsection{Hexapod}
 A hexapod is six legged robot, and is inspired by insects, mostly spiders. By having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to controlling six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron has been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}. 
 \begin{figure}
 	\centering
@@ -267,7 +267,7 @@ Based on these information from tactile make it possibility of using it as manip
 \FloatBarrier
 
 
-\subsection{Optical tactile force sensor}
+\section{Optical tactile force sensor}
 Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use camera to analysis the images. These approaches are uniaxial, that is the sensor only capable of measure the force applied, but not the force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It shown promising result, when the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widley used to capture deformation of a surface cause by external force \cite{1381228,7559098}
 \\
 \\
@@ -1164,7 +1164,8 @@ Investigation of finding optimal feature combination and algorithm, following st
 	\item Evaluate the accuracy performance of each five classifiers. Additionally, investigate whether a feature scaling is suitable.  
 	\item The learning process will integrating two different feature selection methods which might increase the performance. 
 	\item Some of the top performer will be further tested on new test samples.
-	\item Evaluate the performance when the robot walks through two different terrains.
+	\item Selecting two best performer to find best hyperparameter and test the performance
+	\item Using the best performed classifier to evaluate the performance when the robot walks through two different terrains.
 	\item Using the training sample to predict other sensor. 
 \end{enumerate}
 
@@ -1338,7 +1339,7 @@ Even there are classifier which outperform the other, there are still improvemen
 	\end{figure}
 	
 	
-\section{Result of added feature selection}
+\subsection{Result of added feature selection}
 Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
 	
 \begin{table}[h]
@@ -1380,7 +1381,7 @@ Table \ref{tab:exp2} shows the result when feature selection is applied to the e
 \end{table}
 \FloatBarrier
 	
-\section{Analysis}
+\subsection{Analysis}
 From table \ref{tab:exp2} one can see that the filter selection has made most of the classifier more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
 \\
 \\
@@ -1468,7 +1469,7 @@ Will only be looking on set 3.
 
 \section{Cross validation with unseen data} \label{seq:crossunseen}
 In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times.
-	
+
 	\begin{enumerate}
 		\item SVM with wrapper and use feature set two
 		\item Neural Network and use feature set one.
@@ -1476,8 +1477,19 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\item Decision tree with filter and use feature set one
 		\item KNN with wrapper and feature set five
 	\end{enumerate}
-	
-	
+
+\subsection{Result}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/compareUnseen}
+	\caption{Figure showing data stream from sensor when the robot walked from floor to carpet.}
+	\label{fig:gulvet4teppegraf}
+\end{figure}
+
+\subsection{Analysis}
+\subsubsection{SVM - Wrapper - Feature set two}
+On the table \ref{svmexp} showing accuracy. The average is at least 94\%, and has the average 95.2\%. It can be seen that classifier simple distinguish floor and soft mat, while the carpet has a little confusion, and the hard mat is more confused. As seen in table \ref{fscoresvm} the soft mat has a f-score on 100\%, which means high precision and recall. Floor is second highest f-score with average 96\%. The recall is the reason of decreased f-score. The hard mat and carpet has relative equally f-score. However the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision. 
+
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{@{}llllll@{}}
@@ -1556,9 +1568,9 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\label{fscoresvm}
 	\end{table}
 	\FloatBarrier
-	\subsubsection{SVM - Wrapper - Feature set two}
-	On the table \ref{svmexp} showing accuracy. The average is at least 94\%, and has the average 95.2\%. It can be seen that classifier simple distinguish floor and soft mat, while the carpet has a little confusion, and the hard mat is more confused. As seen in table \ref{fscoresvm} the soft mat has a f-score on 100\%, which means high precision and recall. Floor is second highest f-score with average 96\%. The recall is the reason of decreased f-score. The hard mat and carpet has relative equally f-score. However the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision. 
-	
+
+\subsubsection{Neuarl Network - Feature set one}
+On the table \ref{nn2} showing accuracy. Compared to the old result from \ref{tab:exp2} with accuracy on 96\%, the classifier perform more poorly on unseen data, with average accuracy 67.4\%. The classifier has most difficulty of distinguish the hard mat, but do have some problems with floor too. The soft mat is the easiest terrain to predict with f-score on 100\%, shown in \ref{nnfscore}. Carpet is second highest f-score with average... Even the precision is high, but the recall is low. Third highest f-score is floor. Recall and precision is factor which lead to low f-score. The least highest f-score is the hard mat with average... The recall is relative high, but the precision is low, which make a low f-score.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{@{}llllll@{}}
@@ -1638,8 +1650,8 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 	\end{table}
 	\FloatBarrier
 	
-	\subsubsection{Neuarl Network - Feature set one}
-	On the table \ref{nn2} showing accuracy. Compared to the old result from \ref{tab:exp2} with accuracy on 96\%, the classifier perform more poorly on unseen data, with average accuracy 67.4\%. The classifier has most difficulty of distinguish the hard mat, but do have some problems with floor too. The soft mat is the easiest terrain to predict with f-score on 100\%, shown in \ref{nnfscore}. Carpet is second highest f-score with average... Even the precision is high, but the recall is low. Third highest f-score is floor. Recall and precision is factor which lead to low f-score. The least highest f-score is the hard mat with average... The recall is relative high, but the precision is low, which make a low f-score.
+\subsubsection{Decision Tree - Feature set one}
+On the table \ref{dt1e} showing accuracy. Comparing to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat. It is confused by hard mat and carpet. However, when there is less confusion when the robot is on carpet. When it is on hard mat, the classifier tend to predict carpet than hard mat. That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
 	
 	
 	\begin{table}[h]
@@ -1720,9 +1732,10 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 	\end{table}
 	\FloatBarrier
 	
-\subsubsection{Decision Tree - Feature set one}
-On the table \ref{dt1e} showing accuracy. Comparing to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat. It is confused by hard mat and carpet. However, when there is less confusion when the robot is on carpet. When it is on hard mat, the classifier tend to predict carpet than hard mat. That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
-	
+\subsubsection{Decision Tree - Filter - Feature set one}
+Comparing the new result from table \ref{dt4} to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat, and the classifier has difficulty of decide wheter it is on hard mat or carpet. However there is less confusion when the robot is on the carpet.  That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
+
+
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{@{}llllll@{}}
@@ -1802,103 +1815,135 @@ On the table \ref{dt1e} showing accuracy. Comparing to the old result from \ref{
 		\label{dtfilterfscore}
 	\end{table}
 	\FloatBarrier
-	\subsubsection{Decision Tree - Filter - Feature set one}
-	Comparing the new result from table \ref{dt4} to the old result from \ref{tab:exp2}, the classifier perform more poorly on unseen data. Again, the soft mat is the easiest terrain to recognize, and has the highest f-score. There is confusion when it is on hard mat, and the classifier has difficulty of decide wheter it is on hard mat or carpet. However there is less confusion when the robot is on the carpet.  That is what make carpet have a hight precision, but low recall. However, the hard mat has a higher recall, but lower precision.  
 	
+
 	
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{@{}llllll@{}}
-			\toprule
-			\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
-			&  & \multicolumn{1}{l|}{\textbf{Floor}} & \multicolumn{1}{l|}{\textbf{Carpet}} & \multicolumn{1}{l|}{\textbf{Soft mat}} & \textbf{Hard mat} \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
-			\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{81\%}} & \multicolumn{1}{l|}{50} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{0} & 1 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{22} & \multicolumn{1}{l|}{0} & 20 \\ \bottomrule
-		\end{tabular}
-		\caption{KNN }
-		\label{knnexp}
-	\end{table}
-	\FloatBarrier
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{@{}llllll@{}}
-			\toprule
-			\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
-			& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
-			\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
-			\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{86\%} & 86\% \\ \midrule
-			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
-			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & 40\% \\ \bottomrule
-		\end{tabular}
-		\caption{Knn precision}
-		\label{precisionKNN}
-	\end{table}
-	\FloatBarrier
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{@{}llllll@{}}
-			\toprule
-			\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
-			& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
-			\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & \multicolumn{1}{l|}{78.1\%} & 78.1\% \\ \midrule
-			\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & \multicolumn{1}{l|}{66.2\%} & 66.2\% \\ \midrule
-			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
-			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & \multicolumn{1}{l|}{95.2\%} & 95.2\% \\ \bottomrule
-		\end{tabular}
-		\caption{KNN recall}
-		\label{knnrecall}
-	\end{table}
-	\FloatBarrier
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{@{}llllll@{}}
-			\toprule
-			\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
-			& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
-			\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & \multicolumn{1}{l|}{87.7\%} & 87.7\% \\ \midrule
-			\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & \multicolumn{1}{l|}{74.8\%} & 74.8\% \\ \midrule
-			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
-			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & \multicolumn{1}{l|}{56.3\%} & 56.3\% \\ \bottomrule
-		\end{tabular}
-		\caption{KNN fscore}
-		\label{knnfscore}
-	\end{table}
-	\FloatBarrier
-	
-	\subsection{KNN - Wrapper - Feature set five}
-	Comparing the new result from table \ref{dt4} to the old result from table \ref{tab:exp2}, the accuracy has decreased a little. It is shown that the it is confused especially between the hard mat and carpet. When it is on the hard mat it rather predict as carpet. However, there is less confusion when the robot is on carpet and is more able to predict correct.
-	
-	
+\subsection{Neural network feature set 5}
+Comparing the new result from table \ref{dt4} to the old result from table \ref{tab:exp2}, the accuracy has decreased a little. It is shown that the it is confused especially between the hard mat and carpet. When it is on the hard mat it rather predict as carpet. However, there is less confusion when the robot is on carpet and is more able to predict correct.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Run}} & \multirow{2}{*}{\textbf{Accuracy}} & \multicolumn{4}{c}{\textbf{Confusion matrix}} \\ \cmidrule(l){3-6} 
+		&  & \multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{Soft mat} & \textbf\{Hard mat\} \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{1}} & \multicolumn{1}{l|}{\multirow{4}{*}{79\%}} & \multicolumn{1}{l|}{48} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{0} & 6 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{2}} & \multicolumn{1}{l|}{\multirow{4}{*}{77.5\%}} & \multicolumn{1}{l|}{46} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{0} & 8 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{3}} & \multicolumn{1}{l|}{\multirow{4}{*}{78.5\%}} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{1} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{42} & \multicolumn{1}{l|}{0} & 7 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{19} & \multicolumn{1}{l|}{0} & 21 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{4}} & \multicolumn{1}{l|}{\multirow{4}{*}{77\%}} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{1} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{39} & \multicolumn{1}{l|}{0} & 6 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{0} & 20 \\ \midrule
+		\multicolumn{1}{l|}{\multirow{4}{*}{5}} & \multicolumn{1}{l|}{\multirow{4}{*}{79\%}} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{40} & \multicolumn{1}{l|}{0} & 6 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{0} & 21 \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{96\%} & \multicolumn{1}{l|}{92\%} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{90\%} & 94\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{80\%} & \multicolumn{1}{l|}{78\%} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{78\%} & 80\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{42\%} & \multicolumn{1}{l|}{40\%} & 42\% \\ \bottomrule
+	\end{tabular}
+	\caption{Precision}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{78.7\%} & \multicolumn{1}{l|}{79.3\%} & \multicolumn{1}{l|}{80\%} & \multicolumn{1}{l|}{76.3\%} & 78.3\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{63.5\%} & \multicolumn{1}{l|}{60.9\%} & \multicolumn{1}{l|}{63.6\%} & \multicolumn{1}{l|}{60.3\%} & 63.5\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{98\%} & \multicolumn{1}{l|}{98\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{76.9\%} & \multicolumn{1}{l|}{71.4\%} & \multicolumn{1}{l|}{75\%} & \multicolumn{1}{l|}{76.9\%} & 77.8\% \\ \bottomrule
+	\end{tabular}
+	\caption{Recall}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Terrain}} & \multicolumn{5}{c}{\textbf{Run}} \\ \cmidrule(l){2-6} 
+		& \multicolumn{1}{l|}{\textbf{1}} & \multicolumn{1}{l|}{\textbf{2}} & \multicolumn{1}{l|}{\textbf{3}} & \multicolumn{1}{l|}{\textbf{4}} & \textbf{5} \\ \midrule
+		\multicolumn{1}{l|}{Floor} & \multicolumn{1}{l|}{86.5\%} & \multicolumn{1}{l|}{85.2\%} & \multicolumn{1}{l|}{83.8\%} & \multicolumn{1}{l|}{82.6\%} & 85.4\% \\ \midrule
+		\multicolumn{1}{l|}{Carpet} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{68.4\%} & \multicolumn{1}{l|}{72.4\%} & \multicolumn{1}{l|}{68\%} & 70.8\% \\ \midrule
+		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{99\%} & \multicolumn{1}{l|}{99\%} & 100\% \\ \midrule
+		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{52.6\%} & \multicolumn{1}{l|}{51.3\%} & \multicolumn{1}{l|}{53.8\%} & \multicolumn{1}{l|}{52.6\%} & 54.6\% \\ \bottomrule
+	\end{tabular}
+	\caption{F-score}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+
 \subsection{Summary}
 Five different classifier with different feature sets were investigated. Compared to the old result from table \ref{tab:exp2}, every classifier has decreased their accuracy. SVM still have the highest accuracy, even on predicting unseen data. KNN on other hand, which were least highest among those five tested classifiers were the second best on predicting unseen data. Neural network is the classifier with least accuracy. The decision tree with and without feature selection has relative equal accuracy.
 \\
 \\
 It can be seen a common confusion for each classifiers when the robot is on hard mat. Mostly of classifiers tend to chose carpet instead of hard mat. This is also the reason that the f-score of carpet and hard mat is relative low, even there are high precision on predicting carpet on carpet. The least confusion is the soft mat, where the every classifier has a average over 90\%. The floor also achieved a high f-score, except for the neural network without filter. The neural network had issues to distinguish between floor and carpet. 
-	
 
-	
+\section{Parameter tuning}
+In this experiments we will be using two best classifier and tune parameter to see whether it will give a higher performance. It will be using a grid search. It will use grid search on the training set, then test on unseen data to see if there are any improvements.
+
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Classifier & Parameter & Values \\ \midrule
+		\multirow{2}{*}{Neural Network} & Hidden layer & 0,...,100 \\
+		& Alpha & 0.0001,0.0002,0.0010 \\ \midrule
+		\multirow{3}{*}{SVM} & Kernel & linear, rbf, sigmoid \\
+		& Gamma & 0.001,0.002,....,0.1 \\
+		& C & 0.1,0.2,...,1,2,...,1000 \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+
+\section{Result}
+As seen it does not improve that much, thus will be using default values. Will only be using the SVM in the final experiment.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}llllll@{}}
+		\toprule
+		\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of \\ output\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Old\\ result\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}New \\ result\end{tabular}} \\ \midrule
+		\multirow{3}{*}{Neural Network} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & 1 & \multirow{3}{*}{78.2\%} & 77.6\% \\
+		&  &  & 2 &  & 78.9\% \\
+		&  &  & 4 &  & 74.2\% \\ \midrule
+		SVM & Set 3 & RFE & 1 & 94.8\% & 93.6\% \\ \bottomrule
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
+\FloatBarrier
+
+
 \section{Classification in real-time} \label{sec:realtime}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
 	
@@ -2334,6 +2379,26 @@ f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
 &\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
 \end{align}
 
+
+\section{Set 3}
+\paragraph{Filter}
+\begin{align}
+f_{set3} &= \left\{ x_{1}, z_{1} \right\}
+\end{align}
+
+
+\paragraph{Wrapper}
+\begin{align}
+f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
+&\qquad \left. {}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
+&\qquad \left. {}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
+&\qquad \left. {} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
+&\qquad \left. {} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
+&\qquad \left. {} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
+\end{align}
+
+
+
 \section{Set 4}
 \paragraph{Filter}
 \begin{align}
@@ -2349,7 +2414,20 @@ f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
 &\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
 
+\section{Set 5}
+\paragraph{Filter}
+\begin{align}
+f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+\end{align}
 
+\paragraph{Wrapper}
+\begin{align}
+f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
+&\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
+&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
+\end{align}
 \chapter{Sensor datasheet}
 %\includepdf[pages=-]{Datasheet/Sensor.pdf}
 
