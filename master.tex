@@ -1114,7 +1114,7 @@ When the data samples of each terrain is unified into a single file, the learnin
 	
 	\FloatBarrier
 	\clearpage
-\subsubsection{Details of the learning process}
+\subsubsection{Details of the learning process} \label{sub:learningprocess}
 \begin{enumerate}
 \item \textbf{\underline{Reading file with samples}}
 \\
@@ -1161,21 +1161,24 @@ This step will compute the overall results as mentioned in section \ref{subsec:e
 Investigation of finding optimal feature combination and algorithm, following steps will be find the best solution:
 
 \begin{enumerate}
-	\item Evaluate the accuracy performance of each five classifiers. Additionally, investigate whether a feature scaling is suitable.  
-	\item The learning process will integrating two different feature selection methods which might increase the performance. 
-	\item Some of the top performer will be further tested on new test samples.
-	\item Selecting two best performer to find best hyperparameter and test the performance
-	\item Using the best performed classifier to evaluate the performance when the robot walks through two different terrains.
-	\item Using the training sample to predict other sensor. 
+	\item Evaluate the performance of each five classifiers with different feature sets. Additionally, investigate whether a feature scaling is appropriate.  
+	\item The learning process will be integrating two different feature selection methods to achieve a better performance. 
+	\item Some of the top performer classifier along with the feature set will be further tested on new data samples.
+	\item Selecting two best performer and use grid search to find best parameters for each classifier and test on the previous data samples.
+	\item The best performed classifier will be to evaluate the performance when the robot walks through two different terrains.
+	\item Lastly, will test whether it is appropriate to use training sample from the one sensor to predict the other sensors. 
 \end{enumerate}
 
 
 \chapter{Experiments and results}                     %% ... or ??
-The chapter presents results of all models in the previous chapter. The result of classification is in will first be presented. Further improvement for  
+The chapter presents results of all models in the previous chapter. This chapter is divided into 6 main sections, where each of them is the experiments. The first section will present the result of each classifier with the different sets of features. The second section will present a modified implementation to increase the performance. The third section will use top performed classifiers with its feature set to evaluated on new set of data samples. The fourth section will use a grid search to tune parameters to two top performed classifier, and compare to default values. The fifth section presents a real time implementation used to evaluate the performance of the best classifier when the robot walks on different terrains. Last section shows the possibility to use training samples from the one sensor to predict the other.
+ 
+ 
+\section{Performance of each classifier}\label{result_exp1}
+This section will present the results of each classifier along with an analysis.
 	
-\section{Results of classifier}\label{result_exp1}
-Table \ref{exp1} shows the result when using the learning approach. The accuracy is the average accuracy. The experiments were done once, both with and without the feature scaling. 
-	
+\subsection{Results}
+Table \ref{exp1} shows the result of each classifier when using the learning approach described in \ref{sub:learningprocess}.
 	
 \begin{table}[h]
 	\centering
@@ -1214,47 +1217,43 @@ Table \ref{exp1} shows the result when using the learning approach. The accuracy
 	\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess}}
 	\label{exp1}
 \end{table}
-	
-	\FloatBarrier
+\FloatBarrier
 	
 	
 \subsection{Analysis}
-The result shown that all classifier has accuracy of at least 70\%. The Decision tree and Neural Network has the highest accuracy with 96\% from scaled feature set one. 
+The result shown that all classifier have an accuracy of at least 70\%. Top performed classifiers are, Decision tree and Neural Network with an accuracy of 96\%. 
 \\
 \\
-Regarding the feature scaling, SVM is the one with huge effect. The KNN which also using distances is also affected by scaling, but most of them gave lesser accuracy. While Neural Network, Decision tree and Bayes Navies do not rely on distance between features, only Bayes Navies was not affected. The Neural Network and Decision Tree had minor effect on the performance. Since the feature scaling had great affect on the SVM and minor on the other classifier, scaled features will be used in further experiments.
+Regarding the feature scaling, SVM and KNN which use distances in their computation, only SVM had the biggest effect. KNN on other hand, was slightly affected by scaling, but mostly gave smaller accuracy. Neural Network achieved small improvement, while Decision tree either performed best with scaled or not scaled dependent on feature set, and Bayes Navies did not have any effect. Since the feature scaling achieved an big improvement with the SVM and minor on the other classifier, scaled features will be used in further experiments.
 \\
 \\
-Among the highest result is either from whole raw data sequence or complete frequency domain. These type of features has the benefit of ensuring that all the information is in the data. However, too many features has a risk learning from noises, and lead to overfitting as mentioned in section \ref{curseDim}.
+Among the highest results are either from whole raw data sequence or complete frequency domain. Regarding statistics features extracted in both domain, it shows a relative similar performance of for all of them. In the next experiment will therefore using all of the feature again. 
 \\
 \\
-Beside of looking at the result, it is also interesting to look how data from sensor differ from the other.
-Figure \ref{fig:meanxyz} shows the mean of 10 samples in x,y and z-direction in the time domain. As seen on figures \ref{fig:meanx} and \ref{fig:meanz}, floor and soft mat are the terrains which differ the most and should be easy to predict. Even shapes of curves to the floor is similar the carpet, the force in x- and z-direction is higher for the floor. While carpet and hard mat differ from its shapes of curve, but has the most similar values, which might be the most difficulty to discriminate. 
-\\
-\\
-A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. The floor differ from the other in z-direction as seen in figure \ref{fig:fftz}, while the soft mat differ the most in x-direction shown in figure \ref{fig:fftx}. Again, carpet and hard mat has similar values.
+Beside of looking at the performance of each classifiers, it is also interesting to look how data provided from the sensor respond to different terrain. In time domain, which can be seen in figure \ref{fig:meanxyz}, the soft mat differ the most among the terrains. Forces from floor, carpet and hard mat in x-direction are relative similar as shown in figure \ref{fig:meanx}. Forces in y-direction as seen in figure \ref{fig:meany} are more distinguish, but still quite similar. While forces in z-direction as seen in figure \ref{fig:meanz}, distinguish each terrains even clearly. The carpet and hard mat provide similar forces, but the floor has most similar with the shapes of curves. In frequency domain, again, soft mat differ the most among the other. In contrast to similar data from floor, carpet and hard mat in time domain, in frequency domain the floor has a bigger differences from the other as seen in figure \ref{fig:meanxyz}. The carpet and hard mat on other hand are almost equally. However, it can be seen slightly difference between them in y, and z-direction shown in figures \ref{fig:ffty}, and \ref{fig:fftz} respectively.
+
 \begin{figure} [h]
 	\centering
 	\begin{subfigure}[b]{0.95\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/xmeans2}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/x}
 		\caption{Mean of 10 samples in x-direction}
 		\label{fig:meanx} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{0.95\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meany}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/y}
 		\caption{Mean of 10 samples in y-direction}
 		\label{fig:meany}
 	\end{subfigure}
 \end{figure}
 \begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[b]{0.95\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/meanz}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/z}
 		\caption{Mean of 10 samples in z-direction}
 		\label{fig:meanz}
 	\end{subfigure}
 	
-	\caption[]{The figure showing the mean of each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
+	\caption[]{The figure showing the mean of 10 steps on each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
 	\label{fig:meanxyz}
 \end{figure}
 
@@ -1282,21 +1281,20 @@ A mean of 10 samples in frequency domain is shown in figure \ref{fig:fftxyz}. Th
 	\end{subfigure}
 	
 	\caption[]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
-	\label{fig:fftxyz}
+	\label{c}
 \end{figure}
 \FloatBarrier
 
 	
 	
 	
-\section{Further improving all classifier}
-Even there are classifier which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without losing any features. In following experiment, the feature selection will be integrated on previous implementation to see if there any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is marked as red. The filter and wrapper method will be used. Both is library provided by scikit. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination.
+\section{Adding feature selection}
+Even there are classifiers which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without losing any features. In following experiment, the feature selection will be integrated on previous implementation to see if there any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is marked as red. The filter and wrapper method will be used, and both are libraries provided by scikit-learn. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and remove features to a desired number. A more detailed of each method can be found in appendix \ref{ap:featuresel}.
 	
 	
-	
-	\begin{figure}[h!]
-		\centering
-		\begin{tikzpicture}[scale=0.7,transform shape]
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[scale=0.7,transform shape]
 		
 		% Draw diagram elements
 		%  \path \io{1}{Raw data};
@@ -1339,9 +1337,27 @@ Even there are classifier which outperform the other, there are still improvemen
 	\end{figure}
 	
 	
-\subsection{Result of added feature selection}
-Table \ref{tab:exp2} shows the result when feature selection is applied to the earlier learning approach. 
-	
+\subsection{Results}
+Table \ref{tab:exp2_1} shows the number of feature were removed for each sets. In table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared previous implementation. 
+
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{llll}
+		\hline
+		\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \hline
+		Set 1 & 375 & 230 & 187 \\
+		Set 2 & 21 & 8 & 10 \\
+		Set 3 & 183 & 2 & 91 \\
+		Set 4 & 24 & 11 & 12 \\
+		Set 5 & 45 & 19 & 22 \\ \hline
+	\end{tabular}
+	\caption{Table showing new length of each features}
+	\label{tab:exp2_1}
+\end{table}
+\FloatBarrier
+
+
 \begin{table}[h]
 	\centering
 	\resizebox{\textwidth}{!}{%
@@ -1382,29 +1398,13 @@ Table \ref{tab:exp2} shows the result when feature selection is applied to the e
 \FloatBarrier
 	
 \subsection{Analysis}
-From table \ref{tab:exp2} one can see that the filter selection has made most of the classifier more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
+From table \ref{tab:exp2}, one can see that the filter selection has made most of the classifiers more inaccurate. Only neural network and decision tree with feature set one which has shown some improvement. This may indicate that important features were removed. The wrapper selection, on the other hand, also have some classifier which performed less accurately, but the difference between old result is less than filter. Some of classifier has improved significant, particularly the SVM with feature set three with 97\% accuracy.
 \\
 \\
 Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, KNN using wrapper method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
 
 
-\section{Features from filter and wrapper}
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{llll}
-		\hline
-		\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \hline
-		Set 1 & 375 & 230 & 187 \\
-		Set 2 & 21 & 8 & 10 \\
-		Set 3 & 183 & 2 & 91 \\
-		Set 4 & 24 & 11 & 12 \\
-		Set 5 & 45 & 19 & 22 \\ \hline
-	\end{tabular}
-	\caption{Table showing new length of each features}
-	\label{my-label}
-\end{table}
-\FloatBarrier
+\subsection{Features from filter and wrapper}
 
 
 
@@ -1478,7 +1478,7 @@ In this experiment 50 new samples for each terrain is collected. In the cross va
 		\item KNN with wrapper and feature set five
 	\end{enumerate}
 
-\subsection{Result}
+\subsection{Results}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/compareUnseen}
@@ -1925,7 +1925,7 @@ In this experiments we will be using two best classifier and tune parameter to s
 \end{table}
 \FloatBarrier
 
-\section{Result}
+\subsection{Results}
 As seen it does not improve that much, thus will be using default values. Will only be using the SVM in the final experiment.
 
 \begin{table}[h]
@@ -1943,6 +1943,7 @@ As seen it does not improve that much, thus will be using default values. Will o
 \end{table}
 \FloatBarrier
 
+\subsection{Analysis}
 
 \section{Classification in real-time} \label{sec:realtime}
 To get a more realistic practical scenario  is based on evaluation of the classification, where the robot traversing in different terrains. For this experiment, the robot will be walking on two different terrains. There are total five different setup. The uequal length of each steps is that the robot tend to walk out off current terrain, thus stops the experiments. 
@@ -2169,39 +2170,37 @@ In this experiment five different transition between two terrains. A common char
 \section{Prediction on other sensor}
 The classification has been based on only one sensor on front left foot, thus it will be interesting to see whether it is possible to use the currently training set to classify accurately on front right foot. If it achieve a high accuracy might indicate that one the both feet on the front can be using the same training set instead of separately which is more convenient.
 	
-	\section{Result} 
+\subsection{Results} 
 	
-	\begin{table}[h]
-		\centering
-		\resizebox{\textwidth}{!}{%
-			\begin{tabular}{@{}lllll@{}}
-				\toprule
-				\textbf{Terrain} & \textbf{Floor} & \textbf{Carpet} & \textbf{Soft mat} & \textbf{Hard mat} \\ \midrule
-				\textbf{Floor} & \cellcolor[HTML]{FFFFC7}29 & 1 & 0 & 0 \\
-				\textbf{Carpet} & 3 & \cellcolor[HTML]{FFFFC7}27 & 0 & 0 \\
-				\textbf{Soft mat} & 0 & 0 & \cellcolor[HTML]{FFFFC7}30 & 0 \\
-				\textbf{Hard mat} & 2 & 13 & 0 & \cellcolor[HTML]{FFFFC7}16 \\ \midrule
-				\textbf{Precision} & 96.7\% & 90\% & 100\% & 53.3\% \\
-				\textbf{Recall} & 85.3\% & 65.9\% & 100\% & 100\% \\
-				\textbf{F-score} & 90.6\% & 76.1\% & 100\% & 69.5\% \\ \midrule
-				\textbf{Accuracy} & \multicolumn{4}{c}{84.3\%} \\ \bottomrule
-			\end{tabular}%
-		}
-		\caption{My caption}
-		\label{my-label}
-	\end{table}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lllll}
+		\hline
+		\textbf{Terrain} & \textbf{Floor} & \textbf{Carpet} & \textbf{Soft mat} & \textbf{Hard mat} \\ \hline
+		\textbf{Floor} & \cellcolor[HTML]{FFFFC7}29 & 1 & 0 & 0 \\
+		\textbf{Carpet} & 3 & \cellcolor[HTML]{FFFFC7}27 & 0 & 0 \\
+		\textbf{Soft mat} & 0 & 0 & \cellcolor[HTML]{FFFFC7}30 & 0 \\
+		\textbf{Hard mat} & 2 & 13 & 0 & \cellcolor[HTML]{FFFFC7}16 \\ \hline
+		\textbf{Precision} & 96.7\% & 90\% & 100\% & 53.3\% \\
+		\textbf{Recall} & 85.3\% & 65.9\% & 100\% & 100\% \\
+		\textbf{F-score} & 90.6\% & 76.1\% & 100\% & 69.5\% \\ \hline
+		\textbf{Accuracy} & \multicolumn{4}{c}{84.3\%} \\ \hline
+	\end{tabular}
+	\caption{My caption}
+	\label{my-label}
+\end{table}
 	\FloatBarrier
 	
 		\begin{figure} [h]
 		\centering
 		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1gulvtd}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1gulv2}
 			\caption{Floor}
-			\label{fig:gulvgraf} 
+			\label{fig:s1gulv2} 
 		\end{subfigure}
 		
 		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1teppetd}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1teppe}
 			\caption{Carpet}
 			\label{fig:teppegraf}
 		\end{subfigure}
@@ -2209,14 +2208,14 @@ The classification has been based on only one sensor on front left foot, thus it
 	\end{figure}
 	\begin{figure}[h] \ContinuedFloat
 		\begin{subfigure}[h]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1mykmattetd}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1hardmatte}
 			\caption{Hard mat}
-			\label{fig:mattebgraf}
+			\label{fig:s1hardmatte}
 		\end{subfigure}
 		\begin{subfigure}[b]{\textwidth}
-			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1hardmattetd}
+			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1mykmatte}
 			\caption{Soft mat}
-			\label{fig:mykmattegraf}
+			\label{fig:s1mykmatte}
 		\end{subfigure}
 		
 		
@@ -2226,7 +2225,8 @@ The classification has been based on only one sensor on front left foot, thus it
 	\end{figure}
 	
 	\FloatBarrier
-	
+
+\subsection{Analysis} 	
 
 \chapter{Discussion}
 	
@@ -2336,6 +2336,16 @@ The main focus has been using one of the sensor to evaluate the quality of data.
 \appendix
 \chapter{Code}
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
+
+
+\chapter{Algorithms}\label{ap:featuresel}
+
+\section{Removing features with low variance} \label{ap:variance}
+This feature selection algorithm provided from Python removes all features whose variance does not meet some threshold. The default value will remove all features with the same values, which is most unlikely will occur in this experiment. Thus, in experiments the method will be removing feature when the variance is less than 0.2. 
+
+\section{Recursive feature elimination} \label{ap:rfe}
+This feature selection algorithm will be using a supervised classifier to rank each features and remove features with low rank. The process is let a estimator to train of the features and weights thems. Features with smallest weights are pruned, and start to estimate with the currently features. This will be repeated until the desired number of features is reached.
+
 
 \chapter{Selected features}
 \section{Set 1}
