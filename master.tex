@@ -140,7 +140,8 @@ Tactile sensor is designed for measure properties through direct physical intera
 %optical\cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312,6027100,6907805,6290303}
 \\
 \\
-This thesis will investigate a type 3-axis optical force sensor, use refracted light intensity to measure the contact force and test whether it is able to distinguish terrains with slight differences such as floor and carpet. This thesis will also be investigating on how to preprocess data, create and select features and test on several learning algorithms to find a reliable approach. 
+\section{Goal of the thesis}
+This thesis will investigate a type 3-axis optical force sensor, which use refracted light intensity to measure the contact force and test whether it is able to distinguish terrains with slight differences such as floor and carpet. This thesis will also be investigating on how to preprocess data, create and select features and test on several learning algorithms to find a reliable approach. 
 
 
 \begin{comment}
@@ -173,13 +174,15 @@ The discussion chapter discuss results from the experiments. Lastly, is a conclu
 Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance grass is soft and provide an amount of friction, while rocks is hard and might have less friction than grass. Outdoor terrains is more unpredictable due to its unstructured environment, and their properties change accordingly to the weather. For instance rain will soften the soil and snow will make the road slippery. Indoor on other hand, is more predictable, since it has more structured environment and the terrain will not be highly affected of the same factors.
 
 \section{Legged robots}
-The following paragraphs will introduce several platform of different legged robots.
+Legged robots has been, and is a popular topic of robotic research, mainly due to the ability to traverse on rough terrain. Stable locomotion of legged robots is achieved through the gait. A gait is a cyclic motion of sequence of foot contacts with the ground that produce locomotion \cite{1641859}. A characteristic is by the sequence of which legs are lifted and placed on the ground. Different style of locomotion is produced by different gaits. There are many types of legged robots, and are often defined by number of legs on the robots. The following paragraphs will introduce four different type of legged robots and is organized by number of legs in ascending order.
 
 %http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
 %file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
 %http://www.robotplatform.com/knowledge/Classification_of_Robots/legged_robots.html
 %http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 %http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
+
+
 
 \subsection{Monopod}
 The monopod is a simple one legged robot design. The locomotion of the monopod robots is performed through hops, and it is also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of one legged robot is developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
@@ -218,13 +221,10 @@ A hexapod is six legged robot, and is inspired by insects, mostly spiders. By ha
 		\caption{Lauron V robot \cite{6878051}.}
 		\label{fig:LAURON}
 	\end{subfigure}
-	\caption{Pictures of animals}\label{fig:robots}
+	\caption{Figure showing different types of legged robot.}\label{fig:robots}
 \end{figure}
 
 \FloatBarrier
-
-\subsection{Gait}
-Stable locomotion of legged robots is achieved through the gait. A gait is a cyclic motion of sequence of foot contacts with the ground that produce locomotion \cite{1641859}. A characteristic is by the sequence of which legs are lifted and placed on the ground. Different style of locomotion is produced by different gaits.
 
 
 \section{Tactile sensor}
@@ -271,7 +271,7 @@ Based on these information from tactile make it possibility of using it as manip
 Optical force sensor use light reflecting based on physical principle of light waves to measure the force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use camera to analysis the images. These approaches are uniaxial, that is the sensor only capable of measure the force applied, but not the force direction. Ohka et al. \cite{525384}, modified and improved the technology and is popular construction of a three-axis tactile sensor and further optimized \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It shown promising result, when the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widley used to capture deformation of a surface cause by external force \cite{1381228,7559098}
 \\
 \\
-Another design and very common technology is base on Fibre Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
+Another design and very common technology is based on Fiber Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
 \\
 \\ 
 An alternative to low cost 3-axis optical sensor is presented by Tar and Cserey \cite{6027100}, by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that change the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
@@ -299,7 +299,7 @@ Reinforcement learning algorithms will choose an action to each dataset and it w
 \paragraph{Evolutionary learning}
 Evolutionary learning use biological evolution such as reproduction, mutation, recombination, and selection as a learning process. 
 	
-\subsection{Classifier} \label{sub:classifier}
+ \subsection{Classifier} \label{sub:classifier}
 The classifier is where the learning process occur, and produceS the inferred function. The following sections will introduce technical background of five classifiers; artifical neural network, support vector machine, Naive Bayes, k-nearest neighbors and decision tree.
 
 \subsubsection{Artificial neural networks}
@@ -399,9 +399,8 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 
 An important aspect of decision trees is how to construct one, based on the features. Although there are few different methods, mostly are based on same principle, by starting at the root, and chose the most discriminative feature at each step \cite{Marsland:2009:MLA:1571643}. The attractiveness with trees, are efficient, and easy to understand and interpret the data. 
 
-\subsection{Hyper-parameter Tuning}
-Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Thus, to optimize a classifier, it is recommended to finding these appropriate parameters. A strategy to finding these parameters is by using a grid search recommended by Hsu et al. \cite{Hsu10apractical}. 
-
+\subsection{Hyperparameter tuning}
+Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Thus, to optimize a classifier, it is recommended to finding these appropriate parameters. It is difficult to know optimal values of parameters, since it often differ for different datasets. A strategy to finding these parameters recommended by Hsu et al. \cite{Hsu10apractical}, is using a grid search. Grid search will exhaustive search through a desired specified subset and output the parameters with best results. Benefit of using grid search instead of search by heuristics or approximations, is it avoid get stuck in local optima. However, the biggest weakness is computation complexity when the search space increase. 
 
 
 \section{Features} \label{features}
@@ -546,12 +545,12 @@ Overfitting and underfitting the data is a issue in machine learning which cause
 	\FloatBarrier
 	
 \subsection{Cross-Validation}
-Cross-validation is used to assess the quality of a model. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
+Cross-validation is a statistical method to assess the quality and comparing learning models \cite{Refaeilzadeh2009}. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
 \paragraph{K-fold}
-The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also know as leave-one-out cross-validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set shown in figure \ref{fig:kfold}. The advantages is that using as many training samples as possible.
-	
-	
+The process of k-fold is to partitioned the data into k subset, where one subset is used for testing and the other are used for training. When the trained model has assessed the test set, a new subset is selected as test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also know as leave-one-out cross-validation (LOOCV). LOOCV only use one feature vector as test set, while the rest as training set shown in figure \ref{fig:kfold}. Estimation based on LOOCV tend to be almost unbiased, but unreliable
+estimate due to high variance. However, the advantages is that use as many training samples as possible and is widely used especially when the there are only  small amount of data available. 
+ 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{Figures/Kfold}
@@ -1276,7 +1275,7 @@ Beside of looking at the performance of each classifiers, it is also interesting
 	\end{subfigure}
 	
 	\caption[]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
-	\label{c}
+	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
 
@@ -1433,7 +1432,7 @@ It will be interesting to investigate the feature selected from each method. How
 Note that the k-fold validation test using always use the same single set both for training and testing, which make it referring to themselves has the risk of not generalizing the classifier. In this case results from \ref{tab:exp2} only gives an estimation on how well a classifier is, but does not tell how well it predict on unseen data. One way to avoid this issue is make the training and testing set independent to each other, so the prediction will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using two highest performed classifier shown in \ref{tab:exp2}. As there are three shared second best classifier, all of them will be in further experiments. Additionally, Neural Network without selection method with feature set five achieved a satisfied result which will also be further investigated. The reason is among the four best performed classifier is only using either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier with extracted features.
 \\
 \\
-In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. The training and test set will be randomly shuffled before the cross validation. Thus, to achieve more precise measurement, each test will be running five times. It is claimed in that 
+In this experiment 50 new samples for each terrain is collected. In the cross validation it will use the old dataset as training set, while the new collected samples will be used as test file. The cross validation is still LOOCV. To achieve a reliable performance estimation can be done by run the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test set will be randomly shuffled before each round of cross-validation, and this will be done five times.
 
 	\begin{enumerate}
 		\item SVM with wrapper and use feature set two
@@ -2005,8 +2004,15 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 	\clearpage
 
 \subsection{Result and analysis} \label{sub:unseen}	
-In following paragraphs present the results along with analysis of each experiments from... TODO
-
+In following paragraphs present the results along with analysis of each experiments, when the robot traverse through two different terrains in this order:
+	\begin{enumerate}
+	\item Floor to carpet
+	\item Hard mat to floor
+	\item Hard mat to soft mat
+	\item Soft mat to hard mat
+	\item Soft mat to carpet
+\end{enumerate}
+\newpage
 
 \subsubsection{Floor to carpet}
 The data stream is shown in figure \ref{fig:gulvet4teppegraf}, where the dashed line is the transition between the terrains, and the table \ref{tab:Gulvet4teppe} show probability of the terrains for each step. In this experiment the robot walked four step on floor and the rest on carpet. The accuracy of predicting correct is 88.9\%. However, looking how certain the classifier to predict correct is lower, under 78\%. Fifth step is the transition and as it shows some confusion between floor and carpet. It is worth noticing that at fourth step the carpet has almost same probability as the floor. The soft mat and hard mat has small probability and is more unlikely to be predicted.
