@@ -1894,20 +1894,26 @@ Previously, the evaluation of each classifiers was based on default hyperparamet
 \\ 
 Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. However, choosing a correct set of hyper parameters might increase its performance. A drawback of searching parameters is time-consuming if there are many parameters to be tested. 
 
+
 \begin{table}[h]
 	\centering
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		Classifier & Parameter & Values \\ \midrule
-		\multirow{2}{*}{Neural Network} & Hidden layer & 0,...,100 \\
-		& Alpha & 0.0001,0.0002,0.0010 \\ \midrule
-		\multirow{3}{*}{SVM} & Kernel & linear, rbf, sigmoid \\
-		& Gamma & 0.001,0.002,....,0.1 \\
-		& C & 0.1,0.2,...,1,2,...,1000 \\ \bottomrule
+		\multirow{6}{*}{Neural Network} & \multirow{2}{*}{Neurons in first hidden layer} & \multirow{2}{*}{1,...,100} \\
+		&  &  \\
+		& \multirow{2}{*}{Neurons in second hidden layer} & \multirow{2}{*}{0,...,100} \\
+		&  &  \\
+		& \multirow{2}{*}{Alpha} & \multirow{2}{*}{$1\times10^{-4},2\times10^{-4},...,10^{-3}$} \\
+		&  &  \\ \midrule
+		\multirow{5}{*}{SVM} & \multirow{2}{*}{Kernel} & \multirow{2}{*}{linear, rbf, sigmoid} \\
+		&  &  \\
+		& \multirow{2}{*}{Gamma} & \multirow{2}{*}{$1\times10^{-3},2\times10^{-3},...,10^{-2}$} \\
+		&  &  \\
+		& C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9\\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption{Table showing the hyperparameters used in the exhaustive grid search
-		for Neural Network and SVM.}
-	\label{tab:para}
+	\caption{My caption}
+	\label{my-label}
 \end{table}
 \FloatBarrier
 
@@ -2234,7 +2240,6 @@ It will be interesting to see the data provided from each sensor, which is shown
 
 
 \chapter{Discussion}
-\section{Filter vs Wrapper}
 
 \section{Five classifier prediction on unseen data}
 It is shown that the many classifiers has decreased performance when it come to predicting unseen data. As seen in section \ref{seq:crossunseen}, the neural network and decision tree does not show adequate performance. A reason could be that the classifier is overfitted and not able to generalize the data. Note that those classifiers of raw data sequences, and the method of achieving fixed length by decimate data described in section \ref{subseq:FixLength} might been affecting the performance. In this approach it is considered that data at start and the end of sequence is less important. However, the longer the sequence is, the more data must be removed from the feature vector and has a risk of removing important features. Another weakness of using raw data is the risk of learning with noises. Learning with noises might cause of not generalization the model and achieve a poor performance. However, noises are inherent in real world measurement, thus by discarding the noises might also give a poor result. Note each classifier use their default values which also affect the performance, especially neural network. The neural network is a complex classifier with many parameter that need to be adjusted such as size of hidden layers. Amount of hidden layers and hidden nodes provide significant improvement in their performance.  
@@ -2243,10 +2248,10 @@ It is shown that the many classifiers has decreased performance when it come to 
 Regarding a common confusion on hard mat, for each of classifier tend to predict it as carpet, while the soft mat has a high probability. As seen on previous chapter \ref{ch:implementation} in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}, the hard mat and carpet has the most similar characteristic and is most likely to be confused.
 \\
 \\
-Regarding SVM, the results has not been change during each run. That indicate that the good features is kept and able to distinguish between each terrain. However, there is still a small confusion between floor, carpet and hard mat. 
+Regarding SVM, the results has not been change during each run. That indicate the good features is kept and able to distinguish between each terrain. However, there is still a small confusion between floor, carpet and hard mat. 
 	
 \section{Hyperparameter-tuning}
-The achieved parameters from grid search did not show a big effect on the performance. However, it is stated in that  . For neural network there are many other to be tested, output blablabla
+The achieved parameters from grid search did not show a big effect on the performance. However, for the Neural Network it was only searching for number of neurons in one or two hidden layers, while there are many other settings which also should be tested to achieve a more optimal classifier. Regarding the number output, it can be seen the misclassification increase. Classification will be by considered of which neurons fire. However, when two neurons fires, the output will be an unknown, which cause misclassification. Two outputs on other hand, did have a minor improvement. Some of the reason there is a two output which have their weighted adjusted instead of having one input. Having two outputs where each of terrain is represent as binary number, the pattern of firing neurons will always belong to one of the terrains, even it one of the neurons misfiring. Minor improvement could be that a output with of two node has more weight to be adjusted which also 
 
 \section{Transition between terrains}
 The result achieved in transition between terrains, done in section \ref{sec:realtime}, indicates that the classifier is able to identify terrains even with minor differences in their properties. By adding each step and divide by total, the overall accuracy is  86.8\%. Misclassification is mostly cause of transition between hard mat to floor, seen in table \ref{sec:hmssm}. After traversing from hard mat to carpet, the classifier tend to predict floor. Looking on estimation of unseen data in table \ref{svmexp}, show a that the carpet tend to have small misclassification to floor. But, as mentioned in section \ref{sec:realtime}, the robot tend to not walking straight, which might cause misclassification. All of the training samples has been gathered when the robot walked straight. Thus, since the sensor is highly sensitive it might be affected when it walks toward right or left.
@@ -2334,15 +2339,6 @@ This thesis has only show the possibility of using training data from one sensor
 \appendix
 \chapter{Code}
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
-
-
-\chapter{Algorithms}\label{ap:featuresel}
-
-\section{Removing features with low variance} \label{ap:variance}
-This feature selection algorithm provided from Python removes all features whose variance does not meet some threshold. The default value will remove all features with the same values, which is most unlikely will occur in this experiment. Thus, in experiments the method will be removing feature when the variance is less than 0.2. 
-
-\section{Recursive feature elimination} \label{ap:rfe}
-This feature selection algorithm will be using a supervised classifier to rank each features and remove features with low rank. The process is let a estimator to train of the features and weights thems. Features with smallest weights are pruned, and start to estimate with the currently features. This will be repeated until the desired number of features is reached.
 
 
 \chapter{Selected features} \label{ap:self}
