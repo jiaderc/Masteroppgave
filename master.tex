@@ -100,8 +100,9 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	%\fancyhead[RE,LO]{\rightmark}
 }
 
-%https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
 
+%https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
+%\renewcommand{\baselinestretch}{1.25}
 \title{Terrain classification using 3D optical force sensor}        %% ... or whatever
 \subtitle{A machine learning approach}  
 \date{}
@@ -742,13 +743,22 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \end{figure}
 
 \section{Robot} \label{sec:robot}
-A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. The algorithm provides five types of gaits which is of either single-objective or multi-objective. 
+A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits made with evolutionary algorithm and developed by Nygaard et al. \cite{7850167} is listed below: 
+
+
+\begin{enumerate}
+	\item A balanced gait that gives optimal speed and balance.
+	\item A fast gait that has high speed.
+	\item A slow gait, where the robot only focus to maintain the stability.
+	\item A gait that has
+	\item 
+\end{enumerate}
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Robot3}
-	\caption{Figure showing the Quadruped Robot developed at the University of Oslo, which was used in all experiments}
+	\caption{Figure showing the Quadruped Robot developed at the University of Oslo mounted with optoforce sensor.}
 	\label{fig:robot}
 \end{figure}
 \FloatBarrier
@@ -1245,7 +1255,7 @@ Beside of looking at the performance of each classifiers, it is also interesting
 	
 	
 \section{Adding feature selection}
-Even there are classifiers which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without losing any features. In following experiment, the feature selection will be integrated on previous implementation to see if there any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is marked as red. The filter and wrapper method will be used, and both are libraries provided by scikit-learn. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and remove features to a desired number. A more detailed of each method can be found in appendix \ref{ap:featuresel}.
+Even there are classifiers which outperform the other, there are still improvement potential. In the previous approach, the feature selection was not taken in account. The purpose of not using the feature selection was to see the performance without losing any features. In following experiment, the feature selection will be integrated on previous implementation to see if there any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is marked as red. The filter and wrapper method will be used, and both are libraries provided by scikit-learn. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and remove features to a desired number. 
 
 \paragraph{Removing features with low variance} \label{ap:variance}
 This feature selection algorithm provided from Python removes all features whose variance does not meet some threshold. The default value will remove all features with the same values, which is most unlikely will occur in this experiment. Thus, in experiments the method will be removing feature when the variance is less than 0.2. 
@@ -1299,7 +1309,7 @@ This feature selection algorithm will be using a supervised classifier to rank e
 \FloatBarrier
 \newpage
 \subsection{Results}
-Table \ref{tab:exp2_1} shows the number of feature were removed for each sets. In table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared previous implementation.	The five of top performing are marked with bold text, which is also be used in further experiments. 
+Table \ref{tab:exp2_1} shows the number of feature that were removed for each setsm, and table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared previous implementation.The five of top performing are marked with bold text, which is also be used in further experiments. 
 
 
 \begin{table}[h]
@@ -1345,11 +1355,11 @@ Table \ref{tab:exp2_1} shows the number of feature were removed for each sets. I
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{82\%} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 85\%}} & {\color[HTML]{009901} 86\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 84\%}} & {\color[HTML]{009901} 90\%} \\ \cmidrule(l){2-5} 
-			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{009901} 86\%} \\ \midrule
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{009901} 86\%} \\ \midrule
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 82\%}} & {\color[HTML]{009901} 82\%} \\ \cmidrule(l){2-5} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{KNN}} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 86\%}} & {\color[HTML]{009901} \textbf{86\%}} \\ \cmidrule(l){2-5} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{89\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 85\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 86\%}} & {\color[HTML]{009901} 86\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Neural network}} & \multicolumn{1}{l|}{\textbf{89\%}} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 85\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{009901} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
@@ -1854,7 +1864,7 @@ It can be seen a common similarity between each models is the recall for the car
 Previously, the evaluation of each classifiers was based on default hyperparameters. However, tuning parameters might increase the performance of the classifier. The reason that the parameter tuning has been left out in earlier experiments, is because of time-consuming, and difficult to find correct settings, and default values often shows an adequate performance. In this experiment an exhaustive grid search will be used to find optimal parameters on two of the top performed classifiers. 
 
 \paragraph{Neural Network}
-A crucial part of Neural Network is the choice of number of hidden nodes, and hidden layers. These choices is fundamental to achieving a promising result of the algorithm. It is commonly to use two hidden layers, but there is no theory how to chose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find good the number of neurons one has to test many different values and chose the one that give the best results. A grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:para}. The parameters obtained from the grid search will be tested on the neural network with three different representation of terrains. The currently representation of the terrain is that each terrains are assigned to four nodes. Hence, prediction of currently terrain will base the highest score of these nodes. Another representation of terrain is binary numbers. The length of the binary will also be the number of output. This representation instead using the highest score from one node, it will be looking on pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary is shown in \ref{tab:binary} , which will be tested with best parameters found with grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}, this representation will only have two output node, and it will always predict a terrain even if a outcome misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin} on other hand, when a there are at least two neurons that misfiring, the outcome will be unknown.
+A crucial part of Neural Network is the choice of number of hidden nodes, and hidden layers. These choices is fundamental to achieving a promising result of the algorithm. It is commonly to use two hidden layers, but there is no theory how to chose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find good the number of neurons one has to test many different values and chose the one that give the best results. A grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:hypnn}. The parameters obtained from the grid search will be tested on the neural network with three different representation of terrains. The currently representation of the terrain is that each terrains are assigned to four nodes. Hence, prediction of currently terrain will base the highest score of these nodes. Another representation of terrain is binary numbers. The length of the binary will also be the number of output. This representation instead using the highest score from one node, it will be looking on pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary is shown in \ref{tab:binary} , which will be tested with best parameters found with grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}, this representation will only have two output node, and it will always predict a terrain even if a outcome misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin} on other hand, when a there are at least two neurons that misfiring, the outcome will be unknown.
 
 
 \begin{table}[h]
@@ -1868,7 +1878,7 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 		10 & Soft mat \\
 		11 & Hard mat \\ \bottomrule
 	\end{tabular}
-		\caption{First Week}
+		\caption{For Week}
 		\label{tab:twobin}
 	\end{subtable}
 	\hfill
@@ -1885,40 +1895,46 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 		\caption{Second Week}
 		\label{tab:fourbin}
 	\end{subtable}
-	\caption{Max and min temps recorded in the first two weeks of July}
+	\caption{Table showing the representation of each terrain as binary.}
 	\label{tab:binary}
 \end{table}
+\FloatBarrier
 
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{Parameter}             & \textbf{Values} \\ \midrule
+		Neurons in first hidden layer  & 1,...,100       \\
+		Neurons in second hidden layer & 0,...,100       \\ \bottomrule
+	\end{tabular}
+	\caption{Table shows hyperparameters used in the search for Neural Network.}
+	\label{tab:hypnn}
+\end{table}
+\FloatBarrier
 
 \paragraph{Support vector machine}
-
+Hyperparameters that will be search for SVM is shown in table \ref{tab:hypsvm}. The kernel 
 
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{@{}lll@{}}
+	\begin{tabular}{@{}ll@{}}
 		\toprule
-		Classifier & Parameter & Values \\ \midrule
-		\multirow{6}{*}{Neural Network} & \multirow{2}{*}{Neurons in first hidden layer} & \multirow{2}{*}{1,...,100} \\
-		&  &  \\
-		& \multirow{2}{*}{Neurons in second hidden layer} & \multirow{2}{*}{0,...,100} \\
-		&  &  \\
-		& \multirow{2}{*}{Alpha} & \multirow{2}{*}{$1\times10^{-4},2\times10^{-4},...,10^{-3}$} \\
-		&  &  \\ \midrule
-		\multirow{5}{*}{SVM} & \multirow{2}{*}{Kernel} & \multirow{2}{*}{linear, rbf, sigmoid} \\
-		&  &  \\
-		& \multirow{2}{*}{Gamma} & \multirow{2}{*}{$1\times10^{-3},2\times10^{-3},...,10^{-2}$} \\
-		&  &  \\
-		& C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9,\\ 1,2,...,1000\end{tabular} \\ \bottomrule
+		\textbf{Parameter} & \textbf{Values} \\ \midrule
+		\multirow{2}{*}{Kernel} & \multirow{2}{*}{linear, rbf, sigmoid} \\
+		&  \\
+		\multirow{2}{*}{Gamma} & \multirow{2}{*}{0,...,10} \\
+		&  \\
+		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9, \\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption{Table showing the hyperparameters used on the most promising
-		models which uses AdaBoost as its classifier}
-	\label{my-label}
+	\caption{Table shows hyperparameters used in the search for SVM.}
+	\label{tab:hypsvm}
 \end{table}
 \FloatBarrier
 
 \subsection{Results}
-In table \ref{tab:resPara} shows the result after tuned parameter and the highest performed will be used further experiments 
+In table \ref{tab:resPara} shows the result after tuned parameter and the highest performed will be used further experiments
 
 \begin{table}[h]
 	\centering
