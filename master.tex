@@ -26,6 +26,7 @@
 \usepackage{fancyhdr}
 \usepackage[parfill]{parskip} %For aa unngaa mellom i ny avsnitt
 \usepackage{emptypage} %Ingen header paa empty page
+\usepackage{enumitem} %ABC liste
 %Tegne diagrammer
 \usetikzlibrary{shadows,arrows,positioning,shapes.geometric,fit,calc}
 % Define the layers to draw the diagram
@@ -743,16 +744,7 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \end{figure}
 
 \section{Robot} \label{sec:robot}
-A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits made with evolutionary algorithm and developed by Nygaard et al. \cite{7850167} is listed below: 
-
-
-\begin{enumerate}
-	\item A balanced gait that gives optimal speed and balance.
-	\item A fast gait that has high speed.
-	\item A slow gait, where the robot only focus to maintain the stability.
-	\item A gait that has
-	\item 
-\end{enumerate}
+A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits developed by Nygaard et al. \cite{7850167}. All gaits are optimized by evolutionary algorithm. To elaborate each gaits, the gait name will be simplified as letters. Gait A is optimized to achieve the highest speed. This make the robot too walk very fast, is not very stable. Gait B is optimized to achieve most stable locomotion, which lead to a slow speed. The remaining three gaits are all optimized to achieve both, a stable and fast locomotion. However, gait C has more focus of achieving a fast speed, gait D has more focus of achieving, while Gait E is mixture of the two, which is balanced focus on stability and speed. 
 
 
 \begin{figure}[h]
@@ -768,18 +760,18 @@ A Quadruped robot developed at the University of Oslo is shown in figure \ref{fi
 The robot mentioned in section \ref{sec:robot}, operates on a Robot operating system (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages and be shared and distributed. A node is a process that perform computation. For instance a node could be controlling the robot, while the other one control prediction of terrain. This allow parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
 
 \subsection{Messages and topics}
-A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message to send out a message by publishing it a given topic \cite{ROSconcept}. The topic is used to identify the content of the message where a node has the possibility to subscribe to the appropriate topic. This can be seen as many-to-many one-way transport.
+A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message and publish it to a given topic \cite{ROSconcept}, this is also called "publisher". The topic is used to identify the content of the message where a node has the possibility to subscribe to the topic, and receive data, this is also called "subscriber". This can be seen as many-to-many, one-way communication. That is, many nodes can subscribe to a topic, but they do not have the opportunity to pass any message back to the publisher.
 
 \subsection{Services}
-When a many-to-many one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
+When a many-to-many, one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
 
 \subsection{Bag}
-Rosbag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
+Bag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
 
 
-\subsection{ROS driver for the Optoforce sensor}  
-A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. 
+\subsection{ROS for the OptoForce sensor}  
+A ROS package for optical force sensor can be found in \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. This gives the opportunity of other node to obtain data from the sensor by subscribing to the node.
 
 
 \section{Algorithms libraries}
