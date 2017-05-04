@@ -786,7 +786,7 @@ Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew,
 This chapter intends to explain the various choices which has been made to create machine learning models.
 
 \section{Environment setup}	
-Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to get a more challenging task for classifier to distinguish them, because of similar properties. The intuition is that if the algorithm manages to discriminate between floor and carpet, it should be to distinguish other terrains as well. Floor, carpet and hard mat has the most similar properties, and is also the most difficult to distinguish. They are all slippery, and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
+Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to get a more challenging task for classifier to distinguish them, because of similar properties. The intuition is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat has the most similar properties, and is also the most difficult to distinguish. They are all slippery, and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
 The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Only one gait is used in this project, which is a balanced multi-objective gait which let the robot have a straight locomotion. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with slow gait, or fell with fast gait. 
@@ -831,16 +831,16 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 \FloatBarrier
 
 \section{Choice of implementation language}
-The robot operating on ROS which is compatible with C++, Python and Lisp. Segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, thus the learning approach is implemented in Python. 
+Since the robot operating on ROS, and ROS is currently compatible with C++, Python or Lisp. Segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, hence the learning algorithm is implemented in Python. 
 			
 \section{Data from optical force sensor}
 This section will first describe how the measurement from sensor gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, and makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together.
+Data was gathered by having the robot walking 10 steps on each terrain. The runs were recorded into rosbag, which makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, in this thesis, only data from left front foot of the robot is used.
 	
 \subsection{Analyzing data from sensor}\label{sec:analyzopto}
-Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
+Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, it gives a minor change, almost constant, in x,y, z-direction. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
 
 
 \begin{figure}[h]
@@ -877,6 +877,7 @@ Analyzing the data is to find common characteristics, and be able to segment des
 		\label{fig:mattebgraf} 
 	\end{subfigure}
 	\caption{Figure showing an example data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat.}
+	\label{fig:gtmgraf}
 \end{figure}
 \FloatBarrier
 
@@ -884,7 +885,7 @@ Analyzing the data is to find common characteristics, and be able to segment des
 An appropriate method to segment data is by sliding window algorithm, however, difficulty to decide an acceptable size of the window, difficulty of determining whether the data is relevant from the window, and too big window size is not efficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{ sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Two thresholds have to be sets; one for considered as minor change, one for considered minimum length of the minor change sequence. When a foot reach the ground, there will be a big change in each direction for the sensor, and start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set.
+In the thesis, it is considered that the most informative data of terrain is from when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor has minor change in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in air or on ground. In the implementation, two thresholds have to be sets; one for consider the minor change in each direction, one for consider minimum length of the minor change sequence, and they are set to 0.009 and 15 respectively. That is, when the data sequence consists at least 15 elements, and the difference between the currently data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reach the ground, there will be a big change in each direction for the sensor, and the program will start to store the data from sensor into an array until it is in the air again. Each step will be used as a sample in training and test set. The source code of segmenting desired data for one sensor can be found in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
 As mentioned in section \ref{features}, a good classifier is dependent of good features. As mostly of previous work have been extracting features both in time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature set will be created and used to learn and evaluate each of classifiers. The following paragraphs will be introducing each sets.
@@ -976,7 +977,7 @@ Good features might come from different feature sets. This set will collect feat
 The vector contains 15 features from each direction, which is in total 45 features. 
 	
 \subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125-135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to one-dimensional array, while in thesis has 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
+In order to use raw data as input, a fixed length is required. After many runs the length of data sequence vary between 125 to 135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to one-dimensional array, while in thesis use a 3-dimensional array, but the intention is same. Contrary to discard the data either in front or end of the sequence, this technique will be discarding on both sides, to retain the data in middle, which is considered as more informative data.
 	
 \lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={lst:fix_length},frame=single,breaklines=true]{code/fix_length.py}
 	
@@ -1029,7 +1030,7 @@ The first process is to gather data for each terrain and will be stored into fil
 \clearpage
 
 \subsection{Learning process} \label{subsec:learningProc}
-When the data samples of each terrain is unified into a single file, the learning process is shown in figure \ref{fig:learningProcess}, is to evaluate each classifier. Rectangles are a processes that takes an given input and produces an output. The dashed rectangles are processes that can be skipped.
+When the data samples of each terrain is unified into a single file, the learning process is shown in figure \ref{fig:learningProcess}, is to evaluate each classifier. Rectangles are a processes that takes an given input and produces an output. The dashed rectangles are processes that can be omitted.
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=0.7,transform shape]
@@ -1040,9 +1041,9 @@ When the data samples of each terrain is unified into a single file, the learnin
 	%  \path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
 	\path (p2.south)+(0.0,-2) \etape{3}{Extract features};	
 	\path (p3.south)+(0.0,-2) \etape{4}{Split data};
-	\path (p4.south)+(8,-2.0) \etape{5}{Scaling};
+	\path (p4.south)+(8,-2.0) \etapeTo{5}{Scaling};
 	\path (p5.south)+(0,-2) \etape{6}{Train the classifier};
-	\path (p4.south)+(0,-3.3) \etape{9}{Scaling};
+	\path (p4.south)+(0,-3.3) \etapeTo{9}{Scaling};
 	\path (p9.south)+(0,-4.0) \etape{7}{Test classifier};		
 	\path (p7.south)+(0,-2) \etape{10}{Store partial result};
 	\path (p10.south)+(0,-2) \etape{8}{Result};
@@ -1091,7 +1092,7 @@ The extracted feature vectors is partitioned into a training and testing set. Th
 			
 \item \textbf{\underline{Scaling}}
 \\
-This step takes the training set as input and standardization as mention in section \ref{subsec:scaling}. It will first scale the training data, and then apply the scaling factors on the test data.
+This step takes the training set as input and standardize the data as mention in section \ref{subsec:scaling}. The scaling factor will used on the test data.
 			
 \item \textbf{\underline{Train the classifier}}
 \\
@@ -1113,14 +1114,14 @@ This step will compute the overall results as mentioned in section \ref{subsec:e
 	
 \clearpage
 \subsection{The evaluation}
-Investigation of finding optimal feature combination and algorithm, following steps will be find the best solution:
+To finding optimal feature combination and algorithm to the optical sensor, following steps will be investigated:
 
 \begin{enumerate}
 	\item Evaluate the performance of each five classifiers with different feature sets. Additionally, investigate whether a feature scaling is appropriate.  
-	\item The learning process will be integrating two different feature selection methods to achieve a better performance. 
-	\item Some of the top performer classifier along with the feature set will be further tested on new data samples.
-	\item Selecting two best performer and use grid search to find best parameters for each classifier and test on the previous data samples.
-	\item The best performed classifier will be to evaluate the performance when the robot walks through two different terrains.
+	\item The learning process will be integrating with two different feature selection methods to achieve a better performance. 
+	\item \label{it:data} Some of the top performer classifier along with the feature set will be further tested on new data samples.
+	\item Selecting two best performer and use grid search with the training samples to find best parameters, and test on data samples collected in step \ref{it:data}.
+	\item The best performed classifier will be used to evaluate the performance when the robot walks through two different terrains.
 	\item Lastly, will test whether it is appropriate to use training sample from the one sensor to predict the other sensors. 
 \end{enumerate}
 
@@ -1857,7 +1858,7 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 
 
 \begin{table}[h]
-	\begin{subtable}[h]{0.45\textwidth}
+	\begin{subtable}[h]{0.5\textwidth}
 		\centering
 		\begin{tabular}{@{}ll@{}}
 		\toprule
@@ -1871,7 +1872,7 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 		\label{tab:twobin}
 	\end{subtable}
 	\hfill
-	\begin{subtable}[h]{0.45\textwidth}
+	\begin{subtable}[h]{0.5\textwidth}
 		\centering
 	\begin{tabular}{@{}ll@{}}
 	\toprule
@@ -2336,7 +2337,7 @@ This thesis has only show the possibility of using training data from one sensor
 \part*{Appendices} 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
-\chapter{Code}
+\chapter{Code} \label{ap:code}
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
 
 
