@@ -717,12 +717,12 @@ As stated in \cite{7387710}, the k-fold gives a reasonable estimate of the perfo
 Not all studies evaluated their models by k-fold cross-validation, but either with new data to get a better estimation or real accuracy \cite{5509309,Walas2015,5752869}. A more simple method of validation is to randomly partition the data set with 70\% used for training, and the rest used for testing \cite{5752869}. The most realistic scenario is to base the evaluation by having a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
 
 
-\chapter{Softwares and tools}
-This chapter gives an introduction to different tools and libraries used throughout the thesis.
+\chapter{Softwares and tools} \label{chap:software}
+This chapter gives an introduction of different tools and libraries used throughout the thesis.
 
 
 \section{Optical force sensor}
-The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce} is similar to Tar and Cserey \cite{6027100}. A construction of the sensor is shown on the figure \ref{fig:OptoforceBuild}. 
+OptoForce (3D force sensor) \cite{Optoforce} is a similar sensor to Tar and Cserey \cite{6027100}, and the construction of the sensor is shown in the figure \ref{fig:OptoforceBuild}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
@@ -731,7 +731,7 @@ The sensor used in this thesis is OptoForce (3D force sensor) \cite{Optoforce} i
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which is wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction is measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Figure \ref{fig:OptoforceAxis} showing each direction on the sensor. Optoforce sensor is a relative new sensor (2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which is wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light to each photodiodes will change accordingly. The forces in x- and y-direction are measured from the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in z-direction is the average of the four measurements. Where each directions are is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is a relative new sensor (2015), and the manufacturer claim the sensor can guarantee precise measurements even up to 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
 
 
 \begin{figure}[h]
@@ -741,8 +741,8 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 	\label{fig:OptoforceAxis}
 \end{figure}
 
-\section{Robot}
-The robot used in this thesis is a Quadruped Robot developed at the University of Oslo, which is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. Two gaits is single-objective, while the other multi-objective. However, only one gait is used in this project. The reason is that the other gait had issues while walking on the soft mat. The robot either got stuck with slow gait, or fell with fast gait. The gait used is a balanced multi-objective gait which let the robot go straight forward. 
+\section{Robot} \label{sec:robot}
+A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. Four different gait is made by evolutionary algorithm and is developed by Nygaard et al. \cite{7850167}. The algorithm provides five types of gaits which is of either single-objective or multi-objective. 
 
 
 \begin{figure}[h]
@@ -753,8 +753,43 @@ The robot used in this thesis is a Quadruped Robot developed at the University o
 \end{figure}
 \FloatBarrier
 
-\section{Terrain} \label{seq:terrain}
-Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat shown in figure \ref{fig:terrains}. A reason for choosing these is to get a more challenging task for classifier to distinguish them, because of similar properties. The intuition is that if the algorithm manages to discriminate between floor and carpet, it should be to distinguish other terrains as well. Floor, carpet and hard mat has the most similar properties, and is also the most difficult to distinguish. They are all slippery, and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
+
+\section{Robot operating system}
+The robot mentioned in section \ref{sec:robot}, operates on a Robot operating system (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages and be shared and distributed. A node is a process that perform computation. For instance a node could be controlling the robot, while the other one control prediction of terrain. This allow parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
+
+\subsection{Messages and topics}
+A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message to send out a message by publishing it a given topic \cite{ROSconcept}. The topic is used to identify the content of the message where a node has the possibility to subscribe to the appropriate topic. This can be seen as many-to-many one-way transport.
+
+\subsection{Services}
+When a many-to-many one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
+
+
+\subsection{Bag}
+Rosbag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
+
+
+\subsection{ROS driver for the Optoforce sensor}  
+A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. 
+
+
+\section{Algorithms libraries}
+Python provide lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use.
+
+\paragraph{Scikit-learn}
+Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All of classifiers, and preprocessing data tool can be found in this library. 
+
+\paragraph{Runstats}
+Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew, variance and standard deviation where some of them is described in section \ref{sub:statical}.
+
+
+\chapter{Implementation}\label{ch:implementation}        %% ... or ??
+This chapter intends to explain the various choices which has been made to create machine learning models.
+
+\section{Environment setup}	
+Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to get a more challenging task for classifier to distinguish them, because of similar properties. The intuition is that if the algorithm manages to discriminate between floor and carpet, it should be to distinguish other terrains as well. Floor, carpet and hard mat has the most similar properties, and is also the most difficult to distinguish. They are all slippery, and has nearly equally hardness. Soft mat differ from the other with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
+\\
+\\
+The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Only one gait is used in this project, which is a balanced multi-objective gait which let the robot have a straight locomotion. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with slow gait, or fell with fast gait. 
 
 \begin{figure*}[h]
 	\centering
@@ -793,40 +828,8 @@ Four different terrains are used in the experiments: floor, carpet, soft mat, an
 	{\small Four different terrain used for classification} 
 	\label{fig:terrains}
 \end{figure*}
+\FloatBarrier
 
-
-\section{Robot operating system}
-The robot used in all experiments operate on a Robot operating system (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages and be shared and distributed. A node is a process that perform computation. For instance a node could be controlling the robot, while the other one control prediction of terrain. This allow parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
-
-\subsection{Messages and topics}
-A message is a data structure which could be integer, floating point, arrays etc. Nodes can use the message to send out a message by publishing it a given topic \cite{ROSconcept}. The topic is used to identify the content of the message where a node has the possibility to subscribe to the appropriate topic. This can be seen as many-to-many one-way transport.
-
-\subsection{Services}
-When a many-to-many one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
-
-
-\subsection{Bag}
-Rosbag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
-
-
-\subsection{ROS driver for the Optoforce sensor}  
-A ROS driver for optical force sensor is from \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. 
-
-
-\section{Algorithms libraries}
-Python provide lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use. In this project libraries such as scikit-learn, scipy and runstats will be used to test each of different classifiers described in section \ref{sub:classifier}.
-
-\paragraph{Scikit-learn}
-Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All of classifiers, and preprocessing data tool are from this library. 
-
-\paragraph{Runstats}
-Runstats \cite{runstats} is used to compute statistics, such as max, mean, skew, variance and standard deviation where some of them is described in section \ref{sub:statical}.
-
-
-\chapter{Implementation}\label{ch:implementation}        %% ... or ??
-This chapter intends to explain the various choices which has been made to create machine learning models.
-	
-	
 \section{Choice of implementation language}
 The robot operating on ROS which is compatible with C++, Python and Lisp. Segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, thus the learning approach is implemented in Python. 
 			
@@ -838,49 +841,7 @@ Data was gathered by having the robot walking 10 steps on each terrain. The runs
 	
 \subsection{Analyzing data from sensor}\label{sec:analyzopto}
 Analyzing the data is to find common characteristics, and be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences is for each step. A common characteristic for all terrain is when the foot is in the air, then x,y, z-direction will have minor change and is almost constant. This characteristic will be used to segment desired data described in next section \ref{subseq:segmentation}. 
-\begin{comment}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2}
-	\caption{Figure showing an example of data stream from a terrain}
-	\label{fig:gtmgraf}
-\end{figure}
-\FloatBarrier
-\end{comment}	
 
-\begin{comment}
-\begin{figure} [t]
-\centering
-\begin{subfigure}[t]{\textwidth}
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
-\caption{Floor}
-\label{fig:gulvgraf} 
-\end{subfigure}
-
-\begin{subfigure}[t]{\textwidth}
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
-\caption{Carpet}
-\label{fig:teppegraf}
-\end{subfigure}
-
-\begin{subfigure}[t]{\textwidth}
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
-\caption{Hard mat}
-\label{fig:mattebgraf}
-\end{subfigure}
-\end{figure}
-
-\begin{figure}[ht] \ContinuedFloat
-\begin{subfigure}[t]{\textwidth}  
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
-\caption{Soft mat}
-\label{fig:mykmattegraf}
-\end{subfigure}
-\caption{Figure showing data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat }
-\label{fig:gtmgraf}
-\end{figure}
-\FloatBarrier
-\end{comment}
 
 \begin{figure}[h]
 	\centering
@@ -1889,10 +1850,47 @@ It can be seen a common similarity between each models is the recall for the car
 
 \newpage
 \section{Parameter tuning}
-Previously, the evaluation of each classifiers was based on default hyperparameters. However, tuning parameters might increase the performance of the classifier. To find optimal parameters will by using a grid search. Parameter values tested can be seen in table \ref{tab:para}. The best parameters will be further used to test the performance. Note that the output of the Neural Network only has been a string which is the name of the terrain. However, it will be interesting to see if there any effect if there are more output. Thus, for the further experiment it will also test with binary with length of 2 or 4.
-\\
-\\ 
-Every classifier has parameters that can be optimized. Using default values is more unlikely that this is suitable for terrain classification. However, choosing a correct set of hyper parameters might increase its performance. A drawback of searching parameters is time-consuming if there are many parameters to be tested. 
+Previously, the evaluation of each classifiers was based on default hyperparameters. However, tuning parameters might increase the performance of the classifier. The reason that the parameter tuning has been left out in earlier experiments, is because of time-consuming, and difficult to find correct settings, and default values often shows an adequate performance. In this experiment an exhaustive grid search will be used to find optimal parameters on two of the top performed classifiers. 
+
+\paragraph{Neural Network}
+A crucial part of Neural Network is the choice of number of hidden nodes, and hidden layers. These choices is fundamental to achieving a promising result of the algorithm. It is commonly to use two hidden layers, but there is no theory how to chose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find good the number of neurons one has to test many different values and chose the one that give the best results. A grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:para}. The parameters obtained from the grid search will be tested on the neural network with three different representation of terrains. The currently representation of the terrain is that each terrains are assigned to four nodes. Hence, prediction of currently terrain will base the highest score of these nodes. Another representation of terrain is binary numbers. The length of the binary will also be the number of output. This representation instead using the highest score from one node, it will be looking on pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary is shown in \ref{tab:binary} , which will be tested with best parameters found with grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}, this representation will only have two output node, and it will always predict a terrain even if a outcome misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin} on other hand, when a there are at least two neurons that misfiring, the outcome will be unknown.
+
+
+\begin{table}[h]
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+		\begin{tabular}{@{}ll@{}}
+		\toprule
+		\textbf{Binary} & \textbf{Class} \\ \midrule
+		00 & Floor \\
+		01 & Carpet \\
+		10 & Soft mat \\
+		11 & Hard mat \\ \bottomrule
+	\end{tabular}
+		\caption{First Week}
+		\label{tab:twobin}
+	\end{subtable}
+	\hfill
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+	\begin{tabular}{@{}ll@{}}
+	\toprule
+	\textbf{Binary} & \textbf{Class} \\ \midrule
+	0001 & Floor \\
+	0010 & Carpet \\
+	0100 & Soft mat \\
+	1000 & Hard mat \\ \bottomrule
+\end{tabular}
+		\caption{Second Week}
+		\label{tab:fourbin}
+	\end{subtable}
+	\caption{Max and min temps recorded in the first two weeks of July}
+	\label{tab:binary}
+\end{table}
+
+
+\paragraph{Support vector machine}
+
 
 
 \begin{table}[h]
@@ -1910,9 +1908,10 @@ Every classifier has parameters that can be optimized. Using default values is m
 		&  &  \\
 		& \multirow{2}{*}{Gamma} & \multirow{2}{*}{$1\times10^{-3},2\times10^{-3},...,10^{-2}$} \\
 		&  &  \\
-		& C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9\\ 1,2,...,1000\end{tabular} \\ \bottomrule
+		& C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9,\\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption{My caption}
+	\caption{Table showing the hyperparameters used on the most promising
+		models which uses AdaBoost as its classifier}
 	\label{my-label}
 \end{table}
 \FloatBarrier
