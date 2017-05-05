@@ -1137,42 +1137,43 @@ This section will present the results of each classifier along with an analysis.
 	
 \subsection{Results}
 Table \ref{exp1} shows the result of each classifier when using the learning approach described in \ref{sub:learningprocess}. 
-	
+
 \begin{table}[h]
 	\centering
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{@{}llll@{}}
 			\toprule
-			\multirow{2}{*}{\textbf{Feature set}} & \multirow{2}{*}{\textbf{Classifier}} & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
-			&  & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{83\%} & 83\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{94\%} & 96\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{89\%} & 91\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{95\%} & 96\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{89\%} & 93\% \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & 82\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{83\%} & 84\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & 84\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{83\%} & 88\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{76\%} & 85\% \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{91\%} & 91\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{83\%} & 82\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{91\%} & 88\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{93\%} & 93\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{52\%} & 93\% \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ statistical features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & 81\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & 82\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & 84\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{85\%} & 88\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{83\%} & 86\% \\ \midrule
-			\multicolumn{1}{l|}{\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & 82\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{79\%} & 80\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & 84\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{87\%} & 89\% \\ \cmidrule(l){2-4} 
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{83\%} & 86\% \\ \bottomrule
+			&  & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
+			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} }} & {\color[HTML]{F8A102} } \\
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\multirow{-2}{*}{Bayes Navies}} & \multicolumn{1}{l|}{\multirow{-2}{*}{{\color[HTML]{F8A102} 0.83}}} & \multirow{-2}{*}{{\color[HTML]{F8A102} 0.83}} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{009901} 0.94}} & {\color[HTML]{009901} 0.96} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.89}} & {\color[HTML]{009901} 0.91} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{009901} 0.95}} & {\color[HTML]{009901} 0.96} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{-6}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.89}} & {\color[HTML]{009901} 0.93} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.82}} & {\color[HTML]{F8A102} 0.82} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.84} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.84}} & {\color[HTML]{F8A102} 0.84} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.88} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{0.76} & {\color[HTML]{F8A102} 0.85} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{009901} 0.91}} & {\color[HTML]{009901} 0.91} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.82} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{009901} 0.91}} & {\color[HTML]{F8A102} 0.88} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{009901} 0.93}} & {\color[HTML]{009901} 0.93} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{0.52} & {\color[HTML]{009901} 0.93} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.81}} & {\color[HTML]{F8A102} 0.81} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.80}} & {\color[HTML]{F8A102} 0.82} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.88}} & {\color[HTML]{F8A102} 0.84} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.85}} & {\color[HTML]{F8A102} 0.88} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.86} \\ \midrule
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.82}} & {\color[HTML]{F8A102} 0.82} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{0.79} & {\color[HTML]{F8A102} 0.80} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.88}} & {\color[HTML]{F8A102} 0.84} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.87}} & {\color[HTML]{F8A102} 0.89} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.86} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess}}
+	\caption{Table showing the result after following the approach shown in figure \ref{fig:learningProcess}. Colored green has an accuracy over 90\%, yellow is between 80\%-89\%, while black has accuracy under 79\%}
 	\label{exp1}
 \end{table}
 \FloatBarrier
@@ -1870,7 +1871,7 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 		10 & Soft mat \\
 		11 & Hard mat \\ \bottomrule
 	\end{tabular}
-		\caption{For Week}
+		\caption{Table shows the two binary digits representation of each terrain.}
 		\label{tab:twobin}
 	\end{subtable}
 	\hfill
@@ -1884,10 +1885,10 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 	0100 & Soft mat \\
 	1000 & Hard mat \\ \bottomrule
 \end{tabular}
-		\caption{Second Week}
+		\caption{Table shows the four binary digits representation of each terrain.}
 		\label{tab:fourbin}
 	\end{subtable}
-	\caption{Table showing the representation of each terrain as binary.}
+	\caption{Table shows the representation of each terrain as binary.}
 	\label{tab:binary}
 \end{table}
 \FloatBarrier
@@ -1906,7 +1907,9 @@ A crucial part of Neural Network is the choice of number of hidden nodes, and hi
 \FloatBarrier
 
 \paragraph{Support vector machine}
-Hyperparameters that will be search for SVM is shown in table \ref{tab:hypsvm}. The kernel 
+Hyperparameters that will be search for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. As each of kernel has a different way to compute their similarities. For instance if a problem is linear separable in original space, it is efficiency to only use linear kernel, which is a dot product. When one not wanting a perfect separation between all data, one can allow some misclassification by tuning the parameter C. C tells how much one want to avoid misclassifying each training examples. Large C gives a more perfect separation of the data, but might not generalize data so good, while low C value allows more misclassification, and might contains more error. "The gamma the parameter is the inverse of the standard deviation of the RBF kernel "
+
+
 
 
 \begin{table}[h]
@@ -1918,7 +1921,7 @@ Hyperparameters that will be search for SVM is shown in table \ref{tab:hypsvm}. 
 		&  \\
 		\multirow{2}{*}{Gamma} & \multirow{2}{*}{0,...,10} \\
 		&  \\
-		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9, \\ 1,2,...,1000\end{tabular} \\ \bottomrule
+		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9 and \\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
 	\caption{Table shows hyperparameters used in the search for SVM.}
 	\label{tab:hypsvm}
@@ -1926,22 +1929,24 @@ Hyperparameters that will be search for SVM is shown in table \ref{tab:hypsvm}. 
 \FloatBarrier
 
 \subsection{Results}
-In table \ref{tab:resPara} shows the result after tuned parameter and the highest performed will be used further experiments
+In table \ref{tab:resPara} shows the result after tuned parameter. The best result is marked with bold text and will be used in further experiments
 
-\begin{table}[h]
+\begin{table}[]
 	\centering
-	\begin{tabular}{@{}llllll@{}}
+	\begin{tabular}{@{}lllllll@{}}
 		\toprule
-		\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of \\ output\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Old\\ result\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}New \\ result\end{tabular}} \\ \midrule
-		\multirow{3}{*}{Neural Network} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & 1 & \multirow{3}{*}{78.2\%} & 77.6\% \\
-		&  &  & 2 &  & 78.9\% \\
-		&  &  & 4 &  & 74.2\% \\ \midrule
-		SVM & Set 3 & RFE & 1 & 94.8\% & 93.6\% \\ \bottomrule
+		\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ Set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Output\\ type\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Number \\ of output\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Old \\ result\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}New\\ result\end{tabular}} \\ \midrule
+		\multirow{3}{*}{Neural Network} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & String & 1 & 78.2\% & 77.6\% \\
+		&  &  & Binary & 2 & NaN & 78.9\% \\
+		&  &  & Binary & 4 & NaN & 74.2\% \\ \midrule
+		\textbf{SVM} & \textbf{Set 3} & \textbf{RFE} & \textbf{String} & \textbf{1} & \textbf{94.8\%} & 93.6\% \\ \bottomrule
 	\end{tabular}
 	\caption{Result after tuned parameters of Neural Network and SVM.}
 	\label{tab:resPara}
 \end{table}
+
 \FloatBarrier
+
 
 \subsection{Analysis}
 As seen in table \ref{tab:resPara}, it has not shown significant effect of the performance. Mostly is slightly decrease, but neural network with two outputs has minor increased. Again, the top performing is the SVM with feature set 5, hence, will be used in further experiments.
