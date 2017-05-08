@@ -187,16 +187,16 @@ Legged robots have been a popular topic of robotic research, mainly due to their
 
 
 
-\subsection{Monopod}
+\paragraph{Monopod}
 The monopod is a simple one-legged robot design. The locomotion of  monopod robots is performed through hops, and so they are also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of a one-legged robot was developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
 
-\subsection{Biped}
+\paragraph{Biped}
 A biped is a robot with two legs. The studies on biped robots have been a popular research field, especially towards developing humanoids. Creating a humanoid implicates that the robot is able to imitate human behavior, such as walking, running, jumping, traversing on stairs, etc. The well-known NAO robot \cite{NAO}, shown in figure \ref{fig:nao} has impressive abilities. Not only is the NAO robot able to walk, but it is also capable of seeing, hearing and speaking. 
 
-\subsection{Quadruped}
+\paragraph{Quadruped}
 The quadruped is a robot designed with four legs and is inspired by animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and able to carry loads from 50kg to 150kg, depending on the terrain. Other abilities include  jumping, running, and maintaining  stability even if it gets pushed or is walking on slippery terrain. More legs make robots more stable and capable to traverse through terrain without falling. However, it is more complex to control the legs.
 
-\subsection{Hexapod}
+\paragraph{Hexapod}
 A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to having to control six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron have been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}.
 \begin{figure}
 	\centering
@@ -1130,7 +1130,7 @@ This chapter is divided into 6 main sections, where each of them consists of an 
  
  
 \section{Performance of each classifier}\label{result_exp1}
-This section presents the results of each classifier along with an analysis.
+This section presents the results of each classifier on different feature sets along with an analysis.
 	
 \subsection{Results}
 Table \ref{exp1} shows the results of each classifier when using the learning approach described in \ref{sub:learningprocess}. The color indicates how high the accuracy is, where green is an accuracy of over 90\%, yellow is between 80\%-89\%, while red is under 79\%. The experiments were done with and without feature scaling.  
@@ -2292,7 +2292,7 @@ Regarding the first step on the new terrain, one can observe that the estimated 
 It can be seen that the classifier had difficulty predicting hard mat. As seen in the figures \ref{fig:s1all}, the data provided from the front right foot differs somewhat from the front left foot. However, there are characteristics such as shape and curve of the graphs. Note that when mounting the sensor on the foot there is a possibility that the sensor does not precisely point in the same direction, which may cause the differences. However, the results indicate that most of the terrains have been predicted correctly. But there is still shown a common challenge to all classifiers, that is identifying the hard mat. Thus, it is possible to use the training data from the front left foot on the front right foot, but to achieve a more reliable result, it is best to train each sensor independently.
 	
 \section{Compared to earlier work}
-To give an overview of the thesis performance, the table \ref{table:compareEarly} shows a comparison with earlier work. Those approaches were all performed with local sensing and tested with unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy of at least 90\%. However, the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which is more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms work which used more sensors \cite{6386243}. Even in the work \cite{26b23e912c654fe4b7478fd910130195} only used one type of sensor as in this thesis, demonstrates a result of 97\%.  However, the authors were incorporating all servos from each leg which produced more data to be preprocessed. It is also worth mentioning that the work achieved higher accuracy when rocks and mulch were considered as one terrain. Having more sensors in this work might also increase the accuracy. The most similar comparison is with work reported in \cite{6784609}. It used a similar robot platform and tactile sensor during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties. As the robot in the thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those as well.
+To give an overview of the thesis performance, the table \ref{table:compareEarly} shows a comparison with earlier work. Those approaches were all performed with local sensing and tested with unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy of at least 90\%. However, the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which is more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms work which used more sensors \cite{6386243}. Even the work in \cite{26b23e912c654fe4b7478fd910130195} only used one type of sensor, demonstrates a result of 97\%.  However, the authors were incorporating all six servos from each leg which produces more data to be preprocessed. It is also worth mentioning that the work achieved higher accuracy when rocks and mulch were considered as one terrain. Having more sensors in this work might also increase the accuracy. The most similar comparison is with work reported in \cite{6784609}. It used a similar robot platform and tactile sensor during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties and achieved an accuracy of 84.69\%. As the robot in the thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those as well.
 %26b23e912c654fe4b7478fd910130195
 	\begin{table}[h]
 		\centering
