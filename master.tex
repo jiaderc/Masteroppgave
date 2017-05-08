@@ -117,7 +117,19 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
+As new and improvement sensors are constantly developed, data provided from sensor are more able to discriminate different terrains. This thesis investigates the possibility of identifying different terrains using optical force sensors and machine learning.
+
+
 An important ability for every mobile robot is to be able to identify different terrains. Past work has been studied on a variety of sensors and achieved a promising result. However, 3D optical tactile force sensors have been paid little attention within terrain classification. Due to its high sensitivity, small size, light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robots to identify different terrains. This thesis will also present a novel algorithm to segment desired data from the sensor. This data consists of steps on different terrains, and is used as training and test samples. Five different feature sets were created from the data samples, and tested on five different classifiers. The highest achieved accuracy of identifying four different terrains is 95.2\%, by using the SVM. Evaluation shows that the suggested optical tactile sensor is able to discriminate nearly identical terrains, and is therefore a good candidate to use on terrain classification.
+
+
+- goals: (forslag)
+main goal : Investigate if it is possible to distinguish between different surfaces using optical force sensors and machine learning
+subgoal: develop/investigate a reliable approach for data preprocessing, feature selection, and classification. 
+Andre subspørsmål som kanskje er interessante, men kommer an på hvor mye det diskuteres:
+- How quickly can transitions between terrains be detected
+- Is the method suitable for real-time / real-world implementation
+
 \tableofcontents{}
 \listoffigures{}
 \listoftables{}
@@ -134,13 +146,16 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 \pagestyle{MyStyle}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans naturally adapt their walking style on different terrains to have a stable locomotion and to prevent falls. Adaptation of walking style comes from past experience. For instance, one might have experienced difficulty of running on icy roads, resulting in a fall, while running on dry road is fine. To achieve this ability, the robot must be able to detect and distinguish different terrains.
+Humans naturally adapt their walking style on different terrains to have a stable locomotion and to prevent falls. Adaptation of walking style comes from past experience. For instance, one might have experienced difficulty of running on icy roads, resulting in a fall, while running on dry road is fine. To achieve this ability, the robot must be able to terrain classification detect and distinguish different terrains.
+\\
+\\
+Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance, grass is soft and provides an amount of friction, while rocks are hard and might have less friction than grass. Outdoor terrains are more unpredictable due to their unstructured environment, and their properties change according to the weather. For instance, rain will soften the soil, and snow will make the road slippery. Indoor terrains, on other hand, are more predictable, since they have more structured environments and will not be highly affected by the same factors.
 \\
 \\ 
 New and improved sensors have made it possible to distinguish terrain even more accurately. Examples of popular sensors used to gather information visually from terrain are camera \cite{littleDog} and laser scanners \cite{4651026}. These types of sensors gather information from terrain indirectly. Other sensors measure the properties of the terrain more directly such as tactile, joint angle accelerometers and gyroscopes. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result showed that the tactile sensor was one the most informative of all the sensors. 
 \\
 \\
-Tactile sensors are designed to measure properties through direct physical interaction \cite{Cutkosky2008}, and several researchers  \cite{6784609,ROB:ROB20332,5752869,6584154}have explored their use in terrain classification. The potential of the tactile sensor is that, instead of measuring body motion by joint angle etc. of the robot, it measures the force of physical contact  between the sensor and surfaces. However, there is a variety of approaches that have been developed and based on different modalities, for instance, resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}. Among the sensors the optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016} has not been used much within terrain classification.
+Tactile sensors are designed to measure properties through direct physical interaction \cite{Cutkosky2008}, and several researchers  \cite{6784609,ROB:ROB20332,5752869,6584154} have explored their use in terrain classification. The potential of the tactile sensor is that, instead of measuring body motion by joint angle etc. of the robot, it measures the force of physical contact between the sensor and surfaces. However, there is a variety of approaches that have been developed and based on different modalities, for instance, resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}. Among the sensors the optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016} has not been used much within terrain classification.
 %optical\cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312,6027100,6907805,6290303}
 \\
 \\
@@ -173,8 +188,7 @@ The discussion chapter discusses the results from the experiments. Last is a con
 %\section{Optical force sensor}
 %Snakke litt om historien om optical force sensor
 %Optical force sensors use the refracted light itensity to measure..
-\section{Terrain classification}
-Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance, grass is soft and provides an amount of friction, while rocks are hard and might have less friction than grass. Outdoor terrains are more unpredictable due to their unstructured environment, and their properties change according to the weather. For instance, rain will soften the soil, and snow will make the road slippery. Indoor terrains, on other hand, are more predictable, since they have more structured environments and will not be highly affected by the same factors.
+
 
 \section{Legged robots}
 Legged robots have been a popular topic of robotic research, mainly due to their ability to traverse on rough terrain. Stable locomotion of legged robots is achieved through the gait. A gait is a sequence of cyclic motions of foot contacts with the ground that produce locomotion \cite{1641859}. The characteristic of gait is the sequence of which legs are lifted and placed on the ground. Different styles of locomotion are produced by different gaits. There are many types of legged robots, which are often defined by the number of legs on the robots. The following paragraphs will introduce four different types of legged robots and are organized by the number of legs in ascending order.
@@ -2378,6 +2392,11 @@ Only one robot was used to evaluate the sensor. Different platforms may not give
 %An Overview of Legged Robots
 
 
+\backmatter{}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bib}
+\bibliographystyle{ieeetr}
+
 \part*{Appendices} 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
@@ -2497,11 +2516,5 @@ f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \ri
 \end{align}
 \chapter{Sensor datasheet}\label{ap:datasheet}
 \includepdf[pages=-]{Datasheet/Sensor.pdf}
-
-
-\backmatter{}
-\addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{bib}
-\bibliographystyle{ieeetr}
 
 \end{document}
