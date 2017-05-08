@@ -117,18 +117,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
-As new and improvement sensors are constantly developed, data provided from sensor are more able to discriminate different terrains. This thesis investigates the possibility of identifying different terrains using optical force sensors and machine learning.
-
-
-An important ability for every mobile robot is to be able to identify different terrains. Past work has been studied on a variety of sensors and achieved a promising result. However, 3D optical tactile force sensors have been paid little attention within terrain classification. Due to its high sensitivity, small size, light weight and low detection time, this thesis will be investigating the possibility of using the sensor mounted on quadruped robots to identify different terrains. This thesis will also present a novel algorithm to segment desired data from the sensor. This data consists of steps on different terrains, and is used as training and test samples. Five different feature sets were created from the data samples, and tested on five different classifiers. The highest achieved accuracy of identifying four different terrains is 95.2\%, by using the SVM. Evaluation shows that the suggested optical tactile sensor is able to discriminate nearly identical terrains, and is therefore a good candidate to use on terrain classification.
-
-
-- goals: (forslag)
-main goal : Investigate if it is possible to distinguish between different surfaces using optical force sensors and machine learning
-subgoal: develop/investigate a reliable approach for data preprocessing, feature selection, and classification. 
-Andre subspørsmål som kanskje er interessante, men kommer an på hvor mye det diskuteres:
-- How quickly can transitions between terrains be detected
-- Is the method suitable for real-time / real-world implementation
+As sensors are constantly in development, legged robots are more able to discriminate different terrains even more accurately. This thesis investigates the possibility of identifying different terrains using optical force sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo (UiO) on four different terrains. A segmentation method was proposed for extracting desired data obtained from optical force sensor. The segmented data samples were the basis for creating five different feature sets and tested on five different classifiers. The experimental results demonstrated among the top performed approaches compared to earlier work with an accuracy of 94.8\%.
 
 \tableofcontents{}
 \listoffigures{}
@@ -146,10 +135,10 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 \pagestyle{MyStyle}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans naturally adapt their walking style on different terrains to have a stable locomotion and to prevent falls. Adaptation of walking style comes from past experience. For instance, one might have experienced difficulty of running on icy roads, resulting in a fall, while running on dry road is fine. To achieve this ability, the robot must be able to terrain classification detect and distinguish different terrains.
+Humans naturally adapt their walking style on different terrains to have a stable locomotion and to prevent falls. Adaptation of walking style comes from past experience. For instance, one might have experienced difficulty of running on icy roads, resulting in a fall, while running on dry road is fine. To achieve this ability, the robot must be able to detect and distinguish different terrains.
 \\
 \\
-Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance, grass is soft and provides an amount of friction, while rocks are hard and might have less friction than grass. Outdoor terrains are more unpredictable due to their unstructured environment, and their properties change according to the weather. For instance, rain will soften the soil, and snow will make the road slippery. Indoor terrains, on other hand, are more predictable, since they have more structured environments and will not be highly affected by the same factors.
+Terrain classification is the process of identifying different types of terrain by looking at characteristics such as texture, slope, roughness, hardness, and friction. For instance, grass is soft and provides an amount of friction, while rocks are hard and might have less friction than grass. Outdoor terrains are more unpredictable due to their unstructured environment, and their properties change according to the weather. For instance, rain will soften the soil, and snow will make the road slippery. Indoor terrains, on the other hand, are more predictable, since they have more structured environments and will not be highly affected by the same factors.
 \\
 \\ 
 New and improved sensors have made it possible to distinguish terrain even more accurately. Examples of popular sensors used to gather information visually from terrain are camera \cite{littleDog} and laser scanners \cite{4651026}. These types of sensors gather information from terrain indirectly. Other sensors measure the properties of the terrain more directly such as tactile, joint angle accelerometers and gyroscopes. Degrave et al.\cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result showed that the tactile sensor was one the most informative of all the sensors. 
@@ -160,7 +149,9 @@ Tactile sensors are designed to measure properties through direct physical inter
 \\
 \\
 \section{Goal of the thesis}
-This thesis will investigate a type 3-axis optical force sensor, which uses refracted light intensity to measure the contact force, and test whether it is able to distinguish terrains with slight differences such as between floor and carpet. This thesis will also be investigating how to preprocess data, create and select features and test them on several learning algorithms to find a reliable approach.
+This thesis will investigate a type of 3-axis optical force sensor, which uses refracted light intensity to measure the contact force, and test whether it is able to distinguish terrains with slight differences in hardness and slippage such as between floor and carpet.
+
+ This thesis will also be develop a reliable approach for data preprocessing, feature selection, and classification.
 
 
 \begin{comment}
@@ -211,7 +202,7 @@ A biped is a robot with two legs. The studies on biped robots have been a popula
 The quadruped is a robot designed with four legs and is inspired by animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and able to carry loads from 50kg to 150kg, depending on the terrain. Other abilities include  jumping, running, and maintaining  stability even if it gets pushed or is walking on slippery terrain. More legs make robots more stable and capable to traverse through terrain without falling. However, it is more complex to control the legs.
 
 \paragraph{Hexapod}
-A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to having to control six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of Lauron have been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}.
+A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to having to control six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of the Lauron have been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}.
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.22\textwidth}
@@ -284,13 +275,13 @@ Based on this information from the tactile sensor, it is possible to use the rob
 
 
 \section{Optical tactile force sensor}
-Optical force sensors use light reflection, based on the physical principles of light waves to measure force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use cameras to analyse the images. This approach is uniaxial, that is the sensor is only capable of measuring the force applied, but not the force direction. Ohka et al. \cite{525384} modified and improved the technology and further optimized in \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It has shown promising results, in that the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widely used to capture deformation of a surface caused by external force \cite{1381228,7559098}.
+Optical force sensors use light reflection, based on the physical principles of light waves to measure force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use cameras to analyse the images. This approach is uniaxial, that is the sensor is only capable of measuring the force applied, but not the force direction. Ohka et al. \cite{525384} modified and improved the technology and further optimized it in \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It has shown promising results, in that the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widely used to capture deformation of a surface caused by external force \cite{1381228,7559098}.
 \\
 \\
 Another design and very common technology is based on Fiber Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
 \\
 \\ 
-An alternative to low-cost 3-axis optical sensors is presented by Tar and Cserey \cite{6027100}, which is using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that changes the amount of light to each of photodiodes, which will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+An alternative to low-cost 3-axis optical sensors is presented by Tar and Cserey \cite{6027100}, which is using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that changes the amount of light to each of photodiodes, which in turn will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
 %http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7559098
 %the light power variation is due to the variation of both the angle of view and the length of the optical path between the optoelectronic components
 \\
@@ -316,10 +307,10 @@ Reinforcement learning algorithms will choose an action for each dataset and wil
 Evolutionary learning uses biological evolution such as reproduction, mutation, recombination, and selection as a learning process.
 	
  \subsection{Classifier} \label{sub:classifier}
-The classifier is where the learning process occurs, and produces the inferred function. The following sections will introduce the technical background of five classifiers; the artificial neural network, the support vector machine, the Naive Bayes, thee k-nearest neighbors, and the decision trees.
+The classifier is where the learning process occurs, and produces the inferred function. The following sections will introduce the technical background of five classifiers; the artificial neural network, the support vector machine, the Naive Bayes, the k-nearest neighbors, and the decision trees.
 
-\subsubsection{Artificial neural networks}
-Artificial neural networks (ANN) are inspired by neurons in the human brain, and are one of the most popular learning algorithms. It can be found in many different research fields, such as signal processing, image processing, natural language processing etc. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists a set of weighted inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+\subsubsection{Artificial neural network}
+Artificial neural network (ANN) are inspired by neurons in the human brain. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists of a weighted set inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
 \\
 \\
 The learning process of a perceptron in supervised learning aims to be able to reproduce a particular pattern to a class, which consists of firing and non-firing neurons for a given input. If some of the neurons yield a wrong output, for instance a neuron does not fire when it should, then its weights will be adjusted to make it fire right the next time. There is a possibility to add more layers to the neural network, which would make it able to handle non-linear separable problems. This is also called a multi-layer perceptron (MLP), or a multi neural network.
@@ -344,7 +335,7 @@ A multi-layer perceptron consists of two or more layers between the input and ou
 \end{figure}
 	
 \subsubsection{Support vector machine}
-The sSupport vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents the classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells us where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved with by a small amount, there would beit has a risk that a datapoint from one class that lies close to the boundary would, be on the wrong side. To findFinding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region it can put that separates the classes without having any points inside. The hatched classes lies on the margin, and support vectors. This can process can be done by the dot product between each datapoints \cite{Cortes1995}.
+The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents the classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells us where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved by a small amount, there would be a risk that a datapoint from one class that lies close to the boundary would be on the wrong side. Finding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region it can put to separate the classes without having any points inside. The hatched classes lie on the margin, and support vectors. This process can be done by the dot product between each datapoint \cite{Cortes1995}.
 
 \begin{figure}[h]
 	\centering
@@ -355,7 +346,7 @@ The sSupport vector machine (SVM) algorithm was introduced by Cortes and Vapnik 
 \end{figure}
 \FloatBarrier
 
-A weakness of the SVM, is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue is prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoints, which means the transformation itself is not needed, but instead, SVM will use a function to implicitly computes the high-dimensional dot-product, and is referred as the kernel function.
+A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function.
 	
 \begin{figure}[h]
 	\centering
@@ -371,15 +362,15 @@ The Naive Bayes algorithm is a probabilistic classifier based on Bayes’ theore
 P(C_i \vert X_j) = \frac{P(X_j \vert C_i)P(C_i)}{P(X_j)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belong to a class $C_i$, while $P(X_j \vert C_i)$ is the probability of the class $C_i$, which? belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increase, which requires more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
+The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belong to a class $C_i$, while $P(X_j \vert C_i)$ is the probability of the class $C_i$, which belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increases, which requires more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
 \begin{equation} 
 P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
 \label{eq:naiveB}
 \end{equation}
-Prediction is based by selecting the class $C_i$ with the highest probability.
+Prediction is based on selecting the class $C_i$ with the highest probability.
 
 \subsubsection{K-nearest neighbors}
-K-nearest neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate the effect of performance on different k values is shown \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. However, if k is set to 5, then the green circle will be classified as square.
+K-nearest neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate the effect of performance on different k values is shown in \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. However, if k is set to 5, then the green circle will be classified as square.
 
 
 
@@ -390,7 +381,7 @@ K-nearest neighbors (KNN) is one of the simpler classifiers presented by Cover a
 		\label{fig:KNN}
 \end{figure}
 	
-A common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation\ref{eq:edistance} \cite{Bao2004}.
+A common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation\ref{eq:edistance}  \cite{Bao2004}.
 	
 \begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
@@ -420,10 +411,10 @@ Every classifier has parameters that need to be set and may strongly affect the 
 
 
 \section{Features} \label{features}
-An important part of achieving a good classification is finding good features from sensor data. The features are what distinguishes classes and will be used as a learning set. Thus, finding good features is crucial to achieve an accurate classifier.
+An important part of achieving a good classification is finding good features from sensor data. The features are what distinguish classes and will be used as a learning set. Thus, finding good features is crucial to achieve an accurate classifier.
 	
 \subsection{Curse of dimensionality}\label{curseDim}
-The curse of dimensionality occurs when one includes too many features in the input vector. When the dimensionality of feature vectors increase, the complexity of the underlying pattern might increase and the performance of the classifier will be degraded. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
+The curse of dimensionality occurs when one includes too many features in the input vector. When the dimensionality of feature vectors increases, the complexity of the underlying pattern might increase and the performance of the classifier will be degraded. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
 	
 \subsection{Features extraction} \label{feature_extraction}
 Feature extraction is the process of building a new set of features from the original set and use it as a training set. Those extracted features should make it easy for a classifier to distinguish between the various classes. A common method is extracting statistical features.
@@ -475,7 +466,7 @@ The skewness can be either negative or positive depending on whether data points
 	\FloatBarrier
 	
 \paragraph{Kurtosis}
-Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is shown in equation \ref{eq:kurtosis}\cite{Press:2007:NRE:1403886}.
+Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is shown in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
 	Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
@@ -553,7 +544,7 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 			\caption{Optimal}
 			\label{fig:optimal}
 		\end{subfigure}
-		\caption{Figur illustrate when a model is \ref{fig:over} overfitted, \ref{fig:under} underfitted and \ref{fig:optimal}optimal }
+		\caption{Figure illustrates when a model is \ref{fig:over} overfitted, \ref{fig:under} underfitted and \ref{fig:optimal} optimal }
 		\label{fig:fitting}	
 	\end{figure}
 	
@@ -563,14 +554,14 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 Cross-validation is a statistical method to assess the quality of, and compare, learning models \cite{Refaeilzadeh2009}. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
 \paragraph{K-fold}
-The process of K-fold is to partition the data into k subsets, where one subset is used for testing and the other is used for training. When the trained model has assessed the test set, a new subset is selected as the test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also known as leave-one-out cross-validation (LOOCV). LOOCV only uses one feature vector as a test set, while the rest as a training set, shown in figure \ref{fig:kfold}. Estimations based on LOOCV tend to be almost unbiased, but unreliable due to high variance. However, the advantages are that it uses as many training samples as possible and is widely used especially when there are only small amounts of data available.
+The process of K-fold is to partition the data into k subsets, where one subset is used for testing and the other is used for training. When the trained model has assessed the test set, a new subset is selected as the test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also known as leave-one-out cross-validation (LOOCV). LOOCV only uses one feature vector as a test set, while the rest as a training set, shown in figure \ref{fig:kfold}. Estimations based on LOOCV tend to be almost unbiased, but unreliable due to high variance. However, the advantage is that it uses as many training samples as possible and is widely used especially when there are only small amounts of data available.
 
 
  	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{Figures/Kfold}
-		\caption{The figure showing an instance of k-fold cross validation. In this case the k is set to be 8 which is also the length of feature vectors}
+		\caption{The figure showing an instance of k-fold cross validation. In this case the k is set to be 8 which is also the length of the feature vectors}
 		\label{fig:kfold}
 	\end{figure}
 	
@@ -581,10 +572,10 @@ The process of K-fold is to partition the data into k subsets, where one subset 
 Evaluation of the performance a classifier can be done by calculating metrics based on correct or wrong outputs. For instance, a two-class classifier with classes "positive" and "negative" will have four different outcomes:
 	
 	\begin{enumerate}
-		\item True postive (TP) is a correct prediction of class positive
-		\item True negative (TN) is a correct prediction of class negative
-		\item False positive (FP) is a wrong prediction of class positive
-		\item False negative (FN) is a wrong prediction of class positive
+		\item True postive (TP) is a correct prediction of class positive.
+		\item True negative (TN) is a correct prediction of class negative.
+		\item False positive (FP) is a wrong prediction of class positive.
+		\item False negative (FN) is a wrong prediction of class negative.
 	\end{enumerate}
 	
 	These four variables can be further used to calculate the precision, accuracy, recall and f-score.
@@ -619,10 +610,10 @@ Evaluation of the performance a classifier can be done by calculating metrics ba
 	\end{equation}
 	%\part{The project}                    %% ... or ??
 	\FloatBarrier
-The accuracy will tell us the overall performance of the model. However, there is a possibility that the model only classifies three of four terrains correctly and still gets a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicate that the class either has a low precision, recall or both. Low precision indicate that the classifier has difficulty to predict the current class, while low recall indicate that it is more likely that a class is to be classified in other classes.
+The accuracy will tell us the overall performance of the model. However, there is a possibility that the model only classifies three of four terrains correctly and still gets a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicates that the class either has a low precision, recall or both. Low precision indicates that the classifier has difficulty to predict the current class, while low recall indicates that it is more likely that a class is to be classified in other classes.
 \\
 \\
-It will be interesting to see which class is easier to predict than others. This can be seen by using the confusion matrix. The confusion matrix consists of a square matrix with one row for predicted class, and a column for actual class (or vice-versa). An example of the confusion matrix is shown in table \ref{tab:cmatrix}.
+It is interesting to see which class is easier to predict than others. This can be seen by using the confusion matrix. The confusion matrix consists of a square matrix with one row for predicted class, and a column for actual class (or vice-versa). An example of the confusion matrix is shown in table \ref{tab:cmatrix}.
 	
 	\begin{table}[h]
 		\centering
@@ -643,10 +634,10 @@ It will be interesting to see which class is easier to predict than others. This
 Terrain classification has been applied to both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of being able to traverse on more difficult terrains. 
 \\
 \\
-TThe most commonly used legged robots in terrain classification are quadrupeds  \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapods \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179}, due to their stability on rough terrain. However, a few have used monopods \cite{5602459} and bipeds \cite{7803265}.
+The most commonly used legged robots in terrain classification are quadrupeds  \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapods \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179}, due to their stability on rough terrain. However, a few have used monopods \cite{5602459} and bipeds \cite{7803265}.
 \\
 \\
-The bayes theorem suits to mathematically express the terrain identification problem, and allows evaluation of unexpected mismatches between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that the robot? is expected to predict, while B is the data from the sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that these data from sensor belong to a certain type terrain.
+The Bayes theorem suits to mathematically express the terrain identification problem, and allows evaluation of unexpected mismatches between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that the robot is expected to predict, while B is the data from the sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that these data from sensor belong to a certain type terrain.
 
 	%http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
 	%file:///C:/Users/Jay/Downloads/Paper_MME_2006_JATMachado_MFSilva%20(2).pdf
@@ -658,7 +649,7 @@ The bayes theorem suits to mathematically express the terrain identification pro
 The importance of terrain classification for legged robots is that the terrain is a major factor affecting the decision for the gait change \cite{6569179}. Most legged robots have the benefit of being able to change their gait and walking speed to achieve a stable locomotion. For instance a running gait may be efficient on flat road, but fail to maintain stability when used on ice, because of slipping. An example of an application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where an amphibious legged robot can switch from a walking to a swimming gait, according to which terrain it is on. 
 \\
 \\
-It has been shown that different controllers were suited for different terrains by letting quadrupedal robots hop on soft and hard terrain \cite{7487541}. Another study? has investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. Some of the results showed that the energy consumption and the walking speed are tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
+It has been shown that different controllers were suited for different terrains by letting quadrupedal robots hop on soft and hard terrain \cite{7487541}. Another study has investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. Some of the results showed that the energy consumption and the walking speed are tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
 	
 	
 \subsection{Terrain sensing}
@@ -683,10 +674,10 @@ Local sensing measures aspects of the interaction between the robot and terrain 
 Stejskal et al. \cite{7487544} presents a road-following hexapod robot which uses the feedback from robot servo drives. The road following consists of letting the robot blindly walk on a road. After each gait cycle, the robot will determine whether it is on new terrain or on road. If it is determined as off-road, then the robot will steer back to the road. Data from the servo provides information about the leg motion: position error, current speed and torque. Three different terrains, asphalt, dirt and grass, were used during the experiment. The robot was most confused by dirt, which accounted for about 86\% of misclassified samples. The author states that the transition from asphalt to dirt was usually flat, which means that the leg motion of walking on flat dirt has a similar leg motion as walking on asphalt. Beside of that, the overall result of terrain classification had an accuracy of 96.2\%, which can be considered a feasible approach, and data from leg motion keeps the robot on the road.
 \\
 \\
-Kim et al. \cite{5602459} used the ground reaction force and torque sensors of an one-legged robot used in terrain classification. The goal of the research was to compare the performance between neural network and support vector machines. Four different terrains were used in the experiments which were flat, grass, sand, and gravel. The data were collected by walking through each terrain many times. Different features were extracted from the data, and partitioned into a training and a test set. The results show that the support vector machine got an accuracy of 78.75\%, which was a slightly better performance than the neural network at 78.6\%.
+Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a one-legged robot used in terrain classification. The goal of the research was to compare the performance between neural network and support vector machines. Four different terrains were used in the experiments which were flat, grass, sand, and gravel. The data were collected by walking through each terrain many times. Different features were extracted from the data, and partitioned into a training and a test set. The results show that the support vector machine got an accuracy of 78.75\%, which was a slightly better performance than the neural network at 78.6\%.
 \\
 \\
-Hoepflinger et al. \cite{5509309} presents a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistors. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments are done by having a robot walk through terrains. However, in this experiment, the author separated one of the robot’s legs and mounted it to a sample holder of a testbed. The first experiment consisted of distinguishing four different shapes of terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data was collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. The second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data was done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. The convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge had 95\%, and 80\% was for the convex hemispherical bulge. Regarding surface classification, the results show that the algorithm performed slightly worse. One type of abrasive paper had an accuracy of 53.3\%. Despite a low accuracy, the author states it is overall an satisfying result, since the average correct prediction of different types of abrasive paper was two out of three, and prediction of teflon coated surface had a high accuracy of 93.3\%.
+Hoepflinger et al. \cite{5509309} presents a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistors. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments are done by having a robot walk through terrains. However, in this experiment, the author separated one of the robot’s legs and mounted it to a sample holder of a testbed. The first experiment consisted of distinguishing four different shapes of terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data was collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. The second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data was done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. The convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge had 95\%, and 80\% was for the convex hemispherical bulge. Regarding surface classification, the results show that the algorithm performed slightly worse. One type of abrasive paper had an accuracy of 53.3\%. Despite a low accuracy, the author states it is overall a satisfying result, since the average correct prediction of different types of abrasive paper was two out of three, and prediction of teflon coated surface had a high accuracy of 93.3\%.
 \\
 \\
 Other examples of terrain classification can be found in \cite{Giguere2009,6386243,6569179,4399500}.
@@ -725,7 +716,7 @@ A common method of validation is using the k-fold cross-validation  \cite{DBLP:c
 Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation made the classifier confused between grass and concrete terrains. 
 \\
 \\
-As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performance. However, it does not tell us how well it predicts with unseen data. This is because experiments always use the same samples where it involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
+As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performance. However, it does not tell us how well it predicts with unseen data. This is because experiments always use the same samples where they involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
@@ -2380,7 +2371,7 @@ This thesis has only shown the possibility of using training data from one senso
 Many authors have used more sensors to achieve promising results. Thus, using data from other sensors such as leg motion, servos etc. could further aid the performance.
 \\
 \\
-Instead of explicitly labeling the terrain, having unsupervised learning could be appropriate.  
+Instead of explicitly labeling the terrain, having unsupervised learning could be appropriate. This will obtain a more animal like behavior.
 \\
 \\
 Only one robot was used to evaluate the sensor. Different platforms may not give the same results. Thus, to achieve a more reliable evaluation of the sensor, different platforms should be tested, which can be addressed as further work.
@@ -2424,7 +2415,7 @@ The table \ref{aptab:kern} shows the equation of each kernel to compute similari
 \FloatBarrier
 
 \chapter{Selected features} \label{ap:self}
-\section{Set 1}
+\subsubsection{Set 1}
 Filter
 \begin{align}
 f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
@@ -2450,7 +2441,7 @@ f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_
 \end{align}
 
 
-\section{Set 2}
+\subsubsection{Set 2}
 \paragraph{Filter}
 \begin{align}
 f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
@@ -2466,7 +2457,7 @@ f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
 \end{align}
 
 
-\section{Set 3}
+\subsubsection{Set 3}
 \paragraph{Filter}
 \begin{align}
 f_{set3} &= \left\{ x_{1}, z_{1} \right\}
@@ -2485,7 +2476,7 @@ f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22
 
 
 
-\section{Set 4}
+\subsubsection{Set 4}
 \paragraph{Filter}
 \begin{align}
 f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
@@ -2500,7 +2491,7 @@ f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
 &\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
 
-\section{Set 5}
+\subsubsection{Set 5}
 \paragraph{Filter}
 \begin{align}
 f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
@@ -2514,7 +2505,7 @@ f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \ri
 &\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
 &\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
 \end{align}
-\chapter{Sensor datasheet}\label{ap:datasheet}
-\includepdf[pages=-]{Datasheet/Sensor.pdf}
+%\chapter{Sensor datasheet}\label{ap:datasheet}
+%\includepdf[pages=-]{Datasheet/Sensor.pdf}
 
 \end{document}
