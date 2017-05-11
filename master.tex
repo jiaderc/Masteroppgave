@@ -160,7 +160,7 @@ Information can be obtained through exteroceptive sensors, where the sensing do 
 	The tactile sensor needed to achieve both the objective of slipping prevention and minimal deformation of the object during subtle manipulation tasks has to provide information not only on contact forces between the object and fingers but also on contact geometry and contact friction characteristics. Among the various tactile sensors proposed in the literature and based on different technologies, e.g. resistive [8], [9], piezoelectric [10], [11], capacitive [12], [13], magnetic [14], [15] and optoelectronic [16], [17], the authors have recently proposed a force/tactile sensor in [18]. The sensor is based on the use of optoelectronic technologies and it aims to overcome most of the problems encountered in the works cited above, mainly: difficulty of the integration into small spaces, high costs, repeatability and complex conditioning electronics. The sensor has different capabilities, i.e. it can measure the six components of the force and torque vectors applied to it, and it can be used as a tactile sensor providing a spatial and geometrical information about the contact with an external object.http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6290303
 \end{comment}
 \section{Outline}
-The thesis is divided into five additional chapters: background, software and tools, implementation, experiments and results, and conclusion. 	
+The thesis is divided into five additional chapters: background, software and tools, implementation, experiments and results, and discussion. 	
 	
 \paragraph{Chapter 2: Background}
 The background chapter presents theory on which this thesis is based, including a survey of existing work.
@@ -357,6 +357,33 @@ A weakness of the SVM is that it is only feasible when the classes are linearly 
 	\label{fig:svmtransform}
 \end{figure}
 \FloatBarrier
+
+\paragraph{Kernel functions} \label{sub:kernel}
+There is different kernel functions to compute the similarity between two datapoints as shown in table \ref{tab:kern}. The kernel are dependent on how complex the problem is. Linear kernel is sufficient if a problem is linear separable in original space.  
+
+%Polynomial kernel
+%By using this, linearly dependent vectors in the input space get transformed to
+%independent vectors in kernel space.
+
+%The output of this kernel depends on the Euclidean distance between x and y.
+%Either x or y will be the centre of the radial basis function and σ will determine
+%the area of influence over the data space.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ll}
+		\hline
+		\textbf{Kernel name} & \textbf{Values} \\ \hline
+		\multirow{2}{*}{Linear} & \multirow{2}{*}{$\vec{x} \cdot \vec{x}$} \\
+		&  \\
+		\multirow{2}{*}{RBF} & \multirow{2}{*}{$exp(-\gamma\vert\vert \vec{x}\cdot\vec{y}\vert\vert^{2})$} \\
+		&  \\
+		Polynomial & $(1 + \vec{x} \cdot \vec{y})^{d}$  \\ \hline
+	\end{tabular}
+	\caption{Table shows the Pythons SVM kernels.}
+	\label{tab:kern}
+\end{table}
+\FloatBarrier
 	
 \subsubsection{Naive bayes}
 The Naive Bayes algorithm is a probabilistic classifier based on Bayes’ theorem with the assumption that the effect of a feature on a given class is independent of the values of other variables \cite{Marsland:2009:MLA:1571643}. The assumption simplifies computation, and is the reason it is considered as naive. Consider a vector with n features, $X_j$, and a class, $C_i$, then the Bayes theorem can be formulated with the equation \ref{eq:bayesNaivews2}.
@@ -515,7 +542,13 @@ Wrapper feature selection will try different combinations of the feature set, ev
 Embedded feature selection performs feature selection as part of the learning procedure and is usually specific to a given classifier.
 
 \subsection{Features scaling} \label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier} involve distances in their computation, and might cause poor performance when one of the vectors has a large range, and then it would dominate other attributes.
+To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier} involve distances in their computation, and might cause poor performance when one of the vectors has a large range, and then it would dominate other attributes. A common way is to standardize the feature vector, which give zero mean and unit variance is given in equation \ref{eq:standarize}, where $x$, $\bar{x}$ and $\sigma$ are the feature to be standardized, mean and standard deviation, respectively. 
+
+\begin{equation}
+z = \frac{x-\bar{x}}{\sigma}
+\label{eq:standarize}
+\end{equation}
+
 
 	
 \section{Model validation}
@@ -2435,7 +2468,7 @@ Instead of explicitly labeling the terrain, having unsupervised learning could b
 Only one robot was used to evaluate the sensor. Different platforms may not give the same results. Thus, to achieve a more reliable evaluation of the sensor, different platforms should be tested, which can be addressed as further work.
 \\
 \\
-Testing with other gaits.
+The importance of terrain classification is be able to change gait on different terrain. Thus, the approach should be enhance to be able to traverse between different terrains with different gaits a further researched is necessary.
 
 %http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 %Optical force (Legged Robots)
@@ -2453,9 +2486,10 @@ Testing with other gaits.
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
 \chapter{Code of segmentation of data} \label{ap:code}
+
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
 
-
+\begin{comment}
 \chapter{SVM kernels} \label{ap:kernel}
 The table \ref{aptab:kern} shows the equation of each kernel to compute similarity between two datapoints, and it can be seen that only RBF will be affected by change in the gamma during the grid search. The kernel are dependent on how complex the problem is.  For instance if a problem is linear separable in original space, it is efficiency to only use linear kernel, which is a dot product.
 
@@ -2474,6 +2508,7 @@ The table \ref{aptab:kern} shows the equation of each kernel to compute similari
 	\label{aptab:kern}
 \end{table}
 \FloatBarrier
+\end{comment}
 
 \chapter{Selected features} \label{ap:self}
 \subsubsection{Set 1}
