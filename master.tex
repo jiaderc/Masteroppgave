@@ -64,17 +64,17 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 % Draw background
 \newcommand{\background}[5]{%
 	\begin{pgfonlayer}{background} % Left-top corner of the background rectangle 
-		\path (#1.west |- #2.north)+(-0.5,0.25) node (a1) {};
+		\path (#1.west |- #2.north)+(-0.5,0.25) node (a1){};
 		% Right-bottom corner of the background rectanle
-		\path (#3.east |- #4.south)+(+0.5,-0.25) node (a2) {}; % Draw the background
+		\path (#3.east |- #4.south)+(+0.5,-0.25) node (a2){}; % Draw the background
 		\path[fill=yellow!20,rounded corners, draw=black!50, dashed] (a1) rectangle (a2);
-		\path (#3.east |- #2.north)+(0,0.25)--(#1.west |- #2.north) node[midway] (#5-n) {};
-		\path (#3.east |- #2.south)+(0,-0.35)--(#1.west |- #2.south) node[midway] (#5-s) {};
-		\path (#3.east |- #2.north)+(0.7,0)--(#3.east |- #4.south) node[midway] (#5-w) {};
-		\path (a1.east |- a1.south)+(8,0.1) node (u1)[texto] {\textit{#5}}; \end{pgfonlayer}}
+		\path (#3.east |- #2.north)+(0,0.25)--(#1.west |- #2.north) node[midway] (#5-n){};
+		\path (#3.east |- #2.south)+(0,-0.35)--(#1.west |- #2.south) node[midway] (#5-s){};
+		\path (#3.east |- #2.north)+(0.7,0)--(#3.east |- #4.south) node[midway] (#5-w){};
+		\path (a1.east |- a1.south)+(8,0.1) node (u1)[texto]{\textit{#5}}; \end{pgfonlayer}}
 
 \newcommand{\transreceptor}[3]{% 
-	\path [linepart] (#1.east) -- node [above] {\scriptsize #2} (#3);}
+	\path [linepart] (#1.east) -- node [above]{\scriptsize #2} (#3);}
 %End tegne diagrammer
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -116,7 +116,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	\maketitle{}
 	
 	\frontmatter{}
-\chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
+R\chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
 This thesis investigates the possibility of identifying different terrains using 3D optical force sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo (UiO) on four different terrains. The experimental results demonstrated among the top performed approaches compared to earlier work with an accuracy of 94.8\%. The proposed approach has the possibility of using in real time applications, and a custom segmentation method was presented for extracting desired data from optical force sensor. The segmented data samples were the basis for creating five different feature sets and tested on five different classifiers.  
 
 \tableofcontents{}
@@ -135,13 +135,14 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 \pagestyle{MyStyle}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans naturally adapt their walking style on different terrains to obtain a stable locomotion. Adaptation of walking style comes from past experience. For instance, one might have experienced running on icy roads resulting a fall, while running on dry road is feasible. To achieve this ability, the robot must be able to detect and distinguish different terrains.
+Humans naturally adapt their walking style on different terrains to obtain a stable locomotion. Adaptation of walking style comes from past experience. For instance, one would not run on icy sidewalk in order to prevent from slipping or falling. While on more rough surface, one may freely decide the speed to move without worrying about losing control of robot's motion. To achieve this ability, the robot must be able to detect and distinguish different terrains.
 \\
 \\
-Terrain classification is the process of identifying different types of terrain by measure its characteristics such as texture, slope, roughness, hardness, and friction. For instance, grass is soft and provides an amount of friction, while rocks are hard and might have less friction than grass. There is a wide range type of surfaces both outdoor and indoor. Outdoor terrains are more unpredictable due to their unstructured environment, and their properties change according to the weather. Indoor surfaces, on the other hand, are more predictable, since they have more structured environments and will not be highly affected by the same factors.
+Terrain classification is the process of identifying different types of terrain by measure features such as texture, slope, roughness, hardness, and friction. It is a popular research field where countless of studies can be found in the literature  \cite{Giguere06environmentidentification,Giguere2009,6386243,6569179,4399500,littleDog}. Some of the importance of terrain classification is shown in  \cite{7487541}, where different controllers were suited for different terrains by letting quadrupedal robots hop on soft and hard terrain. Another study has investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. Some of the results showed that the energy consumption and the walking speed are tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
 \\
 \\ 
-Employing a robot with variety of sensors give the robot a perception of the surfaces. Information can be perceived at a distance such as camera \cite{littleDog} or laser scanners \cite{4651026}. Other information can be obtained through proprioceptive sensor, which reflect the robot's interaction on different surfaces such as joint angle, accelerometers and gyroscopes. Tactile sensor is another potential sensor, that measure force of physical contact between the sensor and a surface. Degrave et al. \cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result indicated that the combination of tactile sensor and proprioceptive joint angle were the most informative of all the sensors. 
+%Sucessful perception of the terrain is a key ability that impacts the gait change 
+Robot's perception of different surfaces plays an important rule for successful terrain classification. Information can be perceived at a distance such as camera \cite{littleDog} or laser scanners \cite{4651026}. Other information can be obtained through robot's interaction on different surfaces such as joint angle, accelerometers and gyroscopes. Another potential sensor is the tactile sensor, which measure force of physical contact between the sensor and a surface. Degrave et al. \cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result indicated that the combination of tactile sensor and proprioceptive joint angle were the most informative of all the sensors. 
 \\
 \\
 Several studies have explored the use of tactile sensors due to terrain classification \cite{6784609,ROB:ROB20332,5752869,6584154,6849778,5752869}. Less has only utilized the tactile on a quadruped robot \cite{6784609}, nor does the research report the type of the tactile sensor used in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}. Every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieve feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are adequate properties to distinguish between different surfaces. However, a further research is necessary to determine whether a optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
@@ -195,7 +196,7 @@ Legged robots have been a popular topic of robotic research, mainly due to their
 
 
 \paragraph{Monopod}
-The monopod is a simple one-legged robot design. The locomotion of  monopod robots is performed through hops, and so they are also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of a one-legged robot was developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
+The monopod is a simple one-legged robot design. The locomotion of  monopod robots is performed through hops, and hence also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of a one-legged robot was developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
 
 \paragraph{Biped}
 A biped is a robot with two legs. The studies on biped robots have been a popular research field, especially towards developing humanoids. Creating a humanoid implicates that the robot is able to imitate human behavior, such as walking, running, jumping, traversing on stairs, etc. The well-known NAO robot \cite{NAO}, shown in figure \ref{fig:nao} has impressive abilities. Not only is the NAO robot able to walk, but it is also capable of seeing, hearing and speaking. 
@@ -231,7 +232,7 @@ A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Hav
 		\caption{Lauron V robot \cite{6878051}.}
 		\label{fig:LAURON}
 	\end{subfigure}
-	\caption[Overview over different types of legged robot]{Figure showing different types of legged robot.}\label{fig:robots}
+	\caption[Overview over different types of legged robot]{Overview over different types of legged robot.}\label{fig:robots}
 \end{figure}
 
 \FloatBarrier
@@ -247,7 +248,7 @@ Tactile sensors are designed to measure properties through direct physical inter
 	\item \textbf{Mechanical properties} measures such as slip condition, thermal or roughness.
 \end{itemize}
 
-Based on this information from the tactile sensor, it is possible to use the robot for manipulation, exploration or response. These activities are shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control, for instance, the grip force on an object. Exploration has the possibility of identifying objects by assimilating information about properties such as hardness, friction, and roughness from materials and surfaces. Response refers to detection of, and reaction to, contact from external agents, and sensing if it is a gentle touch or strong impact.
+Based on the these information listed above from the tactile sensor, it is possible to use the robot for manipulation, exploration or response. These activities are shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control, for instance, the grip force on an object. Exploration has the possibility of identifying objects by assimilating information about properties such as hardness, friction, and roughness from materials and surfaces. Response refers to detection of, and reaction to, contact from external agents, and sensing if it is a gentle touch or strong impact.
 
 	\begin{figure}
 	\centering
@@ -269,7 +270,7 @@ Based on this information from the tactile sensor, it is possible to use the rob
 		\caption{Response}
 		\label{fig:tact3}
 	\end{subfigure}\hfill
-	\caption[Applications for the tactile sensor]{Figures showing three types of application by using the tactile sensor \cite{Cutkosky2008}.}
+	\caption[Applications for the tactile sensor]{Three types of application that can be used of the tactile sensor which is to manipulate (a) exploration (b) response (c) \cite{Cutkosky2008}.}
 	\label{fig:tactiles}
 \end{figure}
 
@@ -293,14 +294,14 @@ Another interesting approach uses three sets of optical sensors to develop a 6-a
 %http://download.springer.com/static/pdf/934/bok%253A978-3-319-27340-2.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fbook%2F10.1007%2F978-3-319-27340-2&token2=exp=1492951378~acl=%2Fstatic%2Fpdf%2F934%2Fbok%25253A978-3-319-27340-2.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fbook%252F10.1007%252F978-3-319-27340-2*~hmac=6e881e187a3cc0e1e04f4aabdf3f48393795889f42c9942e87077771bb132d4e
 
 
-\section {Machine learning}
+\section{Machine learning}
 Machine learning is a type of artificial intelligence where a robot can learn to adapt or predict from earlier datasets without being explicitly programmed to do so. Each dataset consists of a feature vector which belongs to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for comparing new and unseen datasets to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}.
 
 \paragraph{Supervised learning}
-Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in the learning process knows the correct answers of each dataset, and will base the prediction on that. The learning process usually stops when the algorithm converges towards an acceptable level of performance.
+Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in the learning process knows the correct answers of each dataset, and is the basis for the prediction. The learning process usually stops when the algorithm converges towards an acceptable level of performance.
 	
 \paragraph{Unsupervised learning}
-Unsupervised learning algorithms make predictions from data points without labels. The system has to organize the data on its own and make predictions based on that. A common method to organize the data is by clustering.
+Unsupervised learning algorithms make predictions from data points without labels. The system has to organize the data on its own and is the basis for predictions. A common method to organize the data is by clustering.
 	
 \paragraph{Reinforcement learning}
 Reinforcement learning algorithms will choose an action for each dataset and will receive a reward indicating how good the decision was. Based on rewards, the algorithm modifies its strategy in order to get the highest reward.  
@@ -312,7 +313,7 @@ Evolutionary learning uses biological evolution such as reproduction, mutation, 
 The classifier is where the learning process occurs, and produces the inferred function. The following sections will introduce the technical background of five classifiers; the artificial neural network, the support vector machine, the Naive Bayes, the k-nearest neighbors, and the decision trees.
 
 \subsubsection{Artificial neural network}
-Artificial neural network (ANN) are inspired by neurons in the human brain. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists of a weighted set inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+Artificial Neural Network (ANN) are inspired by neurons in the human brain. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists of a weighted set inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
 \\
 \\
 The learning process of a perceptron in supervised learning aims to be able to reproduce a particular pattern to a class, which consists of firing and non-firing neurons for a given input. If some of the neurons yield a wrong output, for instance a neuron does not fire when it should, then its weights will be adjusted to make it fire right the next time. There is a possibility to add more layers to the neural network, which would make it able to handle non-linear separable problems. This is also called a multi-layer perceptron (MLP), or a multi neural network.
@@ -321,7 +322,7 @@ The learning process of a perceptron in supervised learning aims to be able to r
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.9]{Figures/neuron2.PNG}
-	\caption[Model of a single perceptron]{Figure showing a simple model of a single perceptron \cite{Marsland:2009:MLA:1571643}}
+	\caption[Model of a single perceptron]{Model of a single perceptron \cite{Marsland:2009:MLA:1571643}.}
 	\label{fig:NN}
 \end{figure}
 	
@@ -332,42 +333,33 @@ A multi-layer perceptron consists of two or more layers between the input and ou
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.6]{Figures/MLP.png}
-	\caption[Model of a multi-layer perceptron]{Figure showing a multi-layer perceptron with 1 hidden layer \cite{MLP}. It is possible to increase the number of hidden layers and nodes to each layer}
+	\caption[Model of a multi-layer perceptron]{Model of multi-layer perceptron with one hidden layer \cite{MLP}.}
 	\label{fig:MLP}
 \end{figure}
 	
 \subsubsection{Support vector machine}
 The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents the classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells us where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved by a small amount, there would be a risk that a datapoint from one class that lies close to the boundary would be on the wrong side. Finding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region it can put to separate the classes without having any points inside. The hatched classes lie on the margin, and support vectors. This process can be done by the dot product between each datapoint \cite{Cortes1995}.
 
-\begin{figure}[h]
-	\centering
-	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
-	\includegraphics{Figures/SVM.PNG}
-	\caption[An example of SVM classificiaton]{Figure showing an example of a optimal hyperplane create by SVM on a two-class classification problem  \cite{Cortes1995}.}
-	\label{fig:SVM}
-\end{figure}
-\FloatBarrier
 
-A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function.
-	
 \begin{figure}[h]
 	\centering
 	\includegraphics{Figures/svmtransform}
-	\caption[Illustration of transformation???]{Figure showing transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
+	\caption[Illustration of transformation]{Figure showing transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
 	\label{fig:svmtransform}
 \end{figure}
 \FloatBarrier
 
-\paragraph{Kernel functions} \label{sub:kernel}
-There is different kernel functions to compute the similarity between two datapoints as shown in table \ref{tab:kern}. The kernel are dependent on how complex the problem is. Linear kernel is sufficient if a problem is linear separable in original space.  
 
-%Polynomial kernel
-%By using this, linearly dependent vectors in the input space get transformed to
-%independent vectors in kernel space.
+\begin{figure}[h]
+	\centering
+	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
+	\includegraphics{Figures/SVM.PNG}
+	\caption[An example of SVM classificiaton]{Model of optimal margin and hyperplane created by SVM on a two-class classification problem  \cite{Cortes1995}.}
+	\label{fig:SVM}
+\end{figure}
+\FloatBarrier
 
-%The output of this kernel depends on the Euclidean distance between x and y.
-%Either x or y will be the centre of the radial basis function and σ will determine
-%the area of influence over the data space.
+A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function. 
 
 \begin{table}[h]
 	\centering
@@ -380,18 +372,18 @@ There is different kernel functions to compute the similarity between two datapo
 		&  \\
 		Polynomial & $(1 + \vec{x} \cdot \vec{y})^{d}$  \\ \hline
 	\end{tabular}
-	\caption{Table shows the Pythons SVM kernels.}
+	\caption[SVM kernel functions]{SVM kernel functions.}
 	\label{tab:kern}
 \end{table}
 \FloatBarrier
 	
-\subsubsection{Naive bayes}
+\subsubsection{Naive Bayes}
 The Naive Bayes algorithm is a probabilistic classifier based on Bayes’ theorem with the assumption that the effect of a feature on a given class is independent of the values of other variables \cite{Marsland:2009:MLA:1571643}. The assumption simplifies computation, and is the reason it is considered as naive. Consider a vector with n features, $X_j$, and a class, $C_i$, then the Bayes theorem can be formulated with the equation \ref{eq:bayesNaivews2}.
 \begin{equation} 
 P(C_i \vert X_j) = \frac{P(X_j \vert C_i)P(C_i)}{P(X_j)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belong to a class $C_i$, while $P(X_j \vert C_i)$ is the probability of the class $C_i$, which belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increases, which requires more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
+The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belong to a class $C_i$, similar to $P(X_j \vert C_i)$ which is the probability of the class $C_i$, which belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increases, which requires more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
 \begin{equation} 
 P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
 \label{eq:naiveB}
@@ -399,18 +391,18 @@ P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
 Prediction is based on selecting the class $C_i$ with the highest probability.
 
 \subsubsection{K-nearest neighbors}
-K-nearest neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate the effect of performance on different k values is shown in \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. However, if k is set to 5, then the green circle will be classified as square.
+K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate the effect of performance on different k values is shown in \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. Conversely, if k is set to 5, then the green circle will be classified as square.
 
 
 
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/KNN.png}
-		\caption[Example of KNN classification problem]{Figure showing an example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
+		\caption[An example of KNN classification problem]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
 \end{figure}
 	
-A common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation\ref{eq:edistance}  \cite{Bao2004}.
+A common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation \ref{eq:edistance}  \cite{Bao2004}.
 	
 \begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
@@ -428,7 +420,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
-		\caption[Example of a decision tree]{Figure showing an example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
+		\caption[Model of a decision tree]{An example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
 		\label{fig:decisiontree}
 \end{figure}
 \FloatBarrier
@@ -436,7 +428,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 An important aspect of decision trees is how to construct one, based on the features. Although there are a few different methods, most are based on the same principle: by starting at the root, and choosing the most discriminative feature at each step \cite{Marsland:2009:MLA:1571643}. The attractiveness with trees is that they are efficient, and it is easy to understand and interpret the data.
 
 \subsection{Hyperparameter tuning}\label{sub:hypt}
-Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Thus, to optimize a classifier, it is recommended to find these appropriate parameters. It is difficult to know optimal values of parameters, since it often differs for different datasets. A strategy to finding these parameters recommended by Hsu et al. \cite{Hsu10apractical}, is to use a grid search. A grid search will exhaustively search through a desired specified subset and output the parameters with the best results. A benefit of using a grid search, instead of searching by heuristics or approximations, is that it avoids getting stuck in local optima. However, the biggest weakness is computation complexity when the search space increases.
+Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Therefore, it is recommended to set appropriate parameters in order to optimize a classifier. But it is difficult to chose optimal values of parameters, since it often differs for different datasets. A strategy to finding these parameters recommended by Hsu et al. \cite{Hsu10apractical}, is to use a grid search. A grid search will exhaustively search through a desired specified subset and output the parameters with the best results. A benefit of using a grid search, instead of searching by heuristics or approximations, is that it avoids getting stuck in local optima. However, the biggest weakness is computation complexity when the search space increases.
 
 
 \section{Features} \label{features}
@@ -452,7 +444,7 @@ Feature extraction is the process of building a new set of features from the ori
 The following paragraphs will explain five commonly used statistical features; mean, variance, standard deviation, skewness and kurtosis.
 	
 \paragraph{Mean}
-The mean is generally referred to as the average, and is defined by the sum of the values divided by the number of values \cite{Press:2007:NRE:1403886}, which can be seen in equation \ref{eq:mean}.
+The mean is generally referred to as the average, and is defined by the sum of the values divided by the number of values \cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:mean}.
 	
 \begin{equation}
 \bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
@@ -461,7 +453,7 @@ The mean is generally referred to as the average, and is defined by the sum of t
 	
 	
 \paragraph{Variance}
-Variance describes the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886}, which can be seen in equation \ref{eq:variance}.
+Variance describes the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:variance}.
 	
 	\begin{equation}
 	Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
@@ -469,7 +461,7 @@ Variance describes the spread between numbers in a data set. The variance can be
 	\end{equation}
 
 \paragraph{Standard deviation}
-Standard deviation is a measure of spread of a data set from its mean. High deviation indicates that the data points are further from the mean. This can be calculated by taking the square root from the variance\cite{Press:2007:NRE:1403886}, which can be seen in equation \ref{eq:std}.
+Standard deviation is a measure of spread of a data set from its mean. High deviation indicates that the data points are further from the mean. This can be calculated by taking the square root from the variance\cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:std}.
 	
 	\begin{equation}
 	\sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
@@ -477,7 +469,7 @@ Standard deviation is a measure of spread of a data set from its mean. High devi
 	\end{equation}
 	
 \paragraph{Skewness} 
-Skewness describes asymmetry of a distribution, and is shown in equation \ref{eq:skew} \cite{Press:2007:NRE:1403886}.
+Skewness describes asymmetry of a distribution, and is given in equation \ref{eq:skew} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
 	Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
 	\label{eq:skew}
@@ -488,14 +480,14 @@ The skewness can be either negative or positive depending on whether data points
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.8]{Figures/Skewness}
-		\caption[Skewness]{Skewness \cite{Press:2007:NRE:1403886}}
+		\caption[Skewness]{Skewness \cite{Press:2007:NRE:1403886}.}
 		\label{fig:skew}
 	\end{figure}
 	
 	\FloatBarrier
 	
 \paragraph{Kurtosis}
-Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is shown in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
+Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is given in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
 	Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
@@ -506,7 +498,7 @@ A positive kurtosis of a distribution has a sharper peak and heavier tails relat
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.8]{Figures/Kurtosis}
-		\caption[Kurtosis]{Kurtosis \cite{Press:2007:NRE:1403886}}
+		\caption[Kurtosis]{Kurtosis \cite{Press:2007:NRE:1403886}.}
 		\label{fig:kurtosis}
 	\end{figure}
 	
@@ -517,7 +509,7 @@ A positive kurtosis of a distribution has a sharper peak and heavier tails relat
 	
 	
 \subsection{Features selection}\label{selection}	
-The process of feature selection is to select a subset of features from the original set. Selecting good features has the benefit of increasing classifier performance, preventing the curse of dimensionality mentioned in section \ref{curseDim}, and reducing storage requirements and training time. Note that a feature can individually be completely useless, but is relevant when used together with other features \cite{Guyon2006}. There are three types of feature selection algorithms: filter-, wrapper-, and embedded methods. %as shown in figure \ref{fig:selection}. 
+The process of feature selection is to select a subset of features from the original set. Selecting good features has the benefit of increasing classifier performance, preventing the curse of dimensionality mentioned in section \ref{curseDim}, and reducing storage requirements and training time. But, one has to be aware that even a feature can individually be completely useless, might be relevant when used together with other features \cite{Guyon2006}. There are three types of feature selection algorithms: filter-, wrapper-, and embedded methods. %as shown in figure \ref{fig:selection}. 
 	
 
 \begin{comment}
@@ -542,7 +534,7 @@ Wrapper feature selection will try different combinations of the feature set, ev
 Embedded feature selection performs feature selection as part of the learning procedure and is usually specific to a given classifier.
 
 \subsection{Features scaling} \label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier} involve distances in their computation, and might cause poor performance when one of the vectors has a large range, and then it would dominate other attributes. A common way is to standardize the feature vector, which give zero mean and unit variance is given in equation \ref{eq:standarize}, where $x$, $\bar{x}$ and $\sigma$ are the feature to be standardized, mean and standard deviation, respectively. 
+To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier} involve distances in their computation, and might cause poor performance when one of the vectors has a large range, and then it would dominate other attributes. A common way is to standardize the feature vector by zero mean and unit variance as given in equation \ref{eq:standarize}, where $x$, $\bar{x}$ and $\sigma$ are the feature to be standardized, mean and standard deviation, respectively. 
 
 \begin{equation}
 z = \frac{x-\bar{x}}{\sigma}
@@ -554,8 +546,8 @@ z = \frac{x-\bar{x}}{\sigma}
 \section{Model validation}
 Model validation relates to evaluating the performance of a classifier. 
 	
-\subsection{No free lunch theorem} \label{seq:nofree}
-The well-known No Free Lunch theorem\cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieves great performance for one problem, it might not hold for another problem. Thus, it is recommended to apply several classifiers.
+\subsection{No Free Lunch Theorem} \label{seq:nofree}
+The well-known No Free Lunch theorem \cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieves great performance for one problem, it might not hold for another problem. Thus, it is recommended to apply several different classifiers for different problems.
 	
 \subsection{Ovefitting and underfitting}
 Overfitting and underfitting the data is an issue in machine learning which causes poor performance of classification. Overfitting occurs if the classifier has adapted to the noise within a data set. Meanwhile, underfitting occurs if there is not enough training data and the classifier will not be able to generalize a new data set. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimates how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
@@ -563,23 +555,23 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 	\begin{figure}[h]
 		\begin{subfigure}{0.5\linewidth}
 			\centering
-			\includegraphics[scale=0.43]{Figures/Overfitting}
+			\includegraphics[scale=0.4]{Figures/Overfitting}
 			\caption{Overfitting}
 			\label{fig:over}
 		\end{subfigure}%
 		\begin{subfigure}{.5\linewidth}
 			\centering
-			\includegraphics[scale=0.43]{Figures/Underfitting}
+			\includegraphics[scale=0.4]{Figures/Underfitting}
 			\caption{Underfitting}
 			\label{fig:under}
 		\end{subfigure}\\[1ex]
 		\begin{subfigure}{\linewidth}
 			\centering
-			\includegraphics[scale=0.43]{Figures/Finefitting}
+			\includegraphics[scale=0.4]{Figures/Finefitting}
 			\caption{Optimal}
 			\label{fig:optimal}
 		\end{subfigure}
-		\caption[Example of when model is over-, underfitted and optimal]{Figure illustrates when a model is \ref{fig:over} overfitted, \ref{fig:under} underfitted and \ref{fig:optimal} optimal }
+		\caption[Illustration of when a model is over-, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under} and optimal \ref{fig:optimal}}
 		\label{fig:fitting}	
 	\end{figure}
 	
@@ -596,7 +588,7 @@ The process of K-fold is to partition the data into k subsets, where one subset 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{Figures/Kfold}
-		\caption[Process of k-fold cross validation]{The figure showing an instance of k-fold cross validation. In this case the k is set to be 8 which is also the length of the feature vectors}
+		\caption[K-fold cross validation]{An instance of k-fold cross validation. In this case is the LOOCV, since the k is set to be 8 which is the length of the feature vectors.}
 		\label{fig:kfold}
 	\end{figure}
 	
@@ -604,7 +596,7 @@ The process of K-fold is to partition the data into k subsets, where one subset 
 	
 	
 \subsection{Evaluating Classifiers}\label{subsec:evalclf}
-Evaluation of the performance a classifier can be done by calculating metrics based on correct or wrong outputs. For instance, a two-class classifier with classes "positive" and "negative" will have four different outcomes:
+Evaluation of the performance to a classifier can be done by calculating metrics based on correct or wrong outputs. For instance, a two-class classifier with classes "positive" and "negative" will have four different outcomes:
 	
 	\begin{enumerate}
 		\item True postive (TP) is a correct prediction of class positive.
@@ -645,7 +637,7 @@ Evaluation of the performance a classifier can be done by calculating metrics ba
 	\end{equation}
 	%\part{The project}                    %% ... or ??
 	\FloatBarrier
-The accuracy will tell us the overall performance of the model. However, there is a possibility that the model only classifies three of four terrains correctly and still gets a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicates that the class either has a low precision, recall or both. Low precision indicates that the classifier has difficulty to predict the current class, while low recall indicates that it is more likely that a class is to be classified in other classes.
+The accuracy gives an indication of the overall performance of a model. However, there is a possibility that the model only classifies three of four classes correctly and still gets a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicates that the class either has a low precision, recall or both. Low precision indicates that the classifier has difficulty to predict the current class, while low recall indicates that it is more likely that a class is to be classified in other classes.
 \\
 \\
 It is interesting to see which class is easier to predict than others. This can be seen by using the confusion matrix. The confusion matrix consists of a square matrix with one row for predicted class, and a column for actual class (or vice-versa). An example of the confusion matrix is shown in table \ref{tab:cmatrix}.
@@ -660,7 +652,7 @@ It is interesting to see which class is easier to predict than others. This can 
 			\multicolumn{1}{|l|}{} & $C_2$ & 5 & 8 & 1 \\ \cline{2-5} 
 			\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 8 \\ \hline
 		\end{tabular}
-		\caption{A confusion matrix of 3-class classification.}
+		\caption[Confusion matrix of 3-class classification.]{Confusion matrix of 3-class classification.}
 		\label{tab:cmatrix}
 	\end{table}
 	
@@ -669,7 +661,7 @@ It is interesting to see which class is easier to predict than others. This can 
 Terrain classification has been applied to both wheeled and legged robots. Wheeled robots have the benefit of achieving stable locomotion by changing their speed on different terrains, while the legged robots must either change their gait, walking speed or both. Changing the gait for a legged robot can be complex, but has the benefit of being able to traverse on more difficult terrains. 
 \\
 \\
-The most commonly used legged robots in terrain classification are quadrupeds  \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapods \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179}, due to their stability on rough terrain. However, a few have used monopods \cite{5602459} and bipeds \cite{7803265}.
+The most commonly used legged robots in terrain classification are quadrupeds  \cite{6784609,littleDog,6849778,Hoffmann20141790} and hexapods \cite{Walas2015,26b23e912c654fe4b7478fd910130195,6569179}, due to their stability on rough terrain. However, there is few studies where monopods \cite{5602459} and bipeds \cite{7803265} have been used.
 \\
 \\
 The Bayes theorem suits to mathematically express the terrain identification problem, and allows evaluation of unexpected mismatches between sample classes and the real environments. In equation \ref{eq:bayesNaivews2}, the A could represent possible terrains that the robot is expected to predict, while B is the data from the sensor. According to the equation \ref{eq:bayesNaivews2} the $P(A \vert B)$ will be the likelihood that these data from sensor belong to a certain type terrain.
@@ -680,13 +672,7 @@ The Bayes theorem suits to mathematically express the terrain identification pro
 	%http://www2.cs.siu.edu/~hexmoor/classes/CS404-S09/RobotLocomotion.pdf
 	%http://www.idt.mdh.se/kurser/ct3340/ht12/MINICONFERENCE/FinalPapers/ircse12_submission_21.pdf
 		
-\subsection{Importance of terrain classification}
-The importance of terrain classification for legged robots is that the terrain is a major factor affecting the decision for the gait change \cite{6569179}. Most legged robots have the benefit of being able to change their gait and walking speed to achieve a stable locomotion. For instance a running gait may be efficient on flat road, but fail to maintain stability when used on ice, because of slipping. An example of an application is shown in Giguere et al. \cite{Giguere06environmentidentification}, where an amphibious legged robot can switch from a walking to a swimming gait, according to which terrain it is on. 
-\\
-\\
-It has been shown that different controllers were suited for different terrains by letting quadrupedal robots hop on soft and hard terrain \cite{7487541}. Another study has investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. Some of the results showed that the energy consumption and the walking speed are tied to the terrain type. That is, a trade-off between the physical speed and the power consumption of the robot can be achieved by controlling the cycle-frequency of the leg rotation.
-	
-	
+		
 \subsection{Terrain sensing}
 In order to classify various terrains, the system must obtain information from the terrain either by remote sensing, local sensing or both.
 	
@@ -751,7 +737,7 @@ A common method of validation is using the k-fold cross-validation  \cite{DBLP:c
 Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation made the classifier confused between grass and concrete terrains. 
 \\
 \\
-As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performance. However, it does not tell us how well it predicts with unseen data. This is because experiments always use the same samples where they involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
+As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performance. However, it does not tell us how well it predicts with unseen data. This is because experiments always use the same samples where they involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
@@ -765,7 +751,7 @@ OptoForce (3D force sensor) \cite{Optoforce} is a similar sensor to that of Tar 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
-	\caption[Construction of the OptoForce sensor]{Figure showing construction of the 3d optical force used in thesis \cite{OptoforceFig}}
+	\caption[Construction of the 3D OptoForce sensor]{Construction of the 3D OptoForce sensor \cite{OptoforceFig}.}
 	\label{fig:OptoforceBuild}
 \end{figure}
 \FloatBarrier
@@ -776,25 +762,25 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
-	\caption[Force direction of the OptoForce sensor]{Figure showing the x,y and z-direction for the 3d optical force used in this thesis \cite{OptoforceSheet}.}
+	\caption[Force direction of the OptoForce sensor]{Illustration where the force from x,y and z-direction points from the 3D OptoForce \cite{OptoforceSheet}.}
 	\label{fig:OptoforceAxis}
 \end{figure}
 
 \section{Robot} \label{sec:robot}
-A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits developed by Nygaard et al. \cite{7850167}. All gaits are optimized by the evolutionary algorithm. To elaborate on each gaits, the gait names will be simplified as letters. Gait A is optimized to achieve the highest speed. This makes the robot walk very fast, and is not very stable. Gait B is optimized to achieve the most stable locomotion, which leads to a slow speed. The remaining three gaits are all optimized to achieve both stable and fast locomotion. However, gait C has more focus on achieving a fast speed, gait D has more focus of achieving stability, while Gait E is a mixture of the two, which is a balanced focus on stability and speed.
+A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits developed by Nygaard et al. \cite{7850167}. All gaits are optimized by an evolutionary algorithm. To elaborate on each gaits, the gait names will be simplified as letters. Gait A is optimized to achieve the highest speed. This makes the robot walk very fast, and is not very stable. Gait B is optimized to achieve the most stable locomotion, which leads to a slow speed. The remaining three gaits are all optimized to achieve both stable and fast locomotion. However, gait C has more focus on achieving a fast speed, gait D has more focus of achieving stability, while Gait E is a mixture of the two, which is a balanced focus on stability and speed.
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Robot3}
-	\caption[Quadruped robot developed at the University of Oslo]{Figure showing the Quadruped Robot developed at the University of Oslo mounted with optoforce sensor.}
+	\caption[Quadruped robot developed at the University of Oslo]{Quadruped Robot developed at the University of Oslo mounted with optoforce sensor.}
 	\label{fig:robot}
 \end{figure}
 \FloatBarrier
 
 
 \section{Robot operating system}
-The robot mentioned in section \ref{sec:robot} operates on a Robot operating system (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
+The robot mentioned in section \ref{sec:robot} operates on a Robot Operating System (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
 
 \subsection{Messages and topics}
 A message is a data structure which could be an integer, floating point, array etc. Nodes can use a message and publish it under a given topic \cite{ROSconcept}; this feature is also called "publisher". The topic is used to identify the content of the message where a node has the possibility to subscribe to the topic, and receive data, which is also called "subscriber". This can be seen as many-to-many, one-way communication. That is, many nodes can subscribe to a topic, but they do not have the opportunity to pass any message back to the publisher.
@@ -811,7 +797,7 @@ Bag is a package for recording and playing back ROS message data \cite{ROSconcep
 A ROS package for optical force sensors can be found in \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. This gives the opportunity for other nodes to obtain data from the sensor by subscribing to the node.
 
 
-\section{Algorithms libraries}
+\section{Python libraries}
 Python provides lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use.
 
 \paragraph{Scikit-learn}
@@ -822,22 +808,22 @@ Runstats \cite{runstats} is a library which computes statistics, such as max, me
 
 
 \chapter{Implementation}\label{ch:implementation}        %% ... or ??
-This chapter attempt to explain the various choices which have been made to create machine learning models.
+This chapter attempt to present the environment setup, and explain the various choices which have been made to create machine learning models.
 
 \section{Environment setup}	
 Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to create a more challenging task for the classifierto distinguish them, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties, and are also the most difficult to distinguish. They are all slippery, and have nearly equally hardness. Soft mat differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
-The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Only one gait is used in this project, which is a balanced multi-objective gait which lets the robot have a straight locomotion. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait. 
+The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although, the robot provide many type of gaits mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait. 
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{Figures/Gulv2}
-		\caption[Floor]%
+		\caption[]%
 		{{\small Floor}}    
-		\label{fig:mean and std of net14}
+		\label{fig:mean14}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.475\textwidth}  
@@ -845,7 +831,7 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 		\includegraphics[width=\textwidth]{Figures/Teppe2}
 		\caption[]%
 		{{\small Carpet}}    
-		\label{fig:mean and std of net24}
+		\label{fig:mean24}
 	\end{subfigure}
 	\vskip\baselineskip
 	\begin{subfigure}[b]{0.475\textwidth}   
@@ -853,7 +839,7 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 		\includegraphics[width=\textwidth]{Figures/MykMatte2}
 		\caption[]%
 		{{\small Soft mat}}    
-		\label{fig:mean and std of net34}
+		\label{fig:mean34}
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[b]{0.475\textwidth}   
@@ -861,10 +847,10 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 		\includegraphics[width=\textwidth]{Figures/Hardmatte2}
 		\caption[]%
 		{{\small Hard mat}}    
-		\label{fig:mean and std of net44}
+		\label{fig:mean44}
 	\end{subfigure}
 	\caption[Terrains used in experiments]
-	{\small Four different terrain used for classification} 
+	{\small Four different terrain used in all experiments which are floor \ref{fig:mean14}, carpet \ref{fig:mean24}, soft mat \ref{fig:mean34}, and hard mat \ref{fig:mean44} } 
 	\label{fig:terrains}
 \end{figure}
 \FloatBarrier
@@ -876,10 +862,10 @@ Since the robot operates on ROS, and ROS is currently compatible with C++, Pytho
 This section will first describe how the measurement from the sensor is gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Data was gathered by having the robot walk 10 steps on each terrain. The runs were recorded into rosbag, which makes it possible to re-simulate the runs. Five runs for each terrain, and in total 20 runs were recorded. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, in this thesis, only data from the front left foot of the robot is used.
+Data was gathered by having the robot walk 10 steps on each terrain. The runs were recorded into rosbag, which makes it possible to re-simulate the runs. It was recorded five runs for each terrain, which is in total 20 runs. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, this thesis will only use data from the front left foot of the robot.
 	
 \subsection{Analyzing data from sensor}\label{sec:analyzopto}
-Analyzing the data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is that when the foot is in the air, it makes a minor change, almost constant, in the x,y, and z-directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
+Analyzing the data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is that when the foot is in the air, there is no contact between the sensor and a surface,  makes a minor change, almost constant, in the x,y, and z-directions. When there is a contact between the sensor and a surface there will give a big force variation in the all three directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
 
 
 \begin{figure} [h]
@@ -918,7 +904,7 @@ Analyzing the data aims to find common characteristics, and to be able to segmen
 An appropriate method to segment data is using a sliding window algorithm, however, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-In the thesis, it is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the program will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor can be found in appendix \ref{ap:code}.
+It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the program will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor can be found in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
 As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous work have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and used to learn and evaluate each of classifiers. The following paragraphs will introduce each set.
@@ -1009,8 +995,8 @@ Good features might come from different feature sets. This set will collect feat
 	
 The vector contains 15 features from all 3 directions, which is in total 45 features. 
 	
-\subsection{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, a fixed length is required. After many runs, the length of the data sequences vary between 125 and 135. Thus, the steps will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while in this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
+\section{Achieving a fixed length of the sequences} \label{subseq:FixLength}
+In order to use raw data as input, a fixed length is required. After many runs, the length of the data sequences vary between 125 and 135. Thus, to ensure that all data is obtained the data samples will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while in this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
 	
 \lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={lst:fix_length},frame=single,breaklines=true]{code/fix_length.py}
 	
@@ -1021,7 +1007,7 @@ In order to use raw data as input, a fixed length is required. After many runs, 
 The procedure of the learning approach is divided into two processes: collecting data samples into files and the learning process.
 	
 \subsection{Collecting samples}
-The first process is to gather data for each terrain which will be stored into files. Those files will be collected into a single file, and used as training and test samples in the next process. The procedure is shown in figure \ref{fig:createsamples}.
+The first process is to gather data for each terrain which will be stored into files. Those files will be collected into a single file, and used as training and test samples in the next process. The process is shown in figure \ref{fig:createsamples}.
 	
 \begin{figure}[h]
 	\centering
@@ -1037,14 +1023,14 @@ The first process is to gather data for each terrain which will be stored into f
 	%  \node [below=of p5] (p6-7) {};
 	
 	% Draw arrows between elements
-	\path [line] (p1.south) -- node [above] {} (p2);
-	\path [line] (p2.south) -- node [above] {} (p3);
+	\path [line] (p1.south) -- node [above]{} (p2);
+	\path [line] (p2.south) -- node [above]{} (p3);
 	\end{tikzpicture}
 	
-	\caption[Process of creating a training file]{The figure showing process of creating a training file.} \label{fig:createsamples}
+	\caption[Process of creating a training file]{Process of creating a training file.} \label{fig:createsamples}
 \end{figure}
 	
-\subsubsection{Procedure of creating samples} \label{sub:createsamples}
+\subsubsection{Process of creating samples} \label{sub:createsamples}
 	\begin{enumerate}
 		\item \textbf{\underline{Raw data}}
 		\\
@@ -1084,31 +1070,31 @@ When the data samples of each terrain is unified into a single file, the learnin
 	%  \node [below=of p5] (p6-7) {};
 	
 	% Draw arrows between elements
-	% \path [line] (p1.south) -- node [above] {} (p2);
-	\path [line] (p2.south) -- node [above] {} (p3);
-	\path [line] (p3.south) -- node [above] {} (p4);
-	\path [line] (p4.south) -| node [above] {Training set} (p5);
+	% \path [line] (p1.south) -- node [above]{} (p2);
+	\path [line] (p2.south) -- node [above]{} (p3);
+	\path [line] (p3.south) -- node [above]{} (p4);
+	\path [line] (p4.south) -| node [above]{Training set} (p5);
 	
-	\path [line] (p5.south) -- node [above] {} (p6);
-	\path [line] (p6.south) |- node [above] {} (p7);
-	\path [line] (p4.south) -- node [right] {Test set} (p9);
-	\path [line] (p7.south) -- node [above] {} (p10);
-	\path [line] (p10.south) -- node [above] {} (p8);
-	\path [line] (p9.south) -- node [above] {} (p7);
-	%  \path [line] (p5.south) -- node [above] {Feature} (p9);
+	\path [line] (p5.south) -- node [above]{} (p6);
+	\path [line] (p6.south) |- node [above]{} (p7);
+	\path [line] (p4.south) -- node [right]{Test set} (p9);
+	\path [line] (p7.south) -- node [above]{} (p10);
+	\path [line] (p10.south) -- node [above]{} (p8);
+	\path [line] (p9.south) -- node [above]{} (p7);
+	%  \path [line] (p5.south) -- node [above]{Feature} (p9);
 	\path [line,dashed] (p5) -- node [above]{Scaling factors} (p9);
 	\background{p3}{p4}{p5}{p10}{Loop} 
 	
 	\end{tikzpicture}
 	
-	\caption[Process of evaluation of a classifier]{Figure showing process to evaluate a certain classifier.} \label{fig:learningProcess}
+	\caption[Process to create and evaluate a certain classifier]{Process to create and evaluate a certain classifier.} \label{fig:learningProcess}
 \end{figure}
 
 \FloatBarrier
 	\clearpage
 \subsubsection{Details of the learning process} \label{sub:learningprocess}
 \begin{enumerate}
-\item \textbf{\underline{Reading file}}
+\item \textbf{\underline{Read file}}
 \\
 This step will take a file as input, created from section \ref{sub:createsamples}.
 		
@@ -1129,7 +1115,7 @@ This step takes the training set as input and standardizes the data as mentioned
 			
 \item \textbf{\underline{Train the classifier}}
 \\
-The classifier will take the training set as input and train.
+The classifier will take the training set as input and train. The parameters of each classifier is default values from Python. 
 			
 \item \textbf{\underline{Test classifier}} 
 \\
@@ -1204,7 +1190,7 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 0.83}} & {\color[HTML]{F8A102} 0.86} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifier withtout feature selection method]{Table showing the result after following the approach shown in figure \ref{fig:learningProcess}. Colored green has an accuracy over 90\%, yellow is between 80\%-89\%, while red has accuracy under 79\%}
+	\caption[Results from five different feature sets and classifier withtout feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Colored green has an accuracy over 90\%, yellow is between 80\%-89\%, while red has accuracy under 79\%}
 	\label{exp1}
 \end{table}
 \FloatBarrier
@@ -1243,7 +1229,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:meanz}
 	\end{subfigure}
 	
-	\caption[Examples of mean the each terrain for each directions in the time domain]{The figure showing the mean of 10 steps on each terrain different direction in time domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction }
+	\caption[Example of mean the each terrain for each directions in the time domain]{A mean of 10 steps on each terrain in different directions in the time domain, where mean in the x-direction \ref{fig:meanx}, mean in y-direction \ref{fig:meany}, and mean in z-direction \ref{fig:meanz}  is computed.}
 	\label{fig:meanxyz}
 \end{figure}
 
@@ -1270,7 +1256,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:fftz}
 	\end{subfigure}
 	
-	\caption[Examples of mean the each terrain for each directions in the frequency domain]{The figure showing the mean of each terrain different direction in frequency domain. (a) mean in the x-direction (b) mean in y-direction (c) in z-direction}
+	\caption[Examples of mean the each terrain for each directions in the frequency domain]{A mean of each terrain different direction in frequency domain, where mean in the x-direction \ref{fig:fftx}, mean in y-direction \ref{fig:ffty}, and mean in z-direction \ref{fig:fftz} is computed.}
 	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
@@ -1282,7 +1268,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 Even though there are classifiers which outperform the others, there is still improvement potential. The result achieved was without a feature selection method. The purpose of not using the feature selection was to investigate the performance without removing any features. However, as mentioned in section \ref{selection}, selecting features from a set can increase the classifier performance and prevent the curse of dimensionality. Thus, in the following experiment, the feature selection will be integrated with the previous implementation described in section \ref{subsec:learningProc} to see if there is any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is colored as red. The filter and wrapper method will be used, and both are libraries provided by scikit-learn. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and removes features to a desired number. 
 
 \paragraph{Removing features with low variance} \label{ap:variance}
-This feature selection algorithm is a filter method that removes all features where the variance does not meet some threshold. The default value of the threshold will remove all features that contain the same values, which is unlikely to occur in this experiment. To keep as many feature as possible and at the same time removing features with relative low variance, the threshold will be set to 0.2.
+Removing features with low variance (RFLV) is a filter method that removes all features where the variance does not meet some threshold. The default value of the threshold will remove all features that contain the same values, which is unlikely to occur in this experiment. To keep as many feature as possible and at the same time removing features with relative low variance, the threshold will be set to 0.2.
 
 \paragraph{Recursive feature elimination} \label{ap:rfe}
 Recursive feature elimination (RFE) is a wrapper method that uses a supervised classifier to rank each feature and remove features with a low rank. A chosen estimator will be used to train the set of features, and weigh them. Features with the smallest weights are pruned, and start over to estimate the current remaining set of features. This will be repeated until the desired number of features is reached. In this experiment, the default value will be used, which removes half of the features set.
@@ -1311,24 +1297,25 @@ Recursive feature elimination (RFE) is a wrapper method that uses a supervised c
 		
 		% Draw arrows between elements
 		% \path [line] (p1.south) -- node [above] {} (p2);
-		\path [line] (p2.south) -- node [above] {} (p3);
-		\path [line] (p3.south) -- node [above] {} (p11);
-		\path [line] (p11.south) -- node [above] {} (p4);
-		\path [line] (p4.south) -| node [above] {Training set} (p5);
+		\path [line] (p2.south) -- node [above]{} (p3);
+		\path [line] (p3.south) -- node [above]{} (p11);
+		\path [line] (p11.south) -- node [above]{} (p4);
+		\path [line] (p4.south) -| node [above]{Training set} (p5);
 		
-		\path [line] (p5.south) -- node [above] {} (p6);
-		\path [line] (p6.south) |- node [above] {} (p7);
-		\path [line] (p4.south) -- node [right] {Test set} (p9);
-		\path [line] (p7.south) -- node [above] {} (p10);
-		\path [line] (p10.south) -- node [above] {} (p8);
-		\path [line] (p9.south) -- node [above] {} (p7);
-		%  \path [line] (p5.south) -- node [above] {Feature} (p9);
+		\path [line] (p5.south) -- node [above]{} (p6);
+		\path [line] (p6.south) |- node [above]{} (p7);
+		\path [line] (p4.south) -- node [right]{Test set} (p9);
+		\path [line] (p7.south) -- node [above]{} (p10);
+		\path [line] (p10.south) -- node [above]{} (p8);
+		\path [line] (p9.south) -- node [above]{} (p7);
+		%  \path [line] (p5.south) -- node [above]{Feature} (p9);
 		\path [line,dashed] (p5) -- node [above]{Scaling factors} (p9);
 		\background{p3}{p4}{p5}{p10}{Loop} 
 		
 		\end{tikzpicture}
 		
-		\caption[Learning process after added feature selection]{Figure showing the new approach with added feature selection.} \label{fig:approach2}
+		\caption[Evaluation process with feature selection]{Modified evaluation process from \ref{subsec:learningProc}, where the new function is feature selection and is colored red.} 
+		\label{fig:approach2}
 	\end{figure}
 \FloatBarrier
 \newpage
@@ -1346,7 +1333,7 @@ Table \ref{tab:exp2_1} shows the number of features that were removed for each s
 		Set 4 & 24 & 11 & 12 \\
 		Set 5 & 45 & 19 & 22 \\ \hline
 	\end{tabular}
-	\caption[New length of each feature set after feature selection method]{Table showing new length of each features}
+	\caption[Results of length of feature vector after feature selection method]{New length of each features set after applied feature selection method.}
 	\label{tab:exp2_1}
 \end{table}
 \FloatBarrier
@@ -1386,7 +1373,7 @@ Table \ref{tab:exp2_1} shows the number of features that were removed for each s
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{009901} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifier with feature selection method]{Table showing the results after following integrating  feature selection to the learning approach}
+	\caption[Results from five different feature sets and classifier with feature selection method]{Results from five different feature sets and classifier when applied feature selection method}
 	\label{tab:exp2}
 \end{table}
 \FloatBarrier
@@ -1418,7 +1405,7 @@ It will be interesting to investigate the feature selected with each method. How
 		\label{fig:featurez}
 	\end{subfigure}
 
-	\caption[Features selected from RFE]{Figure showing comparison of each features for each terrain on feature set three}
+	\caption[Comparison of each feature on different terrain selected from RFE]{A comparison of each features selected by RFE, for each terrain on feature set three.}
 	\label{fig:wrapperset5}
 \end{figure}
 \FloatBarrier
@@ -1440,7 +1427,7 @@ In this experiment 50 new samples for each terrain is collected. The cross valid
 		Decision tree & 1 & None \\
 		Decision tree & 1 & \begin{tabular}[c]{@{}l@{}}Removing features \\ with low variance\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption[Overview of top performing approaches to be tested on unseen data samples]{The table shows classifiers with its feature set used to test on unseen data.}
+	\caption[Overview of top performing approaches to be tested on unseen data samples]{Overview of top performing classifiers with its feature set which will be used to test on unseen data.}
 	\label{tab:exp4}
 \end{table}
 \FloatBarrier
@@ -1451,7 +1438,7 @@ An overview of the performance is shown as a box plot in figure \ref{fig:boxexp}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/compareUnseen}
-	\caption[Boxplot of five top performing classifier on unseen data]{Figure showing data stream from sensor when the robot walked from floor to carpet.}
+	\caption[Boxplot of five top performing classifier on unseen data]{Boxplot of five top performing classifiers.}
 	\label{fig:boxexp}
 \end{figure}
 \FloatBarrier
@@ -1459,7 +1446,7 @@ An overview of the performance is shown as a box plot in figure \ref{fig:boxexp}
 This section will present a more detailed description of each classifiers performance with statistics metrics mentioned in section \ref{subsec:evalclf}. The following paragraphs are organized by accuracy in descending order.
 \newpage
 
-\subsubsection{SVM - Wrapper - Feature set three}
+\subsubsection{SVM - Wrapper - Feature set three} \label{sb:svmwrapper}
 This is the best performing classifier and the table \ref{svmexp} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 94.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 2.2\%. The classifier easily predicts floor, carpet, and soft mat, while it has some difficulties predicting hard mat. When the robot is on hard mat it has an average precision of 84\%, and it tends to predict it as carpet. Cause of hard mat tend to predict other terrains, Because the hard mat tends to be predicted as other terrains, the f-score for floor and carpet is decreased a little as seen in table \ref{fscoresvm}. The hard mat and carpet have relative equal f-scores. However, the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision.
 
 \begin{table}[h]
@@ -1475,7 +1462,7 @@ This is the best performing classifier and the table \ref{svmexp} shows the accu
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{80\%} & 82\% \\ \bottomrule
 		\end{tabular}
-		\caption{Table shows precision of SVM}
+		\caption{Precision of SVM - RFE - feature set three}
 		\label{pressvm}
 	\end{subtable}
 \end{table}
@@ -1493,7 +1480,7 @@ This is the best performing classifier and the table \ref{svmexp} shows the accu
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \bottomrule
 		\end{tabular}
-		\caption{Table shows recall of SVM}
+		\caption{Recall of SVM - RFE - feature set three}
 		\label{recallsvm}
 	\end{subtable}
 \end{table}
@@ -1510,7 +1497,7 @@ This is the best performing classifier and the table \ref{svmexp} shows the accu
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{88\%} & 90.1\% \\ \bottomrule
 		\end{tabular}
-		\caption{Table shows f-score of SVM}
+		\caption{F-score of SVM - RFE - feature set three}
 		\label{fscoresvm}
 	\end{subtable}
 \end{table}
@@ -1544,10 +1531,10 @@ This is the best performing classifier and the table \ref{svmexp} shows the accu
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \bottomrule
 		\end{tabular}
-		\caption{Table showing the accuracy and confusion matrix for SVM with wrapper and feature set three. The row show the actual terrains and the columns is predicted terrain}
+		\caption{Accuracy and confusion matrix for SVM with wrapper using feature set three after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{subt:svmexp}
 	\end{subtable}
-	\caption[Results of SVM - RFE - Feature set three]{Table shows the representation of each terrain as binary.}
+	\caption[Results of SVM - RFE - feature set three]{Results of SVM with RFE on feature set three after five runs, with precision \ref{pressvm}, recall \ref{recallsvm}, f-score \ref{fscoresvm}, and accuracy and confusion matrix \ref{subt:svmexp}.}
 	\label{svmexp}
 \end{table}
 \FloatBarrier
@@ -1569,7 +1556,7 @@ This is the second best performing classifier and the table \ref{nnset5} shows t
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{40\%} & \multicolumn{1}{l|}{42\%} & \multicolumn{1}{l|}{40\%} & 42\% \\ \bottomrule
 		\end{tabular}
-		\caption{Precision}
+		\caption{Precision - neural network - feature set five.}
 		\label{tabl:nnset5pre}
 	\end{subtable}
 %\end{table}
@@ -1589,7 +1576,7 @@ This is the second best performing classifier and the table \ref{nnset5} shows t
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{98\%} & \multicolumn{1}{l|}{98\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{76.9\%} & \multicolumn{1}{l|}{71.4\%} & \multicolumn{1}{l|}{75\%} & \multicolumn{1}{l|}{76.9\%} & 77.8\% \\ \bottomrule
 		\end{tabular}
-		\caption{Recall}
+		\caption{Recall - neural network - feature set five.}
 		\label{tab:nnset53}
 	\end{subtable}
 \end{table}
@@ -1606,7 +1593,7 @@ This is the second best performing classifier and the table \ref{nnset5} shows t
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{99\%} & \multicolumn{1}{l|}{99\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{52.6\%} & \multicolumn{1}{l|}{51.3\%} & \multicolumn{1}{l|}{53.8\%} & \multicolumn{1}{l|}{52.6\%} & 54.6\% \\ \bottomrule
 		\end{tabular}
-		\caption{F-score}
+		\caption{F-score - neural network feature set five.}
 		\label{tab:nnset5fscore}
 	\end{subtable}
 \end{table}
@@ -1640,17 +1627,16 @@ This is the second best performing classifier and the table \ref{nnset5} shows t
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{0} & 21 \\ \bottomrule
 		\end{tabular}
-		\caption{Neural network - feature set 5}
+		\caption{Accuracy and confusion matrix for neural network and feature set five after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{nnset5}
 	\end{subtable}
-\caption[Results of Neural network - feature set 5]{Table shows the representation of each terrain as binary.}
+\caption[Results of Neural network - feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
 \label{tab:binary}
 \end{table}
 \FloatBarrier
 \newpage
-
 	
-\subsubsection{Decision Tree - Filter - Feature set one}
+\subsubsection{Decision Tree - RFLV - Feature set one}
 This is the third best performing classifier and the table \ref{dt4} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every classification. However, the floor and soft mat still have among the highest accuracies and f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
 
 
@@ -1668,7 +1654,7 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{90\%} & 94\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{32\%} & \multicolumn{1}{l|}{28\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{30\%} & 24\% \\ \bottomrule
 		\end{tabular}
-		\caption{Decision tree filter - precision}
+		\caption{Precision - decision tree - RFLV - feature set one.}
 		\label{dtfilterprecision}
 	\end{subtable}
 \end{table}
@@ -1686,7 +1672,7 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{91.7\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{100\%} & 94\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{66.7\%} & \multicolumn{1}{l|}{77.8\%} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{65.2\%} & 66.7\% \\ \bottomrule
 	\end{tabular}
-	\caption{Decision tree filter recall}
+	\caption{Recall - decision tree - RFLV - feature set one.}
 	\label{dtfilterrecall}
 	\end{subtable}
 \end{table}
@@ -1703,7 +1689,7 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{89.8\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94.7\%} & 94\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{43.3\%} & \multicolumn{1}{l|}{41.2\%} & \multicolumn{1}{l|}{45.9\%} & \multicolumn{1}{l|}{41.1\%} & 35.3\% \\ \bottomrule
 		\end{tabular}
-		\caption{Decision tree filter fscore}
+		\caption{F-score - decision tree - RFLV - feature set one.}
 		\label{dtfilterfscore}
 	\end{subtable}
 \end{table}
@@ -1737,10 +1723,10 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{47} & 2 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
-		\caption{Decision tree}
+		\caption{Accuracy and confusion matrix for decision tree with RFLV using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{dt4}
 		\end{subtable}
-	\caption[Results of SVM - RFE - Feature set three]{Table shows the representation of each terrain as binary.}
+	\caption[Results of SVM - RFE - Feature set three]{Results of decision tree with RFLV using feature set one after five runs, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
 \label{tab:binary}
 \end{table}
 \FloatBarrier
@@ -1767,7 +1753,7 @@ This is the fourth best performing classifier and the table \ref{dt1e} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{92\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 98\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{28\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{28\%} & 36\% \\ \bottomrule
 		\end{tabular}
-		\caption{Decision tree precision - feature set one}
+		\caption{Precision - decision tree - feature set one}
 		\label{dt1Precision}
 	\end{subtable}
 \end{table}
@@ -1785,7 +1771,7 @@ This is the fourth best performing classifier and the table \ref{dt1e} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{88.5\%} & \multicolumn{1}{l|}{92.2\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{90.2\%} & 87.5\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{66.7\%} & \multicolumn{1}{l|}{68\%} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{66.7\%} & 78.3\% \\ \bottomrule
 		\end{tabular}
-		\caption{Decision tree recall without filter}
+		\caption{Recall - decision tree - feature set one}
 		\label{dt1recall}
 	\end{subtable}
 \end{table}
@@ -1802,7 +1788,7 @@ This is the fourth best performing classifier and the table \ref{dt1e} shows the
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{90.2\%} & \multicolumn{1}{l|}{93.1\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 92.5\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{39.4\%} & \multicolumn{1}{l|}{45.3\%} & \multicolumn{1}{l|}{45.9\%} & \multicolumn{1}{l|}{39.4\%} & 49.3\% \\ \bottomrule
 	\end{tabular}
-	\caption{Decision tree f-score without filter}
+	\caption{F-score - decision tree - feature set one}
 	\label{dtfscore}
 	\end{subtable}
 \end{table}
@@ -1836,16 +1822,15 @@ This is the fourth best performing classifier and the table \ref{dt1e} shows the
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & 1 \\ \cmidrule(l){3-6} 
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{3} & 18 \\ \bottomrule
 	\end{tabular}
-	\caption{Decision tree precision - Feature set one}
+	\caption{Accuracy and confusion matrix for decision tree using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 	\label{dt1e}
 	\end{subtable}
-	\caption[Results of Decision Tree - Filter - Feature set one]{Table shows the representation of each terrain as binary.}
+	\caption[Results of Decision Tree - Filter - Feature set one]{Results of decision tree with RFLV on feature set three with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
 \label{tab:dta1ll}
 \end{table}
 \FloatBarrier
 \newpage
 
- 
 \subsubsection{Neural Network - Feature set one}
 This is the fifth best performing classifier and the table \ref{nn2} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. However, in contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor too. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
 \begin{table}[h]
@@ -1861,7 +1846,7 @@ This is the fifth best performing classifier and the table \ref{nn2} shows the a
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{20\%} & \multicolumn{1}{l|}{18\%} & 24\% \\ \bottomrule
 		\end{tabular}
-		\caption{Precision Neural Network}
+		\caption{Precision - neural network - feature set one}
 		\label{nnPrecision}
 	\end{subtable}
 \end{table}
@@ -1879,7 +1864,7 @@ This is the fifth best performing classifier and the table \ref{nn2} shows the a
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{91.7\%} & \multicolumn{1}{l|}{83.3\%} & \multicolumn{1}{l|}{90\%} & 92.3\% \\ \bottomrule
 		\end{tabular}
-		\caption{Neural network recall}
+		\caption{Recall - neural network - feature set one}
 		\label{nnrecall}
 	\end{subtable}
 \end{table}
@@ -1896,7 +1881,7 @@ This is the fifth best performing classifier and the table \ref{nn2} shows the a
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{36.1\%} & \multicolumn{1}{l|}{35.5\%} & \multicolumn{1}{l|}{32.3\%} & \multicolumn{1}{l|}{30\%} & 38.1\% \\ \bottomrule
 		\end{tabular}
-		\caption{Neural network fscore}
+		\caption{f-score - neural network - feature set one}
 		\label{nnfscore}
 	\end{subtable}
 \end{table}
@@ -1930,10 +1915,10 @@ This is the fifth best performing classifier and the table \ref{nn2} shows the a
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
-		\caption{Neural network - Feature set 1 without selection}
+		\caption{Accuracy and confusion matrix for neural network tree using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{nn2}
 	\end{subtable}
-	\caption[Results of Neural Network - Feature set one]{Neural network - Feature set 1 without selection}
+	\caption[Results of Neural Network - Feature set one]{Results of neural network using feature set three after five runs, with precision \ref{nnPrecision}, recall \ref{nnrecall}, f-score \ref{nnfscore}, and accuracy and confusion matrix \ref{nn2}.}
 	\label{tab:binary}
 \end{table}
 
@@ -1962,7 +1947,7 @@ Previously, the evaluation of each classifier was based on default hyperparamete
 		SVM & 3 & RFE \\
 		Neural network & 5 & None \\ \bottomrule
 	\end{tabular}
-	\caption[Top performed models that will be used to search for best parameters]{Table show two of best performed models used to find the best parameters.}
+	\caption[Overview of top performed models used to find the best parameters]{Two best performed models used to find the best parameters.}
 	\label{tab:expparat}
 \end{table}
 \FloatBarrier
@@ -1979,7 +1964,7 @@ A crucial part of the Neural Network is the choice of number of hidden nodes, an
 		Neurons in first hidden layer  & 1,...,100       \\
 		Neurons in second hidden layer & 0,...,100       \\ \bottomrule
 	\end{tabular}
-	\caption[Parameters and values used for grid search for neural network]{Table shows hyperparameters used in the search for Neural Network.}
+	\caption[Parameters and values used in grid search for neural network]{Parameter and values used in grid search for neural network.}
 	\label{tab:hypnn}
 \end{table}
 \FloatBarrier
@@ -1996,7 +1981,7 @@ A crucial part of the Neural Network is the choice of number of hidden nodes, an
 		10 & Soft mat \\
 		11 & Hard mat \\ \bottomrule
 	\end{tabular}
-		\caption{Table shows the two binary digits representation of each terrain.}
+		\caption{Two binary digits representation of each terrain.}
 		\label{tab:twobin}
 	\end{subtable}
 	\hfill
@@ -2011,16 +1996,16 @@ A crucial part of the Neural Network is the choice of number of hidden nodes, an
 	0100 & Soft mat \\
 	1000 & Hard mat \\ \bottomrule
 \end{tabular}
-		\caption{Table shows the four binary digits representation of each terrain.}
+		\caption{Four binary digits representation of each terrain.}
 		\label{tab:fourbin}
 	\end{subtable}
-	\caption[Binary representation of terrain]{Table shows the representation of each terrain as binary.}
+	\caption[Binary representations of terrain]{Representation of each terrain with two binary digits \ref{tab:twobin}, and four binary digits \ref{tab:fourbin}.}
 	\label{tab:binary}
 \end{table}
 \FloatBarrier
 
 
-\paragraph{Support vector machine}
+\paragraph{Support vector machine} \label{pa:svmp}
 Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel can be seen in appendix \ref{ap:kernel}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. C tells how much one wants to avoid misclassifying each training example. A large C value gives a more perfect separation of the data, but might not be able to generalize data, while a low C value allows more misclassification, and might contain more errors. The gamma parameter only affects the kernel’s RBF and polynomial due to the similarity computation.
 
 
@@ -2035,7 +2020,7 @@ Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}
 		&  \\
 		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9 and \\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption[Parameters and values used for grid search for SVM]{Table shows hyperparameters used in the search for SVM.}
+	\caption[Parameters and values used in grid search for SVM]{Parameter and values used in grid search for SVM.}
 	\label{tab:hypsvm}
 \end{table}
 \FloatBarrier
@@ -2053,7 +2038,7 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 		&  &  & Binary & 4 & NaN & 74.2\% \\ \midrule
 		\textbf{SVM} & \textbf{Set 3} & \textbf{RFE} & \textbf{String} & \textbf{1} & \textbf{94.8\%} & 93.6\% \\ \bottomrule
 	\end{tabular}
-	\caption[Results of classifier after tuned parameters]{Result after tuned parameters of Neural Network and SVM.}
+	\caption[Results of classifier after tuned parameters]{Results after tuned parameters of Neural Network and SVM.}
 	\label{tab:resPara}
 \end{table}
 \FloatBarrier
@@ -2111,23 +2096,23 @@ The real time implementation can be seen on figure \ref{fig:realtime}, which is 
 		
 		
 		% Draw arrows between elements
-		\path [line] (p1.south) -- node [above] {} (p2);
-		\path [line] (p2.south) -- node [above] {} (p3);
-		\path [line] (p3.south) -- node [above] {} (p4);
-		\path [line] (p4.south) -- node [above] {} (p12);
-		\path [line] (p12.south) -- node [above] {} (p5);
-		\path [line] (p5.south) -- node [above] {} (p6);
-		\path [line] (p6.south) -- node [above] {} (p7);
-		\path [line] (p7.south) -- node [right] {Yes} (p8);
-		\path [line] (p7.west) -- ++(-2,0) |- node [above] {No} (p6);
-		\path [line] (p8.south) -- node [above] {} (p9);
-		\path [line] (p9.east) -| node [above] {} (p11);
+		\path [line] (p1.south) -- node [above]{} (p2);
+		\path [line] (p2.south) -- node [above]{} (p3);
+		\path [line] (p3.south) -- node [above]{} (p4);
+		\path [line] (p4.south) -- node [above]{} (p12);
+		\path [line] (p12.south) -- node [above]{} (p5);
+		\path [line] (p5.south) -- node [above]{} (p6);
+		\path [line] (p6.south) -- node [above]{} (p7);
+		\path [line] (p7.south) -- node [right]{Yes} (p8);
+		\path [line] (p7.west) -- ++(-2,0) |- node [above]{No} (p6);
+		\path [line] (p8.south) -- node [above]{} (p9);
+		\path [line] (p9.east) -| node [above]{} (p11);
 		
-		\path [line] (p10.south) -- node [above] {} (p11);
-		\path [line] (p11.west) -- node [above] {Data sample} (p6);
+		\path [line] (p10.south) -- node [above]{} (p11);
+		\path [line] (p11.west) -- node [above]{Data sample} (p6);
 		\end{tikzpicture}
-		
-		\caption[Process of real-time implementation]{Figure showing the real-time implementation} \label{fig:realtime}
+	
+		\caption[Real-time implementation]{Real-time implementation} \label{fig:realtime}
 	\end{figure}
 	\FloatBarrier
 	\clearpage
@@ -2149,7 +2134,7 @@ The data stream when the robot traversse from floor to carpet is shown in figure
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2_line2}
-		\caption[Data stream from floor to carpet]{Figure showing data stream from sensor when the robot walked from floor to carpet.}
+		\caption[Data stream of the robot traversing from floor to carpet]{Data stream of the robot traversing from floor to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:gulvet4teppegraf}
 	\end{figure}
 	
@@ -2167,7 +2152,7 @@ The data stream when the robot traversse from floor to carpet is shown in figure
 				Hard mat & 0.104 & 0.022 & 0.081 & 0.007 & 0.073 & 0.010 & 0.055 & 0.166 & 0.104 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from floor to carpet]{The table showing probability of each terrain per step from floor to carpet. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
+		\caption[Results of transistion from floor to carpet]{Estimated probability of each terrain per step from floor to carpet. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
 		\label{tab:Gulvet4teppe}
 	\end{table}
 	\FloatBarrier
@@ -2179,7 +2164,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3_3_Gulvet_line2}
-	\caption[Data stream from hard mat to floor]{Figure showing data stream from sensor when the robot walked from hard mat to floor}
+	\caption[Data stream of the robot traversing from hard mat to floor]{Data stream of the robot traversing from hard mat to floor. The thick gray horizontal line is the boundary between the two terrains.}
 	\label{fig:mb3Gulvet}
 \end{figure}
 	
@@ -2197,7 +2182,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 			Hard mat & \cellcolor[HTML]{34FF34}0.980 & \cellcolor[HTML]{34FF34}0.915 & \cellcolor[HTML]{34FF34}0.444 & 0.073 & 0.225 & 0.085 \\ \bottomrule
 			\end{tabular}%
 	}
-	\caption[Results of transistion from hard mat to floor]{The table showing probability of each terrain per step walking from hard mat to floor. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
+	\caption[Results of transistion from hard mat to floor]{Estimated probability of each terrain per step walking from hard mat to floor. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
 	\label{tab:mb3Gulvet}
 \end{table}
 \FloatBarrier
@@ -2212,7 +2197,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3MM_line2}
-		\caption[Data stream from hard mat to soft mat]{Figure showing data stream from sensor when the robot walked from hard mat to soft mat.}
+		\caption[Data stream of the robot traversing from hard mat to soft mat.]{Data stream of the robot traversing from hard mat to soft mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:hardmatSoftMat}
 	\end{figure}
 	
@@ -2229,7 +2214,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 				Hard mat & \cellcolor[HTML]{34FF34}0.542 & \cellcolor[HTML]{34FF34}0.935 & \cellcolor[HTML]{34FF34}0.529 & 0.142 & 0.040 & 0.313 & 0.088 & 0.085 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from hard mat to floor]{The table showing probability of each terrain per step walking from hard mat to soft mat. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
+		\caption[Results of transistion from hard mat to floor]{Estimated probability of each terrain per step walking from hard mat to soft mat. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
 		\label{hardmatSoftMat}
 	\end{table}
 	\FloatBarrier
@@ -2241,7 +2226,7 @@ The data stream when the robot traverses from soft mat to hard mat is shown in f
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM_4Resten_MB_line2}
-		\caption[Data stream from soft mat to hard mat]{Figure showing data stream from sensor when the robot walked from soft mat to hard mat.}
+		\caption[Data stream from soft mat to hard mat]{Figure showing data stream from sensor when the robot walked from soft mat to hard mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:MM_4_Resten_BGraf}
 	\end{figure}
 	
@@ -2258,7 +2243,7 @@ The data stream when the robot traverses from soft mat to hard mat is shown in f
 				Hard mat & 0.300 & 0.086 & 0.054 & 0.344 & \cellcolor[HTML]{34FF34}0.921 & \cellcolor[HTML]{34FF34}0.978 & \cellcolor[HTML]{34FF34}0.930 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from soft mat to hard mat]{The table showing probability of each terrain per step walking from soft mat to hard mat. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
+		\caption[Results of transistion from soft mat to hard mat]{Estimated probability of each terrain per step walking from soft mat to hard mat. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
 		\label{MM4MB}
 	\end{table}
 	\FloatBarrier
@@ -2270,7 +2255,7 @@ The data stream when the robot traverses from soft mat to carpet is shown in fig
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2_line2}
-		\caption[Data stream from soft mat to carpet]{Figure showing data stream from sensor when the robot walked from soft mat to carpet.}
+		\caption[Data stream of the robot traversing from soft mat to carpet.]{Data stream of the robot traversing from soft mat to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:softcarpet}
 	\end{figure}
 	
@@ -2287,7 +2272,7 @@ The data stream when the robot traverses from soft mat to carpet is shown in fig
 				Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933 & 0.037 & 0.072 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from soft mat to carpet]{The table showing probability of each terrain per step walking from soft mat to carpet. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
+		\caption[Results of transistion from soft mat to carpet]{Estimated probability of each terrain per step walking from soft mat to carpet. Marked green represent correct prediction and correct terrain, red represent wrong prediction and yellow is the correct prediction if it got wrong.}
 		\label{tab:softcarpet}
 	\end{table}
 	\FloatBarrier
@@ -2320,7 +2305,7 @@ The table \ref{tab:pred} shows the results of using the training set provided fr
 		\textbf{F-score} & 90.6\% & 76.1\% & 100\% & 69.5\% \\ \hline
 		\textbf{Accuracy} & \multicolumn{4}{c}{84.3\%} \\ \hline
 	\end{tabular}
-	\caption[Results of predicting on the other sensor]{Table shows metrics of predicting on other sensor.}
+	\caption[Results of predicting sensor mounted on the front right foot]{Results of predicting on the sensor mounted on the front right foot.}
 	\label{tab:pred}
 \end{table}
 	\FloatBarrier
@@ -2357,7 +2342,7 @@ A further analysis will be looking at the data provided from each sensor on each
 			\caption{Soft mat}
 			\label{fig:s1mykmatte}
 		\end{subfigure}
-		\caption[Comparision between data stream from different sensor]{Figure showing data stream for each terrain in time. (a) floor (b) carpet (c) hard mat (d) soft mat }
+		\caption[Comparision between data stream sensor mounted on left and right front foot of the robot]{Comparision between data stream sensor mounted on left and right front foot, on floor \ref{fig:s1gulv2}, carpet \ref{fig:s1teppe}, hard mat \ref{fig:s1hardmatte}, and soft mat \ref{fig:s1mykmatte}.}
 		\label{fig:s1all}
 	\end{figure}	
 	\FloatBarrier
@@ -2365,7 +2350,7 @@ A further analysis will be looking at the data provided from each sensor on each
 
 
 \chapter{Discussion}
-
+%Classification rate
 \section{Classifiers performance}
 Many classifiers have given a good performance; however, when the models were tested on new samples, the performance decreased, as seen in section \ref{seq:crossunseen}. The neural network and decision tree with feature set one do not show adequate performance. A reason could be that the classifier was overfitted in an earlier experiment and not able to generalize the data. Note that those classifiers use raw data sequences, and the method of achieving fixed length by decimating data described in section \ref{subseq:FixLength} might also have been affecting the performance. In this approach it is considered that data at the start and the end of sequence is less important. However, the longer the time series is, the more data must be removed from the feature vector, with a risk of removing important features. Another weakness of using raw data is the risk of learning with noises. Learning with noises might cause not generalizing the model and achieving a poor performance. However, noises are inherent in real world measurements, thus discarding the noises might also give a poor result.
 \\
@@ -2424,7 +2409,7 @@ To give an overview of the thesis performance, the table \ref{table:compareEarly
 				&  &  &  &  \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Comparision between thesis approach and earlier approches]{Table showing a comparison between thesis approach with other approaches. Result of this approach is the mean of the accuracy from LOOCV on unseen data. The most similar approach with robot platform and sensor used is marked with bold text.}
+		\caption[Comparision between thesis approach and earlier approches]{Comparison between thesis approach with other approaches on unseen data. Thesis result is the mean of the accuracy from LOOCV on unseen data from the best performed classifier obtained in section \ref{sb:svmwrapper}. The most similar approach with robot platform and sensor used is marked with bold text.}
 		\label{table:compareEarly}
 	\end{table}
 	\FloatBarrier
@@ -2486,12 +2471,11 @@ The importance of terrain classification is be able to change gait on different 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
 \chapter{Code of segmentation of data} \label{ap:code}
+The custom method of segmenting desired data from the sensor is in listing \ref{ap:code1}. The code only for one sensor.
+\lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={ap:code1},frame=single,breaklines=true]{code/data_seg.cpp}
 
-\lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={code1},frame=single,breaklines=true]{code/data_seg.cpp}
-
-\begin{comment}
 \chapter{SVM kernels} \label{ap:kernel}
-The table \ref{aptab:kern} shows the equation of each kernel to compute similarity between two datapoints, and it can be seen that only RBF will be affected by change in the gamma during the grid search. The kernel are dependent on how complex the problem is.  For instance if a problem is linear separable in original space, it is efficiency to only use linear kernel, which is a dot product.
+The SVM kernels reflect how the similarity between two datapoint is computed. There are three commonly used kernel functions, shown in table \ref{aptab:kern}. Even there are some theory how to chose the kernel, but generally is found by experiment with different values and use that works best. Regarding the gamma value that will be grid search in section \ref{pa:svmp}, only RBF will be affected by the gamme value.
 
 \begin{table}[h]
 	\centering
@@ -2508,32 +2492,33 @@ The table \ref{aptab:kern} shows the equation of each kernel to compute similari
 	\label{aptab:kern}
 \end{table}
 \FloatBarrier
-\end{comment}
 
 \chapter{Selected features} \label{ap:self}
+The following paragraphs shows different features selected from both method removing features with low variance and recursive feature elimination.
+
 \subsubsection{Set 1}
 Filter
 \begin{align}
 f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
-&\qquad \left. {}  x_{86},\dotsc,x_{119} \right.\nonumber\\
-&\qquad \left. {}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
-&\qquad \left. {} z_{1},\dotsc,z_{125} \right\}
+&\qquad \left.{}  x_{86},\dotsc,x_{119} \right.\nonumber\\
+&\qquad \left.{}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
+&\qquad \left.{} z_{1},\dotsc,z_{125} \right\}
 \end{align}
 
 Wrapper
 \begin{align}
 f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_{20},x_{23},x_{25},x_{26},  \right.\nonumber\\
-&\qquad \left. {}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
-&\qquad \left. {}  x_{72},x_{73},x_{74},x_{76},x_{80},x_{81},x_{84},x_{88},x_{91},x_{93},x_{94},x_{97},x_{98},x_{103}, \right.\nonumber\\
-&\qquad \left. {}  x_{105},x_{107},x_{108},x_{109},x_{111},x_{113},x_{114},x_{116},x_{118},x_{119},x_{120},x_{123},x_{124},x_{125}, \right.\nonumber\\
-&\qquad \left. {}  y_{1},y_{2},y_{3},y_{6},y_{9},\dotsc,y_{13},y_{16}, y_{17},y_{26},\dotsc,y_{30},y_{33}, y_{34},y_{37},\dotsc,y_{40}, \right.\nonumber\\
-&\qquad \left. {}  y_{42}, y_{44}, y_{47},\dotsc, y_{52}, y_{54}, y_{57},\dotsc, y_{60}, y_{63}, y_{65}, y_{66}, y_{67}, y_{69}, \right.\nonumber\\
-&\qquad \left. {}  y_{70}, y_{71}, y_{73}, y_{74}, y_{76}, y_{77}, y_{78}, y_{81}, y_{83}, y_{85}, y_{86}, y_{89}, y_{91}, y_{94}, y_{97}, y_{98}, \right.\nonumber\\
-&\qquad \left. {}  y_{101}, y_{102}, y_{103}, y_{105}, y_{106}, y_{109}, y_{110}, y_{114}, y_{116}, y_{118}, y_{121}, y_{122}, y_{124}, y_{125}, \right.\nonumber\\
-&\qquad \left. {}  z_{2}, z_{3}, z_{4}, z_{6}, z_{9}, z_{10}, z_{11}, z_{13},z_{27},\dotsc,z_{30},z_{32}, z_{35}, z_{36}, z_{38}, z_{39}, z_{40}, \right.\nonumber\\
-&\qquad \left. {}  z_{43}, z_{44}, z_{47}, z_{48}, z_{49}, z_{51}, z_{53}, z_{54}, z_{55}, z_{58}, z_{59}, z_{60}, z_{63}, z_{64}, z_{66}, z_{67}, z_{68}, \right.\nonumber\\
-&\qquad \left. {}  z_{72},\dotsc , z_{75}, z_{78}, z_{79}, z_{81},\dotsc, z_{84}, z_{88}, z_{89}, z_{92}, z_{95}, \right.\nonumber\\
-&\qquad \left. {} z_{100}, z_{103}, z_{106},\dotsc ,z_{109}, z_{115}, z_{116}, z_{119}, z_{120}, z_{121}, z_{122}, z_{125}\right\}
+&\qquad \left.{}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
+&\qquad \left.{}  x_{72},x_{73},x_{74},x_{76},x_{80},x_{81},x_{84},x_{88},x_{91},x_{93},x_{94},x_{97},x_{98},x_{103}, \right.\nonumber\\
+&\qquad \left.{}  x_{105},x_{107},x_{108},x_{109},x_{111},x_{113},x_{114},x_{116},x_{118},x_{119},x_{120},x_{123},x_{124},x_{125}, \right.\nonumber\\
+&\qquad \left.{}  y_{1},y_{2},y_{3},y_{6},y_{9},\dotsc,y_{13},y_{16}, y_{17},y_{26},\dotsc,y_{30},y_{33}, y_{34},y_{37},\dotsc,y_{40}, \right.\nonumber\\
+&\qquad \left.{}  y_{42}, y_{44}, y_{47},\dotsc, y_{52}, y_{54}, y_{57},\dotsc, y_{60}, y_{63}, y_{65}, y_{66}, y_{67}, y_{69}, \right.\nonumber\\
+&\qquad \left.{}  y_{70}, y_{71}, y_{73}, y_{74}, y_{76}, y_{77}, y_{78}, y_{81}, y_{83}, y_{85}, y_{86}, y_{89}, y_{91}, y_{94}, y_{97}, y_{98}, \right.\nonumber\\
+&\qquad \left.{}  y_{101}, y_{102}, y_{103}, y_{105}, y_{106}, y_{109}, y_{110}, y_{114}, y_{116}, y_{118}, y_{121}, y_{122}, y_{124}, y_{125}, \right.\nonumber\\
+&\qquad \left.{}  z_{2}, z_{3}, z_{4}, z_{6}, z_{9}, z_{10}, z_{11}, z_{13},z_{27},\dotsc,z_{30},z_{32}, z_{35}, z_{36}, z_{38}, z_{39}, z_{40}, \right.\nonumber\\
+&\qquad \left.{}  z_{43}, z_{44}, z_{47}, z_{48}, z_{49}, z_{51}, z_{53}, z_{54}, z_{55}, z_{58}, z_{59}, z_{60}, z_{63}, z_{64}, z_{66}, z_{67}, z_{68}, \right.\nonumber\\
+&\qquad \left.{}  z_{72},\dotsc , z_{75}, z_{78}, z_{79}, z_{81},\dotsc, z_{84}, z_{88}, z_{89}, z_{92}, z_{95}, \right.\nonumber\\
+&\qquad \left.{} z_{100}, z_{103}, z_{106},\dotsc ,z_{109}, z_{115}, z_{116}, z_{119}, z_{120}, z_{121}, z_{122}, z_{125}\right\}
 \end{align}
 
 
@@ -2541,15 +2526,15 @@ f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_
 \paragraph{Filter}
 \begin{align}
 f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
+&\qquad \left.{} y_{max}, \right.\nonumber\\
+&\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
 f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
-&\qquad \left. {} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
+&\qquad \left.{} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
+&\qquad \left.{} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
 \end{align}
 
 
@@ -2563,11 +2548,11 @@ f_{set3} &= \left\{ x_{1}, z_{1} \right\}
 \paragraph{Wrapper}
 \begin{align}
 f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
-&\qquad \left. {}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
-&\qquad \left. {}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
-&\qquad \left. {} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
-&\qquad \left. {} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
-&\qquad \left. {} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
+&\qquad \left.{}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
+&\qquad \left.{}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
+&\qquad \left.{} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
+&\qquad \left.{} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
+&\qquad \left.{} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
 \end{align}
 
 
@@ -2576,30 +2561,30 @@ f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22
 \paragraph{Filter}
 \begin{align}
 f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+&\qquad \left.{} fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left.{} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
 f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
-&\qquad \left. {} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
+&\qquad \left.{} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
+&\qquad \left.{} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
 
 \subsubsection{Set 5}
 \paragraph{Filter}
 \begin{align}
 f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
+&\qquad \left.{} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
+&\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
 f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
-&\qquad \left. {} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
-&\qquad \left. {} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
+&\qquad \left.{} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
+&\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
 \end{align}
 %\chapter{Sensor datasheet}\label{ap:datasheet}
 %\includepdf[pages=-]{Datasheet/Sensor.pdf}
