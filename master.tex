@@ -147,7 +147,7 @@ Robot's perception of different surfaces plays an important rule for successful 
 or by physical contact between the sensor and a surface such as the tactile sensor \cite{6784609,walastactile,7397881}. Degrave et al. \cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result indicated that the combination of tactile sensor and proprioceptive joint angle were the most informative of all the sensors. 
 \\
 \\
-In most of studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. Less has only utilized the tactile on a quadruped robot \cite{6784609}, nor does the research report the type of the tactile sensor used in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieve feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are adequate properties to distinguish between different surfaces. However, a further research is necessary to determine whether a optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
+In most of studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. The advantage of tactile sensor is the measurement between the sensor and the surfaces and is often mounted to the tip of the robot legs \cite{Walas2015,6784609,7397881}. Less has only utilized the tactile on a quadruped robot \cite{6784609}, nor does the research report the type of the tactile sensor used in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieve feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are adequate properties to distinguish between different surfaces. However, a further research is necessary to determine whether a optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
 \\
 \\
 \section{Goal of the thesis}
@@ -234,7 +234,8 @@ A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Hav
 		\caption{Lauron V robot \cite{6878051}.}
 		\label{fig:LAURON}
 	\end{subfigure}
-	\caption[Overview over different types of legged robot]{Overview over different types of legged robot.}\label{fig:robots}
+	\caption[Overview of different types of legged robot]{Overview of different types of legged robot: one legged robot \ref{fig:onlegg},  biped \ref{fig:nao}, quadruped \ref{fig:bigDog}, and hexapod \ref{fig:LAURON}. }
+	\label{fig:robots}
 \end{figure}
 
 \FloatBarrier
@@ -272,7 +273,7 @@ Based on the these information listed above from the tactile sensor, it is possi
 		\caption{Response}
 		\label{fig:tact3}
 	\end{subfigure}\hfill
-	\caption[Applications for the tactile sensor]{Three types of application that can be used of the tactile sensor which is to manipulate (a) exploration (b) response (c) \cite{Cutkosky2008}.}
+	\caption[Applications of the tactile sensor]{Three types of application that can be used of the tactile sensor which are manipulation  \ref{fig:tact1}, exploration \ref{fig:tact2}, response \ref{fig:tact3} \cite{Cutkosky2008}.}
 	\label{fig:tactiles}
 \end{figure}
 
@@ -335,13 +336,25 @@ A multi-layer perceptron consists of two or more layers between the input and ou
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.6]{Figures/MLP.png}
-	\caption[Model of a multi-layer perceptron]{Model of multi-layer perceptron with one hidden layer \cite{MLP}.}
+	\caption[Model of a multi-layer perceptron]{Model of a multi-layer perceptron with one hidden layer \cite{MLP}.}
 	\label{fig:MLP}
 \end{figure}
 	
 \subsubsection{Support vector machine}
 The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents the classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells us where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved by a small amount, there would be a risk that a datapoint from one class that lies close to the boundary would be on the wrong side. Finding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region it can put to separate the classes without having any points inside. The hatched classes lie on the margin, and support vectors. This process can be done by the dot product between each datapoint \cite{Cortes1995}.
 
+
+
+\begin{figure}[h]
+	\centering
+	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
+	\includegraphics{Figures/SVM.PNG}
+	\caption[An example of SVM classification]{Model of optimal margin and hyperplane created by SVM on a two-class classification problem \cite{Cortes1995}.}
+	\label{fig:SVM}
+\end{figure}
+\FloatBarrier
+
+A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function. 
 
 \begin{figure}[h]
 	\centering
@@ -352,16 +365,6 @@ The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \
 \FloatBarrier
 
 
-\begin{figure}[h]
-	\centering
-	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
-	\includegraphics{Figures/SVM.PNG}
-	\caption[An example of SVM classificiaton]{Model of optimal margin and hyperplane created by SVM on a two-class classification problem  \cite{Cortes1995}.}
-	\label{fig:SVM}
-\end{figure}
-\FloatBarrier
-
-A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function. 
 
 \begin{table}[h]
 	\centering
@@ -400,7 +403,7 @@ K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover a
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/KNN.png}
-		\caption[An example of KNN classification problem]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified to either blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
+		\caption[An example of KNN classification]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified as either a blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
 \end{figure}
 	
@@ -422,7 +425,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
-		\caption[Model of a decision tree]{An example of a simple decision tree \cite{Quinlan1986}. This decision tree classify a day to be P or N based on outlook, humidity and windy.}
+		\caption[An example of decision tree classification]{An example of a simple decision tree \cite{Quinlan1986}. This decision tree classifies a day to be P or N based on outlook, humidity and wind.}
 		\label{fig:decisiontree}
 \end{figure}
 \FloatBarrier
@@ -573,7 +576,7 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 			\caption{Optimal}
 			\label{fig:optimal}
 		\end{subfigure}
-		\caption[Illustration of when a model is over-, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under} and optimal \ref{fig:optimal}}
+		\caption[Illustration of when a model is overfitted, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under}, and optimal \ref{fig:optimal}.}
 		\label{fig:fitting}	
 	\end{figure}
 	
@@ -590,7 +593,7 @@ The process of K-fold is to partition the data into k subsets, where one subset 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{Figures/Kfold}
-		\caption[K-fold cross validation]{An instance of k-fold cross validation. In this case is the LOOCV, since the k is set to be 8 which is the length of the feature vectors.}
+		\caption[K-fold cross validation]{An instance of k-fold cross validation. In this case it is the LOOCV, since the k is set to be 8 which is the length of the feature vectors.}
 		\label{fig:kfold}
 	\end{figure}
 	
@@ -693,6 +696,12 @@ A weakness of using the remote sensors is that it does not give insight into the
 \paragraph{Local sensing}
 Local sensing measures aspects of the interaction between the robot and terrain as the robot walks through. This gives a measurement of mechanical terrain properties and provides useful information such as how the environment is currently affecting robot performance. 
 \\
+\\
+Walas \cite{walastactile} attached a 6-axis tactile sensor on a hexapod and the classification was only based on the sensor. Five different terrains were used: soft ground, artificial grass, gravel, pebbles, and sand. The experiments consists of robot predicts a terrain while it walks straight on the terrain. There were total 10 trials for each terrain where it consisted of six steps. The author based the classification on only one of the signal from the tactile sensor. The results showed that the information from force in x,y-direction and torque in x, y, and z-direction did not perceive informative properties from the terrain, where the most accuracy were under 60\%. However, by using data from force and torque in z-direction the author achieved an accuracy of 76.67\%. 
+\\
+\\
+Wu et al. \cite{7397881} designed a capacitive tactile sensors mounted on a small two-legged robot. Six different terrains were used, however, the terrains were further grouped into four groups based on their friction and stiffness properties. The four classes consists of a high friction hard surface class which was a thin silicone-lined acrylic surface and a laminate tile;  a low friction hard surface class which was Teflon; a deformable surface class, which was carpet and synthetic grass; and a granular class, which was chia seeds. The two-legged robot had support from a gimbal apparatus which made the robot run in circular track with interchangeable surfaces. The results gave an accuracy of 94.36\%. However, when only used stride frequency and motor torque they got 85.53\%, while stride frequency and tactile gave accuracy of 88.31\%
+\\
 \\ 
 Stejskal et al. \cite{7487544} presents a road-following hexapod robot which uses the feedback from robot servo drives. The road following consists of letting the robot blindly walk on a road. After each gait cycle, the robot will determine whether it is on new terrain or on road. If it is determined as off-road, then the robot will steer back to the road. Data from the servo provides information about the leg motion: position error, current speed and torque. Three different terrains, asphalt, dirt and grass, were used during the experiment. The robot was most confused by dirt, which accounted for about 86\% of misclassified samples. The author states that the transition from asphalt to dirt was usually flat, which means that the leg motion of walking on flat dirt has a similar leg motion as walking on asphalt. Beside of that, the overall result of terrain classification had an accuracy of 96.2\%, which can be considered a feasible approach, and data from leg motion keeps the robot on the road.
 \\
@@ -701,10 +710,12 @@ Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a
 \\
 \\
 Hoepflinger et al. \cite{5509309} presents a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistors. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments are done by having a robot walk through terrains. However, in this experiment, the author separated one of the robot’s legs and mounted it to a sample holder of a testbed. The first experiment consisted of distinguishing four different shapes of terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data was collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. The second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data was done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. The convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge had 95\%, and 80\% was for the convex hemispherical bulge. Regarding surface classification, the results show that the algorithm performed slightly worse. One type of abrasive paper had an accuracy of 53.3\%. Despite a low accuracy, the author states it is overall a satisfying result, since the average correct prediction of different types of abrasive paper was two out of three, and prediction of teflon coated surface had a high accuracy of 93.3\%.
-\\
-\\
-Other examples of terrain classification can be found in \cite{Giguere2009,6386243,6569179,4399500}.
-	
+ 
+% accuracy in a single stride. The most useful classifier features include stride frequency, peak motor torque, and peak and average tactile sensor readings.
+
+%The advanced force sensors have been often attached to the tip of the robot legs to measure the ground contact forces
+%http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7387710
+
 \subsection{Learning algorithms}
 There is a vast number of classifiers and a variety have been used within terrain classification, such as neural networks \cite{6784609,5752869,4654717}, adaptive bayesian filtering  \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision trees  \cite{6849778}.
 \\
@@ -715,7 +726,7 @@ The No Free Lunch theorem described in section \ref{seq:nofree} has shown in pre
 Mostly studies based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method for terrain classification using unsupervised learning. This makes a robot able to automatically distinguish terrain without any human interaction or feedback. Another work by the same authors  \cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
 	
 \subsection{Features} \label{sub:relatedfeatures}
-As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain feature \cite{5152662,Giguere2009,5509309}. Others only use the frequency domain \cite{4543710} \cite{5979766}.
+As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain feature \cite{5152662,Giguere2009,5509309}. Others only use the time domain \cite{walastactile} or in the frequency domain \cite{4543710} \cite{5979766}.
 \\
 \\
 Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment and sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
@@ -728,6 +739,9 @@ Kertész \cite{7387710} computed median, maximum, skewness and root mean square 
 \\
 \\
 Best et al.\cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in the time domain such as minimum, maximum, mean median and standard deviation. However, some statistical features are also calculated in the frequency domain with the energy additionally.
+\\
+\\
+Walas \cite{walastactile} suggested four statistical features in the time domain which were variance, skewness, kurtosis, and the fifth moment from the 6-axis tactile sensor. 
 \\
 \\
 It can be seen that many of the features are extracted by statistical features, which is described in section \ref{sub:statical}. An example of extracting good features can be seen in \cite{5602459}. Using statistics with a support vector machine gave an accuracy of 40\%, while a principal component analysis gave an accuracy of 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features.
@@ -764,7 +778,7 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceAxis3}
-	\caption[Force direction of the OptoForce sensor]{Illustration where the force from x,y and z-direction points from the 3D OptoForce \cite{OptoforceSheet}.}
+	\caption[Force directions of the OptoForce sensor]{Illustration where the force from the x,y and z-directions points from the 3D OptoForce \cite{OptoforceSheet}.}
 	\label{fig:OptoforceAxis}
 \end{figure}
 
@@ -775,7 +789,7 @@ A Quadruped robot developed at the University of Oslo is shown in figure \ref{fi
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Robot3}
-	\caption[Quadruped robot developed at the University of Oslo]{Quadruped Robot developed at the University of Oslo mounted with optoforce sensor.}
+	\caption[Quadruped robot developed at the University of Oslo]{Quadruped Robot developed at the University of Oslo mounted with the optoforce sensor.}
 	\label{fig:robot}
 \end{figure}
 \FloatBarrier
@@ -852,7 +866,7 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 		\label{fig:mean44}
 	\end{subfigure}
 	\caption[Terrains used in experiments]
-	{\small Four different terrain used in all experiments which are floor \ref{fig:mean14}, carpet \ref{fig:mean24}, soft mat \ref{fig:mean34}, and hard mat \ref{fig:mean44} } 
+	{\small Four different terrains used in all experiments which are floor \ref{fig:mean14}, carpet \ref{fig:mean24}, soft mat \ref{fig:mean34}, and hard mat \ref{fig:mean44} } 
 	\label{fig:terrains}
 \end{figure}
 \FloatBarrier
@@ -897,7 +911,7 @@ Analyzing the data aims to find common characteristics, and to be able to segmen
 		\caption{Hard mat}
 		\label{fig:mattebgraf}
 	\end{subfigure}
-	\caption[Example of data stream for each terrains]{Figure showing an example data stream for each terrain. (a) floor (b) carpet (c) hard mat (d) soft mat.}
+	\caption[Example of data stream for each terrain]{Figure showing an example data stream for each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, hard mat \ref{fig:mykmattegraf}, and soft mat \ref{fig:mattebgraf}.}
 	\label{fig:gtmgraf}
 \end{figure}
 \FloatBarrier
@@ -1029,7 +1043,7 @@ The first process is to gather data for each terrain which will be stored into f
 	\path [line] (p2.south) -- node [above]{} (p3);
 	\end{tikzpicture}
 	
-	\caption[Process of creating a training file]{Process of creating a training file.} \label{fig:createsamples}
+	\caption[Process of creating data samples]{Process of creating data samples.} \label{fig:createsamples}
 \end{figure}
 	
 \subsubsection{Process of creating samples} \label{sub:createsamples}
@@ -1089,7 +1103,7 @@ When the data samples of each terrain is unified into a single file, the learnin
 	
 	\end{tikzpicture}
 	
-	\caption[Process to create and evaluate a certain classifier]{Process to create and evaluate a certain classifier.} \label{fig:learningProcess}
+	\caption[Process of creating and evaluating a certain classifier]{Process of creating and evaluating a certain classifier.} \label{fig:learningProcess}
 \end{figure}
 
 \FloatBarrier
@@ -1231,7 +1245,9 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:meanz}
 	\end{subfigure}
 	
-	\caption[Example of mean the each terrain for each directions in the time domain]{A mean of 10 steps on each terrain in different directions in the time domain, where mean in the x-direction \ref{fig:meanx}, mean in y-direction \ref{fig:meany}, and mean in z-direction \ref{fig:meanz}  is computed.}
+	\caption[Example of the mean of each terrain for each direction in the time domain]{
+		A mean of 10 steps on each terrain in different directions in the
+		time domain, where the mean in the x-direction \ref{fig:meanx}, the mean in y-direction \ref{fig:meany},and the mean in z-direction\ref{fig:meanz} are computed}
 	\label{fig:meanxyz}
 \end{figure}
 
@@ -1258,7 +1274,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:fftz}
 	\end{subfigure}
 	
-	\caption[Examples of mean the each terrain for each directions in the frequency domain]{A mean of each terrain different direction in frequency domain, where mean in the x-direction \ref{fig:fftx}, mean in y-direction \ref{fig:ffty}, and mean in z-direction \ref{fig:fftz} is computed.}
+	\caption[Examples of the mean of each terrain for each direction in the frequency domain]{A mean of 10 steps on each terrain in different directions in the	frequency domain, where the mean in the x-direction \ref{fig:fftx}, the mean in y-direction \ref{fig:ffty},	and the mean in z-direction \ref{fig:fftz} are computed.}
 	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
@@ -1407,7 +1423,7 @@ It will be interesting to investigate the features selected from each method. Ho
 		\label{fig:featurez}
 	\end{subfigure}
 
-	\caption[Comparison of each feature on different terrain selected from RFE]{A comparison of each features selected by RFE, for each terrain on feature set three.}
+	\caption[Comparison of each feature on different terrains selected from RFE]{A comparison of each feature selected by RFE, for each terrain on feature set three.}
 	\label{fig:wrapperset5}
 \end{figure}
 \FloatBarrier
@@ -1440,7 +1456,7 @@ An overview of the performance of the five top performed classifier is shown as 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/compareUnseen}
-	\caption[Boxplot of five top performing classifier on unseen data]{Boxplot of five top performing classifiers.}
+	\caption[Boxplot of the five top performing classifiers]{Boxplot of the five top performing classifiers on unseen data.}
 	\label{fig:boxexp}
 \end{figure}
 \FloatBarrier
@@ -2116,7 +2132,7 @@ The real time implementation can be seen in figure \ref{fig:realtime}, which is 
 		\path [line] (p11.west) -- node [above]{Data sample} (p6);
 		\end{tikzpicture}
 	
-		\caption[Real-time implementation]{Real-time implementation} \label{fig:realtime}
+		\caption[Real-time implementation]{Real-time implementation.} \label{fig:realtime}
 	\end{figure}
 	\FloatBarrier
 	\clearpage
@@ -2138,7 +2154,7 @@ The data stream when the robot traverse from floor to carpet is shown in figure 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2_line2}
-		\caption[Data stream of the robot traversing from floor to carpet]{Data stream of the robot traversing from floor to carpet. The thick gray horizontal line is the boundary between the two terrains.}
+		\caption[Data stream of the transition from floor to carpet]{Data stream of the robot traversing from floor to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:gulvet4teppegraf}
 	\end{figure}
 	
@@ -2168,7 +2184,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3_3_Gulvet_line2}
-	\caption[Data stream of the robot traversing from hard mat to floor]{Data stream of the robot traversing from hard mat to floor. The thick gray horizontal line is the boundary between the two terrains.}
+	\caption[Data stream of the transition from hard mat to floor]{Data stream of the robot traversing from hard mat to floor. The thick gray horizontal line is the boundary between the two terrains.}
 	\label{fig:mb3Gulvet}
 \end{figure}
 	
@@ -2201,7 +2217,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3MM_line2}
-		\caption[Data stream of the robot traversing from hard mat to soft mat.]{Data stream of the robot traversing from hard mat to soft mat. The thick gray horizontal line is the boundary between the two terrains.}
+		\caption[Data stream of the transition from hard mat to soft mat.]{Data stream of the robot traversing from hard mat to soft mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:hardmatSoftMat}
 	\end{figure}
 	
@@ -2230,7 +2246,7 @@ The data stream when the robot traverses from soft mat to hard mat is shown in f
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM_4Resten_MB_line2}
-		\caption[Data stream from soft mat to hard mat]{Figure showing data stream from sensor when the robot walked from soft mat to hard mat. The thick gray horizontal line is the boundary between the two terrains.}
+		\caption[Data stream of the transition from soft mat to hard mat]{Figure showing data stream from sensor when the robot walked from soft mat to hard mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:MM_4_Resten_BGraf}
 	\end{figure}
 	
@@ -2259,7 +2275,7 @@ The data stream when the robot traverses from soft mat to carpet is shown in fig
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2_line2}
-		\caption[Data stream of the robot traversing from soft mat to carpet.]{Data stream of the robot traversing from soft mat to carpet. The thick gray horizontal line is the boundary between the two terrains.}
+		\caption[Data stream of the transition from soft mat to carpet.]{Data stream of the robot traversing from soft mat to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:softcarpet}
 	\end{figure}
 	
@@ -2346,7 +2362,7 @@ A further analysis will be looking at the data provided from each sensor on each
 			\caption{Soft mat}
 			\label{fig:s1mykmatte}
 		\end{subfigure}
-		\caption[Comparision between data stream sensor mounted on left and right front foot of the robot]{Comparision between data stream sensor mounted on left and right front foot, on floor \ref{fig:s1gulv2}, carpet \ref{fig:s1teppe}, hard mat \ref{fig:s1hardmatte}, and soft mat \ref{fig:s1mykmatte}.}
+		\caption[Comparision between data stream sensor mounted on left and right front foot of the robot]{Comparison between data stream with the sensor mounted on the left and on the right front foot, on floor \ref{fig:s1gulv2}, carpet \ref{fig:s1teppe}, hard mat \ref{fig:s1hardmatte}, and soft mat	\ref{fig:s1mykmatte}.}
 		\label{fig:s1all}
 	\end{figure}	
 	\FloatBarrier
@@ -2478,6 +2494,7 @@ The importance of terrain classification is be able to change gait on different 
 The custom method of segmenting desired data from the sensor is in listing \ref{ap:code1}. The code only for one sensor.
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={ap:code1},frame=single,breaklines=true]{code/data_seg.cpp}
 
+\begin{comment}
 \chapter{SVM kernels} \label{ap:kernel}
 The SVM kernels reflect how the similarity between two datapoint is computed. There are three commonly used kernel functions, shown in table \ref{aptab:kern}. Even there are some theory how to chose the kernel, but generally is found by experiment with different values and use that works best. Regarding the gamma value that will be grid search in section \ref{pa:svmp}, only RBF will be affected by the gamme value.
 
@@ -2496,6 +2513,7 @@ The SVM kernels reflect how the similarity between two datapoint is computed. Th
 	\label{aptab:kern}
 \end{table}
 \FloatBarrier
+\end{comment}
 
 \chapter{Selected features} \label{ap:self}
 The following paragraphs shows different features selected from both method removing features with low variance and recursive feature elimination.
