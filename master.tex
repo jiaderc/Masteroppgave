@@ -118,7 +118,8 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
-An important ability for every mobile robot is being able to identify different terrains. The tactile sensor has been less utilized on a quadruped robot in studies, nor is it reported the type of sensor. Every tactile type has its drawbacks and benefits. This thesis investigates the possibility of identifying different terrains using 3D optical force sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo (UiO) on four different terrains. The experimental results demonstrated among the top performed approaches compared to earlier work with an accuracy of 94.8\%. The proposed approach has the possibility of using in real time applications, and a custom segmentation method was presented for extracting desired data from optical force sensor. The segmented data samples were the basis for creating five different feature sets and tested on five different classifiers.  
+Identifying different types of terrains is an important ability for every legged robot to achieve a stable locomotion. A variety of sensors have been applied in different robots in order to discriminating the terrains accurately. The tactile sensor is widely used due to the benefits of measuring properties from terrain by physical contact between the sensor and the surface. However, less has only utilized the tactile sensor on a quadruped robot in studies, and little attention was paid to the type of sensor. It exists a variety types of tactile sensors with their benefits and drawbacks. The optical sensor has a high sensitivity, small size, light weight and low detection time, which are adequate properties to distinguish between different surfaces. This thesis investigates the possibility of identifying different terrains using 3D optical force sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo (UiO) on four different terrains. The proposed approach has the possibility of using in real time applications, and a custom segmentation method was presented for extracting desired sensor data. The segmented sensor data was the basis for creating five different feature sets and tested on five different classifiers: support vector machine, k-nearest neighbors, artificial neural network, naive Bayes, and decision tree. The experimental results demonstrated among the top performed approaches compared to earlier work with an accuracy of 94.8\% with the support vector machines.   
+
 
 \tableofcontents{}
 \listoffigures{}
@@ -657,7 +658,7 @@ It is interesting to see which class is easier to predict than others. This can 
 			\multicolumn{1}{|l|}{} & $C_2$ & 5 & 8 & 1 \\ \cline{2-5} 
 			\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 8 \\ \hline
 		\end{tabular}
-		\caption[Confusion matrix of 3-class classification.]{Confusion matrix of 3-class classification.}
+		\caption[Confusion matrix of the 3-class classification]{Confusion matrix of the 3-class classification.}
 		\label{tab:cmatrix}
 	\end{table}
 	
@@ -758,7 +759,7 @@ As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performan
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
 
-\chapter{Softwares and tools} \label{chap:software}
+\chapter{Software and tools} \label{chap:software}
 This chapter gives an introduction to different tools and libraries used throughout the thesis.
 
 \section{Optical force sensor}
@@ -772,7 +773,7 @@ OptoForce (3D force sensor) \cite{Optoforce} is a similar sensor to that of Tar 
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which is wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. Where each direction is shown in figure \ref{fig:OptoforceAxis}. The datasheet of the sensor can be found in appendix \ref{ap:datasheet} Optoforce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. Where each direction is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
 
 
 \begin{figure}[h]
@@ -783,7 +784,7 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \end{figure}
 
 \section{Robot} \label{sec:robot}
-A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provide five different gaits developed by Nygaard et al. \cite{7850167}. All gaits are optimized by an evolutionary algorithm. To elaborate on each gaits, the gait names will be simplified as letters. Gait A is optimized to achieve the highest speed. This makes the robot walk very fast, and is not very stable. Gait B is optimized to achieve the most stable locomotion, which leads to a slow speed. The remaining three gaits are all optimized to achieve both stable and fast locomotion. However, gait C has more focus on achieving a fast speed, gait D has more focus of achieving stability, while Gait E is a mixture of the two, which is a balanced focus on stability and speed.
+A Quadruped robot developed at the University of Oslo is shown in figure \ref{fig:robot}. The legs are about 45 cm long and mounted with optical force sensors. The robot also provides five different gaits developed by Nygaard et al. \cite{7850167}. All gaits are optimized by an evolutionary algorithm. To elaborate on each gait, the gait names will be simplified as letters. Gait A is optimized to achieve the highest speed. This makes the robot walk very fast, and is not very stable. Gait B is optimized to achieve the most stable locomotion, which leads to a slow speed. The remaining three gaits are all optimized to achieve both stable and fast locomotion. However, gait C has more focus on achieving a fast speed, gait D has more focus of achieving stability, while Gait E is a mixture of the two, which is a balanced focus on stability and speed.
 
 
 \begin{figure}[h]
@@ -796,12 +797,12 @@ A Quadruped robot developed at the University of Oslo is shown in figure \ref{fi
 
 
 \section{Robot operating system}
-The robot mentioned in section \ref{sec:robot} operates on a Robot Operating System (ROS) \cite{ROSintro}. ROS is an open source software framework and used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming language are Python, C++, and Lisp.
+The robot mentioned in section \ref{sec:robot} operates on a Robot Operating System (ROS) \cite{ROSintro}. ROS is an open source software framework and is used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming languages are Python, C++, and Lisp.
 
 \subsection{Messages and topics}
 A message is a data structure which could be an integer, floating point, array etc. Nodes can use a message and publish it under a given topic \cite{ROSconcept}; this feature is also called "publisher". The topic is used to identify the content of the message where a node has the possibility to subscribe to the topic, and receive data, which is also called "subscriber". This can be seen as many-to-many, one-way communication. That is, many nodes can subscribe to a topic, but they do not have the opportunity to pass any message back to the publisher.
 
-\subsection{Services}
+\subsection{Services}\label{sub:service}
 When a many-to-many, one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
 
@@ -817,20 +818,20 @@ A ROS package for optical force sensors can be found in \cite{optoRos}. The node
 Python provides lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use.
 
 \paragraph{Scikit-learn} \label{para:scikit}
-Scikit-learn \cite{scikit-learn} is an open source library that provide tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All classifiers and preprocessing data tools can be found in this library. 
+Scikit-learn \cite{scikit-learn} is an open source library that provides tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All classifiers and preprocessing data tools can be found in this library. 
 
 \paragraph{Runstats}
 Runstats \cite{runstats} is a library which computes statistics, such as max, mean, skew, variance and standard deviation, some of which are described in section \ref{sub:statical}.
 
 
 \chapter{Implementation}\label{ch:implementation}        %% ... or ??
-This chapter attempt to present the environment setup, and explain the various choices which have been made to create machine learning models.
+This chapter attempts to present the environment setup and explain the various choices which have been made to create machine learning models.
 
 \section{Environment setup}	
-Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to create a more challenging task for the classifierto distinguish them, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties, and are also the most difficult to distinguish. They are all slippery, and have nearly equally hardness. Soft mat differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
+Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to create a more challenging task for the classifier to distinguish them, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties, and are also the most difficult to distinguish. They are all slippery, and have nearly equal hardness. Soft mat differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
-The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although, the robot provide many type of gaits mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait. 
+The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides many types of gaits mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait. 
 
 \begin{figure}[h]
 	\centering
@@ -872,16 +873,16 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 \FloatBarrier
 
 \section{Choice of implementation language}
-Since the robot operates on ROS, and ROS is currently compatible with C++, Python or Lisp, segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, hence the learning algorithm is implemented in Python. 
+The robot operates on ROS which is currently compatible with C++, Python or Lisp. Thus, segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, hence the learning algorithm is implemented in Python. 
 			
 \section{Data from optical force sensor}
 This section will first describe how the measurement from the sensor is gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Data was gathered by having the robot walk 10 steps on each terrain. The runs were recorded into rosbag, which makes it possible to re-simulate the runs. It was recorded five runs for each terrain, which is in total 20 runs. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, this thesis will only use data from the front left foot of the robot.
+Data was gathered by having the robot walk 10 steps on each terrain. The trials were recorded into rosbag, which makes it possible to re-simulate the trials. Five trials were recorded for each terrain, which is in total 20 trials. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, this thesis will only use data from the front left foot of the robot.
 	
-\subsection{Analyzing data from sensor}\label{sec:analyzopto}
-Analyzing the data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is that when the foot is in the air, there is no contact between the sensor and a surface,  makes a minor change, almost constant, in the x,y, and z-directions. When there is a contact between the sensor and a surface there will give a big force variation in the all three directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
+\subsection{Analyzing the sensor data}\label{sec:analyzopto}
+The analyze of the sensor data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is when the foot is in the air. There is no contact between the sensor and the surface and will give a minor change, almost constant, in the x,y, and z-directions. When there is a contact between the sensor and a surface there will give a big force variation in the all three directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
 
 
 \begin{figure} [h]
@@ -911,13 +912,13 @@ Analyzing the data aims to find common characteristics, and to be able to segmen
 		\caption{Hard mat}
 		\label{fig:mattebgraf}
 	\end{subfigure}
-	\caption[Example of data stream for each terrain]{Figure showing an example data stream for each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, hard mat \ref{fig:mykmattegraf}, and soft mat \ref{fig:mattebgraf}.}
+	\caption[Example of data stream for each terrain]{Figure showing an example data stream for each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, soft mat \ref{fig:mykmattegraf}, and hard mat \ref{fig:mattebgraf}.}
 	\label{fig:gtmgraf}
 \end{figure}
 \FloatBarrier
 
 \subsection{Data segmentation} \label{subseq:segmentation}
-An appropriate method to segment data is using a sliding window algorithm, however, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
+An appropriate method to segment data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
 It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the program will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor can be found in appendix \ref{ap:code}.
@@ -935,14 +936,14 @@ f_{set1} &= \left\{ x_1,\dotsc,x_{125}, \right.\nonumber\\
 &\qquad \left. {} z_1,\dotsc,z_{125} \right\}
 \end{align}
 
-The vector contain 125 features from all 3 directions, which is in total 375 features.
+The vector contains 125 features from all 3 directions, which is in total 375 features.
 	
 
 		
 		
 	
 \paragraph{Feature set two - statistical features} 
-This feature set extracts statistical features from the dataset. As mentioned in section \ref{sub:relatedfeatures}, much of the early work has extracted the features with statistical metrics. Thus, this thesis will be using similar features. Calculation of some statistical metrics are described in section \ref{sub:statical}. The features created in this set will be from each direction, x,y and z in time domain: 
+This feature set extracts statistical features from the dataset. As mentioned in section \ref{sub:relatedfeatures}, much of the early work has extracted the features with statistical metrics. Thus, this thesis will be using similar features. Calculation of some statistical metrics is described in section \ref{sub:statical}. The features created in this set will be from each direction, x,y and z in time domain: 
 	
 	%This is using some of the features from this article \cite{Hoffmann20141790}. 
 	
@@ -1012,7 +1013,7 @@ Good features might come from different feature sets. This set will collect feat
 The vector contains 15 features from all 3 directions, which is in total 45 features. 
 	
 \section{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, a fixed length is required. After many runs, the length of the data sequences vary between 125 and 135. Thus, to ensure that all data is obtained the data samples will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while in this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
+In order to use raw data as input, a fixed length is required. After many trials, the length of the data sequences varies between 125 and 135. Thus, to ensure that all data is obtained the data samples will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
 	
 \lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={lst:fix_length},frame=single,breaklines=true]{code/fix_length.py}
 	
@@ -1127,11 +1128,11 @@ The extracted feature vectors are partitioned into training and testing sets. Th
 			
 \item \textbf{\underline{Scaling}}
 \\
-This step takes the training set as input and standardizes the data as mentioned in section \ref{subsec:scaling}. The scaling factor will used on the test data.
+This step takes the training set as input and standardizes the data as mentioned in section \ref{subsec:scaling}. The scaling factor will be used on the test data.
 			
 \item \textbf{\underline{Train the classifier}}
 \\
-The classifier will take the training set as input and train. The parameters of each classifier is default values from Python. 
+The classifier will take the training set as input and train. The parameters of each classifier are default values from Python. 
 			
 \item \textbf{\underline{Test classifier}} 
 \\
@@ -1148,7 +1149,7 @@ This step will compute the overall results as mentioned in section \ref{subsec:e
 \end{enumerate}
 	
 \clearpage
-\subsection{The evaluation}
+\subsection{Evaluation}
 To find the optimal feature combination and algorithm for the optical sensor, the following steps will be investigated:
 
 \begin{enumerate}
@@ -1206,20 +1207,20 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 86\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifier withtout feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Colored green has an accuracy over 90\%, yellow is between 80\%-89\%, while red has accuracy under 79\%}
+	\caption[Results from five different feature sets and classifiers without the feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Green has an accuracy over 90\%, yellow is between 80\%-89\%, while red has accuracy under 79\%.}
 	\label{exp1}
 \end{table}
 \FloatBarrier
 	
 	
 \subsection{Analysis}
-All classifiers have an accuracy of at least 70\%. Top performing classifiers are the decision tree and Neural Network with an accuracy of 96\%. However, KNN, Bayes Naives, and SVM do also perform well, with an accuracy of 90\%. 
+All classifiers have an accuracy of at least 70\%. Top performing classifiers are the decision tree and Neural Network with an accuracy of 96\%. However, KNN, Bayes Naives, and SVM also perform well, with an accuracy of 90\%. 
 \\
 \\
-Regarding the feature scaling, out of SVM and KNN which use distances in their computation, SVM had the biggest effect. Feature set three went from 52\% to 93\% KNN, on the other hand, was slightly affected by scaling, but mostly gave a lower accuracy. The Neural Network achieved a small improvement, while the decision tree either performed better when scaled or not scaled, dependent on the feature set, and Bayes Navies did not undergo any effect. Since the feature scaling achieved a big improvement with the SVM and minor improvement on the other classifiers, scaled features will be used in further experiments.
+Regarding the feature scaling, out of SVM and KNN which use distances in their computation, SVM had the biggest effect. Feature set three went from 52\% to 93\%. KNN on the other hand was slightly affected by scaling, but mostly gave a lower accuracy. The Neural Network achieved a small improvement, while the decision tree either performed better when scaled or not scaled, dependent on the feature set. Bayes Navies did not undergo any effect by standardized features. Since the feature scaling achieved a big improvement with the SVM and minor improvement on the other classifiers, scaled features will be used in further experiments.
 \\
 \\
-Among the highest results are those from either whole raw data sequences or a complete frequency domain where mostly accuracy was over 90\%. While statistics features extracted in either the time domain, frequency domain, or both, gave an accuracy of between 80\% to 89\%.
+Among the best results are those from either whole raw data sequences or a complete frequency domain where mostly accuracy was over 90\%. While statistics features extracted in either the time domain, frequency domain, or both, gave an accuracy of between 80\% to 89\%.
 \\
 \\
 Besides looking at the performance of each classifier, it is also interesting to look at how data provided from the sensor responds to different terrain. In the time domain, which can be seen in figure \ref{fig:meanxyz}, of the terrains, soft mat differs the most. Forces from floor, carpet and hard mat in the x-direction are relatively similar as shown in figure \ref{fig:meanx}. Forces in the y-direction as seen in figure \ref{fig:meany} are more distinguishable, but the data streams are still quite similar to each other. Meanwhile, forces in the z-direction as seen in figure \ref{fig:meanz} are even more distinguishable. Only carpet and hard mat provide similar forces, but differ in the shapes of curves. Floor and carpet on the other hand, have similar shapes of curves, but differ in the forces. In the frequency domain, again, of the terrains, soft mat differs the most. In contrast to similar data from floor, carpet and hard mat in the time domain, in the frequency domain the floor is more distinguishable as seen in figure \ref{fig:meanxyz}. While the carpet and hard mat are almost equal. However, there is a slight difference between them in the y- and z-direction shown in figures \ref{fig:ffty}, and \ref{fig:fftz} respectively.
@@ -1289,7 +1290,7 @@ Even though there are classifiers which outperform the others, there is still im
 Removing Features with Low Variance (RFLV) is a filter method that removes all features where the variance does not meet some threshold. The default value of the threshold will remove all features that contain the same values, which is unlikely to occur in this experiment. To keep as many feature as possible and at the same time removing features with relative low variance, the threshold will be set to 0.2.
 
 \paragraph{Recursive feature elimination} \label{ap:rfe}
-Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised classifier to rank each feature and remove features with a low rank. A chosen estimator will be used to train the set of features, and weigh them. Features with the smallest weights are pruned, and start over to estimate the current remaining set of features. This will be repeated until the desired number of features is reached. In this experiment, the default value will be used, which removes half of the features set.
+Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised classifier to rank each feature and remove features with a low rank. A chosen estimator will be used to train the set of features, and weigh them. Features with the smallest weights are pruned, and start over to estimate the current remaining set of features. This will be repeated until the desired number of features is reached. In this experiment, the default value will be used, which removes half of the feature set.
 
 	
 \begin{figure}[h]
@@ -1338,7 +1339,7 @@ Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised c
 \FloatBarrier
 \newpage
 \subsection{Results}
-Table \ref{tab:exp2_1} shows the new number of features after they were removed for each feature set, and table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared to previous implementation. The five highest performing are marked with bold text, which will be used in further experiments.
+Table \ref{tab:exp2_1} shows the new number of features after they were removed for each feature set, and table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared to previous implementation. The five highest performing models are marked with bold text and will be used in further experiments.
 
 \begin{table}[h]
 	\centering
@@ -1351,7 +1352,7 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 		Set 4 & 24 & 11 & 12 \\
 		Set 5 & 45 & 19 & 22 \\ \hline
 	\end{tabular}
-	\caption[Results of length of feature vector after feature selection method]{New length of each features set after applied feature selection method.}
+	\caption[Results of lengths of feature vector after the feature selection method]{New length of each feature set after applying the feature selection method.}
 	\label{tab:exp2_1}
 \end{table}
 \FloatBarrier
@@ -1391,7 +1392,7 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{009901} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifier with feature selection method]{Results from five different feature sets and classifier when applied feature selection method}
+	\caption[Results from five different feature sets and classifiers with the feature selection method]{Results from five different feature sets and classifiers when applying the feature selection method.}
 	\label{tab:exp2}
 \end{table}
 \FloatBarrier
@@ -1429,7 +1430,7 @@ It will be interesting to investigate the features selected from each method. Ho
 \FloatBarrier
 
 \section{Cross validation with unseen data} \label{seq:crossunseen}
-Note that the k-fold validation in earlier experiments were only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In this case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not tell how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent to each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be in this experiment. Additionally, the Neural Network without a selection method with feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features too.
+Note that the k-fold validation in earlier experiments were only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In this case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not tell how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the Neural Network without a selection method with feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
 \\
 \\
 In this experiment 50 new samples for each terrain is collected. The cross validation will use the old dataset as a training set, while the newly collected samples will be used as a test set. The cross validation technique in this experiment is still LOOCV, in order to train as many samples as possible. To achieve a reliable performance estimation, it can be done by running the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test sets will be randomly shuffled before each round of cross validation, and each classifier will be run five times. The table \ref{tab:exp4} shows the classifier and feature set used in this experiment.
@@ -1445,7 +1446,7 @@ In this experiment 50 new samples for each terrain is collected. The cross valid
 		Decision tree & 1 & None \\
 		Decision tree & 1 & \begin{tabular}[c]{@{}l@{}}Removing features \\ with low variance\end{tabular} \\ \bottomrule
 	\end{tabular}
-	\caption[Overview of top performing approaches to be tested on unseen data samples]{Overview of top performing classifiers with its feature set which will be used to test on unseen data.}
+	\caption[Overview of top performing models tested on unseen data samples]{Overview of top performing classifiers with their feature set which will be used to test on unseen data.}
 	\label{tab:exp4}
 \end{table}
 \FloatBarrier
@@ -1465,7 +1466,7 @@ This section will present a more detailed description of each classifiers perfor
 \newpage
 
 \subsubsection{SVM - feature set three - RFE} \label{sb:svmwrapper}
-This is the best performing classifier and the table \ref{svmexp} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 94.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 2.2\%. The classifier easily predicts floor, carpet, and soft mat, while it has some difficulties predicting hard mat. When the robot is on hard mat it has an average precision of 84\%, and it tends to predict it as carpet. Cause of hard mat tend to predict other terrains, Because the hard mat tends to be predicted as other terrains, the f-score for floor and carpet is decreased a little as seen in table \ref{fscoresvm}. The hard mat and carpet have relative equal f-scores. However, the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision.
+This is the best performing classifier and table \ref{svmexp} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 94.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 2.2\%. The classifier easily predicts floor, carpet, and soft mat, while it has some difficulties predicting hard mat. When the robot is on hard mat it has an average precision of 84\%, and it tends to predict it as carpet. Because the hard mat tends to be predicted as other terrains, the f-score for floor and carpet is decreased a little as seen in table \ref{fscoresvm}. The hard mat and carpet have relative equal f-scores. However, the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision.
 
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
@@ -1549,16 +1550,16 @@ This is the best performing classifier and the table \ref{svmexp} shows the accu
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for SVM with wrapper using feature set three after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
+		\caption{Accuracy and confusion matrix for SVM with a wrapper using feature set three after five runs. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{subt:svmexp}
 	\end{subtable}
-	\caption[Results of SVM - RFE - feature set three]{Results of SVM with RFE on feature set three after five runs, with precision \ref{pressvm}, recall \ref{recallsvm}, f-score \ref{fscoresvm}, and accuracy and confusion matrix \ref{subt:svmexp}.}
+	\caption[Results of SVM on feature set three with RFE]{Results of SVM with RFE on feature set three after five trials, with precision \ref{pressvm}, recall \ref{recallsvm}, f-score \ref{fscoresvm}, and accuracy and confusion matrix \ref{subt:svmexp}.}
 	\label{svmexp}
 \end{table}
 \FloatBarrier
 \newpage
 \subsubsection{Neural network - feature set five}
-This is the second best performing classifier and the table \ref{nnset5} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 78.2\%, and compared to the old result from \ref{tab:exp2} it has decreased by 10.8\%. The classifier has difficulties predicting the hard mat, and tends to predict it as carpet. Soft mat is the easiest to identify, but there is a minor amount of error in the recall when the robot is on the floor. The floor has the second highest accuracy with over 80\%. It has a precision of at least 88\%, and the recall is under 80\%, because there is shown misclassification of floor when the robot is on hard mat and floor. The carpet has a precision of at least 78\%, but the recall is under 63.5\%, while the hard mat has a higher recall of at least 71\%, and lower precision of approximately 41\%.
+This is the second best performing classifier and the table shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 78.2\%, and compared to the old result from \ref{tab:exp2} it has decreased by 10.8\%. The classifier has difficulties predicting the hard mat, and tends to predict it as carpet. Soft mat is the easiest to identify, but there is a minor amount of error in the recall when the robot is on the floor. The floor has the second highest accuracy with over 80\%. It has a precision of at least 88\%, and the recall is under 80\%, because there is shown misclassification of floor when the robot is on hard mat and floor. The carpet has a precision of at least 78\%, but the recall is under 63.5\%, while the hard mat has a higher recall of at least 71\%, and lower precision of approximately 41\%.
 
 
 \begin{table}[h]
@@ -1645,17 +1646,17 @@ This is the second best performing classifier and the table \ref{nnset5} shows t
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{0} & 21 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for neural network and feature set five after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
+		\caption{Accuracy and confusion matrix for neural network on feature set three after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{nnset5}
 	\end{subtable}
-\caption[Results of Neural network - feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
+\caption[Results of Neural network on feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
 \label{tab:binary}
 \end{table}
 \FloatBarrier
 \newpage
 	
 \subsubsection{Decision Tree - feature set one - RFLV}
-This is the third best performing classifier and the table \ref{dt4} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every classes. However, the floor and soft mat still have among the highest accuracies and f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
+This is the third best performing classifier and table \ref{dt4} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every classes. However, the floor and soft mat still have among the highest accuracies and f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
 
 
 
@@ -1741,10 +1742,10 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{47} & 2 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for decision tree with RFLV using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
+		\caption{Accuracy and confusion matrix for decision tree on feature set with RFLV after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{dt4}
 		\end{subtable}
-	\caption[Results of SVM - RFE - Feature set three]{Results of decision tree with RFLV using feature set one after five runs, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
+	\caption[Results of SVM on feature set three with RFE]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
 \label{tab:binary}
 \end{table}
 \FloatBarrier
@@ -1755,7 +1756,7 @@ This is the third best performing classifier and the table \ref{dt4} shows the a
 	
 
 \subsubsection{Decision Tree - feature set one}
-This is the fourth best performing classifier and the table \ref{dt1e} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on soft mat. However, soft mat still has the highest precision and recall of at least 92\% and 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% and 36\%, and big variation in the recall with a range of 66.7\% to 78.3\%.
+This is the fourth best performing classifier and table \ref{dt1e} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on soft mat. However, soft mat still has the highest precision and recall of at least 92\% and 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% and 36\%, and big variation in the recall with a range of 66.7\% to 78.3\%.
 
 
 \begin{table}[h]
@@ -1840,17 +1841,17 @@ This is the fourth best performing classifier and the table \ref{dt1e} shows the
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & 1 \\ \cmidrule(l){3-6} 
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{3} & 18 \\ \bottomrule
 	\end{tabular}
-	\caption{Accuracy and confusion matrix for decision tree using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
+	\caption{Accuracy and confusion matrix for decision tree on feature set one after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 	\label{dt1e}
 	\end{subtable}
-	\caption[Results of Decision Tree - Filter - Feature set one]{Results of decision tree with RFLV on feature set three with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
+	\caption[Results of decision tree on feature set one with RFLV]{Results of decision tree on feature set three with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
 \label{tab:dta1ll}
 \end{table}
 \FloatBarrier
 \newpage
 
 \subsubsection{Neural Network - feature set one}
-This is the fifth best performing classifier and the table \ref{nn2} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor too. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
+This is the fifth best performing classifier and table \ref{nn2} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
 		\centering
@@ -1936,7 +1937,7 @@ This is the fifth best performing classifier and the table \ref{nn2} shows the a
 		\caption{Accuracy and confusion matrix for neural network tree using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{nn2}
 	\end{subtable}
-	\caption[Results of Neural Network - Feature set one]{Results of neural network using feature set three after five runs, with precision \ref{nnPrecision}, recall \ref{nnrecall}, f-score \ref{nnfscore}, and accuracy and confusion matrix \ref{nn2}.}
+	\caption[Results of neural network on feature set one]{Results of neural network on feature set three after trials runs, with precision \ref{nnPrecision}, recall \ref{nnrecall}, f-score \ref{nnfscore}, and accuracy and confusion matrix \ref{nn2}.}
 	\label{tab:binary}
 \end{table}
 
@@ -1950,7 +1951,7 @@ In this experiment, five classifiers with different feature sets were investigat
 Regarding different sets of features, it can be seen that using decimated raw data from the time domain gave the poorest performance. The neural network only achieved an average accuracy of 67.4\%. It is also worth noting that the decision tree with and without the feature selection method did not result in any significant differences. Feature set five which uses statistics features from time and frequency domains gave feasible results, and did not decrease as much as the model using feature set one.
 \\
 \\
-A common similarity between most of models is that the soft mat is the easiest terrain to identify, although some of the models have shown minor confusion. Every model has difficulty predicting hard mat, and tend to predict it as carpet. This misclassification also leads to a lower recall and f-score for the carpet. But most of the models are able to have a high precision of prediction on floor and carpet. Even though the hard mat is often mistaken for carpet, the other three terrains are less often mistaken for hard mat.
+A common similarity between most of the models is that the soft mat is the easiest terrain to identify, although some of the models have shown minor confusion. Every model has difficulty predicting hard mat, and tend to predict it as carpet. This misclassification also leads to a lower recall and f-score for the carpet. But most of the models are able to have a high precision of prediction on floor and carpet. Even though the hard mat is often mistaken for carpet, the other three terrains are less often mistaken for hard mat.
 
 
 \newpage
@@ -1965,13 +1966,15 @@ Previously, the evaluation of classifiers were based on default hyperparameters.
 		SVM & 3 & RFE \\
 		Neural network & 5 & None \\ \bottomrule
 	\end{tabular}
-	\caption[Overview of top performed models used to find the best parameters]{Two best performed models used to find the best parameters.}
+	\caption[Two best performing models used to find the best parameters]{Two best performing models used to find the best parameters.}
 	\label{tab:expparat}
 \end{table}
 \FloatBarrier
 
 \paragraph{Neural Network}
-A crucial part of the Neural Network is the choice of number of hidden nodes, and hidden layers. These choices are fundamental to achieving a promising result of the algorithm. It is common to use two hidden layers, but there is no theory on how to choose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find the best number of neurons one has to test many different values and chose the one that gives the best results. An exhaustive grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:hypnn}. The parameters obtained from the grid search will be further tested with three different representations of terrains. The current representation of the terrain is that each terrain is assigned to four nodes. Hence, predictions of current terrain will be based on the highest score of these nodes. Another representation of terrain is binary numbers. This representation, instead of selecting the highest score from one node, will be looking at a pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary are shown in \ref{tab:binary}, which will also be tested with the best parameters found with the grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}. This representation will only have two output nodes, and it will always predict a terrain even if it appear misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin}, on the other hand, if there are at least two neurons misfiring, the output will be unknown.
+A crucial part of the Neural Network is the choice of number of hidden nodes, and hidden layers. These choices are fundamental to achieving a promising result of the algorithm. It is common to use two hidden layers, but there is no theory on how to choose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find the best number of neurons one has to test many different values and chose the one that gives the best results. An exhaustive grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:hypnn}. The parameters obtained from the grid search will be further tested with three different representations of terrains. 
+
+The current representation of the terrain is that each terrain is assigned to four nodes. Hence, predictions of current terrain will be based on the highest score of these nodes. Another representation of terrain is binary numbers. This representation, instead of selecting the highest score from one node, will be looking at a pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary numbers are shown in \ref{tab:binary}, which will also be tested with the best parameters found with the grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}. This representation will only have two output nodes, and it will always predict a terrain even if it appears misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin}, on the other hand, shows that if there are at least two neurons misfiring, the output will be unknown.
 
 \begin{table}[h]
 	\centering
@@ -1998,7 +2001,7 @@ A crucial part of the Neural Network is the choice of number of hidden nodes, an
 		10 & Soft mat \\
 		11 & Hard mat \\ \bottomrule
 	\end{tabular}
-		\caption{Two binary digits representation of each terrain.}
+		\caption{Representation of each terrain with two binary digits.}
 		\label{tab:twobin}
 	\end{subtable}
 	\hfill
@@ -2013,7 +2016,7 @@ A crucial part of the Neural Network is the choice of number of hidden nodes, an
 	0100 & Soft mat \\
 	1000 & Hard mat \\ \bottomrule
 \end{tabular}
-		\caption{Four binary digits representation of each terrain.}
+		\caption{Representation of each terrain with four binary digits.}
 		\label{tab:fourbin}
 	\end{subtable}
 	\caption[Binary representations of terrain]{Representation of each terrain with two binary digits \ref{tab:twobin}, and four binary digits \ref{tab:fourbin}.}
@@ -2057,7 +2060,7 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 			\textbf{SVM} & \textbf{Set 3} & \textbf{RFE} & \textbf{String} & \textbf{1} & \textbf{94.8\%} & \textbf{93.6\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results of classifier after tuned parameters]{Results after tuned parameters of Neural Network and SVM.}
+	\caption[Results of the classifier after tuning parameters]{Results after tuning parameters of Neural Network and SVM.}
 	\label{tab:resPara}
 \end{table}
 \FloatBarrier
@@ -2071,7 +2074,7 @@ Tuning parameters did not have a significant effect on the performance. Mostly i
 Regarding binary representation of terrains, there is shown a decrease of accuracy when having a representation of the terrain with four binary digits. There is a minor increase of accuracy when the output consists of two binary outputs.   
 \newpage
 \section{Classification in real-time} \label{sec:realtime}
-A more realistic practical scenario is let the robot traverse through different terrains. Thus, the earlier approach has to be modified due to this experiment. In this experiment, the robot will be walking on two different terrains. There are in total five different setups.
+A more realistic practical scenario is to let the robot traverse through different terrains. Thus, the earlier approach has to be modified for this experiment. In this experiment, the robot will be walking on two different terrains. There are in total five different setups.
 	
 	
 	\begin{enumerate}
@@ -2083,7 +2086,7 @@ A more realistic practical scenario is let the robot traverse through different 
 	\end{enumerate}
 	
 \subsection{Real time implementation} %OBS
-The real time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation  it will be creating a service node after trained classifier. The training is the same set with 50 samples for each terrain. The service will be waiting for a request from another node, which is in this case segment data. The segment data gathers a data stream from the optoforce sensor. The method will collect interesting data as described in \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case the Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. The documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware when analyzing the results. After given a result, it will be waiting for new partitions from segment data algorithm.
+The real time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation a ROS service node mentioned in section \ref{sub:service}, is created after modeled a classifier. The training is the same set with 50 samples for each terrain. The service will be waiting for a request from another node, which is in this case segment data. The segment data gathers a data stream from the optoforce sensor. The method will collect interesting data as described in \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. The documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware of this when analyzing the results. After given a result, it will be waiting for new partitions from segment data algorithm.
 	
 	\begin{figure}[h!]
 		\centering
@@ -2149,7 +2152,7 @@ The following paragraphs present the results along with an analysis of each expe
 \newpage
 
 \subsubsection{Floor to carpet}
-The data stream when the robot traverse from floor to carpet is shown in figure \ref{fig:gulvet4teppegraf}, where the vertical line is the transition between the terrains, and the table \ref{tab:Gulvet4teppe} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 88.9\%. However, how certain the classifier is to predict correctly is under 78\%. The fifth step is the transition and as shown, there is some confusion between floor and carpet. It is also worth noticing that at the fourth step the carpet has almost the same probability as the floor with 56.4\% and 42.5\% respectively. The soft mat and hard mat have small probabilities in every step and is more unlikely to be predicted.
+The data stream when the robot traverses from floor to carpet is shown in figure \ref{fig:gulvet4teppegraf}, where the vertical line is the transition between the terrains, and table \ref{tab:Gulvet4teppe} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 88.9\%. However, how certain the classifier is to predict correctly is under 78\%. The fifth step is the transition and as shown, there is some confusion between floor and carpet. It is also worth noticing that at the fourth step the carpet has almost the same probability as the floor with 56.4\% and 42.5\% respectively. The soft mat and hard mat have small probabilities in every step and is less likely to be predicted.
 	
 	\begin{figure}[h]
 		\centering
@@ -2179,7 +2182,7 @@ The data stream when the robot traverse from floor to carpet is shown in figure 
 	\clearpage
 	
 \subsubsection{Hard mat to floor} \label{subsec:hmf}
-The data stream when the robot traverses from hard mat to floor is shown in figure \ref{fig:mb3Gulvet}, where the vertical line is the transition between the terrains, and the table \ref{tab:mb3Gulvet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 50\%. The first two steps have shown a high accuracy of predicting correctly with over 90\%. the third step, on other hand, which is the step before the transition, has a lower probability of the hard mat, with a similar probability as the carpet. It is also worth noticing that the force in the y-direction at this step differs from earlier steps. The fourth step is the transition, and is also where the model misclassifies the new terrain. It rather predicts it as carpet than floor.
+The data stream when the robot traverses from hard mat to floor is shown in figure \ref{fig:mb3Gulvet}, where the vertical line is the transition between the terrains, and table \ref{tab:mb3Gulvet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 50\%. The first two steps have shown a high accuracy of predicting correctly with over 90\%. The third step, on other hand, which is the step before the transition, has a lower probability of the hard mat, with a similar probability as the carpet. It is also worth noticing that the force in the y-direction at this step differs from earlier steps. The fourth step is the transition, and is also where the model misclassifies the new terrain. It rather predicts it as carpet than floor.
 		
 \begin{figure}[h]
 	\centering
@@ -2209,7 +2212,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 \clearpage
 
 \subsubsection{Hard mat to soft mat} \label{sec:hmssm}
- The data stream when the robot traverses from hard mat to soft mat is shown in figure \ref{fig:hardmatSoftMat} and the table \ref{hardmatSoftMat} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 72.7\%. The forces in the y- and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first, third and sixth step, where the probability of predicting correctly is under 54\%.
+ The data stream when the robot traverses from hard mat to soft mat is shown in figure \ref{fig:hardmatSoftMat} and table \ref{hardmatSoftMat} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 72.7\%. The forces in the y- and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first, third and sixth step, where the probability of predicting correctly is less than 54\%.
 
 
 	
@@ -2241,7 +2244,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 	\clearpage
 	
 \subsubsection{Soft mat to hard mat}
-The data stream when the robot traverses from soft mat to hard mat is shown in figure \ref{fig:MM_4_Resten_BGraf}, and the table \ref{MM4MB} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 79\%. Again, the forces in the y-, and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is under 53.5\%.
+The data stream when the robot traverses from soft mat to hard mat is shown in figure \ref{fig:MM_4_Resten_BGraf}, and table \ref{MM4MB} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 79\%. Again, the forces in the y-, and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%.
 
 	\begin{figure}[h]
 		\centering
@@ -2269,7 +2272,7 @@ The data stream when the robot traverses from soft mat to hard mat is shown in f
 	\FloatBarrier
 	\clearpage
 \subsubsection{Soft mat to carpet}
-The data stream when the robot traverses from soft mat to carpet is shown in figure \ref{fig:softcarpet}, and the table \ref{tab:softcarpet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 87.5\%. Again, the forces in the y- and z-directions are much higher when walking on carpet than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is under 53.5\%. The fifth step is when the robot is on the new terrain, and has a probability of predicting it correct of 66.7\%. Regarding step six, the classifier makes a wrong prediction between carpet and hard mat with a probability of 93.3\%.
+The data stream when the robot traverses from soft mat to carpet is shown in figure \ref{fig:softcarpet}, and table \ref{tab:softcarpet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 87.5\%. Again, the forces in the y- and z-directions are much higher when walking on carpet than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%. The fifth step is when the robot is on the new terrain, and has a probability of predicting it correct of 66.7\%. Regarding step six, the classifier makes a wrong prediction between carpet and hard mat with a probability of 93.3\%.
 	
 	
 	\begin{figure}[h]
@@ -2310,7 +2313,7 @@ All previous experiments have only used data provided from the sensor mounted on
 
 	
 \subsection{Results} 
-The table \ref{tab:pred} shows the results of using the training set provided from left front foot to predict data from right front foot.
+Table \ref{tab:pred} shows the results of using the training set provided from left front foot to predict data from right front foot.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{lllll}
@@ -2349,14 +2352,15 @@ A further analysis will be looking at the data provided from each sensor on each
 			\caption{Carpet}
 			\label{fig:s1teppe}
 		\end{subfigure}
-		
-		\begin{subfigure}[h]{\textwidth}
+				\end{figure}
+	\begin{figure}[h] \ContinuedFloat
+	
+		\begin{subfigure}[h]{\textwidth}\ContinuedFloat
 			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1hardmatte}
 			\caption{Hard mat}
 			\label{fig:s1hardmatte}
 		\end{subfigure}
-		\end{figure}
-		\begin{figure}[h] \ContinuedFloat
+		
 		\begin{subfigure}[b]{\textwidth}
 			\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/s1mykmatte}
 			\caption{Soft mat}
@@ -2375,25 +2379,25 @@ A further analysis will be looking at the data provided from each sensor on each
 Many classifiers have given a good performance; however, when the models were tested on new samples, the performance decreased, as seen in section \ref{seq:crossunseen}. The neural network and decision tree with feature set one do not show adequate performance. A reason could be the classifier was overfitted and not able to generalize the data. Note that those classifiers use raw data sequences, and the method of achieving fixed length by decimating data described in section \ref{subseq:FixLength} might also have been affecting the performance. In this approach it is considered that data at the start and the end of sequence is less important. However, the longer the time series is, the more data must be removed from the feature vector, with a risk of removing important features. Another weakness of using raw data is the risk of learning with noises. Learning with noises might cause not generalizing the model and achieving a poor performance. However, noises are inherent in real world measurements, thus discarding the noises might also give a poor result.
 \\
 \\
-Regarding common confusion between the classifier, the classifier tended to predict hard mat as carpet, and the soft mat has a high f-score as seen in section \ref{seq:crossunseen}. The reason can be due to the data provided from the sensor as seen in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}. The hard mat and carpet have the most similar characteristics and are most likely to be confused. Using the feature selection method might help to keep distinctive features, and SVM combined with feature set three, which uses the whole frequency domain, has given a good performance even on unseen data. That indicates that the good features are kept and it is able to distinguish between each terrain, although there is still difficulty predicting the hard mat. This issue can be seen in \ref{fig:wrapperset5}, which shows the features kept after RFE. The first 10 features do give a relatively distinctive feature, while the data behind is more equal to each other. A further improvement could be to test different values on the RFE, by either discarding or keeping more features to find new and better feature sets. 
+Regarding common confusion between the classifier, the classifier tended to predict hard mat as carpet, and the soft mat has a high f-score as seen in section \ref{seq:crossunseen}. This might be due to the data provided from the sensor as seen in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}. The hard mat and carpet have the most similar characteristics and are most likely to be confused. Using the feature selection method might help to keep distinctive features, and SVM combined with feature set three, which uses the whole frequency domain, has given a good performance even on unseen data. That indicates that the good features are kept and it is able to distinguish between each terrain, although there is still difficulty predicting the hard mat. This issue can be seen in \ref{fig:wrapperset5}, which shows the features kept after RFE. The first 10 features do give a relatively distinctive feature, while the data behind are more equal to each other. A further improvement could be to test different values on the RFE, by either discarding or keeping more features to find new and better feature sets. 
 	
 \section{Hyperparameter-tuning}
-The achieved parameters from the grid search did not show significant improvement on the performance for both SVM and the Neural Network. However, for the Neural Network was only searching for the number of neurons in one or two hidden layers, while there are many other settings which also should be tested to achieve a more optimal classifier. Regarding having binary digits as an output, it provided a minor improvement when representing terrain with two binary digits. A reason could be that instead of choosing the output with the highest number of neurons, it treats every output equally. That is, every neuron that meets its threshold will be taken into account. Representation with four binary digits, on the other hand, has given more misclassification. Much of this is because when more than two neurons fire, it will be considered as an unknown terrain. This representation, instead of always predicting a certain terrain as the two others, is more suitable if the robot is exploring or detecting new terrains.
+The achieved parameters from the grid search did not show significant improvement on the performance for both SVM and the Neural Network. However, the Neural Network was only searching for the number of neurons in one or two hidden layers, while there are many other settings which also should be tested to achieve a more optimal classifier. Regarding having binary digits as an output, it provided a minor improvement when representing terrain with two binary digits. A reason could be that instead of choosing the output with the highest number of neurons, it treats every output equally. That is, every neuron that meets its threshold will be taken into account. Representation with four binary digits, on the other hand, has given more misclassification. Much of this is because when more than two neurons fire, it will be considered as an unknown terrain. This representation, instead of always predicting a certain terrain as the two others, is more suitable if the robot is exploring or detecting new terrains.
 
 \section{Transition between terrains}
-The result achieved in the transition between terrains, done in section \ref{sec:realtime}, indicates that the classifier is able to identify terrains even with minor differences in their properties. The overall accuracy for all experiments is 86.8\%. Misclassification is mostly caused by the transition from hard mat to floor as seen in table \ref{sec:hmssm}. The classifier is confused between floor and carpet. The probability estimations of unseen data shown in table \ref{svmexp}, they show that the carpet tends to have small misclassification to floor. But, it is worth mentioning that the robot tends to not walk straight, which might cause misclassification. All of the training samples have been gathered when the robot walked straight. Thus, since the sensor is highly sensitive, it might be affected when it walks toward the right or left.
+The result achieved in the transition between terrains, done in section \ref{sec:realtime}, indicates that the classifier is able to identify terrains even with minor differences in their properties. The overall accuracy for all experiments is 86.8\%. Misclassification is mostly caused by the transition from hard mat to floor as seen in table \ref{sec:hmssm}. The classifier is confused between floor and carpet. The probability estimations of unseen data shown in table \ref{svmexp}, shows that the carpet tends to have small misclassification to floor. However, it is worth mentioning that the robot tends to not walk straight, which might cause misclassification. All of the training samples have been gathered when the robot walked straight. Thus, since the sensor is highly sensitive, it might be affected when it walks toward the right or left.
 \\
 \\
 Regarding estimated probability on the first step on the new terrain, one can observe that the estimated probabilities are typically low. These issues might come from the fact that all training samples were collected when the robot walked on a certain terrain. Preventing this can be done by gathering training samples where the robot traverses through different terrains. Another thing to be observed is that on the step in the beginning, the estimated probability of correct terrain is also typically low. It might indicate that the first step has a particular behavior, as in the middle the robot got more stable. Thus, extracting more data from the step may improve the result.
 \\
 \\
-Regarding how fast the robot detect new terrain, when two terrains with significant differences in their properties it detects fast. However, the experiments are mostly based on a transitions with terrain with the soft mat. To give a more reliable evaluation, more experiments between floor, carpet, and hard mat must be included.
+Regarding how fast the robot detect new terrain, when two terrains with significant differences in their properties it detects new terrain fast. However, the experiments are mostly based on transitions with terrain with the soft mat. To give a more reliable evaluation, more experiments between floor, carpet, and hard mat must be included.
 	
 \section{Predicting on the other sensor}
-It can be seen that the classifier had difficulty predicting hard mat. As seen in the figures \ref{fig:s1all}, the data provided from the front right foot differs somewhat from the front left foot. However, there are characteristics such as shape and curve of the graphs. Note that when mounting the sensor on the foot there is a possibility that the sensor does not precisely point in the same direction, which may cause the differences. However, the results indicate that most of the terrains have been predicted correctly. But there is still shown a common challenge to all classifiers, that is identifying the hard mat. Thus, it is possible to use the training data from the front left foot on the front right foot, but to achieve a more reliable result, it is best to train each sensor independently.
+It can be seen that the classifier had difficulty predicting hard mat. As seen in figure \ref{fig:s1all}, the data provided from the front right foot differs somewhat from the data from the front left foot. However, there are characteristics such as shape and curve of the graphs. Note that when mounting the sensor on the foot there is a possibility that the sensor does not precisely point in the same direction, which may cause the differences. However, the results indicate that most of the terrains have been predicted correctly. There is still shown a common challenge to all classifiers, that is identifying the hard mat. Thus, it is possible to use the training data from the front left foot on the front right foot, but to achieve a more reliable result, it is best to train each sensor independently.
 	
 \section{Compared to earlier work}
-To give an overview of the thesis performance, a comparison with earlier work is shown in table \ref{table:compareEarly}. Those approaches were all performed with local sensing and tested with unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy of at least 90\%. However, the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which is more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms work which used more sensors \cite{6386243}. Even the work in \cite{26b23e912c654fe4b7478fd910130195} only used one type of sensor, demonstrates a result of 97\%.  However, the authors were incorporating all six servos from each leg which produces more data to be preprocessed. It is also worth mentioning that the work achieved higher accuracy when rocks and mulch were considered as one terrain. Having more sensors or incorporating all four sensors in this work might also increase the accuracy. The most similar comparison is with work reported in \cite{6784609}, where a similar robot platform and tactile sensor is used during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties and achieved an accuracy of 84.69\%. As the robot in the thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those too.
+To give an overview of the thesis performance, a comparison with earlier work is shown in table \ref{table:compareEarly}. Those approaches were all performed with local sensing and tested with unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy of at least 90\%. However, the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms work which used more sensors \cite{6386243}. Even the work in \cite{26b23e912c654fe4b7478fd910130195} only used one type of sensor, demonstrates a result of 97\% ??.  However, the authors were incorporating all six servos from each leg which produces more data to be preprocessed. It is also worth mentioning that the work achieved higher accuracy when rocks and mulch were considered as one terrain. Having more sensors or incorporating all four sensors in this work might also increase the accuracy. The most similar comparison is with work reported in \cite{6784609}, where a similar robot platform and tactile sensor is used during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties and achieved an accuracy of 84.69\%. As the robot in this thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those too.
 %26b23e912c654fe4b7478fd910130195
 	\begin{table}[h]
 		\centering
@@ -2440,7 +2444,7 @@ To give an overview of the thesis performance, a comparison with earlier work is
 The aim of this thesis was to investigate the possibility of terrain classification using a 3D optical force sensor. The approach was machine learning on force data provided from the sensor mounted on a quadruped robot. Four different terrains were used during the experiments: floor, carpet, hard mat, and soft mat. 
 \\
 \\
-The evaluation of the force sensor, was done by using five different classifiers, Bayes Naives, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using a decimated raw data in the time domain or frequency domain, or statistical metrics in the time domain, frequency domain or both. It can be seen in the data provided from the sensor that floor, carpet and hard mat have similar properties in the x-direction, but differ in the y- and z-directions. 
+The evaluation of the force sensor was done by using five different classifiers, Bayes Naives, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using decimated raw data in the time domain or frequency domain, or statistical metrics in the time domain, frequency domain or both. It can be seen in the data provided from the sensor that floor, carpet and hard mat have similar properties in the x-direction, but differ in the y- and z-directions. 
 \\
 \\
 Many of the classifiers had a high accuracy during the cross validation. However, when selecting five well performing classifiers to see the performance on unseen data, the accuracy dropped as anticipated. The neural network and decision tree, which had an accuracy of over 90\%, dropped to 64\% and 78\% respectively. The best performing classifier was SVM with an accuracy of 94.8\%, but had difficulty of predicting the hard mat.
@@ -2452,13 +2456,13 @@ A real time implementation was implemented due to more realistic scenario when t
 The last experiment demonstrated the possibility of using training data from a sensor mounted on the front left foot to predict front right foot samples. The data provided might differ from the other, but did have some of the same characteristics. However, to achieve a higher accuracy it is better having training samples for each sensor. 
 \\
 \\
-Compared the results obtained from cross validation with earlier work, the sensor has shown feasible results. Note that in this work, only a sensor is used to discriminate terrains, while much of the other past work have either used wheeled robots that provide more stable locomotion, or sensor fusion to achieve a good result. As the thesis sensor is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, it is likely be able to predict outdoor terrain such as rocks and grass as well.
+Comparing the results obtained from cross validation on unseen data with earlier work, the sensor has shown feasible results. Note that in this work, only a sensor is used to discriminate terrains, while much of the other past work have either used wheeled robots that provide more stable locomotion, or sensor fusion to achieve a good result. As the thesis sensor is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, it is likely be able to predict outdoor terrain such as rocks and grass as well.
 	
 \section{Future work}
-The classifier is based on the features due from data from optical force sensor. However, features of the terrain itself such as hardness and friction are not analyzed directly, which can be addressed in future work. 
+The classifier is based on the features from data from optical force sensor. However, features of the terrain itself such as hardness and friction are not analyzed directly, which can be addressed in future work. 
 \\
 \\
-This thesis has only experimented with flat terrains. It will be interesting to include rougher surfaces or other types and investigate the performance with the currently model. 
+This thesis has only experimented with flat terrains. It will be interesting to include rougher surfaces or other types and investigate the performance with the current model. 
 \\
 \\
 This thesis has only shown the possibility of using training data from one sensor to predict the other. However, incorporating all four legs might increase the performance. 
@@ -2473,7 +2477,7 @@ Instead of explicitly labeling the terrain, having unsupervised learning could b
 Only one robot was used to evaluate the sensor. Different platforms may not give the same results. Thus, to achieve a more reliable evaluation of the sensor, different platforms should be tested, which can be addressed as further work.
 \\
 \\
-The importance of terrain classification is be able to change gait on different terrain. Thus, the approach should be enhance to be able to traverse between different terrains with different gaits a further researched is necessary.
+The importance of terrain classification is be able to change gait on different terrain. Thus, the approach should be enhanced to be able to traverse between different terrains with different gaits.
 
 %http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 %Optical force (Legged Robots)
