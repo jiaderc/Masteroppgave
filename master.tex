@@ -319,13 +319,13 @@ Reinforcement learning algorithms choose an action for each dataset and receive 
 Evolutionary learning uses biological evolution such as reproduction, mutation, recombination, and selection as a learning process.
 	
  \subsection{Classifier} \label{sub:classifier}
-The classifier is where the learning process occurs, and produces the inferred function. The following sections will introduce the technical background of five classifiers; the artificial neural network, the support vector machine, the Naive Bayes, the k-nearest neighbors, and the decision trees.
+The classifier is where the learning process occurs, and produces the inferred function. The following paragraphs will introduce the technical background of five classifiers; the artificial neural network, the support vector machine, the naive Bayes, the k-nearest neighbors, and the decision trees.
 
 \subsubsection{Artificial neural network}
-Artificial Neural Network (ANN) are inspired by neurons in the human brain. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists of a weighted set inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input. 
+The Artificial Neural Network (ANN) is inspired by neurons in the human brain. A common representation of a neuron is the perceptron shown in figure \ref{fig:NN}. It consists of weighted set inputs $w_i$, an adder which sums weighted input signals, and an activation function to decide whether it should fire for the current input $x_i$. By connecting many perceptrons, one will obtain a neural network. Note that neurons only depend on its own inputs and errors. That is, a neuron will not be affected by other neurons’ performances. Each neuron gives a result based on its own weights and the input, adding them together, and comparing the result to its own threshold. The only thing neurons share is the input and output. 
 \\
 \\
-The learning process of a perceptron in supervised learning aims to be able to reproduce a particular pattern to a class, which consists of firing and non-firing neurons for a given input. If some of the neurons yield a wrong output, for instance a neuron does not fire when it should, then its weights will be adjusted to make it fire right the next time. There is a possibility to add more layers to the neural network, which would make it able to handle non-linear separable problems. This is also called a multi-layer perceptron (MLP), or a multi neural network.
+The learning process of a perceptron in supervised learning aims to be able to reproduce a particular pattern to a class, which consists of firing and non-firing neurons for a given input. If some of the neurons yield a wrong output, for instance, a neuron does not fire when it should, then its weights will be adjusted to make it fire right the next time. There is a possibility to add more layers to the neural network, which would make it able to handle non-linear separable problems. This is also called a multi-layer perceptron (MLP), or a multi neural network.
 
 	
 \begin{figure}[h]
@@ -336,7 +336,7 @@ The learning process of a perceptron in supervised learning aims to be able to r
 \end{figure}
 	
 \paragraph{Multi-Layer Perceptron}
-A multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layers because its value cannot be changed directly, and it is only observed in the training set. The training process can be divided into a forward algorithm and a backward algorithm. The forward algorithm starts first by calculating the activations of the first hidden layer. These activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backwards algorithm will use the error to adjust the weights between the output layer and hidden layer. The algorithm stops when it has reached the inputs and changed weights in the entire graph.
+A multi-layer perceptron consists of two or more layers between the input and output. Those layers are also called hidden layers because its value cannot be changed directly, and it is only observed in the training set. The training process can be divided into a forward algorithm and a backward algorithm. The forward algorithm starts first by calculating the activations of the first hidden layer. These activations and the next set of weights will be used to calculate the activations for the next layer, which could either be a hidden layer or the output. The output will then be compared to a target to compute an error. The backward algorithm will use the error to adjust the weights between the output layer and hidden layer. The algorithm stops when it has reached the inputs and changed weights in the entire graph. 
 	
 	
 \begin{figure}[h]
@@ -347,7 +347,7 @@ A multi-layer perceptron consists of two or more layers between the input and ou
 \end{figure}
 	
 \subsubsection{Support vector machine}
-The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the  classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. An instance of two-class classification is shown in figure \ref{fig:SVM}. Each of features vector with values according to the x- and y-axis, represents the classes: circles and crosses. The dotted line is the hyperplane/decision boundary and tells us where each class belongs to. The SVM will create an optimal hyperplane to achieve the best separation between classes. If the decision boundary was moved by a small amount, there would be a risk that a datapoint from one class that lies close to the boundary would be on the wrong side. Finding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region it can put to separate the classes without having any points inside. The hatched classes lie on the margin, and support vectors. This process can be done by the dot product between each datapoint \cite{Cortes1995}.
+The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \cite{Cortes1995}, and the classifier often provides a significantly better performance than other algorithms, when the data set is not extremely large \cite{Marsland:2009:MLA:1571643}. Consider the two-class classification shown in figure \ref{fig:SVM} where the classes are circles and crosses. The dotted line is the hyperplane/decision boundary created by SVM, and shows where each class belongs to. If the decision boundary was moved by a small amount, there would be a risk that a datapoint from one class that lies close to the boundary would be on the wrong side. Finding the best decision boundary is done by defining the optimal margin. The margin is defined as the largest region where it separate the classes without having any points inside. The data points that lies on the margin are the support vectors. Finding optimal margin can be done by the dot product between each datapoint \cite{Cortes1995}.
 
 
 
@@ -360,7 +360,7 @@ The support vector machine (SVM) algorithm was introduced by Cortes and Vapnik \
 \end{figure}
 \FloatBarrier
 
-A weakness of the SVM is that it is only feasible when the classes are linearly separable as shown in \ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable, as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each datapoint, which means the transformation itself is not needed. Instead, use a function to that implicitly compute the high-dimensional dot-product, and is referred as the kernel function. 
+A weakness of SVM is the classification is only feasible when the classes are linearly separable as in figure ref{fig:SVM}. However, this issue can be prevented by transforming the data into a higher dimensional space where the data is linearly separable as shown in figure \ref{fig:svmtransform}. Recall that the decision boundary is only dependent on the dot-product of each data point, which means the transformation itself is not needed. Instead, use a function that implicitly computes the high-dimensional dot-product. This function is referred to as a kernel function. There are many type kernel functions as shown in table \ref{tab:kern}, where each of them is more appropriate than the other depended on how complex the problem is. For instance, the dot product is sufficient if a problem is linearly separable in the original space. Meanwhile,  the Gaussian radial basis function (RBF) or polynomial may be a better option for a more complex problem.
 
 \begin{figure}[h]
 	\centering
@@ -379,7 +379,7 @@ A weakness of the SVM is that it is only feasible when the classes are linearly 
 		\textbf{Kernel name} & \textbf{Values} \\ \hline
 		\multirow{2}{*}{Linear} & \multirow{2}{*}{$\vec{x} \cdot \vec{x}$} \\
 		&  \\
-		\multirow{2}{*}{RBF} & \multirow{2}{*}{$exp(-\gamma\vert\vert \vec{x}\cdot\vec{y}\vert\vert^{2})$} \\
+		\multirow{2}{*}{Gaussian radial basis function} & \multirow{2}{*}{$exp(-\gamma\vert\vert \vec{x}\cdot\vec{y}\vert\vert^{2})$} \\
 		&  \\
 		Polynomial & $(1 + \vec{x} \cdot \vec{y})^{d}$  \\ \hline
 	\end{tabular}
@@ -413,7 +413,7 @@ K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover a
 		\label{fig:KNN}
 \end{figure}
 	
-A common method to find the k-nearest datapoint is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation \ref{eq:edistance}  \cite{Bao2004}.
+A common method to find the k-nearest data points is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation \ref{eq:edistance}  \cite{Bao2004}.
 	
 \begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
