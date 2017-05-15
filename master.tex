@@ -2396,15 +2396,16 @@ The result achieved in the transition between terrains in section \ref{sub:unsee
 Regarding estimated probability on the first step on the new terrain, one can observe that the estimated probabilities are typically low. These issues might come from the fact that all training samples were collected when the robot walked on a certain terrain. Preventing this can be done by gathering training samples where the robot traverses through different terrains. Another thing to be observed is the step in the beginning, where the estimated probability of correct terrain is also typically low. It might indicate that the first step has a particular behavior, as in the middle the robot got more stable. Thus, extracting more data from the first step may improve the result.
 \\
 \\
-Regarding how fast the robot detect new terrain, when two terrains with significant differences in their properties such as the soft mat it detects new terrain fast. Terrains with less differences in their properties may not detect as fast. Results of transition from floor to carpet in table \ref{tab:Gulvet4teppe} shows the classifier sensed the new terrain after the second step on the new terrain. Note, the experiments are mostly based on transitions with the soft mat which only gives an indication of how fast it detects two terrains with highly difference in their properties. Thus, to give a more reliable evaluation, more experiments on transition between floor, carpet, and hard mat is necessary.
+Regarding how fast the robot detect new terrain, when two terrains with significant differences in their properties such as the soft mat it detects new terrain fast. Terrains with less differences in their properties may not detect as fast. Results of transition from floor to carpet in table \ref{tab:Gulvet4teppe} shows the classifier sensed the new terrain after the second step on the new terrain. Note, the experiments are mostly based on transitions with the soft mat which only gives an indication of how fast it detects the terrains with highly difference in their properties. Thus, to give a more reliable evaluation, more experiments on transition between floor, carpet, and hard mat is necessary.
 	
 \section{Predicting on the other sensor}
 The sensor data provided from the front right foot differs somewhat from the data from the front left foot as seen in figure \ref{fig:s1all}. The differences may come from when mounting the sensor on the robot. There is a possibility that the sensor on front left foot does not precisely point in the same direction as the sensor on front right foot. Despite of differences in sensor data, the results from table \ref{tab:pred} indicates that most of the terrains have been predicted correctly, but predicting the hard mat correct is still challenging.  Thus, it is possible to use the training data from the front left foot on the front right foot when incorporating them, but to achieve a more reliable result, it is best to train each sensor independently.
 
 
 \section{Compared to earlier work}
-To give an overview of the thesis performance, a comparison with earlier work is shown in table \ref{table:compareEarly}. Those approaches were all performed with local sensing and tested with unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy of at least 90\%. However, the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms work which used more sensors \cite{6386243}. Even the work in \cite{26b23e912c654fe4b7478fd910130195} only used one type of sensor, demonstrates a result of 97\% ??.  However, the authors were incorporating all six servos from each leg which produces more data to be preprocessed. It is also worth mentioning that the work achieved higher accuracy when rocks and mulch were considered as one terrain. Having more sensors or incorporating all four sensors in this work might also increase the accuracy. The most similar comparison is with work reported in \cite{6784609}, where a similar robot platform and tactile sensor is used during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties and achieved an accuracy of 84.69\%. As the robot in this thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those too.
+To give an overview of the thesis performance, a comparison with earlier work is shown in table \ref{table:compareEarly}. These approaches were all performed with local sensing and tested on unseen data. The thesis approach has among the top performers and obtains similar result as in \cite{5752869,4059113,5602459,26b23e912c654fe4b7478fd910130195} with an accuracy more than 90\%. Note that the experiments in \cite{5752869,4059113} were performed by a wheeled robot, which more easily achieves maintained stability and less noisy data when preprocessing data from a sensor than a legged robot. The thesis approach also outperforms past work which utilized more than one sensor \cite{6849778,6386243}. The work in \cite{26b23e912c654fe4b7478fd910130195} only utilized the servo and demonstrated an accuracy of 97\%.  However, the authors were incorporating all six servos from each leg which produces more sensor data to be preprocessed. It is also worth mentioning the work achieved higher accuracy when rocks and mulch were considered as one terrain. Utilizing more sensors or incorporating all four sensors in this work might also increase the results. The most similar comparison is with work reported in \cite{6784609}, whereas similar quadruped robot and tactile sensor were used during the experiments. However, the work does not report the type of tactile sensor used, which makes it difficult to compare the sensor type itself. The experiments were tested on blue foil, styrofoam, linoleum, cardboard, and rubber, which have significant differences in their properties and achieved an accuracy of 84.69\%. As the robot in this thesis is able to distinguish between floor, carpet, and hard mat, it should also be able to predict all of those as well.
 %26b23e912c654fe4b7478fd910130195
+
 	\begin{table}[h]
 		\centering
 		\resizebox{\textwidth}{!}{%
@@ -2413,6 +2414,8 @@ To give an overview of the thesis performance, a comparison with earlier work is
 				\textbf{Approach} & \textbf{Sensor used} & \textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of\\ terrains\end{tabular}} & \textbf{Accuracy} \\ \midrule
 				\multirow{3}{*}{Hoepflinger el at. \cite{5509309}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Force sensing\\ Joint motor currents\end{tabular}} & \multirow{3}{*}{Adaboost} & \multirow{3}{*}{4} & \multirow{3}{*}{73.3\%} \\
 				&  &  &  &  \\
+				&  &  &  &  \\
+				\multirow{2}{*}{Walas \cite{walastactile}} & \multirow{2}{*}{Tactile sensor} & \multirow{2}{*}{Linear Discriminant Analysis} & \multirow{2}{*}{5} & \multirow{2}{*}{76.67\%} \\
 				&  &  &  &  \\
 				\multirow{3}{*}{Kim el at. \cite{5602459}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Ground reaction force \\ Torque sensors\end{tabular}} & \multirow{3}{*}{SVM} & \multirow{3}{*}{4} & \multirow{3}{*}{78.75\%} \\
 				&  &  &  &  \\
@@ -2435,7 +2438,7 @@ To give an overview of the thesis performance, a comparison with earlier work is
 %				&  &  &  &  \\
 				\multirow{2}{*}{Best el at. \cite{26b23e912c654fe4b7478fd910130195}} & \multirow{2}{*}{Servos} & \multirow{2}{*}{SVM} & \multirow{2}{*}{4} & \multirow{2}{*}{97.3\%} \\
 				&  &  &  &  \\
-				\multirow{2}{*}{Thesis approach} & \multirow{2}{*}{Optical force sensor} & \multirow{2}{*}{SVM} & \multirow{2}{*}{4} & \multirow{2}{*}{94.8\%} \\
+				\multirow{2}{*}{Thesis approach} & \multirow{2}{*}{Optical tactile sensor} & \multirow{2}{*}{SVM} & \multirow{2}{*}{4} & \multirow{2}{*}{94.8\%} \\
 				&  &  &  &  \\ \bottomrule
 			\end{tabular}%
 		}
@@ -2447,43 +2450,43 @@ To give an overview of the thesis performance, a comparison with earlier work is
 
 	
 \section{Conclusion}
-The aim of this thesis was to investigate the possibility of terrain classification using a 3D optical force sensor. The approach was machine learning on force data provided from the sensor mounted on a quadruped robot. Four different terrains were used during the experiments: floor, carpet, hard mat, and soft mat. 
+The aim of this thesis was to investigate the possibility of terrain classification using a 3D optical force sensor. The approach was machine learning on force data provided from the sensor mounted on a quadruped robot. Four different terrains: floor, carpet, hard mat, and soft mat were used in experiments. The data set consist of the robot walking on each terrain separately. Although the terrains such as floor, carpet, and hard mat have similar properties, analysis of the sensor data showed small significant differences between them. The differences can be found in the sensor data in the y- and z-direction, where the forces, and the shapes of the graph differ on between each terrain. Sensor data in x-direction on the other hand, the forces obtained from each terrain has almost equal characteristics.
 \\
 \\
-The evaluation of the force sensor was done by using five different classifiers, Bayes Naives, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using decimated raw data in the time domain or frequency domain, or statistical metrics in the time domain, frequency domain or both. It can be seen in the data provided from the sensor that floor, carpet and hard mat have similar properties in the x-direction, but differ in the y- and z-directions. 
+The evaluation of the force sensor was done by using five different classifiers, bayes Naives, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using decimated raw data in the time domain or frequency domain, or statistical metrics in the time domain, frequency domain or both.  
 \\
 \\
-Many of the classifiers had a high accuracy during the cross validation. However, when selecting five well performing classifiers to see the performance on unseen data, the accuracy dropped as anticipated. The neural network and decision tree, which had an accuracy of over 90\%, dropped to 64\% and 78\% respectively. The best performing classifier was SVM with an accuracy of 94.8\%, but had difficulty of predicting the hard mat.
+Many of the classifiers had a high accuracy during the cross validation. However, when selecting five well performing classifiers to see the performance on unseen data, the accuracy dropped as anticipated. The neural network and decision tree, which had an accuracy of over 90\%, decreased  to 64\% and 78\% respectively. The best performing classifier was SVM with an accuracy of 94.8\%, but had difficulty of predicting the hard mat.
 \\
 \\
-A real time implementation was implemented due to more realistic scenario when the robot walking through different terrains. The overall accuracy was of 86.8\%, and the reason of lower accuracy might be not having a straight locomotion during the experiments. 
+A real time implementation was implemented due to more realistic scenario when the robot walking through different terrains. There was some trials were the robot did not have straight locomotion, which may cause the accuracy of 86.8\%. The result is feasible, but having a straight locomotion in the experiments might further increase the results. 
 \\
 \\
-The last experiment demonstrated the possibility of using training data from a sensor mounted on the front left foot to predict front right foot samples. The data provided might differ from the other, but did have some of the same characteristics. However, to achieve a higher accuracy it is better having training samples for each sensor. 
+The last experiment demonstrated the possibility of using training data from a sensor mounted on the front left foot to predict front right foot samples. The data provided might differ from the other, but did have some of the same characteristics. This experiment indicates that one can use same sensor data from both feet to train data.  However, to achieve a higher accuracy it is better having training samples for each sensor. 
 \\
 \\
-Comparing the results obtained from cross validation on unseen data with earlier work, the sensor has shown feasible results. Note that in this work, only a sensor is used to discriminate terrains, while much of the other past work have either used wheeled robots that provide more stable locomotion, or sensor fusion to achieve a good result. As the thesis sensor is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, it is likely be able to predict outdoor terrain such as rocks and grass as well.
+The results confirm that the optical force sensor is suitable to use due to the terrain classification. Comparing the results obtained from cross validation on unseen data with earlier work, the thesis approach has achieved among the top performers with an accuracy of 94.8\% on SVM. Note that in this work, only utilized one sensor on a legged robot to discriminate the terrains, while much of the other past work have either used sensor fusion, or wheeled robots which provide more stable locomotion to achieve a good result. As the sensor in this thesis is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, it is likely be able to predict outdoor terrain such as rocks and grass as well.
 	
 \section{Future work}
-The classifier is based on the features from data from optical force sensor. However, features of the terrain itself such as hardness and friction are not analyzed directly, which can be addressed in future work. 
+The classifier is based on the features due from the sensor data. However, features of the terrain itself such as hardness and friction are not analyzed directly, which can be addressed in future work. 
 \\
 \\
 This thesis has only experimented with flat terrains. It will be interesting to include rougher surfaces or other types and investigate the performance with the current model. 
 \\
 \\
-This thesis has only shown the possibility of using training data from one sensor to predict the other. However, incorporating all four legs might increase the performance. 
+This thesis has mostly used sensor data from one leg. However, incorporating all four legs might increase the performance of terrain classification. 
 \\
 \\
-Many authors have used more sensors to achieve promising results. Thus, using data from other sensors such as leg motion, servos etc. could further aid the performance.
+Many authors have utilized sensor fusion to achieve promising results. Thus, using data from other sensors such as leg motion, servos etc. could further aid the performance.
 \\
 \\
-Instead of explicitly labeling the terrain, having unsupervised learning could be appropriate. This will obtain a more animal like behavior.
+Instead of explicitly labeling the terrain, having unsupervised learning could be appropriate. This gives the robot ability of exploring and detecting terrains by itself.
 \\
 \\
-Only one robot was used to evaluate the sensor. Different platforms may not give the same results. Thus, to achieve a more reliable evaluation of the sensor, different platforms should be tested, which can be addressed as further work.
+Only one robot was used to evaluate the sensor. However, different platforms may not give the same results. Thus, different robot platforms should be tested to achieve a more reliable evaluation of the sensor.
 \\
 \\
-The importance of terrain classification is be able to change gait on different terrain. Thus, the approach should be enhanced to be able to traverse between different terrains with different gaits.
+The importance of terrain classification is be able to change gait on different terrain. Thus, the approach can be further extended to give the robot ability of selecting appropriate gait between different terrains.
 
 %http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 %Optical force (Legged Robots)
