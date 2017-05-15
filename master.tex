@@ -148,7 +148,7 @@ Robot's perception of different surfaces plays an important rule for successful 
 or by physical contact between the sensor and a surface such as the tactile sensor \cite{6784609,walastactile,7397881}. Degrave et al. \cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result indicated that the combination of tactile sensor and proprioceptive joint angle were the most informative of all the sensors. 
 \\
 \\
-In most of the studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. Exclusively using a tactile sensor is not as common \cite{6784609,Walas2015}, nor does the researcher report the type of the tactile sensor employed in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieving feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are important properties to distinguish between different surfaces. However, further research is necessary to determine whether an optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating the different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
+In most of the studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. Exclusively using a tactile sensor is not as common \cite{6784609,Walas2015}, nor does the researchers report the type of the tactile sensor employed in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieving feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are important properties to distinguish between different surfaces. However, further research is necessary to determine whether an optical sensor is suitable for terrain classification. This work utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating the different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
 \\
 \\
 \section{Goal of the thesis}
@@ -188,8 +188,9 @@ The discussion chapter discusses the results from the experiments. Last is a con
 
 
 \section{Legged robots}
-Legged robots have been a popular topic of robotic research, mainly due to their ability to traverse on rough terrain. Stable locomotion of legged robots is achieved through the gait. A gait is a sequence of cyclic motions of foot contacts with the ground that produce locomotion \cite{1641859}. The characteristic of gait is the sequence of which legs are lifted and placed on the ground. Different styles of locomotion are produced by different gaits. 
-
+Legged robots have been a popular topic of robotic research, mainly due to their ability to traverse on rough terrain. Stable locomotion of legged robots is achieved through the gait. A gait is a sequence of cyclic motions of foot contacts with the ground that produce locomotion \cite{1641859}. The characteristic of gait is the sequence of which legs are lifted and placed on the ground. Thus, a robot that has a variety of gaits has the ability to locomote in many different ways.
+\\
+\\
 There are many types of legged robots, which are often defined by the number of legs on the robots. The following paragraphs will introduce four different types of legged robots and are organized by the number of legs in ascending order.
 
 %http://e-collection.library.ethz.ch/eserv/eth:7893/eth-7893-02.pdf#search=%22terrain classification%22
@@ -201,16 +202,17 @@ There are many types of legged robots, which are often defined by the number of 
 
 
 \paragraph{Monopod}
-The monopod is a simple one-legged robot design. The locomotion of  monopod robots is performed through hops, and hence also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of a one-legged robot was developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
+The monopod is a simple one-legged robot design. The locomotion of monopod robots is performed through hops, and hence also called "hopping robots". Having only a single point of ground contact, the challenge is achieving stability. An example of a one-legged robot was developed by Marc Raibert, shown in figure \ref{fig:onlegg} \cite{Raibert:1986:LR:5948.5950}.
 
 \paragraph{Biped}
 A biped is a robot with two legs. The studies on biped robots have been a popular research field, especially towards developing humanoids. Creating a humanoid implicates that the robot is able to imitate human behavior, such as walking, running, jumping, traversing on stairs, etc. The well-known NAO robot \cite{NAO}, shown in figure \ref{fig:nao} has impressive abilities. Not only is the NAO robot able to walk, but it is also capable of seeing, hearing and speaking. 
 
 \paragraph{Quadruped}
-The quadruped is a robot designed with four legs and is inspired by animals. The BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and able to carry loads from 50kg to 150kg, depending on the terrain. Other abilities include jumping, running, and maintaining  stability even if it gets pushed or is walking on slippery terrain. More legs make robots more stable and capable to traverse through terrain without falling. However, it is more complex to control the legs.
+The quadruped is a robot designed with four legs and is inspired by animals. The benefit of the quadruped robot is more easy to attain the stability of locomotion due to many legs, and therefore capable of traversing on rough terrain. For instance, the BigDog \cite{Raibert200810822} shown in figure \ref{fig:bigDog} has shown impressive performance. Hydraulic actuators make the BigDog stronger and able to carry loads from 50kg to 150kg, depending on the terrain. Other abilities include jumping, running, and maintaining stability even if it gets pushed or is walking on slippery terrain.
 
 \paragraph{Hexapod}
-A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Having more legs provides a more stable walking system. However, the leg coordination might be more complex, due to having to control six legs. An example of a hexapod developed from The FZI Research Center for Information Technology is the LAURON robot. Many versions of the Lauron have been developed, and currently used is the Lauron V shown in figure \ref{fig:LAURON}.
+A hexapod is a six-legged robot, and is inspired by insects, but mostly spiders. Having six legs provides a more stable walking system than a quadruped robot. However, the leg coordination might be more complex, due to having to control six legs. Lauron, shown in figure \ref{fig:LAURON} is an example of a hexapod developed by The FZI Research Center for Information Technology.
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.22\textwidth}
@@ -248,13 +250,13 @@ A hexapod is a six legged robot, and is inspired by insects, mostly spiders. Hav
 Tactile sensors are designed to measure properties through direct physical interaction \cite{Cutkosky2008}. The tactile sensing provides many types of information to be obtained:
 
 \begin{itemize}
-	\item \textbf{Contact} is the most simple data obtained from the sensor, which can detect touch from external agents. 
+	\item \textbf{Contact} is the most simple data obtained from the sensor, which detects whether there is a touch from external agents. 
 	\item \textbf{Force} provides the amount of locally applied force.
-	\item \textbf{Geometrical information} gives the geometrical shape of the contact area, and it is also possible to deduce the type of object, for instance a sphere or cylinder.
-	\item \textbf{Mechanical properties} measures such as slip condition, thermal or roughness.
+	\item \textbf{Geometrical information} gives the geometrical shape of the contact area. However, it is also able to deduce the type of object in contact with the sensor, for instance, determine whether an object is spherical or cylindrical.
+	\item \textbf{Mechanical properties} give measurements such as slip condition, thermal or roughness of an object.
 \end{itemize}
 
-Based on the these information listed above from the tactile sensor, it is possible to use the robot for manipulation, exploration or response. These activities are shown in figure \ref{fig:tactiles}. For manipulation it means that it is possible to control, for instance, the grip force on an object. Exploration has the possibility of identifying objects by assimilating information about properties such as hardness, friction, and roughness from materials and surfaces. Response refers to detection of, and reaction to, contact from external agents, and sensing if it is a gentle touch or strong impact.
+Based on the information described in the list above, the tactile sensor can be used for manipulation, exploration or response. These applications are shown in figure \ref{fig:tactiles}. Using tactile sensor for manipulation is to control, for instance, the grip force on an object. Exploration reflects the possibility of identifying objects by assimilating information about properties such as hardness, friction, and roughness from materials and surfaces. Response refers to the detection of, and reaction to, contact from external agents, and sensing if it is a gentle touch or strong impact.
 
 	\begin{figure}
 	\centering
@@ -284,33 +286,34 @@ Based on the these information listed above from the tactile sensor, it is possi
 
 
 \section{Optical tactile force sensor}
-Optical force sensors use light reflection, based on the physical principles of light waves to measure force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use cameras to analyse the images. This approach is uniaxial, that is the sensor is only capable of measuring the force applied, but not the force direction. Ohka et al. \cite{525384} modified and improved the technology and further optimized it in \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It has shown promising results, in that the sensor can identify differences of tribological behaviors between abrasive paper and a Teflon surface. Cameras have been widely used to capture deformation of a surface caused by external force \cite{1381228,7559098}.
+Optical force sensors use light reflection, based on the physical principles of light waves to measure force. Some of the first optical tactile sensors \cite{220165,Nicholls1990} consist of an optical waveguide, made of transparent glass, which is illuminated along its edge by a light source, and use cameras to analyze the images. This approach is uniaxial, that is the sensor is only capable of measuring the force applied, but not the force direction. Ohka et al. \cite{525384} modified and improved the technology and further optimized it in \cite{572232,ohka_mitsuya_matsunaga_takeuchi_2004,1545264}. The developed optical sensor consists of a charge-coupled device (CDD) camera, a light source, an acrylic hemispherical dome, and an array of rubber sensing elements. It has shown promising results, in that the sensor can identify differences in tribological behaviors between abrasive paper and a Teflon surface. 
+%Cameras have been widely used to capture deformation of a surface caused by external force \cite{1381228,7559098}.
 \\
 \\
-Another design and very common technology is based on Fiber Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring, and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
+Another design and very common technology is based on Fiber Bragg Gratings (FBG) \cite{Heo2006312}. The FBG sensors are suitable for distributed strain monitoring and offer advantages such as relative measurement and linear response. By exploiting the relationship between the variation of the external force and the FBG wavelength applied, the force can be measured.
 \\
 \\ 
-An alternative to low-cost 3-axis optical sensors is presented by Tar and Cserey \cite{6027100}, which is using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor.  If a force is applied to the silicone rubber, it will cause a deformation that changes the amount of light to each of photodiodes, which in turn will change their force vector accordingly. Using the optical method to measure has offered highly dynamic sensory range, low noise, and high speed operation.
+Tar and Cserey \cite{6027100} presented an alternative to low-cost 3-axis optical sensors by using optoelectronic components. The design of the sensor consists of a hollow compliant convex surface made of silicone rubber, three photodiodes and an infra LED based sensor. The force is measured by the deformation of the silicone rubber. For instance, if a force is applied to the silicone rubber, it will cause a deformation that changes the amount of light to each of photodiodes, which in turn will change their force vector accordingly. Using the optical method to measure the force has offered highly dynamic sensory range, low noise, and high speed operation.
 %http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7559098
 %the light power variation is due to the variation of both the angle of view and the length of the optical path between the optoelectronic components
 \\
 \\
-Another interesting approach uses three sets of optical sensors to develop a 6-axial force sensor, developed by Hirose and Yoneda \cite{125944}. The design of the sensor is cylindrical and contains three photosensors which measure the force around the cylinder. Another design of 6-axial optical force sensors can be found in \cite{6907805,6290303}.
+Another interesting approach uses three sets of optical sensors to develop a 6-axial force sensor, developed by Hirose and Yoneda \cite{125944}. The design of the sensor is cylindrical and contains three photosensors which measure the force around the cylinder. Another and more recently design of 6-axial optical force sensors can be found in \cite{6907805,6290303}.
 
 %http://download.springer.com/static/pdf/934/bok%253A978-3-319-27340-2.pdf?originUrl=http%3A%2F%2Flink.springer.com%2Fbook%2F10.1007%2F978-3-319-27340-2&token2=exp=1492951378~acl=%2Fstatic%2Fpdf%2F934%2Fbok%25253A978-3-319-27340-2.pdf%3ForiginUrl%3Dhttp%253A%252F%252Flink.springer.com%252Fbook%252F10.1007%252F978-3-319-27340-2*~hmac=6e881e187a3cc0e1e04f4aabdf3f48393795889f42c9942e87077771bb132d4e
 
 
 \section{Machine learning}
-Machine learning is a type of artificial intelligence where a robot can learn to adapt or predict from earlier datasets without being explicitly programmed to do so. Each dataset consists of a feature vector which belongs to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for comparing new and unseen datasets to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}.
+Machine learning is the process of building a model from a dataset in order to make prediction or decision on new datasets without being explicitly programmed to do so. Each dataset consists of a feature vector which belongs to a specified class. The training process consists of analyzing each feature vector and producing an inferred function, which is used for labeling new and unseen datasets to a class. The learning algorithm can be separated into supervised, unsupervised, reinforcement and evolutionary learning \cite{Marsland:2009:MLA:1571643}.
 
 \paragraph{Supervised learning}
-Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in the learning process knows the correct answers of each dataset, and is the basis for the prediction. The learning process usually stops when the algorithm converges towards an acceptable level of performance.
+Supervised learning algorithms predict new data based on a labeled dataset. That is, the system in the learning process knows the correct answers of each dataset, and is also the basis for the prediction. The learning process usually stops when the algorithm converges towards an acceptable level of performance.
 	
 \paragraph{Unsupervised learning}
-Unsupervised learning algorithms make predictions from data points without labels. The system has to organize the data on its own and is the basis for predictions. A common method to organize the data is by clustering.
+Unsupervised learning algorithms make predictions from data points without labels. The system has to organize the data on its own and is the basis for predictions. 
 	
 \paragraph{Reinforcement learning}
-Reinforcement learning algorithms will choose an action for each dataset and will receive a reward indicating how good the decision was. Based on rewards, the algorithm modifies its strategy in order to get the highest reward.  
+Reinforcement learning algorithms choose an action for each dataset and receive a reward indicating how good the decision was. Based on rewards, the algorithm modifies its strategy in order to get the highest reward.  
 	
 \paragraph{Evolutionary learning}
 Evolutionary learning uses biological evolution such as reproduction, mutation, recombination, and selection as a learning process.
