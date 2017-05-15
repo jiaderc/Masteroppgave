@@ -9,7 +9,7 @@
 \usepackage{multirow}%kan fjernes 
 \usepackage{amsmath,amssymb}
 
-\usepackage{ tipa }
+\usepackage{tipa}
 %\usepackage{xcolor} %Kan fjernes slutt
 \usepackage{subcaption}
 \usepackage{verbatim}
@@ -82,8 +82,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
-\lstset{ %
-	backgroundcolor=\color{white},   % choose the background color
+\lstset{backgroundcolor=\color{white},   % choose the background color
 	basicstyle=\footnotesize,        % size of fonts used for the code
 	breaklines=true,                 % automatic line breaking only at whitespace
 	captionpos=b,                    % sets the caption-position to bottom
@@ -106,7 +105,7 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 
 %https://tex.stackexchange.com/questions/151784/how-to-display-current-section-title-in-header
 %\renewcommand{\baselinestretch}{1.25}
-\title{Terrain classification using 3D optical force sensor}        %% ... or whatever
+\title{Terrain classification using 3D optical tactile sensor}        %% ... or whatever
 \subtitle{A machine learning approach}  
 \date{}
 \author{Jiader Chou}                      %% ... or whoever 
@@ -118,7 +117,9 @@ text width=5.5em, text badly centered, node distance=4cm, inner sep=0pt]
 	
 	\frontmatter{}
 \chapter*{Abstract}                   %% ... or Sammendrag or Samandrag
- Identifying different types of terrains is an important ability for every legged robot to achieve a stable locomotion. A variety of sensors have been applied on different robots in order to discriminate between terrains accurately. The tactile sensor is widely used due to the benefits of measuring properties from terrain by physical contact between the sensor and the surface. However, the tactile sensor has rarely been utilized on quadruped robots in previous studies, and little attention has been paid to the type of sensor. There is a variety of types of tactile sensors, each with their benefits and drawbacks. The optical sensor has a high sensitivity, small size, light weight and low detection time, which are adequate properties to distinguish between different surfaces. This thesis investigates the possibility of identifying different terrains using 3D optical force sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo (UiO) on four different terrains. The proposed approach has the possibility of using real time applications, and a custom segmentation method was presented for extracting desired sensor data. The segmented sensor data was the basis for creating five different feature sets and testing on five different classifiers: support vector machine, artificial neural network, naive Bayes, k-nearest neighbors, and decision tree. The experimental results demonstrated to be among the top performing approaches compared to earlier work with an accuracy of 94.8\% with the support vector machine.  
+Identifying different types of terrains is an important ability for every legged robot to achieve a stable locomotion. A variety of sensors has been applied to different robots in order to discriminate between terrains accurately. The tactile sensor has the benefits of measuring properties from terrain by physical contact between the sensor and the surface. However, the tactile sensor has rarely been utilized on quadruped robots in previous studies, and little attention has been paid to the type of sensor. There is a variety of types of tactile sensors, each with their benefits and drawbacks. The optical tactile sensor has high sensitivity, small size, light weight and low detection time, which are important properties to distinguish between different surfaces. This thesis investigates the possibility of identifying different terrains using 3D optical tactile sensors and machine learning. The measurements were retrieved from a quadruped robot developed at the University of Oslo on four different terrains. The proposed approach has the ability to classify terrains in real-time on the physical robot, and a custom segmentation method was presented for extracting desired sensor data. The segmented sensor data was the basis for creating five different feature sets and tested on five different classifiers: support vector machine, artificial neural network, naive Bayes, k-nearest neighbors, and decision tree. The experimental results demonstrated to be among the top performing approaches compared to earlier work with an accuracy of 94.8\% with the support vector machine.
+
+
 
 \tableofcontents{}
 \listoffigures{}
@@ -136,18 +137,18 @@ Last, but not least, I would like to thank my fellow students, friends, and fami
 \pagestyle{MyStyle}
 %\part{Introduction}                   %% ... or Innledning or Innleiing
 \chapter{Introduction}                  %% ... or Bakgrunn
-Humans have the ability to adapt their walking styles on different terrains to achieve statically stable. This ability to adapt locomotion is based on previous experience. For instance, one would not run on icy sidewalk in order to prevent from slipping or falling. In contrast, on more rough surfaces, one may freely decide the speed to move without worrying about losing balance. To attain this ability to adapt while moving, robots must first be able to detect and distinguish among different terrains.
+Humans have the ability to adapt their walking styles on different terrains to achieve stable locomotion. This ability to adapt locomotion is based on previous experience. For instance, one would not run on icy sidewalk in order to prevent slipping or falling. In contrast, on more rough surfaces, one may freely decide the speed to move without worrying about losing grip or balance. To attain this ability to adapt while moving, robots must first be able to detect and distinguish among different terrains.
 \\
 \\
-Terrain classification is the process of identifying different types of terrain by measure features such as texture, slope, roughness, hardness, and friction. It is a popular research field where countless of studies can be found in the literature  \cite{Giguere06environmentidentification,Giguere2009,6386243,6569179,4399500,littleDog}. Some of the importance of terrain classification is shown in \cite{7487541}, where different controllers were suited for different terrains by letting a quadruped robot hop on soft and hard terrain. Another study investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. The results indicated there is a trade-off between the energy consumption and physical speed of the robot by controlling the velocity of the leg motors on different types of terrains.
+Terrain classification is the process of identifying different types of terrain by measuring features such as texture, slope, roughness, hardness, and friction. It is a popular research field where countless studies can be found in the literature  \cite{Giguere06environmentidentification,Giguere2009,6386243,6569179,4399500,littleDog}. Some of the importance of terrain classification is shown in \cite{7487541}, where different controllers were suited for different terrains by letting a quadruped robot hop on soft and hard terrain. Another study investigated the effect of performance with different gait parameters on different terrains \cite{6569179}. The results indicated there is a trade-off between the energy consumption and physical speed of the robot by controlling the velocity of the leg motors on different types of terrains.
 \\
 \\ 
 %Sucessful perception of the terrain is a key ability that impacts the gait change 
-Robot's perception of different surfaces plays an important rule for successful terrain classification. Researchers often obtain features from terrain from a distance such as camera \cite{littleDog} or laser scanners \cite{4651026}. Other studies measure properties through robot's interaction on different surfaces such as leg joints \cite{26b23e912c654fe4b7478fd910130195}, and accelerometers \cite{DBLP:conf/emcr/WeissFSZ07}, 
+Robot's perception of different surfaces plays an important rule for successful terrain classification. Researchers often obtain features from terrain from a distance using sensors such as camera \cite{littleDog} or laser scanners \cite{4651026}. Other studies measure properties through robot's interaction on different surfaces such as leg joints \cite{26b23e912c654fe4b7478fd910130195}, and accelerometers \cite{DBLP:conf/emcr/WeissFSZ07}, 
 or by physical contact between the sensor and a surface such as the tactile sensor \cite{6784609,walastactile,7397881}. Degrave et al. \cite{6784609} investigated different types and combinations of sensors for a quadruped robot to identify which were suitable and provided most information on the terrain. The result indicated that the combination of tactile sensor and proprioceptive joint angle were the most informative of all the sensors. 
 \\
 \\
-In most of studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. The advantage of tactile sensor is the measurement between the sensor and the surfaces and is often mounted to the tip of the robot legs \cite{Walas2015,6784609,7397881}. Less has only utilized the tactile on a quadruped robot \cite{6784609}, nor does the research report the type of the tactile sensor used in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieve feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are adequate properties to distinguish between different surfaces. However, a further research is necessary to determine whether a optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
+In most of the studies, the tactile sensor is often fused with other sensors due to terrain classification \cite{5752869,6849778,Walas2015,Hoffmann20141790,7397881}. Exclusively using a tactile sensor is not as common \cite{6784609,Walas2015}, nor does the researcher report the type of the tactile sensor employed in experiments. It exists a variety of tactile approaches that are based on different technologies such as resistive \cite{928844,4276807,Wisitsoraat200717,351572}, piezoelectric  \cite{4200745,1331377}, capacitive \cite{99980,554353}, magnetic \cite{Chi2004172}, and optical \cite{220165,20431,Nicholls1990,1545264,1381228,7559098,Heo2006312}, where every tactile type has its benefits and drawbacks. Thus, selecting the type of tactile might be crucial to achieving feasible results due to the terrain classification problem. The optical sensor has a high sensitivity, small size, light weight and low detection time \cite{Dutta2016}, which are important properties to distinguish between different surfaces. However, further research is necessary to determine whether an optical sensor is suitable for terrain classification. This work will utilize similar sensor and robot platform as presented in \cite{6784609}, but instead of evaluating the different type of sensors, this thesis will rather investigate optical sensor with different approaches for terrain classification.
 \\
 \\
 \section{Goal of the thesis}
@@ -169,7 +170,7 @@ This thesis is divided into five additional chapters: background, software and t
 The background chapter presents theory on which this thesis is based, including a survey of existing work.
 
 \paragraph{Chapter 3: Software and tools}
-The software and tools chapter gives an overview of the tools, programming framework and libraries, and experimental environment used in this thesis. 	
+The software and tools chapter gives an overview of the tools, programming framework and libraries used in this thesis. 	
 
 \paragraph{Chapter 4: Implementation}
 The implementation chapter explains the reasons behind the various choices of implementations used to preprocess data from the sensor, and evaluates a learning model.
@@ -496,7 +497,7 @@ The skewness can be either negative or positive depending on whether data points
 \paragraph{Kurtosis}
 Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is given in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
-	Kurt(x_0\dotsc X_{N-1}) = \left \{ \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
+	Kurt(x_0\dotsc X_{N-1}) = \left \{\frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
 	\end{equation}
 	
@@ -933,9 +934,9 @@ This feature set uses all data from each step in the x, y and z-directions. As t
 	
 
 \begin{align}\label{eq:fset1}
-f_{set1} &= \left\{ x_1,\dotsc,x_{125}, \right.\nonumber\\
-&\qquad \left. {} y_1, \dotsc,y_{125}, \right.\nonumber\\
-&\qquad \left. {} z_1,\dotsc,z_{125} \right\}
+f_{set1} &= \left\{x_1,\dotsc,x_{125}, \right.\nonumber\\
+&\qquad \left.{} y_1, \dotsc,y_{125}, \right.\nonumber\\
+&\qquad \left.{} z_1,\dotsc,z_{125} \right\}
 \end{align}
 
 The vector contains 125 features from all 3 directions, which is in total 375 features.
@@ -962,9 +963,9 @@ This feature set extracts statistical features from the dataset. As mentioned in
 The feature set is shown in equation \ref{eq:fset2}. 
 	
 \begin{align}\label{eq:fset2}
-	f_{set2} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
-	&\qquad \left. {} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
-	&\qquad \left. {} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean} \right\}
+	f_{set2} &= \left\{x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
+	&\qquad \left.{} y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
+	&\qquad \left.{} z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean} \right\}
 \end{align}
 The vector contains 7 features from all 3 directions, which is in total 21 features. 
 	
@@ -972,9 +973,9 @@ The vector contains 7 features from all 3 directions, which is in total 21 featu
 Previous work has shown that using frequency has given good results. In this feature set, the raw data from the time domain is transformed into the frequency domain by fast Fourier transformation. After transformation, a decimation is used to achieve a fixed length. Since the minimum length in the time domain is 125, and the fast Fourier transform is symmetric, the minimum length of the entire spectrum will be 62.5, but in this approach the thesis will be decimating to a length of 61. Contrary to decimating in the front and end of the sequence, it is considered that data at the end of the sequence is less important than in the front, hence these features will be discarded.
 	
 \begin{align}\label{eq:f1}
-f_{set3} &= \left\{ fx_1,\dotsc,fx_{61}, \right.\nonumber\\
-&\qquad \left. {} fy_1, \dotsc,fy_{61}, \right.\nonumber\\
-&\qquad \left. {} fz_1,\dotsc,fz_{61}\right\}
+f_{set3} &= \left\{fx_1,\dotsc,fx_{61}, \right.\nonumber\\
+&\qquad \left.{} fy_1, \dotsc,fy_{61}, \right.\nonumber\\
+&\qquad \left.{} fz_1,\dotsc,fz_{61}\right\}
 \end{align}
 
 The vector contains 61 features from all 3 directions, which is in total 183 features. 
@@ -995,21 +996,21 @@ This feature set computes the statistical metrics similarly to feature set two, 
 The feature vector which will be fed is shown in equation \ref{eq:fset4}.
 
 \begin{align}\label{eq:fset4}
-	f_{set3} &= \left\{ fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
-	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
-	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
+	f_{set3} &= \left\{fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
+	&\qquad \left.{} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
+	&\qquad \left.{} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
 	\end{align}
 The vector contains 8 features from all 3 directions, which is in total 24 features. 
 	
 \paragraph{Feature set five - set two and four} 
 Good features might come from different feature sets. This set will collect feature sets two and four into one unified set as seen in equation \ref{eq:fset5}. 
 	\begin{align}\label{eq:fset5}
-	f_{set5} &= \left\{ x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
-	&\qquad \left. {}   y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
-	&\qquad \left. {}  z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean}, \right.\nonumber\\
-	&\qquad \left. {} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
-	&\qquad \left. {} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
-	&\qquad \left. {} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
+	f_{set5} &= \left\{x_{max},x_{min},x_{skew},x_{kuortosis},x_{std},x_{var},x_{mean}, \right.\nonumber\\
+	&\qquad \left.{}   y_{max},y_{min},y_{skew},y_{kuortosis},y_{std},y_{var},y_{mean}, \right.\nonumber\\
+	&\qquad \left.{}  z_{max},z_{min},z_{skew},z_{kuortosis},z_{std},z_{var},z_{mean}, \right.\nonumber\\
+	&\qquad \left.{} fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
+	&\qquad \left.{} fy_{max},fy_{min},fy_{skew},fy_{kuortosis},fy_{std},fy_{var},fy_{mean}fy_{E}, \right.\nonumber\\
+	&\qquad \left.{} fz_{max},fz_{min},fz_{skew},fz_{kuortosis},fz_{std},fz_{var},fz_{mean},fz_{E} \right\}
 	\end{align}
 	
 The vector contains 15 features from all 3 directions, which is in total 45 features. 
@@ -1039,7 +1040,7 @@ The first process is to gather data for each terrain which will be stored into f
 	\path (p2.south)+(0.0,-1.5) \etape{3}{Write to file};
 	
 
-	%  \node [below=of p5] (p6-7) {};
+	%  \node [below=of p5] (p6-7){};
 	
 	% Draw arrows between elements
 	\path [line] (p1.south) -- node [above]{} (p2);
@@ -1086,7 +1087,7 @@ When the data samples of each terrain is unified into a single file, the learnin
 	\path (p7.south)+(0,-2) \etape{10}{Store partial result};
 	\path (p10.south)+(0,-2) \etape{8}{Result};
 	
-	%  \node [below=of p5] (p6-7) {};
+	%  \node [below=of p5] (p6-7){};
 	
 	% Draw arrows between elements
 	% \path [line] (p1.south) -- node [above]{} (p2);
@@ -1181,7 +1182,7 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			\toprule
 			&  & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
 			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} }} & {\color[HTML]{F8A102} } \\
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} }} & {\color[HTML]{F8A102}} \\
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\multirow{-2}{*}{Bayes Navies}} & \multicolumn{1}{l|}{\multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}}} & \multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{009901} 94\%}} & {\color[HTML]{009901} 96\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 89\%}} & {\color[HTML]{009901} 91\%} \\ \cmidrule(l){2-4} 
@@ -1652,7 +1653,7 @@ This is the second best performing classifier and the table shows the accuracy o
 		\label{nnset5}
 	\end{subtable}
 \caption[Results of Neural network on feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
-\label{tab:binary}
+\label{tab:binary2}
 \end{table}
 \FloatBarrier
 \newpage
@@ -1748,7 +1749,7 @@ This is the third best performing classifier and table \ref{dt4} shows the accur
 		\label{dt4}
 		\end{subtable}
 	\caption[Results of SVM on feature set three with RFE]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
-\label{tab:binary}
+\label{tab:binary3}
 \end{table}
 \FloatBarrier
 \newpage
@@ -1940,7 +1941,7 @@ This is the fifth best performing classifier and table \ref{nn2} shows the accur
 		\label{nn2}
 	\end{subtable}
 	\caption[Results of neural network on feature set one]{Results of neural network on feature set three after trials runs, with precision \ref{nnPrecision}, recall \ref{nnrecall}, f-score \ref{nnfscore}, and accuracy and confusion matrix \ref{nn2}.}
-	\label{tab:binary}
+	\label{tab:binary4}
 \end{table}
 
 \FloatBarrier
@@ -2450,22 +2451,19 @@ To give an overview of the thesis performance, a comparison with earlier work is
 
 	
 \section{Conclusion}
-The aim of this thesis was to investigate the possibility of terrain classification using a 3D optical force sensor. The approach was machine learning on force data provided from the sensor mounted on a quadruped robot. Four different terrains: floor, carpet, hard mat, and soft mat were used in experiments. The data set consist of the robot walking on each terrain separately. Although the terrains such as floor, carpet, and hard mat have similar properties, analysis of the sensor data showed small significant differences between them. The differences can be found in the sensor data in the y- and z-direction, where the forces, and the shapes of the graph differ on between each terrain. Sensor data in x-direction on the other hand, the forces obtained from each terrain has almost equal characteristics.
+The aim of this thesis was to investigate the possibility of terrain classification using a 3D optical force sensor. The approach was machine learning on force data provided from the sensor mounted on a quadruped robot. Four different terrains: floor, carpet, hard mat, and soft mat were used in experiments. The data set consist of the robot walking on each terrain separately. Although the terrains such as the floor, carpet, and hard mat have similar properties, analysis of the sensor data showed that the sensor is able to perceive small significant differences between them. The differences can be found in the sensor data in the y- and z-direction, where the amount of force and the shape of time series differ between each terrain. Sensor data in the x-direction, on the other hand, provide almost identical features from the floor, carpet, and hard mat.
 \\
 \\
-The evaluation of the force sensor was done by using five different classifiers, bayes Naives, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using decimated raw data in the time domain or frequency domain, or statistical metrics in the time domain, frequency domain or both.  
+The evaluation of the force sensor was done by using five different classifiers, naive Bayes, decision tree, KNN, neural network, and SVM, with five different feature sets. The feature sets consist of either using to decimated raw data in the time domain or frequency domain or statistical features in the time domain, frequency domain or both. Many of the classifiers obtained a high accuracy during the cross validation. However, when selecting five well-performing models on unseen data, the accuracy dropped as anticipated. The neural network and decision tree, which had an accuracy of over 90\%, decreased to 64\% and 78\% respectively. This may indicate that the models were overfitted and did not generalize data well. The combination of selected features from the complete frequency domain and SVM gave the best results with an accuracy of 94.8\%. This feature set seems to contain distinctive and informative features that make the terrains distinguishable. However, the model still had the difficulties of predicting the hard mat. 
 \\
 \\
-Many of the classifiers had a high accuracy during the cross validation. However, when selecting five well performing classifiers to see the performance on unseen data, the accuracy dropped as anticipated. The neural network and decision tree, which had an accuracy of over 90\%, decreased  to 64\% and 78\% respectively. The best performing classifier was SVM with an accuracy of 94.8\%, but had difficulty of predicting the hard mat.
+A real-time implementation was implemented due to a more realistic scenario when the robot was walking through different terrains. The real-time implementation was able to segment sensor data and make the classification fast. However, since the algorithm was only tested on a certain gait and flat surfaces, one might achieve a different performance when another gait or more rough terrain is chosen. The experiment showed a feasible result with an overall accuracy of 86.8\%. Note that there were some trials where the robot did not have straight locomotion, which might decrease the performing.
 \\
 \\
-A real time implementation was implemented due to more realistic scenario when the robot walking through different terrains. There was some trials were the robot did not have straight locomotion, which may cause the accuracy of 86.8\%. The result is feasible, but having a straight locomotion in the experiments might further increase the results. 
+The last experiment demonstrated the possibility of using training data from a sensor mounted on the front left foot to predict front right foot data samples. The data provided from both sensors showed a significant difference but had some of the same shapes of the time series. The results of this experiment indicate that one can obtain more training samples by using sensor data from both sensors. However, in case if the legs have different walking behaviors, it may be more appropriate to having own training samples for each sensor. 
 \\
 \\
-The last experiment demonstrated the possibility of using training data from a sensor mounted on the front left foot to predict front right foot samples. The data provided might differ from the other, but did have some of the same characteristics. This experiment indicates that one can use same sensor data from both feet to train data.  However, to achieve a higher accuracy it is better having training samples for each sensor. 
-\\
-\\
-The results confirm that the optical force sensor is suitable to use due to the terrain classification. Comparing the results obtained from cross validation on unseen data with earlier work, the thesis approach has achieved among the top performers with an accuracy of 94.8\% on SVM. Note that in this work, only utilized one sensor on a legged robot to discriminate the terrains, while much of the other past work have either used sensor fusion, or wheeled robots which provide more stable locomotion to achieve a good result. As the sensor in this thesis is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, it is likely be able to predict outdoor terrain such as rocks and grass as well.
+The results confirm that the optical force sensor is suitable to use due to the terrain classification. Comparing the results obtained from cross-validation on unseen data from earlier studies, the thesis approach has achieved among the top performers with an accuracy of 94.8\% on SVM. Note that in this work, only utilized one sensor on a legged robot to discriminate the terrains, while much of the other past work have either used sensor fusion or wheeled robots which provide more stable locomotion to achieve a good result. As the sensor in this thesis is able to distinguish terrains such as floor, carpet, and hard mat, which have similar properties, there is a high chance of correctly predicting outdoor terrains as well.
 	
 \section{Future work}
 The classifier is based on the features due from the sensor data. However, features of the terrain itself such as hardness and friction are not analyzed directly, which can be addressed in future work. 
@@ -2477,7 +2475,7 @@ This thesis has only experimented with flat terrains. It will be interesting to 
 This thesis has mostly used sensor data from one leg. However, incorporating all four legs might increase the performance of terrain classification. 
 \\
 \\
-Many authors have utilized sensor fusion to achieve promising results. Thus, using data from other sensors such as leg motion, servos etc. could further aid the performance.
+Many authors have utilized sensor fusion to achieve feasible results. Thus, using data from other sensors such as leg motion, servos etc. could further aid the performance.
 \\
 \\
 Instead of explicitly labeling the terrain, having unsupervised learning could be appropriate. This gives the robot ability of exploring and detecting terrains by itself.
@@ -2486,7 +2484,7 @@ Instead of explicitly labeling the terrain, having unsupervised learning could b
 Only one robot was used to evaluate the sensor. However, different platforms may not give the same results. Thus, different robot platforms should be tested to achieve a more reliable evaluation of the sensor.
 \\
 \\
-The importance of terrain classification is be able to change gait on different terrain. Thus, the approach can be further extended to give the robot ability of selecting appropriate gait between different terrains.
+One of the important ability to a robot due to terrain classification is being able to change their gaits on different terrains. Thus, the approach can be further extended to give the robot ability to select appropriate gait between different terrains.
 
 %http://www2.ift.ulaval.ca/~pgiguere/terrainID.html
 %Optical force (Legged Robots)
@@ -2534,7 +2532,7 @@ The following paragraphs shows different features selected from both method remo
 \subsubsection{Set 1}
 Filter
 \begin{align}
-f_{set1} &= \left\{ x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
+f_{set1} &= \left\{x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
 &\qquad \left.{}  x_{86},\dotsc,x_{119} \right.\nonumber\\
 &\qquad \left.{}  y_{14},\dotsc,  y_{27}, y_{52}, \dotsc, y_{60}, y_{81},\dotsc, y_{84}, y_{101}, \dotsc, y_{123} \right.\nonumber\\
 &\qquad \left.{} z_{1},\dotsc,z_{125} \right\}
@@ -2560,14 +2558,14 @@ f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_
 \subsubsection{Set 2}
 \paragraph{Filter}
 \begin{align}
-f_{set2} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
+f_{set2} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, \right.\nonumber\\
 &\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
-f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
+f_{set2} &= \left\{x_{var}, x_{std}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
 &\qquad \left.{} z_{max}, z_{kurtosis}, z_{var}, z_{std} \right\}
 \end{align}
@@ -2576,13 +2574,13 @@ f_{set2} &= \left\{ x_{var}, x_{std}, \right.\nonumber\\
 \subsubsection{Set 3}
 \paragraph{Filter}
 \begin{align}
-f_{set3} &= \left\{ x_{1}, z_{1} \right\}
+f_{set3} &= \left\{x_{1}, z_{1} \right\}
 \end{align}
 
 
 \paragraph{Wrapper}
 \begin{align}
-f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
+f_{set3} &= \left\{x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
 &\qquad \left.{}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
 &\qquad \left.{}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
 &\qquad \left.{} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
@@ -2595,14 +2593,14 @@ f_{set3} &= \left\{ x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22
 \subsubsection{Set 4}
 \paragraph{Filter}
 \begin{align}
-f_{set4} &= \left\{ fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+f_{set4} &= \left\{fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} fy_{max}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
-f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
+f_{set4} &= \left\{fx_{var}, fx_{std}, \right.\nonumber\\
 &\qquad \left.{} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
@@ -2610,14 +2608,14 @@ f_{set4} &= \left\{ fx_{var}, fx_{std}, \right.\nonumber\\
 \subsubsection{Set 5}
 \paragraph{Filter}
 \begin{align}
-f_{set5} &= \left\{ x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
+f_{set5} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
 \paragraph{Wrapper}
 \begin{align}
-f_{set5} &= \left\{ x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
+f_{set5} &= \left\{x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{kurtosis}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{kurtosis} \right\}
 \end{align}
