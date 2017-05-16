@@ -1340,13 +1340,13 @@ Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised c
 		
 		\end{tikzpicture}
 		
-		\caption[Evaluation process with feature selection]{Modified evaluation process from \ref{subsec:learningProc}, where the new function is feature selection and is colored red.} 
+		\caption[Evaluation process with feature selection]{Modified evaluation process from section \ref{subsec:learningProc}, where the new function is feature selection and is colored red.} 
 		\label{fig:approach2}
 	\end{figure}
 \FloatBarrier
 \newpage
 \subsection{Results}
-Table \ref{tab:exp2_1} shows the new number of features after they were removed for each feature set, and table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach and is compared to previous implementation. The five highest performing models are marked with bold text and will be used in further experiments.
+Table \ref{tab:exp2_1} shows the new number of features after they were removed for each feature set, and table \ref{tab:exp2} shows the results for when feature selection is applied to the earlier learning approach. The five highest performing models are marked with bold text and will be used in further experiments.
 
 \begin{table}[h]
 	\centering
@@ -1359,7 +1359,7 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 		Set 4 & 24 & 11 & 12 \\
 		Set 5 & 45 & 19 & 22 \\ \hline
 	\end{tabular}
-	\caption[Results of lengths of feature vector after the feature selection method]{New length of each feature set after applying the feature selection method.}
+	\caption[Numbers of each feature set after the feature selection method]{New numbers of each feature set after applying the feature selection method.}
 	\label{tab:exp2_1}
 \end{table}
 \FloatBarrier
@@ -1405,10 +1405,10 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 \FloatBarrier
 	
 \subsection{Analysis}
-Adding the feature selection has decreased performance of most classifiers. The filter method with feature set three gave the poorest performance. This is also the set which had the most features removed, as seen in table \ref{tab:exp2_1}. However, the sets that contain statistical metrics have been removed to nearly equal length for both methods, and they generally have achieved approximately the same results. The wrapper selection also has some classifiers that performed less accurately, but the decreased accuracy is less than the filter method. However, SVM with feature set three has improved significantly with an accuracy of 97\%.
+Adding the feature selection has decreased performance of most classifiers. The RFLV on the feature set three gave the poorest performance. This is also the set which had the most features removed, as seen in table \ref{tab:exp2_1}. However, the sets that contain statistical features have been removed to nearly equal length for both methods, and they generally have achieved approximately the same results. The RFE selection also has some classifiers that performed less accurately, but the decreased accuracy is less than the filter method. However, SVM with feature set three has improved significantly with an accuracy of 97\%.
 \\
 \\
-It will be interesting to investigate the features selected from each method. However, this thesis will only present features which gave the highest accuracy, that is the wrapper on feature set three. Other selected features can be seen in appendix \ref{ap:self}. To give a more reliable comparison between each feature on each terrain, the figure in \ref{fig:wrapperset5} is the mean of ten steps on each terrain in the frequency domain. The first feature in the x, y, and z-directions is the feature that shows most differences among them. Further behind in the feature set, each feature becomes more equal. Generally, the soft mat differs the most among the terrains, while the floor, carpet, and hard mat may show differences, but tend to overlap each other.
+It will be interesting to investigate the features selected from each method. However, this thesis will only present features which gave the highest accuracy, that is the RFE on feature set three. Other selected features can be seen in appendix \ref{ap:self}. To give a more reliable comparison between each feature on each terrain, the figure in \ref{fig:wrapperset5} is the mean of ten steps on each terrain in the frequency domain. The first feature in the x, y, and z-directions is the feature that shows most differences among them. Further behind in the feature set, each feature becomes more equal.  The floor, carpet, and hard mat show some differences but tend to overlap each other. Meanwhile, the soft mat differs the most among the terrains.
 
 
 \begin{figure} [h]
@@ -1437,7 +1437,7 @@ It will be interesting to investigate the features selected from each method. Ho
 \FloatBarrier
 
 \section{Cross validation with unseen data} \label{seq:crossunseen}
-Note that the k-fold validation in earlier experiments were only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In this case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not tell how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the Neural Network without a selection method with feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
+Note that the k-fold validation in earlier experiments was only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In that case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not give an insight on how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the ANN without a selection method with the feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
 \\
 \\
 In this experiment 50 new samples for each terrain is collected. The cross validation will use the old dataset as a training set, while the newly collected samples will be used as a test set. The cross validation technique in this experiment is still LOOCV, in order to train as many samples as possible. To achieve a reliable performance estimation, it can be done by running the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test sets will be randomly shuffled before each round of cross validation, and each classifier will be run five times. The table \ref{tab:exp4} shows the classifier and feature set used in this experiment.
