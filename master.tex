@@ -1440,7 +1440,7 @@ It will be interesting to investigate the features selected from each method. Ho
 Note that the k-fold validation in earlier experiments was only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In that case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not give an insight on how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the ANN without a selection method with the feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
 \\
 \\
-In this experiment 50 new samples for each terrain is collected. The cross validation will use the old dataset as a training set, while the newly collected samples will be used as a test set. The cross validation technique in this experiment is still LOOCV, in order to train as many samples as possible. To achieve a reliable performance estimation, it can be done by running the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test sets will be randomly shuffled before each round of cross validation, and each classifier will be run five times. The table \ref{tab:exp4} shows the classifier and feature set used in this experiment.
+In this experiment, 50 new data samples for each terrain is collected. The cross validation will use the old dataset as a training set, while the newly collected samples will be used as a test set. The cross validation technique in this experiment is still LOOCV, in order to train as many samples as possible. To achieve a reliable performance estimation, it can be done by running the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test sets will be randomly shuffled before each round of cross validation, and each classifier will be run five times. The table \ref{tab:exp4} shows the classifier and feature set used in this experiment.
 
 \begin{table}[h]
 	\centering
@@ -1459,7 +1459,7 @@ In this experiment 50 new samples for each terrain is collected. The cross valid
 \FloatBarrier
 \newpage
 \subsection{Results}
-An overview of the performance of the five top performed classifier is shown as a box plot in figure \ref{fig:boxexp}. Again, the top performing is the SVM, and second best is the Neural network with feature set five, and these will be used in further experiments. The other classifiers have heavily decreased their accuracy in their performance.
+An overview of the performance of the five top performed classifier is shown as a box plot in figure \ref{fig:boxexp}. Again, the top performing is the SVM, and second best is the ANN with the feature set five. These will also be used in further experiments. The other classifiers have heavily decreased their accuracy in their performance.
 
 \begin{figure}[h]
 	\centering
@@ -1473,7 +1473,7 @@ This section will present a more detailed description of each classifiers perfor
 \newpage
 
 \subsubsection{SVM - feature set three - RFE} \label{sb:svmwrapper}
-This is the best performing classifier and table \ref{svmexp} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 94.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 2.2\%. The classifier easily predicts floor, carpet, and soft mat, while it has some difficulties predicting hard mat. When the robot is on hard mat it has an average precision of 84\%, and it tends to predict it as carpet. Because the hard mat tends to be predicted as other terrains, the f-score for floor and carpet is decreased a little as seen in table \ref{fscoresvm}. The hard mat and carpet have relative equal f-scores. However, the carpet got a lower recall, but higher precision, while the hard mat got higher recall, but lower precision.
+This is the best performing classifier, and table \ref{svmexp} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 94.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 2.2\%. The classifier easily predicts floor, carpet, and soft mat, while it has some difficulties predicting hard mat. When the robot is on the hard mat, it has an average precision of 84\%, and it tends to predict it as carpet. Because the hard mat tends to be predicted as other terrains, the f-score for floor and carpet is decreased a little as seen in table \ref{fscoresvm}. The hard mat and carpet have relative equal f-scores. However, the carpet got a lower recall, but higher precision, while the hard mat got a higher recall, but lower precision.
 
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
@@ -1566,7 +1566,7 @@ This is the best performing classifier and table \ref{svmexp} shows the accuracy
 \FloatBarrier
 \newpage
 \subsubsection{Neural network - feature set five}
-This is the second best performing classifier and the table shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 78.2\%, and compared to the old result from \ref{tab:exp2} it has decreased by 10.8\%. The classifier has difficulties predicting the hard mat, and tends to predict it as carpet. Soft mat is the easiest to identify, but there is a minor amount of error in the recall when the robot is on the floor. The floor has the second highest accuracy with over 80\%. It has a precision of at least 88\%, and the recall is under 80\%, because there is shown misclassification of floor when the robot is on hard mat and floor. The carpet has a precision of at least 78\%, but the recall is under 63.5\%, while the hard mat has a higher recall of at least 71\%, and lower precision of approximately 41\%.
+This is the second best performing classifier, and the table in \ref{tab:nn5} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 78.2\%, and compared to the old result from \ref{tab:exp2} it has decreased by 10.8\%. The classifier has difficulties predicting the hard mat and tends to predict it as carpet. Soft mat is the easiest to identify, but there is a minor amount of error in the recall when the robot is on the floor. The floor has the second highest accuracy with over 80\%. It has a precision of at least 88\%, and the recall is under 80\%, because there is shown misclassification of floor when the robot is on hard mat and floor. The carpet has a precision of at least 78\%, but the recall is under 63.5\%, while the hard mat has a higher recall of at least 71\%, and lower precision of approximately 41\%.
 
 
 \begin{table}[h]
@@ -1657,13 +1657,13 @@ This is the second best performing classifier and the table shows the accuracy o
 		\label{nnset5}
 	\end{subtable}
 \caption[Results of Neural network on feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
-\label{tab:binary2}
+\label{tab:nn5}
 \end{table}
 \FloatBarrier
 \newpage
 	
 \subsubsection{Decision Tree - feature set one - RFLV}
-This is the third best performing classifier and table \ref{dt4} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every classes. However, the floor and soft mat still have among the highest accuracies and f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
+This is the third best performing classifier, and table \ref{dt4} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every class. However, the floor and soft mat still have among the highest accuracies with f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
 
 
 
@@ -1750,10 +1750,10 @@ This is the third best performing classifier and table \ref{dt4} shows the accur
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
 		\caption{Accuracy and confusion matrix for decision tree on feature set with RFLV after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
-		\label{dt4}
+		\label{dt1ee}
 		\end{subtable}
-	\caption[Results of SVM on feature set three with RFE]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
-\label{tab:binary3}
+	\caption[Results of SVM on feature set three with RFE]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1ee}.}
+\label{dt43}
 \end{table}
 \FloatBarrier
 \newpage
@@ -1763,7 +1763,7 @@ This is the third best performing classifier and table \ref{dt4} shows the accur
 	
 
 \subsubsection{Decision Tree - feature set one}
-This is the fourth best performing classifier and table \ref{dt1e} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on soft mat. However, soft mat still has the highest precision and recall of at least 92\% and 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% and 36\%, and big variation in the recall with a range of 66.7\% to 78.3\%.
+This is the fourth best performing classifier, and table \ref{dt1e2} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on the soft mat. However, soft mat still has the highest precision and recall of at least 92\% - 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% - 36\% and a big variation in the recall with a range of 66.7\% to 78.3\%.
 
 
 \begin{table}[h]
@@ -1852,13 +1852,13 @@ This is the fourth best performing classifier and table \ref{dt1e} shows the acc
 	\label{dt1e}
 	\end{subtable}
 	\caption[Results of decision tree on feature set one with RFLV]{Results of decision tree on feature set three with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
-\label{tab:dta1ll}
+\label{tab:dt1e2}
 \end{table}
 \FloatBarrier
 \newpage
 
 \subsubsection{Neural Network - feature set one}
-This is the fifth best performing classifier and table \ref{nn2} shows the accuracy of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
+This is the fifth best performing classifier and table \ref{nn2} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
 		\centering
@@ -1955,7 +1955,7 @@ This is the fifth best performing classifier and table \ref{nn2} shows the accur
 In this experiment, five classifiers with different feature sets were investigated on new data samples. Compared to the old results from table \ref{tab:exp2}, every classifier has decreased their accuracy. However, the SVM is still the best performing classifier with an average accuracy of 94.8\%, while the others are decreased to under 80\%. 
 \\
 \\
-Regarding different sets of features, it can be seen that using decimated raw data from the time domain gave the poorest performance. The neural network only achieved an average accuracy of 67.4\%. It is also worth noting that the decision tree with and without the feature selection method did not result in any significant differences. Feature set five which uses statistics features from time and frequency domains gave feasible results, and did not decrease as much as the model using feature set one.
+Regarding different sets of features, it can be seen that using decimated raw data from the time domain gave the poorest performance. The neural network only achieved an average accuracy of 67.4\%. It is also worth noting that the decision tree with and without the feature selection method did not result in any significant differences. Feature set five which uses statistics features from time and frequency domains gave feasible results, and did not decrease as much as the models using feature set one.
 \\
 \\
 A common similarity between most of the models is that the soft mat is the easiest terrain to identify, although some of the models have shown minor confusion. Every model has difficulty predicting hard mat, and tend to predict it as carpet. This misclassification also leads to a lower recall and f-score for the carpet. But most of the models are able to have a high precision of prediction on floor and carpet. Even though the hard mat is often mistaken for carpet, the other three terrains are less often mistaken for hard mat.
@@ -1963,7 +1963,7 @@ A common similarity between most of the models is that the soft mat is the easie
 
 \newpage
 \section{Parameter tuning}
-Previously, the evaluation of classifiers were based on default hyperparameters. However, tuning parameters might increase the performance of the classifier as mentioned in section \ref{sub:hypt}. The reason for not using the parameter tuning in earlier experiments, is due to time consuming, and difficult to find the correct settings, and default values often give an adequate performance. In this experiment an exhaustive grid search will be used to find optimal parameters on two top performing classifiers as shown in the table \ref{tab:expparat}, and further tested on unseen data.
+Previously, the evaluation of classifiers was based on default hyperparameters. However, tuning parameters might increase the performance of the classifier as mentioned in section \ref{sub:hypt}. The reason for not using the parameter tuning in earlier experiments is due to time-consuming and difficult to find the correct settings, and default values often give an adequate performance. In this experiment, an exhaustive grid search will be used to find optimal parameters on two top performing classifiers as shown in the table \ref{tab:expparat}, and further tested on unseen data.
 
 \begin{table}[h]
 	\centering
@@ -1979,9 +1979,9 @@ Previously, the evaluation of classifiers were based on default hyperparameters.
 \FloatBarrier
 
 \paragraph{Neural Network}
-A crucial part of the Neural Network is the choice of number of hidden nodes, and hidden layers. These choices are fundamental to achieving a promising result of the algorithm. It is common to use two hidden layers, but there is no theory on how to choose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find the best number of neurons one has to test many different values and chose the one that gives the best results. An exhaustive grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:hypnn}. The parameters obtained from the grid search will be further tested with three different representations of terrains. 
+A crucial part of the Neural Network is the choice of the number of hidden nodes, and hidden layers. These choices are fundamental to achieving a promising result of the algorithm. It is common to use two hidden layers, but there is no theory on how to choose the number of neurons \cite{Marsland:2009:MLA:1571643}. To find the best number of neurons, one has to test many different values and chose the one that gives the best results. An exhaustive grid search is therefore appropriate to test every possible combination of neurons in one and two hidden layers, as seen in table \ref{tab:hypnn}. The parameters obtained from the grid search will be further tested with three different representations of terrains. 
 
-The current representation of the terrain is that each terrain is assigned to four nodes. Hence, predictions of current terrain will be based on the highest score of these nodes. Another representation of terrain is binary numbers. This representation, instead of selecting the highest score from one node, will be looking at a pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary numbers are shown in \ref{tab:binary}, which will also be tested with the best parameters found with the grid search. The first representation is by two binary digits as shown in table \ref{tab:twobin}. This representation will only have two output nodes, and it will always predict a terrain even if it appears misfiring. Representation with four binary digits as seen in table \ref{tab:fourbin}, on the other hand, shows that if there are at least two neurons misfiring, the output will be unknown.
+The current representation of the terrain is that each terrain is assigned to four nodes. Hence, predictions of current terrain will be based on the highest score of these nodes. Another representation of terrain is binary numbers. This representation, instead of selecting the highest score from one node, will be looking at a pattern of firing and non-firing neurons. Thus, two other alternatives representing classes with binary numbers are shown in \ref{tab:binary}, which will also be tested with the best parameters found with the grid search. The first representation is by two binary numbers as shown in table \ref{tab:twobin}. This representation will only have two output nodes, and it will always predict a terrain even if it appears misfiring. Representation of each terrain with four binary numbers as seen in table \ref{tab:fourbin}, on the other hand, shows that if at least two neurons are misfiring, the output will be unknown.
 
 \begin{table}[h]
 	\centering
@@ -2033,7 +2033,7 @@ The current representation of the terrain is that each terrain is assigned to fo
 
 
 \paragraph{Support vector machine} \label{pa:svmp}
-Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. C tells how much one wants to avoid misclassifying each training example. A large C value gives a more perfect separation of the data, but might not be able to generalize data, while a low C value allows more misclassification, and might contain more errors. The gamma parameter only affects the kernel’s RBF and polynomial due to the similarity computation.
+Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. C tells how much one wants to avoid misclassifying each training example. A large C value gives a more perfect separation of the data, but might not be able to generalize data, while a low C value allows more misclassification, and might contain more errors.
 
 
 \begin{table}[h]
@@ -2042,8 +2042,6 @@ Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}
 		\toprule
 		\textbf{Parameter} & \textbf{Values} \\ \midrule
 		\multirow{2}{*}{Kernel} & \multirow{2}{*}{linear, rbf, polynomial} \\
-		&  \\
-		\multirow{2}{*}{Gamma} & \multirow{2}{*}{0,...,10} \\
 		&  \\
 		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9 and \\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
@@ -2061,13 +2059,13 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 		\begin{tabular}{@{}lllllll@{}}
 			\toprule
 			\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Output\\ type\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Number\\ of output\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Old\\ result\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}New\\ result\end{tabular}} \\ \midrule
-			\multirow{3}{*}{Neural Network} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & String & 1 & 78.2\% & 77.6\% \\
+			\multirow{3}{*}{ANN} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & String & 1 & 78.2\% & 77.6\% \\
 			&  &  & Binary & 2 & NaN & 78.9\% \\
 			&  &  & Binary & 4 & NaN & 74.2\% \\ \midrule
 			\textbf{SVM} & \textbf{Set 3} & \textbf{RFE} & \textbf{String} & \textbf{1} & \textbf{94.8\%} & \textbf{93.6\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results of the classifier after tuning parameters]{Results after tuning parameters of Neural Network and SVM.}
+	\caption[Results of the classifier after tuning parameters]{Results after tuning parameters of ANN and SVM.}
 	\label{tab:resPara}
 \end{table}
 \FloatBarrier
@@ -2075,13 +2073,13 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 
 
 \subsection{Analysis}
-Tuning parameters did not have a significant effect on the performance. Mostly it slightly decreased, but the neural network with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
+Tuning parameters did not have a significant effect on the performance. Mostly it slightly decreased, but the ANN with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
 \\
 \\
-Regarding binary representation of terrains, there is shown a decrease of accuracy when having a representation of the terrain with four binary digits. There is a minor increase of accuracy when the output consists of two binary outputs.   
+Regarding the binary representation of terrains, there is shown a decrease of accuracy when having a representation of the terrain with four binary digits. There is a minor increase of accuracy when the output consists of two binary outputs.  
 \newpage
 \section{Classification in real-time} \label{sec:realtime}
-A more realistic practical scenario is to let the robot traverse through different terrains. Thus, the earlier approach has to be modified for this experiment. In this experiment, the robot will be walking on two different terrains. There are in total five different setups.
+A more realistic practical scenario is to let the robot traverse through different terrains. Thus, the earlier approach will be modified for this experiment. In this experiment, the robot will be walking on two different terrains. There are in total five different setups.
 	
 	
 	\begin{enumerate}
@@ -2092,8 +2090,8 @@ A more realistic practical scenario is to let the robot traverse through differe
 		\item Soft mat to carpet
 	\end{enumerate}
 	
-\subsection{Real time implementation} %OBS
-The real time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation a ROS service node mentioned in section \ref{sub:service}, is created after modeled a classifier. The training is the same set with 50 samples for each terrain. The service will be waiting for a request from another node, which is in this case segment data. The segment data gathers a data stream from the optoforce sensor. The method will collect interesting data as described in \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will be to predict the feature vector. The result is what terrain it is on. However, in this case Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. The documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware of this when analyzing the results. After given a result, it will be waiting for new partitions from segment data algorithm.
+\subsection{Real-time implementation} %OBS
+The real-time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation, a ROS service node mentioned in section \ref{sub:service}, is created after modeled a classifier. The training is the same set as used in earlier experiments with 50 samples for each terrain. The service will be waiting for a request from another node, which is the segment data node. The segment data gathers a data stream from the optoForce sensor. The method will collect interesting data as described in \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will classify, and output the terrain label of the preprocessed data. Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. It will be interesting to look how high probability each terrain is to be predicted. However, the documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware of this when analyzing the results. After given a result, it will be waiting for new partitions from segment data algorithm.
 	
 	\begin{figure}[h!]
 		\centering
