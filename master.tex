@@ -591,10 +591,10 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 	\FloatBarrier
 	
 \subsection{Cross-Validation}
-Cross-validation is a statistical method to assess the quality of learning models \cite{Refaeilzadeh2009}. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
+Cross-validation is a statistical method to assess the quality of learning models \cite{Refaeilzadeh2009}. The process of cross-validation is first to remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
 \paragraph{K-fold}
-The process of K-fold is to partition the data into k subsets, where one subset is used for testing and the other is used for training. When the trained model has assessed the test set, a new subset is selected as the test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also known as leave-one-out cross-validation (LOOCV). LOOCV only uses one feature vector as a test set, while the rest as a training set, shown in figure \ref{fig:kfold}. Estimations based on LOOCV tend to be almost unbiased, but unreliable due to high variance. However, the advantage is that it uses as many training samples as possible and is widely used especially when there are only small amounts of data available.
+The process of K-fold is to partition the data into k subsets, where one subset is used for testing, and the other is used for training. When the trained model has assessed the test set, a new subset is selected as the test set. This process will be repeated in k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also known as leave-one-out cross-validation (LOOCV). LOOCV only uses one feature vector as a test set, while the remaining as a training set as shown in figure \ref{fig:kfold}. Estimations based on LOOCV tend to be almost unbiased, but unreliable due to high variance. However, it is widely used especially when there are only small amounts of data available in order to use as many training samples as possible.
 
 
  	
@@ -609,33 +609,33 @@ The process of K-fold is to partition the data into k subsets, where one subset 
 	
 	
 \subsection{Evaluating Classifiers}\label{subsec:evalclf}
-Evaluation of the performance to a classifier can be done by calculating metrics based on correct or wrong outputs. For instance, a two-class classifier with classes "positive" and "negative" will have four different outcomes:
+Evaluating the performance of a classifier can be done by calculating metrics based on correct or wrong outputs. For instance, a two-class classifier with classes "positive" and "negative" will have four different outcomes:
 	
 	\begin{enumerate}
-		\item True postive (TP) is a correct prediction of class positive.
-		\item True negative (TN) is a correct prediction of class negative.
-		\item False positive (FP) is a wrong prediction of class positive.
-		\item False negative (FN) is a wrong prediction of class negative.
+		\item True Positive (TP) is a correct prediction of class positive.
+		\item True Negative (TN) is a correct prediction of class negative.
+		\item False Positive (FP) is a wrong prediction of class positive.
+		\item False Negative (FN) is a wrong prediction of class negative.
 	\end{enumerate}
 	
-	These four variables can be further used to calculate the precision, accuracy, recall and f-score.
+These four variables can be further used to calculate the precision, accuracy, recall and f-score.
 	
 	\paragraph{Precision}
-	Precision gives the number of correct detected class members.
+	Precision gives the number of correct detected class members as given in equation \ref{eq:prec}.
 	\begin{equation}
 	Precision = \frac{TP}{TP + FP}
 	\label{eq:prec}
 	\end{equation}
 	
 	\paragraph{Accuracy}
-	Accuracy gives the ratio of correct to incorrect predictions.
+	Accuracy gives the ratio of correct to incorrect predictions as given in equation \ref{eq:acc}.
 	\begin{equation}
 	Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 	\label{eq:acc}
 	\end{equation}
 	
 	\paragraph{Recall}
-	Recall gives the number of detected actual class members.
+	Recall gives the number of detected actual class members as given in equation \ref{eq:recall}.
 	
 	\begin{equation}
 	Recall = \frac{TP}{TP + FN}
@@ -643,17 +643,17 @@ Evaluation of the performance to a classifier can be done by calculating metrics
 	\end{equation}
 	
 	\paragraph{F-score}
-	F-score is a balanced measure of recall and precision 
+	F-score is a balanced measure of recall and precision as given in equation \ref{eq:fscore}.
 	\begin{equation}
 	\textit{F-score} = 2*\frac{Precision*Recall}{Precision + Recall}
 	\label{eq:fscore}
 	\end{equation}
 	%\part{The project}                    %% ... or ??
 	\FloatBarrier
-The accuracy gives an indication of the overall performance of a model. However, there is a possibility that the model only classifies three of four classes correctly and still gets a high accuracy. Thus, it will be recommended to look at the f-score. A low f-score indicates that the class either has a low precision, recall or both. Low precision indicates that the classifier has difficulty to predict the current class, while low recall indicates that it is more likely that a class is to be classified in other classes.
+The accuracy gives an indication of the overall performance of a model. However, there is a possibility that the model only classifies three of four classes correctly and still gets a high accuracy. Thus, it will be recommended to analyze the f-score. A low f-score indicates that the class either has a low precision, recall or both. A low precision score indicates that the classifier has difficulty in predicting the current class, while low recall indicates that it is more likely that a class is to be classified in other classes.
 \\
 \\
-It is interesting to see which class is easier to predict than others. This can be seen by using the confusion matrix. The confusion matrix consists of a square matrix with one row for predicted class, and a column for actual class (or vice-versa). An example of the confusion matrix is shown in table \ref{tab:cmatrix}.
+A confusion matrix gives an insight of which classes were easier to predict than others. The confusion matrix consists of a square matrix with one row for predicted class, and a column for actual class (or vice-versa). Consider the confusion matrix of the 3-class classification in table \ref{tab:cmatrix}. The model got correct classification of all instances that belongs to class $C_1$. Meanwhile the model misclassified 5 instance of $C_2$ as $C_3$, and not able  getting the class $C_3$ correct. 
 	
 	\begin{table}[h]
 		\centering
@@ -662,8 +662,8 @@ It is interesting to see which class is easier to predict than others. This can 
 			&  & \multicolumn{3}{c|}{Actual} \\ \cline{3-5} 
 			&  & $C_1$ & $C_2$ & $C_3$ \\ \hline
 			\multicolumn{1}{|l|}{\multirow{3}{*}{Predicted}} & $C_1$ & 8 & 0 & 0 \\ \cline{2-5} 
-			\multicolumn{1}{|l|}{} & $C_2$ & 5 & 8 & 1 \\ \cline{2-5} 
-			\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 8 \\ \hline
+			\multicolumn{1}{|l|}{} & $C_2$ & 0 & 8 & 5 \\ \cline{2-5} 
+			\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 0 \\ \hline
 		\end{tabular}
 		\caption[Confusion matrix of the 3-class classification]{Confusion matrix of the 3-class classification.}
 		\label{tab:cmatrix}
