@@ -716,10 +716,10 @@ Wu et al. \cite{7397881} designed a capacitive tactile sensor mounted on a small
 Stejskal et al. \cite{7487544} presents a road-following hexapod robot which uses the feedback from robot servo drives that provided information about the leg motion. The road following consists of letting the robot blindly walk on an asphalt. After each gait cycle, the robot will determine whether it was on new terrain or on asphalt. If it was determined as off-road, then the robot will steer back to the asphalt.  Three different terrains were used in the experiments: asphalt, dirt, and grass.  The results show that the robot was most confused by dirt, which accounted for about 86\% of misclassified samples. The author states that the confusion is because of similar leg motion when the robot either locomotes on asphalt or dirt.  However, the overall result of terrain classification had an accuracy of 96.2\%, which can be considered as a feasible approach.
 \\
 \\
-Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a one-legged robot used in terrain classification. The goal of the research was to compare the performance between neural network and support vector machines. Four different terrains were used in the experiments which were flat, grass, sand, and gravel. The data were collected by walking through each terrain many times. Different features were extracted from the data, and partitioned into a training and a test set. The results show that the support vector machine got an accuracy of 78.75\%, which was a slightly better performance than the neural network at 78.6\%.
+Kim et al. \cite{5602459} used the ground reaction force and torque sensors of a one-legged robot for terrain classification. The goal of the research was to compare the performance of the neural network and the support vector machine. Four different terrains were used in the experiments: flat, grass, sand, and gravel. The sensor data were collected by walking through each terrain many times. Different features were extracted from the sensor data and further partitioned into a training and test set. The results show that the support vector machine achieved an accuracy of 78.75\%, which was a slightly better performance than the neural network with an accuracy of 78.6\%.
 \\
 \\
-Hoepflinger et al. \cite{5509309} presents a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistors. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually experiments are done by having a robot walk through terrains. However, in this experiment, the author separated one of the robot’s legs and mounted it to a sample holder of a testbed. The first experiment consisted of distinguishing four different shapes of terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. The data was collected by the knee-joint oscillated slightly with an amplitude of approximately one degree on the terrain. The second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. Collecting of data was done by performing a scratching motion on the terrain. The result of terrain shape classification had a high success rate. The convex cone and concave cone had 100\% accuracy, while the concave hemisphere bulge had 95\%, and 80\% was for the convex hemispherical bulge. Regarding surface classification, the results show that the algorithm performed slightly worse. One type of abrasive paper had an accuracy of 53.3\%. Despite a low accuracy, the author states it is overall a satisfying result, since the average correct prediction of different types of abrasive paper was two out of three, and prediction of teflon coated surface had a high accuracy of 93.3\%.
+Hoepflinger et al. \cite{5509309} present a novel approach to terrain classification for legged robots by using properties from joint motor currents and force sensing resistors. The goal was to improve the guiding of foot placement and stability of legged robots in rough terrain. Usually, experiments are done by having a robot walk through terrains. However, in this experiment, the author separated one of the robot’s legs and mounted it to a sample holder of a testbed. The work designed two experiments, where different properties of surfaces were investigated. The first experiment consisted of distinguishing four different shapes of terrain: a convex and a concave cone, a convex hemispherical bulge, and a concave hemispherical indentation. Meanwhile, the second experiment was to distinguish between three different types surfaces such as abrasive paper and a low friction PTFE coating. The sensor data collected from both experiments was by performing a scratching motion on the terrain.  The results from the first experiment show that the presented approach is able to distinguish between different terrain shape with an accuracy of  93.8\%. Results from the second test, on the other hand, show that the presented approach is having difficulty in distinguishing different a type of abrasive papers and led to an accuracy of 73.3\%.
  
 % accuracy in a single stride. The most useful classifier features include stride frequency, peak motor torque, and peak and average tactile sensor readings.
 
@@ -727,19 +727,16 @@ Hoepflinger et al. \cite{5509309} presents a novel approach to terrain classific
 %http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=7387710
 
 \subsection{Learning algorithms}
-There is a vast number of classifiers and a variety have been used within terrain classification, such as neural networks \cite{6784609,5752869,4654717}, adaptive bayesian filtering  \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision trees  \cite{6849778}.
+There is a vast number of classifiers and a variety have been used within terrain classification, such as neural networks \cite{6784609,5752869,4654717}, adaptive Bayesian filtering  \cite{5152327,6849778}, support vector machines \cite{5602459,4161556,4059113} and decision trees  \cite{6849778}. The No Free Lunch theorem described in section \ref{seq:nofree} appear in previous work that SVM, KNN, and naive Bayes gave higher accuracies than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} better performance was achieved by SVM, decision tree and naive Bayes than by KNN. Thus, it is recommended to build several algorithms, and choose the best of them for the specified problem. 
 \\
 \\
-The No Free Lunch theorem described in section \ref{seq:nofree} has shown in previous work that SVM, KNN and naive bayes gave higher accuracies than the decision tree \cite{DBLP:conf/emcr/WeissFSZ07}, while in \cite{6849778} better performance was achieved by SVM, decision tree and naive bayes than by KNN. It is therefore common to build several algorithms, and choose the best of them for the specified problem. 
-\\
-\\
-Mostly studies based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method for terrain classification using unsupervised learning. This makes a robot able to automatically distinguish terrain without any human interaction or feedback. Another work by the same authors  \cite{5752869} made a tactile probe and demonstrated that it can be used in unsupervised learning.
+Most studies based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method for terrain classification using unsupervised learning. This makes a robot able to automatically distinguish terrain without any human interaction or feedback. The same authors \cite{5752869} and the designed a tactile probe and demonstrated the possibility of utilizing the sensor in unsupervised learning. 
 	
 \subsection{Features} \label{sub:relatedfeatures}
-As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain feature \cite{5152662,Giguere2009,5509309}. Others only use the time domain \cite{walastactile} or in the frequency domain \cite{4543710} \cite{5979766}.
+As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain feature \cite{5152662,Giguere2009,5509309}. Other researcher only extract feature in the time domain \cite{walastactile} or in the frequency domain \cite{4543710} \cite{5979766}. The following paragraphs will give an insight of features extracted in past work.
 \\
 \\
-Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment and sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
+Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment, and sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
 \\
 \\
 Hoffmann et al. \cite{Hoffmann20141790} defined features in the time domain such as minimum, maximum, mean, kurtosis, skewness, median, standard deviation, approximation of the integral, amplitude of Hilbert transform. Other features were extracted in the frequency domain such as frequency with highest amplitude and its magnitude, similar to the second and third highest amplitude. 
@@ -2420,7 +2417,7 @@ To give an overview of the thesis performance, a comparison with earlier work is
 		\resizebox{\textwidth}{!}{%
 			\begin{tabular}{@{}lllll@{}}
 				\toprule
-				\textbf{Approach} & \textbf{Sensor used} & \textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of\\ terrains\end{tabular}} & \textbf{Accuracy} \\ \midrule
+				\textbf{Approach} & \textbf{Sensor type} & \textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Number of\\ terrains\end{tabular}} & \textbf{Accuracy} \\ \midrule
 				\multirow{3}{*}{Hoepflinger el at. \cite{5509309}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Force sensing\\ Joint motor currents\end{tabular}} & \multirow{3}{*}{Adaboost} & \multirow{3}{*}{4} & \multirow{3}{*}{73.3\%} \\
 				&  &  &  &  \\
 				&  &  &  &  \\
@@ -2535,10 +2532,10 @@ The SVM kernels reflect how the similarity between two datapoint is computed. Th
 \end{comment}
 
 \chapter{Selected features} \label{ap:self}
-The following paragraphs shows different features selected from both method removing features with low variance and recursive feature elimination.
+The following paragraphs show different features selected from both method RFLV and RFE.
 
 \subsubsection{Set 1}
-Filter
+\paragraph{RFLV}
 \begin{align}
 f_{set1} &= \left\{x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
 &\qquad \left.{}  x_{86},\dotsc,x_{119} \right.\nonumber\\
@@ -2546,7 +2543,8 @@ f_{set1} &= \left\{x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}
 &\qquad \left.{} z_{1},\dotsc,z_{125} \right\}
 \end{align}
 
-Wrapper
+
+\paragraph{RFE} 
 \begin{align}
 f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_{20},x_{23},x_{25},x_{26},  \right.\nonumber\\
 &\qquad \left.{}  x_{35}, x_{39},x_{45},x_{47},x_{50},x_{51},x_{52},x_{55},x_{56},x_{60},x_{62},x_{64},x_{65},x_{66}, \right.\nonumber\\
@@ -2564,14 +2562,14 @@ f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_
 
 
 \subsubsection{Set 2}
-\paragraph{Filter}
+\paragraph{RFLV}
 \begin{align}
 f_{set2} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, \right.\nonumber\\
 &\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var} \right\}
 \end{align}
 
-\paragraph{Wrapper}
+\paragraph{RFE}
 \begin{align}
 f_{set2} &= \left\{x_{var}, x_{std}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, y_{kurtosis}, y_{skew}, y_{var}, \right.\nonumber\\
@@ -2580,13 +2578,13 @@ f_{set2} &= \left\{x_{var}, x_{std}, \right.\nonumber\\
 
 
 \subsubsection{Set 3}
-\paragraph{Filter}
+\paragraph{RFLV}
 \begin{align}
 f_{set3} &= \left\{x_{1}, z_{1} \right\}
 \end{align}
 
 
-\paragraph{Wrapper}
+\paragraph{RFE}
 \begin{align}
 f_{set3} &= \left\{x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
 &\qquad \left.{}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
@@ -2599,14 +2597,14 @@ f_{set3} &= \left\{x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22}
 
 
 \subsubsection{Set 4}
-\paragraph{Filter}
+\paragraph{RFLV}
 \begin{align}
 f_{set4} &= \left\{fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} fy_{max}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
-\paragraph{Wrapper}
+\paragraph{RFE}
 \begin{align}
 f_{set4} &= \left\{fx_{var}, fx_{std}, \right.\nonumber\\
 &\qquad \left.{} fy_{max}, fy_{mean}, fy_{kurtosis}, fy_{skew}, fy_{std}, fy_{E}, \right.\nonumber\\
@@ -2614,14 +2612,14 @@ f_{set4} &= \left\{fx_{var}, fx_{std}, \right.\nonumber\\
 \end{align}
 
 \subsubsection{Set 5}
-\paragraph{Filter}
+\paragraph{RFLV}
 \begin{align}
 f_{set5} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} y_{max}, fy_{max}, fy_{E}, \right.\nonumber\\
 &\qquad \left.{} z_{min}, z_{max}, z_{mean}, z_{var}, fz_{min}, fz_{max}, fz_{mean}, fz_{var}, fz_{E} \right\}
 \end{align}
 
-\paragraph{Wrapper}
+\paragraph{RFE}
 \begin{align}
 f_{set5} &= \left\{x_{var}, x_{std}, fx_{mean}, fx_{var}, fx_{std}, fx_{E}, \right.\nonumber\\
 &\qquad \left.{} y_{skew}, fy_{max}, fy_{kurtosis}, fy_{skew}, fy_{E}, \right.\nonumber\\

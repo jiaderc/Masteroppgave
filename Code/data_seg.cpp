@@ -1,9 +1,12 @@
 //sensor 0
-std::vector<std::vector<float>> rawDataS0;
+//raw data that continuously storing sensor data
+std::vector<std::vector<float>> rawDataS0; 
+//
 std::vector<std::vector<float>> stabilityLst;
+//contains sensor data when the foot is on ground
 std::vector<std::vector<float>> interestDataS0;
-int fyll = 0;
-int startFyll = 0;
+int fyll = 0; 
+int start_to_fill = 0; //Enables when the foot is on ground
 
 void print_s(int sensorNr){
     int maxBoundary = 145;
@@ -16,20 +19,19 @@ void print_s(int sensorNr){
             return;
         }       	
 	}
-    writeToFile();
+    writeToFile(); //A function that write the data to file (not shown in code)
 }
 
-
+/*
+*This function check whether the sensor data has minor change
+*If the neighbors in the elements is over 0.009 which mean
+*that the foot is on ground.  
+*********/
 int isStable(std::vector<std::vector<float>> stabArr){
-  //  float boundary = 0.03;
-    float boundary = 0.009;
+    float boundary = 0.009; //Threshold for 
     int stabilityCount = 0;
     int pos1 = stabArr.size()-2;
     int pos2 = stabArr.size()-1;
-
-    if(stabArr.size() < 2){
-        std::cout << "Noe er rarrt\n";
-    }
 
     int i;
     for(i=0;i<3;i++){
@@ -43,7 +45,9 @@ int isStable(std::vector<std::vector<float>> stabArr){
     return 1;
 }
 
-
+/*
+*This function checking how 
+***/
 void handleDataS0(){
     if(stabilityLst.size() > 2){
         if(fyll == 0 && isStable(stabilityLst)){
@@ -53,7 +57,7 @@ void handleDataS0(){
             if (!isStable(stabilityLst)) {
 
                 if (stabilityLst.size() > stabThres) {
-                    startFyll = 1;
+                    start_to_fill = 1;
 
                     //Fyller den forrige og naavaerende data
                     int lastElement = stabilityLst.size()-1;
@@ -63,8 +67,8 @@ void handleDataS0(){
                 }
                 fyll = 0;
                 stabilityLst.clear();
-            }else if( startFyll && stabilityLst.size() >= stabThres  ){
-                startFyll = 0;
+            }else if( start_to_fill && stabilityLst.size() >= stabThres  ){
+                start_to_fill = 0;
                 print_s(0);
             }
         }
@@ -75,15 +79,18 @@ void handleDataS0(){
     }
 }
 
+//This function obtain sensor data
 void optoforceCallback0(const geometry_msgs::WrenchStamped::ConstPtr& msg)
 {
     std::vector<float> tmp;
+	
+	//Storing sensor data
     tmp.push_back(msg->wrench.force.x);
     tmp.push_back(msg->wrench.force.y);
     tmp.push_back(msg->wrench.force.z);
     rawDataS0.push_back(tmp);
 
-    if(startFyll){
+    if(start_to_fill){
         interestDataS0.push_back(tmp);
     }
     stabilityLst.push_back(tmp);
