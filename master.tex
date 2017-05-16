@@ -535,18 +535,18 @@ The process of feature selection is to select a subset of features from the orig
 	
 	
 \paragraph{Filter}
-Filter feature selection is independent of any classifier. It uses statistical measures to assign each feature a score. Features will either be kept or removed based on the score. The filter methods are considered fast and effective, especially when the number of features is large and the number of available training examples comparatively small.  
+Filter feature selection is independent of any classifier. It uses statistical measures to assign each feature a score. Features will either be kept or removed based on the score. The filter methods are considered fast and effective.
 	
 	
 \paragraph{Wrapper}
-Wrapper feature selection will try different combinations of the feature set, evaluate by a classifier and keep the feature set with the best result.
-	
+Wrapper feature selection will try different combinations of the feature set, evaluate by a classifier and keep the feature set with the best outcome.
 	
 \paragraph{Embedded}
 Embedded feature selection performs feature selection as part of the learning procedure and is usually specific to a given classifier.
 
 \subsection{Features scaling} \label{subsec:scaling}
-To reduce bias effect cause by skewed distributions, it is common to standardize the feature vectors. Classifiers such as SVM and KNN described in section \ref{sub:classifier} involve distances in their computation, and might cause poor performance when one of the vectors has a large range, and then it would dominate other attributes. A common way is to standardize the feature vector by zero mean and unit variance as given in equation \ref{eq:standarize}, where $x$, $\bar{x}$ and $\sigma$ are the feature to be standardized, mean and standard deviation, respectively. 
+Different features often have a different range of values which may cause a skew in the distribution. This is an issue particularly for classifiers that involve distances in their computation such as SVM and KNN described in section \ref{sub:classifier}. When a feature has a large range, it will dominate other attributes and cause poor performance of the classification. To reduce bias effect caused by skewed distributions, it is common to standardize the feature vectors. The standardizing weights all features equally in their representation. A common way is to standardize the feature vector to zero mean and unit variance as given in equation \ref{eq:standarize}, where $x$, $\bar{x}$ and $\sigma$ are the feature to be standardizing, mean and standard deviation, respectively. 
+
 
 \begin{equation}
 z = \frac{x-\bar{x}}{\sigma}
