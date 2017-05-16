@@ -559,10 +559,11 @@ z = \frac{x-\bar{x}}{\sigma}
 Model validation relates to evaluating the performance of a classifier. 
 	
 \subsection{No Free Lunch Theorem} \label{seq:nofree}
-The well-known No Free Lunch theorem \cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieves great performance for one problem, it might not hold for another problem. Thus, it is recommended to apply several different classifiers for different problems.
+The well-known No Free Lunch theorem \cite{NOFREELUNCH} in machine learning states that there is no best classifier for every problem. That is, even if a model achieves great performance for one problem, it might not hold for another problem. Thus, it is recommended to apply several different classifiers for various problems.
 	
 \subsection{Ovefitting and underfitting}
-Overfitting and underfitting the data is an issue in machine learning which causes poor performance of classification. Overfitting occurs if the classifier has adapted to the noise within a data set. Meanwhile, underfitting occurs if there is not enough training data and the classifier will not be able to generalize a new data set. An example for each case is shown in figure \ref{fig:fitting}. The cross-validation estimates how accurately the classifier model will perform in practice, which might prevent overfitting or underfitting the data.
+Overfitting and underfitting the data is an issue in machine learning which causes poor performance of classification. Overfitting occurs if the learning process is done too extensively, which might make the classifier to adapt about the inherent noise in the training set as shown in figure \ref{fig:over}. Meanwhile, underfitting occurs if there is not enough training data and the classifier will not be able to generalize a new data set as shown in figure \ref{fig:under}.The cross-validation estimates how accurately the classifier model will perform in practice, which might prevent the model from overfitting or underfitting.
+
 
 	\begin{figure}[h]
 		\begin{subfigure}{0.5\linewidth}
@@ -577,20 +578,20 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 			\caption{Underfitting}
 			\label{fig:under}
 		\end{subfigure}\\[1ex]
-		\begin{subfigure}{\linewidth}
-			\centering
-			\includegraphics[scale=0.4]{Figures/Finefitting}
-			\caption{Optimal}
-			\label{fig:optimal}
-		\end{subfigure}
-		\caption[Illustration of when a model is overfitted, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under}, and optimal \ref{fig:optimal}.}
+	
+	%	\begin{subfigure}{\linewidth}
+	%		\centering
+	%		\includegraphics[scale=0.4]{Figures/Finefitting}
+	%		\caption{Optimal}
+	%		\label{fig:optimal}
+	%	\end{subfigure}
+		\caption[Illustration of when a model is overfitted, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under}.}
 		\label{fig:fitting}	
 	\end{figure}
-	
 	\FloatBarrier
 	
 \subsection{Cross-Validation}
-Cross-validation is a statistical method to assess the quality of, and compare, learning models \cite{Refaeilzadeh2009}. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
+Cross-validation is a statistical method to assess the quality of learning models \cite{Refaeilzadeh2009}. The process of cross-validation is to first remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
 \paragraph{K-fold}
 The process of K-fold is to partition the data into k subsets, where one subset is used for testing and the other is used for training. When the trained model has assessed the test set, a new subset is selected as the test set. This process is repeated k times, that is when all subsets have been used as a test set. Setting k to the length of feature vectors is also known as leave-one-out cross-validation (LOOCV). LOOCV only uses one feature vector as a test set, while the rest as a training set, shown in figure \ref{fig:kfold}. Estimations based on LOOCV tend to be almost unbiased, but unreliable due to high variance. However, the advantage is that it uses as many training samples as possible and is widely used especially when there are only small amounts of data available.
