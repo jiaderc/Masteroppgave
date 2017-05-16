@@ -152,7 +152,7 @@ In most of the studies, the tactile sensor is often fused with other sensors due
 \\
 \\
 \section{Goal of the thesis}
-The main goal of this thesis is to evaluate a type of 3D optical force sensor, which use optoelectronic to measure the contact force for the terrain classification problem. This thesis will also be investigating and developing a reliable approach for data processing, preprocessing, feature selection, and classification for the presented sensor.
+The main goal of this thesis is to evaluate a type of 3D optical force sensor for the terrain classification problem. This thesis will also be investigating and developing a reliable approach for data processing, preprocessing, feature selection, and classification for the presented sensor.
 
 
 
@@ -736,31 +736,28 @@ Most studies based their terrain classification on supervised learning. However,
 As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain feature \cite{5152662,Giguere2009,5509309}. Other researcher only extract feature in the time domain \cite{walastactile} or in the frequency domain \cite{4543710} \cite{5979766}. The following paragraphs will give an insight of features extracted in past work.
 \\
 \\
-Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment, and sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
+Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment, and the sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
 \\
 \\
-Hoffmann et al. \cite{Hoffmann20141790} defined features in the time domain such as minimum, maximum, mean, kurtosis, skewness, median, standard deviation, approximation of the integral, amplitude of Hilbert transform. Other features were extracted in the frequency domain such as frequency with highest amplitude and its magnitude, similar to the second and third highest amplitude. 
+Hoffmann et al. \cite{Hoffmann20141790} defined features in the time domain such as minimum, maximum, mean, kurtosis, skewness, median, standard deviation, the approximation of the integral, amplitude of Hilbert transform. Other features were extracted in the frequency domain such as the frequency with the highest amplitude and its magnitude, similar to the second and third highest amplitude.  
 \\
 \\
 Kertész \cite{7387710} computed median, maximum, skewness and root mean square from of the accelerometer angles in x, y and z-directions. Those features were also extracted in the frequency domain for the z-direction. Features extracted from force sensors were interquartile range, maximum, skewness, RMS amplitude and the highest amplitude in the frequency domain.
 \\
 \\
-Best et al.\cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in the time domain such as minimum, maximum, mean median and standard deviation. However, some statistical features are also calculated in the frequency domain with the energy additionally.
+Best et al. \cite{26b23e912c654fe4b7478fd910130195} extracted five statistical features in the time domain such as minimum, maximum, mean median, and standard deviation. However, some statistical features are also calculated in the frequency domain with the energy additionally.
 \\
 \\
 Walas \cite{walastactile} suggested four statistical features in the time domain which were variance, skewness, kurtosis, and the fifth moment from the 6-axis tactile sensor. 
 \\
 \\
-It can be seen that many of the features are extracted by statistical features, which is described in section \ref{sub:statical}. An example of extracting good features can be seen in \cite{5602459}. Using statistics with a support vector machine gave an accuracy of 40\%, while a principal component analysis gave an accuracy of 78.75\%. Note that the author only used variance, kurtosis and skewness as statistic features.
+The paragraphs above shows that many of previous work has been using statistical features, where some of them are described in section \ref{sub:statical}. The work in \cite{5602459} is an example of extracting good features is crucial to good performing model. The researcher used statistics with a support vector machine and gave an accuracy of 40\%, while a principal component analysis gave an accuracy of 78.75\%.
 	
 \subsection{Validation}\label{subseq:validation}
 A common method of validation is using the k-fold cross-validation  \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However, the selection of k varies. A common k value is set either to 2  \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal to the length of feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
 \\
 \\
-Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved a high precision and recall for all five terrains, while leave-one-out-cross validation made the classifier confused between grass and concrete terrains. 
-\\
-\\
-As stated in \cite{7387710}, the k-fold gives a reasonable estimate of performance. However, it does not tell us how well it predicts with unseen data. This is because experiments always use the same samples where they involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
+Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\% . The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples where they involve in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
@@ -769,23 +766,23 @@ Not all studies evaluated their models by k-fold cross-validation, but also eith
 This chapter gives an introduction to different tools and libraries used throughout the thesis.
 
 \section{Optical force sensor}
-OptoForce (3D force sensor) \cite{Optoforce} is a similar sensor to that of Tar and Cserey \cite{6027100}, and the construction of the sensor is shown in the figure \ref{fig:OptoforceBuild}. 
+OptoForce (3D force sensor) \cite{Optoforce} shown in figure \ref{fig:OptoforceBuild} is a similar sensor to that of Tar and Cserey \cite{6027100}. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceBuild}
-	\caption[Construction of the 3D OptoForce sensor]{Construction of the 3D OptoForce sensor \cite{OptoforceFig}.}
+	\caption[3D OptoForce sensor]{3D OptoForce sensor \cite{OptoforceFig}.}
 	\label{fig:OptoforceBuild}
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. Where each direction is shown in figure \ref{fig:OptoforceAxis}. Optoforce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in the amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. The axes of the sensor are shown in figure \ref{fig:OptoforceAxis}. OptoForce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceAxis32}
-	\caption[Force directions of the OptoForce sensor]{Illustration where the force from the x,y and z-directions points from the 3D OptoForce.}
+	\caption[Force directions of the OptoForce sensor]{3-axes of OptoForce.}
 	\label{fig:OptoforceAxis}
 \end{figure}
 
