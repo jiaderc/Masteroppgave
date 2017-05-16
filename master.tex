@@ -803,14 +803,13 @@ A Quadruped robot developed at the University of Oslo is shown in figure \ref{fi
 
 
 \section{Robot operating system}
-The robot mentioned in section \ref{sec:robot} operates on a Robot Operating System (ROS) \cite{ROSintro}. ROS is an open source software framework and is used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming languages are Python, C++, and Lisp.
+The robot mentioned in section \ref{sec:robot} operates on a Robot Operating System (ROS) \cite{ROSintro}. ROS is an open-source software framework and is used to create robot applications. ROS consists of nodes that can be grouped into packages, shared and distributed. A node is a process that performs the computation. For instance, one node could be controlling the robot, while another controls the prediction of terrain. This allows parallel execution of the data collection and class prediction in real time. Currently, the most compatible programming languages are Python, C++, and Lisp.
 
 \subsection{Messages and topics}
-A message is a data structure which could be an integer, floating point, array etc. Nodes can use a message and publish it under a given topic \cite{ROSconcept}; this feature is also called "publisher". The topic is used to identify the content of the message where a node has the possibility to subscribe to the topic, and receive data, which is also called "subscriber". This can be seen as many-to-many, one-way communication. That is, many nodes can subscribe to a topic, but they do not have the opportunity to pass any message back to the publisher.
+A message is a data structure which could be an integer, floating point, array, etc. Nodes can use a message and publish it under a given topic \cite{ROSconcept}; this feature is also called "publisher". The topic is used to identify the content of the message where a node has the possibility to subscribe to the topic and receive data, which is also called "subscriber." This can be seen as many-to-many, one-way communication. That is, many nodes can subscribe to a topic, but they do not have the opportunity to pass any message back to the publisher.
 
 \subsection{Services}\label{sub:service}
-When a many-to-many, one-way communication is not appropriate, service and client provide a request and reply interaction \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
-
+Service and client give the possibility of a request and reply interaction between two ROS nodes \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
 \subsection{Bag}
 Bag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
