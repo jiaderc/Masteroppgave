@@ -593,7 +593,7 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 	\end{figure}
 	\FloatBarrier
 	
-\subsection{Cross-Validation}
+\subsection{Cross-Validation} \label{sub:cv}
 Cross-validation is a statistical method to assess the quality of learning models \cite{Refaeilzadeh2009}. The process of cross-validation is first to remove some of the data before the training begins. After the training, it will use the removed data to test the performance. The intention is to evaluate the classifier performance in a more realistic scenario by predicting new and unseen data. The K-fold is a common cross-validation method.
 	
 \paragraph{K-fold}
@@ -926,13 +926,13 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 An appropriate method to segment sensor data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor is given in appendix \ref{ap:code}.
+It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor is given in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
-As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous work have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and used to learn and evaluate each of classifiers. The following paragraphs will introduce each set.
+As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous works have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and applied to learn and evaluate each of classifiers. The following paragraphs will introduce each feature set. 
 
 \paragraph{Feature set one - raw data} 
-This feature set uses all data from each step in the x, y and z-directions. As the length varies, the feature vector is decimated in the front and end of the sequence to achieve a fixed length, in this case 125.  The choice of sequence length and method of decimating is described in the next section \ref{subseq:FixLength}. The feature vector set is shown in equation \ref{eq:fset1}.
+This feature set uses all data from each step in the x, y, and z-directions. As the length of sensor data varies, the feature vector is decimated in the front and end of the sequence to achieve a fixed length, in this case, 125. The choice of sequence length and method of decimating is described and reasoned in the next section \ref{subseq:FixLength}. The feature vector set is shown in equation \ref{eq:fset1}.
 	
 
 \begin{align}\label{eq:fset1}
@@ -948,8 +948,8 @@ The vector contains 125 features from all 3 directions, which is in total 375 fe
 		
 	
 \paragraph{Feature set two - statistical features} 
-This feature set extracts statistical features from the dataset. As mentioned in section \ref{sub:relatedfeatures}, much of the early work has extracted the features with statistical metrics. Thus, this thesis will be using similar features. Calculation of some statistical metrics is described in section \ref{sub:statical}. The features created in this set will be from each direction, x,y and z in time domain: 
-	
+This feature set extracts statistical features from the dataset. As elaborated in section \ref{sub:relatedfeatures}, much of the early work has utilized statistical features for the terrain classification. Thus, this thesis will be using similar features. Calculation of some statistical metrics are described in section \ref{sub:statical}. The features created in this set will be from each direction, x,y and z in the time domain: 
+
 	%This is using some of the features from this article \cite{Hoffmann20141790}. 
 	
 	\begin{enumerate}
@@ -972,7 +972,7 @@ The feature set is shown in equation \ref{eq:fset2}.
 The vector contains 7 features from all 3 directions, which is in total 21 features. 
 	
 \paragraph{Feature set three - complete frequency spectrum} 
-Previous work has shown that using frequency has given good results. In this feature set, the raw data from the time domain is transformed into the frequency domain by fast Fourier transformation. After transformation, a decimation is used to achieve a fixed length. Since the minimum length in the time domain is 125, and the fast Fourier transform is symmetric, the minimum length of the entire spectrum will be 62.5, but in this approach the thesis will be decimating to a length of 61. Contrary to decimating in the front and end of the sequence, it is considered that data at the end of the sequence is less important than in the front, hence these features will be discarded.
+Previous work has shown that using frequency has given good results. In this feature set, the raw data from the time domain is transformed into the frequency domain by fast Fourier transformation. After transformation, a decimation is used to achieve a fixed length. Since the minimum length in the time domain is 125, and the fast Fourier transform is symmetric, the minimum length of the entire spectrum will be 62.5, but in this approach, the thesis will be decimating to a length of 61. Contrary to decimating in the front and end of the sequence, it is considered that data at the end of the sequence is less important than in the front, hence these features will be discarded. The feature set is shown in equation \ref{eq:f1}.
 	
 \begin{align}\label{eq:f1}
 f_{set3} &= \left\{fx_1,\dotsc,fx_{61}, \right.\nonumber\\
@@ -983,7 +983,7 @@ f_{set3} &= \left\{fx_1,\dotsc,fx_{61}, \right.\nonumber\\
 The vector contains 61 features from all 3 directions, which is in total 183 features. 
 	
 \paragraph{Feature set four - statistical features} 
-This feature set computes the statistical metrics similarly to feature set two, but in the frequency domain. Additionally the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes, is also used.
+This feature set computes the statistical metrics similarly to feature set two but in the frequency domain. Additionally, the energy of the spectrum suggested in \cite{26b23e912c654fe4b7478fd910130195}, by calculating the sum of the squares of the amplitudes, is also included.
 	
 \begin{enumerate}
 		\item The maximum value of the dataset in the frequency domain
@@ -995,7 +995,7 @@ This feature set computes the statistical metrics similarly to feature set two, 
 		\item Standard deviation in the frequency domain
 		\item Energy 
 \end{enumerate}
-The feature vector which will be fed is shown in equation \ref{eq:fset4}.
+The feature vector is shown in equation \ref{eq:fset4}.
 
 \begin{align}\label{eq:fset4}
 	f_{set3} &= \left\{fx_{max},fx_{min},fx_{skew},fx_{kuortosis},fx_{std},fx_{var},fx_{mean},fx_{E}, \right.\nonumber\\
@@ -1018,7 +1018,7 @@ Good features might come from different feature sets. This set will collect feat
 The vector contains 15 features from all 3 directions, which is in total 45 features. 
 	
 \section{Achieving a fixed length of the sequences} \label{subseq:FixLength}
-In order to use raw data as input, a fixed length is required. After many trials, the length of the data sequences varies between 125 and 135. Thus, to ensure that all data is obtained the data samples will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
+In order to use raw data as input, a fixed length is required. After many trials, the length of the data sequences varies between 125 and 135. Thus, to ensure that all sensor data from each step is obtained the data samples will be decimated to a constant length of 125. A simplified method for achieving a fixed length is in listing \ref{lst:fix_length}. Note the technique is simplified to a one-dimensional array, while this thesis uses a 3-dimensional array, but the intention is the same. Contrary to discarding the data either in the front or end of the sequence, this technique will be discarding on both sides, to retain the data in the middle, which is considered more informative data.
 	
 \lstinputlisting[language=Python, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={lst:fix_length},frame=single,breaklines=true]{code/fix_length.py}
 	
@@ -1029,7 +1029,8 @@ In order to use raw data as input, a fixed length is required. After many trials
 The procedure of the learning approach is divided into two processes: collecting data samples into files and the learning process.
 	
 \subsection{Collecting samples}
-The first process is to gather data for each terrain which will be stored into files. Those files will be collected into a single file, and used as training and test samples in the next process. The process is shown in figure \ref{fig:createsamples}.
+The first process is to gather data for each terrain which will be stored into files. Those files will further be collected into a single file and used as the training and test samples in the next process. The process is shown in figure \ref{fig:createsamples}.
+
 	
 \begin{figure}[h]
 	\centering
@@ -1038,7 +1039,7 @@ The first process is to gather data for each terrain which will be stored into f
 	% Draw diagram elements
 	\path \io{1}{Raw data};
 		
-	\path (p1.south)+(0,-1.5) \etape{2}{Extract steps};
+	\path (p1.south)+(0,-1.5) \etape{2}{Data segmentation};
 	\path (p2.south)+(0.0,-1.5) \etape{3}{Write to file};
 	
 
@@ -1056,11 +1057,11 @@ The first process is to gather data for each terrain which will be stored into f
 	\begin{enumerate}
 		\item \textbf{\underline{Raw data}}
 		\\
-		The dataset is retrieved from the optical force sensor.
+		Raw sensor dataset is retrieved from the optical force sensor.
 		
-		\item \textbf{\underline{Extract steps}}
+		\item \textbf{\underline{Data segmentation}}
 		\\
-		Raw data will be partitioned into samples as described in section \ref{subseq:segmentation}.
+		The sensor data will be partitioned into samples as described in section \ref{subseq:segmentation}.
 		
 		\item \textbf{\underline{Write to file}}
 		\\
@@ -1071,7 +1072,8 @@ The first process is to gather data for each terrain which will be stored into f
 \clearpage
 
 \subsection{Learning process} \label{subsec:learningProc}
-When the data samples of each terrain is unified into a single file, the learning process as shown in figure \ref{fig:learningProcess}, is to evaluate each classifier. Rectangles are processes that take a given input and produce an output. The dashed rectangles are processes that can be omitted.
+When the data samples of each terrain are unified into a single file, the learning process as shown in figure \ref{fig:learningProcess} is to evaluate each classifier. Rectangles are processes that take a given input and produce an output. The dashed rectangles are processes that can be omitted.
+
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=0.7,transform shape]
@@ -1118,7 +1120,7 @@ When the data samples of each terrain is unified into a single file, the learnin
 \begin{enumerate}
 \item \textbf{\underline{Read file}}
 \\
-This step will take a file as input, created from section \ref{sub:createsamples}.
+This step will take a file created from section \ref{sub:createsamples} as input.
 		
 \item \textbf{\underline{Extract features}}
 \\
@@ -1129,15 +1131,15 @@ This step will create one of the five feature sets as mentioned in section \ref{
 \begin{enumerate} 
 \item \textbf{\underline{Split data}} \label{en:loop}
 \\
-The extracted feature vectors are partitioned into training and testing sets. The cross validation is LOOCV, thus the training set consists of 199 samples and one test sample.
+The extracted feature vectors are partitioned into training and testing sets. The thesis will be using LOOCV described in section \ref{sub:cv}. Thus training set will consist of 199 samples and only one sample in the test set.
 			
 \item \textbf{\underline{Scaling}}
 \\
-This step takes the training set as input and standardizes the data as mentioned in section \ref{subsec:scaling}. The scaling factor will be used on the test data.
+This step takes the training set as input and standardizes the data as mentioned in section \ref{subsec:scaling}. The scaling factor will be further applied to the test data.
 			
 \item \textbf{\underline{Train the classifier}}
 \\
-The classifier will take the training set as input and train. The parameters of each classifier are default values from Python. 
+The classifier will take the training set as input and train. The hyperparameters of the classifier are set to default values. 
 			
 \item \textbf{\underline{Test classifier}} 
 \\
@@ -1159,11 +1161,11 @@ To find the optimal feature combination and algorithm for the optical sensor, th
 
 \begin{enumerate}
 	\item Evaluate the performance of all five classifiers with different feature sets. Additionally, investigate whether a feature scaling is appropriate.  
-	\item The learning process will be integrated with two different feature selection methods to achieve a better performance. 
+	\item The learning process will be integrated with two different feature selection methods to achieve better performance. 
 	\item \label{it:data} Some of the top performing classifiers along with the feature set will be further tested on new data samples.
 	\item Select the two best performers and use a grid search with the training samples to find the best parameters, and test on data samples collected in step \ref{it:data}.
-	\item The best performing classifier will be used to evaluate the performance when the robot walks through two different terrains.
-	\item Lastly, test whether it is appropriate to use training samples from one sensor to predict the other sensors. 
+	\item The best performing classifier will be further used to evaluate the performance when the robot walks through two different terrains.
+	\item Lastly, test whether it is appropriate to use currently training samples to predict the other sensors. 
 \end{enumerate}
 
 
