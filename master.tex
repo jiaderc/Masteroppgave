@@ -2187,7 +2187,7 @@ The data stream when the robot traverses from floor to carpet is shown in figure
 	\clearpage
 	
 \subsubsection{Hard mat to floor} \label{subsec:hmf}
-The data stream when the robot traverses from hard mat to floor is shown in figure \ref{fig:mb3Gulvet}, where the vertical line is the transition between the terrains, and table \ref{tab:mb3Gulvet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 50\%. The first two steps have shown a high accuracy of predicting correctly with over 90\%. The third step, on other hand, which is the step before the transition, has a lower probability of the hard mat, with a similar probability as the carpet. It is also worth noticing that the force in the y-direction at this step differs from earlier steps. The fourth step is the transition, and is also where the model misclassifies the new terrain. It rather predicts it as carpet than floor.
+The data stream when the robot traverses from the hard mat to floor is shown in figure \ref{fig:mb3Gulvet}, where the vertical line is the transition between the terrains, and table \ref{tab:mb3Gulvet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 50\%. The first two steps have shown a high accuracy of predicting correctly with over 90\%. The third step, on the other hand, which is the step before the transition, has a lower probability of the hard mat, with a similar probability as the carpet. It is also worth noticing that the force in the y-direction at this step differs from earlier steps. The fourth step is the transition, and is also where the model misclassifies the new terrain. It rather predicts it as carpet than floor.
 		
 \begin{figure}[h]
 	\centering
@@ -2217,7 +2217,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 \clearpage
 
 \subsubsection{Hard mat to soft mat} \label{sec:hmssm}
- The data stream when the robot traverses from hard mat to soft mat is shown in figure \ref{fig:hardmatSoftMat} and table \ref{hardmatSoftMat} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 72.7\%. The forces in the y- and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first, third and sixth step, where the probability of predicting correctly is less than 54\%.
+ The data stream when the robot traverses from hard mat to soft mat is shown in figure \ref{fig:hardmatSoftMat} and table \ref{hardmatSoftMat} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 72.7\%. The forces in the y- and z-directions are much higher when walking on the hard mat than the soft mat. There is some uncertainty on the first, third and sixth step, where the probability of predicting correctly is less than 54\%.
 
 
 	
@@ -2249,7 +2249,7 @@ The data stream when the robot traverses from hard mat to floor is shown in figu
 	\clearpage
 	
 \subsubsection{Soft mat to hard mat}
-The data stream when the robot traverses from soft mat to hard mat is shown in figure \ref{fig:MM_4_Resten_BGraf}, and table \ref{MM4MB} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the correct terrain is 79\%. Again, the forces in the y-, and z-directions are much higher when walking on hard mat than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%.
+The data stream when the robot traverses from the soft mat to hard mat is shown in figure \ref{fig:MM_4_Resten_BGraf}, and table \ref{MM4MB} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 100\%, while the average of choosing the right terrain is 79\%. Again, the forces in the y-, and z-directions are much higher when walking on the hard mat than the soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%.
 
 	\begin{figure}[h]
 		\centering
@@ -2277,7 +2277,7 @@ The data stream when the robot traverses from soft mat to hard mat is shown in f
 	\FloatBarrier
 	\clearpage
 \subsubsection{Soft mat to carpet}
-The data stream when the robot traverses from soft mat to carpet is shown in figure \ref{fig:softcarpet}, and table \ref{tab:softcarpet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 87.5\%. Again, the forces in the y- and z-directions are much higher when walking on carpet than soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%. The fifth step is when the robot is on the new terrain, and has a probability of predicting it correct of 66.7\%. Regarding step six, the classifier makes a wrong prediction between carpet and hard mat with a probability of 93.3\%.
+The data stream when the robot traverses from the soft mat to carpet is shown in figure \ref{fig:softcarpet}, and table \ref{tab:softcarpet} shows probabilities for each terrain on each step. The overall accuracy of predicting correctly is 87.5\%. Again, the forces in the y- and z-directions are much higher when walking on carpet than the soft mat. There is some uncertainty on the first and fourth steps, where the probability of predicting correctly is less than 53.5\%. The fifth step is when the robot is on the new terrain, and has a probability of predicting it correct of 66.7\%. Regarding step six, the classifier makes a wrong prediction between carpet and hard mat with a probability of 93.3\%.
 	
 	
 	\begin{figure}[h]
@@ -2314,7 +2314,7 @@ A common characteristic is that the probability decreases, particularly on the s
 
 \newpage
 \section{Prediction on other sensor}
-All previous experiments have only used data provided from the sensor mounted on the front left foot of the robot. Thus, it will be interesting to investigate the possibility of using the current training set to predict the data provided from a sensor mounted on the front right foot. The reason for testing the front right foot is that it has a more similar leg motion to the front left foot. The back foot, on the other hand, has a different leg motion which provides different data in each direction. In this following experiment, 30 data samples from the right foot for each terrain will be stored into a file and used to test the prediction. The model used is still SVM with feature set five.
+All previous experiments have only used data provided from the sensor mounted on the front left foot of the robot. Thus, it will be interesting to investigate the possibility of using the current training set to predict the data provided from a sensor mounted on the front right foot. The reason for testing the front right foot is that it has a more similar leg motion to the front left foot. The back foot, on the other hand, has a different leg motion which provides different data in each direction. In this following experiment, 30 data samples from the right foot for each terrain will be stored into a file and used to as test samples. The model used is still SVM on the feature set five.
 
 	
 \subsection{Results} 
@@ -2339,10 +2339,10 @@ Table \ref{tab:pred} shows the results of using the training set provided from l
 	\FloatBarrier
 	
 \subsection{Analysis} 	
-The overall accuracy of predicting data from the sensor mounted on the right foot is 84.3\%. It has a precision of over 90\% when predicting floor, carpet, and  soft mat. Hard mat, on the other hand, achieved only a precision of 53.3\%. The low precision is due to its tendency to be predicted as carpet. Results achieved in this experiment are similar to earlier experiments as in section \ref{sub:unseen}, when testing the classifier on new data samples. 
+The overall accuracy of predicting data from the sensor mounted on the right foot is 84.3\%. It has a precision of over 90\% when predicting floor, carpet, and soft mat. Hard mat, on the other hand, achieved only a precision of 53.3\%. The low precision is due to its tendency to be predicted as carpet. Results achieved in this experiment are similar to earlier experiments as in section \ref{sub:unseen}, when testing the classifier on new data samples. 
 \\
 \\
-A further analysis will be looking at the data provided from each sensor on each terrain. Thus a mean of 10 steps on each terrain with each sensor is shown in figure \ref{fig:s1all}. The force in the x-direction between the two sensors differs from each other in every terrain. Meanwhile, the forces in the y- and and z-directions have similar values, except for the soft mat, where the force provided from the right front foot is much higher.
+Further analysis will be looking at the data provided from each sensor on each terrain. Thus a mean of 10 steps on each terrain with each sensor is shown in figure \ref{fig:s1all}. The force in the x-direction between the two sensors differs from each other in every terrain. Meanwhile, the forces in the y- and z-directions have similar values, except for the soft mat, where the force provided from the right front foot is much higher.
 
 \begin{figure} [h]
 	\centering
