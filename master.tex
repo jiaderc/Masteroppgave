@@ -768,7 +768,7 @@ Not all studies evaluated their models by k-fold cross-validation, but also eith
 \chapter{Software and tools} \label{chap:software}
 This chapter gives an introduction to different tools and libraries used throughout the thesis.
 
-\section{Optical force sensor}
+\section{Optical force sensor}\label{sub:Optoforce}
 OptoForce (3D force sensor) \cite{Optoforce} shown in figure \ref{fig:OptoforceBuild} is a similar sensor to that of Tar and Cserey \cite{6027100}. 
 
 \begin{figure}[h]
@@ -811,19 +811,19 @@ A message is a data structure which could be an integer, floating point, array, 
 \subsection{Services}\label{sub:service}
 Service and client give the possibility of a request and reply interaction between two ROS nodes \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
-\subsection{Bag}
-Bag is a package for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
+\subsection{Bags}
+Bags are used for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
 
 
-\subsection{ROS for the OptoForce sensor}  
-A ROS package for optical force sensors can be found in \cite{optoRos}. The node is able to read data from the sensor with 100Hz and will publish the data stream as floats to a topic. This gives the opportunity for other nodes to obtain data from the sensor by subscribing to the node.
-
+\subsection{Optoforce sensor package}  
+A ROS package for the Optoforce sensor described in section \ref{sub:Optoforce} can be found in \cite{optoRos}. The package contains a node that is able to read data from the sensor with a frequency of 100 Hz and will publish the data stream as floats to a topic. This gives the opportunity for other nodes to obtain data from the sensor by subscribing to the node.
 
 \section{Python libraries}
 Python provides lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use.
 
 \paragraph{Scikit-learn} \label{para:scikit}
 Scikit-learn \cite{scikit-learn} is an open source library that provides tools for data mining and data analysis. The library is dependent on numpy, scipy and matplotlib. All classifiers and preprocessing data tools can be found in this library. 
+
 
 \paragraph{Runstats}
 Runstats \cite{runstats} is a library which computes statistics, such as max, mean, skew, variance and standard deviation, some of which are described in section \ref{sub:statical}.
