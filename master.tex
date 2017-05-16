@@ -1170,14 +1170,14 @@ To find the optimal feature combination and algorithm for the optical sensor, th
 
 
 \chapter{Experiments and results}                     %% ... or ??
-This chapter is divided into six main sections, where each of them consists of an experiment. The first section will present the result of each classifier with the different sets of features. The second section will present a modified implementation to increase the performance and its result. The third section will select some of the well performing classifiers with their feature sets to evaluate on a new set of data samples. The fourth section will use a grid search to tune parameters of the two best performing classifiers, and compare to earlier results. The fifth section presents a real time implementation used to evaluate the performance of the best classifier when the robot walks on two different terrains. The last section shows the possibility of using training samples from the sensor mounted on the front left foot of the robot, to predict the front right foot.
+This chapter is divided into six main sections, where each of them consists of an experiment. The first section will present the result of each classifier with the different sets of features. The second section will present a modified implementation to increase the performance and its result. The third section will select some of the well-performing classifiers with their feature sets to evaluate on a new set of data samples. The fourth section will use a grid search to tune parameters of the two best performing classifiers, and compare to earlier results. The fifth section presents a real-time implementation used to evaluate the performance of the best classifier when the robot walks on two different terrains. The last section shows the possibility of using training samples from the sensor mounted on the front left foot of the robot, to predict the sensor data provided from the front right foot.
  
  
 \section{Evaluation of classifier}\label{result_exp1}
-This section presents the results of each classifier on different feature sets along with an analysis.
+	This section presents the results of each classifier on different feature sets along with an analysis.
 	
 \subsection{Results}
-Table \ref{exp1} shows the results of each classifier when using the learning approach described in \ref{sub:learningprocess}. The color indicates how high the accuracy is, where green is an accuracy of over 90\%, yellow is between 80\%-89\%, while red is under 79\%. The experiments were done with and without feature scaling.  
+Table \ref{exp1} shows the results of each classifier when using the learning approach described in \ref{sub:learningprocess}. The color indicates how high the accuracy is, where green is an accuracy of 90\% and over, yellow is 80\%-89\%, while red is 79\% and under. The experiments were done with and without feature scaling.  
 
 \begin{table}[h]
 	\centering
@@ -1187,50 +1187,50 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			&  & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
 			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} }} & {\color[HTML]{F8A102}} \\
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\multirow{-2}{*}{Bayes Navies}} & \multicolumn{1}{l|}{\multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}}} & \multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\multirow{-2}{*}{Naive Bayes}} & \multicolumn{1}{l|}{\multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}}} & \multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{009901} 94\%}} & {\color[HTML]{009901} 96\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 89\%}} & {\color[HTML]{009901} 91\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{009901} 95\%}} & {\color[HTML]{009901} 96\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{\multirow{-6}{*}{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 89\%}} & {\color[HTML]{009901} 93\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 82\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 82\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 84\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 84\%}} & {\color[HTML]{F8A102} 84\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 88\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{\color[HTML]{FE0000}76\%} & {\color[HTML]{F8A102} 85\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{009901} 91\%}} & {\color[HTML]{009901} 91\%} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{{\color[HTML]{009901} 91\%}} & {\color[HTML]{009901} 91\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{009901} 91\%}} & {\color[HTML]{F8A102} 88\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{009901} 93\%}} & {\color[HTML]{009901} 93\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{\color[HTML]{FE0000}52\%} & {\color[HTML]{009901} 93\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 81\%}} & {\color[HTML]{F8A102} 81\%} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 81\%}} & {\color[HTML]{F8A102} 81\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 80\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 88\%}} & {\color[HTML]{F8A102} 84\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 85\%}} & {\color[HTML]{F8A102} 88\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 86\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 82\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 82\%}} & {\color[HTML]{F8A102} 82\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{\color[HTML]{FE0000}79\%} & {\color[HTML]{F8A102} 80\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 88\%}} & {\color[HTML]{F8A102} 84\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 87\%}} & {\color[HTML]{F8A102} 89\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 86\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifiers without the feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Green has an accuracy over 90\%, yellow is between 80\%-89\%, while red has accuracy under 79\%.}
+	\caption[Results from five different feature sets and classifiers without the feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Green has an accuracy of 90\%, yellow is 80\%-89\%, while red 79\% and under.}
 	\label{exp1}
 \end{table}
 \FloatBarrier
 	
 	
 \subsection{Analysis}
-All classifiers have an accuracy of at least 70\%. Top performing classifiers are the decision tree and Neural Network with an accuracy of 96\%. However, KNN, Bayes Naives, and SVM also perform well, with an accuracy of 90\%. 
+All classifiers have an accuracy of at least 70\%. Top performing classifiers are the decision tree and Neural Network with an accuracy of 96\%. However, KNN, naive Bayes, and SVM also perform well, with an accuracy of 90\%. 
 \\
 \\
-Regarding the feature scaling, out of SVM and KNN which use distances in their computation, SVM had the biggest effect. Feature set three went from 52\% to 93\%. KNN on the other hand was slightly affected by scaling, but mostly gave a lower accuracy. The Neural Network achieved a small improvement, while the decision tree either performed better when scaled or not scaled, dependent on the feature set. Bayes Navies did not undergo any effect by standardized features. Since the feature scaling achieved a big improvement with the SVM and minor improvement on the other classifiers, scaled features will be used in further experiments.
+Regarding the feature scaling, out of SVM and KNN which use distances in their computation, SVM had the biggest effect. SVM with the scaled feature on set three went from 52\% to 93\%. KNN, on the other hand, was slightly affected by scaling, but mostly gave a lower accuracy. The neural network achieved a small improvement, while the decision tree either performed better when scaled or not scaled, dependent on the feature set. Navie Bayes did not undergo any effect by standardized features. Since the feature scaling achieved a big improvement with the SVM and minor improvement on the other classifiers, scaled features will be used in further experiments.
 \\
 \\
 Among the best results are those from either whole raw data sequences or a complete frequency domain where mostly accuracy was over 90\%. While statistics features extracted in either the time domain, frequency domain, or both, gave an accuracy of between 80\% to 89\%.
 \\
 \\
-Besides looking at the performance of each classifier, it is also interesting to look at how data provided from the sensor responds to different terrain. In the time domain, which can be seen in figure \ref{fig:meanxyz}, of the terrains, soft mat differs the most. Forces from floor, carpet and hard mat in the x-direction are relatively similar as shown in figure \ref{fig:meanx}. Forces in the y-direction as seen in figure \ref{fig:meany} are more distinguishable, but the data streams are still quite similar to each other. Meanwhile, forces in the z-direction as seen in figure \ref{fig:meanz} are even more distinguishable. Only carpet and hard mat provide similar forces, but differ in the shapes of curves. Floor and carpet on the other hand, have similar shapes of curves, but differ in the forces. In the frequency domain, again, of the terrains, soft mat differs the most. In contrast to similar data from floor, carpet and hard mat in the time domain, in the frequency domain the floor is more distinguishable as seen in figure \ref{fig:meanxyz}. While the carpet and hard mat are almost equal. However, there is a slight difference between them in the y- and z-direction shown in figures \ref{fig:ffty}, and \ref{fig:fftz} respectively.
+Besides looking at the performance of each classifier, it is also interesting to look at how data provided from the sensor responds to different terrain. In the time domain, which can be seen in figure \ref{fig:meanxyz}, of the terrains, soft mat differs the most. Forces from floor, carpet and hard mat in the x-direction are relatively similar as shown in figure \ref{fig:meanx}. Forces in the y-direction as seen in figure \ref{fig:meany} are more distinguishable, but the data streams are still quite similar to each other. Meanwhile, forces in the z-direction as seen in figure \ref{fig:meanz} are even more distinguishable. Only carpet and hard mat provide similar forces but differ in the shapes of curves. Floor and carpet, on the other hand, have similar shapes of curves but vary in the forces. In the frequency domain, again, of the terrains, soft mat differs the most. In contrast to similar data from floor, carpet and hard mat in the time domain, in the frequency domain, the floor is more distinguishable as seen in figure \ref{fig:fftxyz}. The carpet and hard mat have an almost equally magnitude in the x-direction. However, there is a slight difference between them in the y- and z-direction shown in figures \ref{fig:ffty}, and \ref{fig:fftz} respectively.
 
 \begin{figure} [h]
 	\centering
@@ -1291,10 +1291,10 @@ Besides looking at the performance of each classifier, it is also interesting to
 	
 	
 \section{Adding feature selection}
-Even though there are classifiers which outperform the others, there is still improvement potential. The result achieved was without a feature selection method. The purpose of not using the feature selection was to investigate the performance without removing any features. However, as mentioned in section \ref{selection}, selecting features from a set can increase the classifier performance and prevent the curse of dimensionality. Thus, in the following experiment, the feature selection will be integrated with the previous implementation described in section \ref{subsec:learningProc} to see if there is any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added component is colored as red. The algorithm will select feature on the currently entire data set before the data is partitioned in the cross-validation. The filter and wrapper method will be used, and both are libraries provided by scikit-learn mentioned in section \ref{para:scikit}. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and removes features to a desired number. 
+Even though there are classifiers which outperform the others, there is still improvement potential. The result achieved was without a feature selection method. The purpose of not using the feature selection was to investigate the performance without removing any features. However, as mentioned in section \ref{selection}, selecting features from a set can increase the classifier performance and prevent the curse of dimensionality. Thus, in the following experiment, the feature selection will be integrated with the previous implementation described in section \ref{subsec:learningProc} to see if there is any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added function is colored as red. The algorithm will select feature on the currently entire data set before the data is partitioned in the cross-validation. The filter and wrapper method will be used, and both are libraries provided by scikit-learn mentioned in section \ref{para:scikit}. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and removes features to a desired number. 
 
 \paragraph{Removing features with low variance} \label{ap:variance}
-Removing Features with Low Variance (RFLV) is a filter method that removes all features where the variance does not meet some threshold. The default value of the threshold will remove all features that contain the same values, which is unlikely to occur in this experiment. To keep as many feature as possible and at the same time removing features with relative low variance, the threshold will be set to 0.2.
+Removing Features with Low Variance (RFLV) is a filter method that removes all features where the variance does not meet some threshold. The default value of the threshold will remove all features that contain the same values, which is unlikely to occur in this experiment. To keep as many features as possible and at the same time removing features with relatively low variance, the threshold will be set to 0.2.
 
 \paragraph{Recursive feature elimination} \label{ap:rfe}
 Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised classifier to rank each feature and remove features with a low rank. A chosen estimator will be used to train the set of features, and weigh them. Features with the smallest weights are pruned, and start over to estimate the current remaining set of features. This will be repeated until the desired number of features is reached. In this experiment, the default value will be used, which removes half of the feature set.
