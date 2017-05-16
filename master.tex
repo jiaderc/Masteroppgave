@@ -811,8 +811,8 @@ A message is a data structure which could be an integer, floating point, array, 
 \subsection{Services}\label{sub:service}
 Service and client give the possibility of a request and reply interaction between two ROS nodes \cite{ROSconcept}. A service can be either requesting or replying to the client. The client calls the service by sending the request message and awaiting the reply.
 
-\subsection{Bags}
-Bags are used for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
+\subsection{Rosbag}
+Rosbags are used for recording and playing back ROS message data \cite{ROSconcept}. This has the benefit of storing sensor data which is necessary for developing and testing algorithms.
 
 
 \subsection{Optoforce sensor package}  
@@ -833,10 +833,10 @@ Runstats \cite{runstats} is a library which computes statistics, such as max, me
 This chapter attempts to present the environment setup and explain the various choices which have been made to create machine learning models.
 
 \section{Environment setup}	
-Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these is to create a more challenging task for the classifier to distinguish them, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties, and are also the most difficult to distinguish. They are all slippery, and have nearly equal hardness. Soft mat differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
+Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these terrains is to create a more challenging task for the classifier, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties and also the most difficult to identify. They are all slippery and have nearly equal hardness. Soft mat, on the other hand, differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
-The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides many types of gaits mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait. 
+The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides five different types of gaits as mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait.
 
 \begin{figure}[h]
 	\centering
@@ -878,16 +878,16 @@ The quadruped robot and the mounted optical force sensor used in this thesis are
 \FloatBarrier
 
 \section{Choice of implementation language}
-The robot operates on ROS which is currently compatible with C++, Python or Lisp. Thus, segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries, hence the learning algorithm is implemented in Python. 
+The robot operates on ROS which is currently only compatible with C++, Python or Lisp. Thus, segmentation of data, described later in section \ref{subseq:segmentation}, is implemented in C++, due to fast computation. However, C++ does not provide many learning libraries. Hence the learning algorithm is implemented in Python. 
 			
 \section{Data from optical force sensor}
-This section will first describe how the measurement from the sensor is gathered. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
+This section will first describe how the measurement from the sensor is obtained. Next, it will present how the data is segmented into sequences and used as the basis for creating feature vectors.
 	
 \subsection{Data collection}
-Data was gathered by having the robot walk 10 steps on each terrain. The trials were recorded into rosbag, which makes it possible to re-simulate the trials. Five trials were recorded for each terrain, which is in total 20 trials. This gives in total 200 steps on each terrain for one sensor, and 800 steps with all four sensors together. However, this thesis will only use data from the front left foot of the robot.
+Sensor data was obtained by having the robot walk 10 steps on each terrain. The trials were recorded into rosbags, which makes it possible to re-simulate the trials. Five trials were recorded for each terrain, which is in total 20 trials. This gives in total 200 steps on each terrain from one sensor, and 800 steps with all four sensors together. However, this thesis will only use sensor data provided from the front left foot of the robot to evaluate the performance of each classifier.
 	
 \subsection{Analyzing the sensor data}\label{sec:analyzopto}
-The analyze of the sensor data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is when the foot is in the air. There is no contact between the sensor and the surface and will give a minor change, almost constant, in the x,y, and z-directions. When there is a contact between the sensor and a surface there will give a big force variation in the all three directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
+The analyze of the sensor data aims to find common characteristics, and to be able to segment desired data. Sensor data arrives in a stream as shown in figure \ref{fig:gtmgraf}. The periodic sequences are for each step. A common characteristic of all terrain is when the foot is in the air. There is no contact between the sensor and the surface and will give a minor change, almost constant, in the sensor data. When there is a contact between the sensor and a surface it provides a big force variation in the all three directions. This characteristic will be used to segment desired data, described in the next section \ref{subseq:segmentation}.
 
 
 \begin{figure} [h]
@@ -923,10 +923,10 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 \FloatBarrier
 
 \subsection{Data segmentation} \label{subseq:segmentation}
-An appropriate method to segment data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
+An appropriate method to segment sensor data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the program will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor can be found in appendix \ref{ap:code}.
+It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor is given in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
 As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous work have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and used to learn and evaluate each of classifiers. The following paragraphs will introduce each set.
