@@ -389,20 +389,20 @@ A weakness of SVM is the classification is only feasible when the classes are li
 \FloatBarrier
 	
 \subsubsection{Naive Bayes}
-The Naive Bayes algorithm is a probabilistic classifier based on Bayes’ theorem with the assumption that the effect of a feature on a given class is independent of the values of other variables \cite{Marsland:2009:MLA:1571643}. The assumption simplifies computation, and is the reason it is considered as naive. Consider a vector with n features, $X_j$, and a class, $C_i$, then the Bayes theorem can be formulated with the equation \ref{eq:bayesNaivews2}.
+The naive Bayes algorithm is a probabilistic classifier based on Bayes’ theorem with the assumption that the effect of a feature on a given class is independent of the values of other variables \cite{Marsland:2009:MLA:1571643}. The assumption simplifies computation, hence the name naive. Consider a vector with n features, $X_j$, and a class, $C_i$, then the Bayes theorem can be formulated as in equation \ref{eq:bayesNaivews2}.
 \begin{equation} 
 P(C_i \vert X_j) = \frac{P(X_j \vert C_i)P(C_i)}{P(X_j)}
 \label{eq:bayesNaivews2}
 \end{equation}
-The given output, $P(C_i \vert X_j)$, is the probability that the features $X_j$, belong to a class $C_i$, similar to $P(X_j \vert C_i)$ which is the probability of the class $C_i$, which belongs with this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and  $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increases, which requires more computation time. Thus, with assumptions of independence, the equation \ref{eq:bayesNaivews2} can be reformulated as equation \ref{eq:naiveB}.
+The given output, $P(C_i \vert X_j)$ is the probability that the features $X_j$ belong to a class $C_i$. Similar to $P(X_j \vert C_i)$ which is the probability of the class $C_i$, which belongs to this set of features $X_j$.  $P(C_i)$ and $P(X_j)$ are the prior probabilities of $C_i$ and $X_j$ respectively. The problem of using the Bayes theorem occurs when the number of features increases, which requires more computation time. Thus, with assumptions of independence reduce the computation time. Hence, the equation \ref{eq:bayesNaivews2} can be reformulated as in equation \ref{eq:naiveB}.
 \begin{equation} 
 P(C_i \vert X_j)  = P(C_i)\prod_{k}P(X_{j}^{k} \vert C_i)
 \label{eq:naiveB}
 \end{equation}
-Prediction is based on selecting the class $C_i$ with the highest probability.
+The prediction is based on selecting the class $C_i$ with the highest probability.
 
 \subsubsection{K-nearest neighbors}
-K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority among them. Choosing the value for k will therefore be crucial to achieve high classification accuracy. An example to illustrate the effect of performance on different k values is shown in \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as triangle, which is the majority among them. Conversely, if k is set to 5, then the green circle will be classified as square.
+K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover and Hart \cite{1053964}. The classification process consists of looking at the k-nearest classes and classifying the new data as the class with the largest majority of them. Choosing the value for k will therefore be crucial to achieving high classification accuracy. To illustrate the effect of performance on different k values is shown in \ref{fig:KNN}. All the blue squares and red triangles are the training data, while the green circle represents new data, which is to be classified. The solid and dashed circle is when the k is set to either 3 or 5 respectively, to illustrate the boundary between k nearest among all classes. If k is set to 3, the green circle will be classified as a triangle, which is the majority of them. Conversely, if k is set to 5, then the green circle will be classified as a square.
 
 
 
@@ -412,20 +412,20 @@ K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover a
 		\caption[An example of KNN classification]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified as either a blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
 \end{figure}
-	
-A common method to find the k-nearest data points is to calculate the Euclidean Distance. The Euclidean Distance can be expressed as shown in equation \ref{eq:edistance}  \cite{Bao2004}.
+
+
+A common method to find the k-nearest data points is to calculate the Euclidean distance. The Euclidean distance is be expressed in equation \ref{eq:edistance}  \cite{Bao2004}.
 	
 \begin{equation}
 	D(x,y)=\sqrt{\sum_{i=1}^{m}(x_{i}-y_{i})^2}
 	\label{eq:edistance}
 \end{equation}
 
-The x and y in equation \ref{eq:edistance} represent the actual and unseen classes, and m is the number of features in/for each of the classes in x and y. The algorithm will then count the k classes with the shortest distance to determine which class the unseen data belongs to.
+The x and y in equation \ref{eq:edistance} represent the actual and unseen classes, and m is the number of input variables. The algorithm will then count the k classes with the shortest distance to determine which class the unseen data belongs to.
 	
 	
 \subsubsection{Decision tree}
-The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. A tree consists of nodes, which represent one of the features, and leaf nodes are associated with classes. The process of the decision tree is constructing a tree consisting of nodes and edges, and predicting by following a path from the root to a leaf node. Figure \ref{fig:decisiontree} shows an example of a decision tree.
-
+The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Quinlan1986}. A tree as shown in figure \ref{fig:decisiontree}, consists of nodes, which represent one of the features, and leaf nodes are associated with classes. The process of the decision tree is first to construct a tree with nodes and edges based on a training data, then predicts on new data set by following a path from the root to a leaf node. 
 
 	
 \begin{figure}[h]
@@ -436,26 +436,27 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 \end{figure}
 \FloatBarrier
 
-An important aspect of decision trees is how to construct one, based on the features. Although there are a few different methods, most are based on the same principle: by starting at the root, and choosing the most discriminative feature at each step \cite{Marsland:2009:MLA:1571643}. The attractiveness with trees is that they are efficient, and it is easy to understand and interpret the data.
+An important aspect of decision trees is how to construct one based on the features. Although there are a few different methods, most are based on the same principle: by starting at the root, and choosing the most discriminative feature at each step \cite{Marsland:2009:MLA:1571643}. The attractiveness with trees is that they are efficient, and it is easy to understand and interpret the data.
 
 \subsection{Hyperparameter tuning}\label{sub:hypt}
-Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Therefore, it is recommended to set appropriate parameters in order to optimize a classifier. But it is difficult to chose optimal values of parameters, since it often differs for different datasets. A strategy to finding these parameters recommended by Hsu et al. \cite{Hsu10apractical}, is to use a grid search. A grid search will exhaustively search through a desired specified subset and output the parameters with the best results. A benefit of using a grid search, instead of searching by heuristics or approximations, is that it avoids getting stuck in local optima. However, the biggest weakness is computation complexity when the search space increases.
+Every classifier has parameters that need to be set and may strongly affect the performance induced by them. Consequently, it is recommended to set appropriate parameters in order to optimize a classifier. But it is hard to determine the optimal values of parameters since it often differs for different datasets. A strategy to finding these parameters recommended by Hsu et al. \cite{Hsu10apractical}, is to use a grid search. A grid search will exhaustively search through a desired specified subset and output the parameters with the best results. A benefit of using a grid search, instead of searching by heuristics or approximations, is that it avoids getting stuck in local optima. However, the biggest weakness is computation complexity when the search space increases.
 
 
 \section{Features} \label{features}
-An important part of achieving a good classification is finding good features from sensor data. The features are what distinguish classes and will be used as a learning set. Thus, finding good features is crucial to achieve an accurate classifier.
+An important part of achieving a good classification is finding good features from sensor data. The features are what distinguish classes and will be used as a learning set. Thus, finding good features is crucial to obtaining an accurate classifier.
 	
 \subsection{Curse of dimensionality}\label{curseDim}
-The curse of dimensionality occurs when one includes too many features in the input vector. When the dimensionality of feature vectors increases, the complexity of the underlying pattern might increase and the performance of the classifier will be degraded. To prevent the curse of dimensionality one can add more samples to uncover the underlying pattern.
+The curse of dimensionality occurs when one includes too many features in the input vector. The dimensionality of feature vectors will increases, similar to the complexity of the underlying pattern may also increase, which might cause a poor the performance of the classifier. To prevent the curse of dimensionality one can add more training samples to uncover the underlying pattern.
+
 	
 \subsection{Features extraction} \label{feature_extraction}
 Feature extraction is the process of building a new set of features from the original set and use it as a training set. Those extracted features should make it easy for a classifier to distinguish between the various classes. A common method is extracting statistical features.
 
 \subsubsection{Statistical features} \label{sub:statical}
-The following paragraphs will explain five commonly used statistical features; mean, variance, standard deviation, skewness and kurtosis.
+The following paragraphs will elaborate five commonly used statistical features; mean, variance, standard deviation, skewness, and kurtosis.
 	
 \paragraph{Mean}
-The mean is generally referred to as the average, and is defined by the sum of the values divided by the number of values \cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:mean}.
+The mean is generally referred to as the average, and is defined by the sum of the values divided by the number of values and is given in equation \ref{eq:mean} \cite{Press:2007:NRE:1403886}.
 	
 \begin{equation}
 \bar{x} = \frac{1}{N}\sum_{N-1}^{j=0}x_{j}
@@ -464,15 +465,15 @@ The mean is generally referred to as the average, and is defined by the sum of t
 	
 	
 \paragraph{Variance}
-Variance describes the spread between numbers in a data set. The variance can be written as\cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:variance}.
+Variance describes the spread between numbers in a data set \ref{eq:variance}. The variance is given in equation \cite{Press:2007:NRE:1403886}.
 	
-	\begin{equation}
-	Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
-	\label{eq:variance}
-	\end{equation}
+\begin{equation}
+Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
+\label{eq:variance}
+\end{equation}
 
 \paragraph{Standard deviation}
-Standard deviation is a measure of spread of a data set from its mean. High deviation indicates that the data points are further from the mean. This can be calculated by taking the square root from the variance\cite{Press:2007:NRE:1403886} and is given in equation \ref{eq:std}.
+Standard deviation is a measure of spread of a data set from its mean \cite{Press:2007:NRE:1403886}. High deviation indicates that the data points are further from the mean. This can be calculated by taking the square root from the variance and is given in equation \ref{eq:std}.
 	
 	\begin{equation}
 	\sigma(x_0\dotsc X_{N-1})  = \sqrt{Var(x_0\dotsc X_{N-1})}
@@ -480,13 +481,13 @@ Standard deviation is a measure of spread of a data set from its mean. High devi
 	\end{equation}
 	
 \paragraph{Skewness} 
-Skewness describes asymmetry of a distribution, and is given in equation \ref{eq:skew} \cite{Press:2007:NRE:1403886}.
+Skewness describes asymmetry of a distribution and is given in equation \ref{eq:skew} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
 	Skew(x_0\dotsc X_{N-1})  =  \frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^3
 	\label{eq:skew}
 	\end{equation}
 	
-The skewness can be either negative or positive depending on whether data points are skewed to the left or to the right. If data is skewed to the left, it indicates a negative skewness, while positive skewness is when the data is skewed to the right. An illustration of both positive and negative skewness is shown in figure \ref{fig:skew}.
+The skewness can be either negative or positive depending on whether data points are skewed to the left or the right. A negative skewness is when data is skewed to the left, while positive skewness is when the data is skewed to the right as shown in figure \ref{fig:skew}.
 	
 	\begin{figure}[h]
 		\centering
@@ -498,13 +499,13 @@ The skewness can be either negative or positive depending on whether data points
 	\FloatBarrier
 	
 \paragraph{Kurtosis}
-Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The formula is given in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
+Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The kurtosis is given in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
 	\begin{equation}
 	Kurt(x_0\dotsc X_{N-1}) = \left \{\frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
 	\end{equation}
 	
-A positive kurtosis of a distribution has a sharper peak and heavier tails relative to normal distribution, while a negative kurtosis has flatter peak and lighter tails relative to normal distribution. An illustration of both positive and negative kurtosis is shown in figure \ref{fig:kurtosis}.
+A positive kurtosis of distribution has a sharper peak and heavier tails relative to normal distribution, while a negative kurtosis has a flatter peak and lighter tails relative to the normal distribution which is shown in figure \ref{fig:kurtosis}.
 	
 	\begin{figure}[h]
 		\centering
