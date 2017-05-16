@@ -481,7 +481,7 @@ The mean is generally referred to as the average, and is defined by the sum of t
 	
 	
 \paragraph{Variance}
-Variance describes the spread between numbers in a data set \ref{eq:variance}. The variance is given in equation \cite{Press:2007:NRE:1403886}.
+Variance describes the spread between numbers in a data set \cite{Press:2007:NRE:1403886}. The variance is given in equation \ref{eq:variance}.
 	
 \begin{equation}
 Var(x_0\dotsc X_{N-1})  = \frac{1}{N}\sum_{N-1}^{j=0}(x_{j}-\bar{x})^2
@@ -515,7 +515,7 @@ The skewness can be either negative or positive depending on whether data points
 	\FloatBarrier
 	
 \paragraph{Kurtosis}
-Kurtosis measures the peak and tails of a distribution relative to a normal distribution. Using kurtosis might help to understand general characteristics about the distribution of the data. The kurtosis is given in equation \ref{eq:kurtosis} \cite{Press:2007:NRE:1403886}.
+Kurtosis measures the peak and tails of a distribution relative to a normal distribution \cite{Press:2007:NRE:1403886}. Using kurtosis might help to understand general characteristics about the distribution of the data. The kurtosis is given in equation \ref{eq:kurtosis}.
 	\begin{equation}
 	Kurt(x_0\dotsc X_{N-1}) = \left \{\frac{1}{N}\sum_{N-1}^{j=0}\left [ \frac{x_j-\bar{x}}{\sigma} \right ]^4 \right \}-3
 	\label{eq:kurtosis}
@@ -601,7 +601,7 @@ Overfitting and underfitting the data is an issue in machine learning which caus
 	%		\caption{Optimal}
 	%		\label{fig:optimal}
 	%	\end{subfigure}
-		\caption[Illustration of when a model is overfitted, underfitted and optimal]{Illustration of when a model is overfitted \ref{fig:over}, underfitted \ref{fig:under}.}
+		\caption[Illustration of when a model is overfitted, and underfitted]{Illustration of when a model is overfitted \ref{fig:over}, and underfitted \ref{fig:under}.}
 		\label{fig:fitting}	
 	\end{figure}
 	\FloatBarrier
@@ -711,7 +711,7 @@ Remote sensing obtains information about a terrain from a distance and does not 
 \\
 \\ 
 Filitchkin et al. \cite{littleDog} presents a visual terrain classification by using a single, compact camera to change the gait patterns of a quadruped robot. Three
-types of gait were used during the experiment, a gait designed for a flat surface, a gait for rough terrain and a mixture of the former two. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type was required. There were in total four different terrains: small rocks, rocks, grass, and tile. The experiment consists of letting the robot identify the terrain every few steps and switch gait according to which terrain it was on. Robot performance was measured by comparing the traversal time between each gait independently and the changing gait. The results show that the mixed gait is able to classify terrain and traverse through the terrain faster. Meanwhile, the other two gaits were quick, but not able to classify big rocks, and the last gait was able to classify all terrain but had a slower traversal time.
+types of gait were used during the experiment, a gait designed for a flat surface, a gait for rough terrain and a mixture of the former two. To know which gait should be chosen for each terrain, an initial test by assigning a gait to each terrain type was required. There were in total four different terrains: small rocks, rocks, grass, and tile. The experiment consists of letting the robot identify the terrain every few steps and switch gait according to which terrain it was on. Robot performance was measured by comparing the traversal time between each gait independently and the changing gait. The results show that the changing gait is able to classify terrain and traverse through the terrain faster. Meanwhile, the other two gaits were quick, but not able to classify big rocks, and the last gait was able to classify all terrain but had a slower traversal time.
 \\
 \\
 Plagemann et al. \cite{4651026} used a laser ranger finder to predict terrain elevation
@@ -775,7 +775,7 @@ The paragraphs above shows that many of previous work has been using statistical
 A common method of validation is using the k-fold cross-validation  \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However, the selection of k varies. A common k value is set either to 2  \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal to the length of the feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
 \\
 \\
-Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\% . The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples which are involved in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
+Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\%. The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples which are involved in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
@@ -794,7 +794,7 @@ OptoForce (3D force sensor) \cite{Optoforce} shown in figure \ref{fig:OptoforceB
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in the amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. The axes of the sensor are shown in figure \ref{fig:OptoforceAxis}. OptoForce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}. Several works where the sensor was used can be found in \cite{7803326,7759112,7849467}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in the amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. The axes of the sensor are shown in figure \ref{fig:OptoforceAxis}. OptoForce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}.
 
 
 \begin{figure}[h]
@@ -831,7 +831,7 @@ Rosbags are used for recording and playing back ROS message data \cite{ROSconcep
 
 
 \subsection{Optoforce sensor package}  
-A ROS package for the Optoforce sensor described in section \ref{sub:Optoforce} can be found in \cite{optoRos}. The package contains a node that is able to read data from the sensor with a frequency of 100 Hz and will publish the data stream as floats to a topic. This gives the opportunity for other nodes to obtain data from the sensor by subscribing to the node.
+A ROS package for the Optoforce sensor described in section \ref{sub:Optoforce} can be found in \cite{optoRos}. The package contains a node that is able to read data from the sensor with a frequency of 100Hz and will publish the data stream as floats to a topic. This gives the opportunity for other nodes to obtain data from the sensor by subscribing to the node.
 
 \section{Python libraries}
 Python provides lots of libraries which reduce developing time. The libraries are well-documented and have the freedom to customize each algorithm to use.
@@ -851,7 +851,7 @@ This chapter attempts to present the environment setup and explain the various c
 Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these terrains is to create a more challenging task for the classifier, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties and also the most difficult to identify. They are all slippery and have nearly equal hardness. Soft mat, on the other hand, differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
-The quadruped robot and the mounted optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides five different types of gaits as mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait.
+The quadruped robot and the optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides five different types of gaits as mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait.
 
 \begin{figure}[h]
 	\centering
@@ -1044,7 +1044,7 @@ In order to use raw data as input, a fixed length is required. After many trials
 The procedure of the learning approach is divided into two processes: collecting data samples into files and the learning process.
 	
 \subsection{Collecting samples}
-The first process is to gather data for each terrain which will be stored into files. Those files will further be collected into a single file and used as the training and test samples in the next process. The process is shown in figure \ref{fig:createsamples}.
+The first process is to gather data for each terrain which will be stored into files. Those files will further be collected into a single file and used as the training and test samples in the next process. The process of creating file is shown in figure \ref{fig:createsamples}.
 
 	
 \begin{figure}[h]
@@ -1387,34 +1387,34 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 			\toprule
 			&  & \multicolumn{3}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-5} 
 			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Old result}} & \multicolumn{1}{l|}{\textbf{Filter}} & \textbf{Wrapper} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{83\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 78\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Navies Bayes} & \multicolumn{1}{l|}{83\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 78\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Decision tree}} & \multicolumn{1}{l|}{\textbf{96\%}} & \multicolumn{1}{l|}{\color[HTML]{F8A102}\textbf{96\%}} & {\color[HTML]{FE0000} 93\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{91\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 95\%}} & {\color[HTML]{009901} 93\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Neural network}} & \multicolumn{1}{l|}{\textbf{96\%}} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 94\%}} & {\color[HTML]{FE0000} 95\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set one -\\ raw data\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 91\%}} & {\color[HTML]{009901} 94\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 79\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{FE0000} 82\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 84\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set two - \\ statistical features in \\ time domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{85\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 80\%}} & {\color[HTML]{FE0000} 83\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{91\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 76\%}} & {\color[HTML]{009901} 94\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes } & \multicolumn{1}{l|}{91\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 76\%}} & {\color[HTML]{009901} 94\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 76\%}} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & \color[HTML]{F8A102} 88\% \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 78\%}} & {\color[HTML]{009901} 94\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set three - \\ complete frequency \\ domain\end{tabular}}}} & \multicolumn{1}{l|}{\textbf{SVM}} & \multicolumn{1}{l|}{93\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 79\%}} & {\color[HTML]{009901} \textbf{97\%}} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{81\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 75\%}} & {\color[HTML]{FE0000} 79\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Navie Bayes} & \multicolumn{1}{l|}{81\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 75\%}} & {\color[HTML]{FE0000} 79\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{\color[HTML]{F8A102} 82\%} & {\color[HTML]{FE0000} 81\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 85\%}} & {\color[HTML]{009901} 86\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{88\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 84\%}} & {\color[HTML]{009901} 90\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set four - \\ staticial features in \\ frequency domain\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 82\%}} & {\color[HTML]{009901} 86\%} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Bayes Navies} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes } & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 74\%}} & {\color[HTML]{009901} 84\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{80\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 82\%}} & {\color[HTML]{009901} 82\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{84\%} & \multicolumn{1}{l|}{{\color[HTML]{009901} 86\%}} & {\color[HTML]{009901} 86\%} \\ \cmidrule(l){2-5} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\textbf{Neural network}} & \multicolumn{1}{l|}{\textbf{89\%}} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 81\%}} & {\color[HTML]{FE0000} 85\%} \\ \cmidrule(l){2-5} 
-			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{009901} 84\%} \\ \bottomrule
+			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{FE0000} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifiers with the feature selection method]{Results from five different feature sets and classifiers when applying the feature selection method.}
+	\caption[Results from five different feature sets and classifiers with the feature selection method]{Results from five different feature sets and classifiers when applying the feature selection method. Green is increased accuracy, yellow is same accuracy, and red is decreased accuracy.}
 	\label{tab:exp2}
 \end{table}
 \FloatBarrier
@@ -1429,19 +1429,19 @@ It will be interesting to investigate the features selected from each method. Ho
 \begin{figure} [h]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featureselx}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featureselx2}
 		\caption{Features in x-direction}
 		\label{fig:featurex} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featuresely}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featuresely2}
 		\caption{Features in y-direction}
 		\label{fig:featurey}
 	\end{subfigure}
 	
 	\begin{subfigure}[h]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featureselz}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/featureselz2}
 		\caption{Features in z-direction}
 		\label{fig:featurez}
 	\end{subfigure}
@@ -1451,8 +1451,8 @@ It will be interesting to investigate the features selected from each method. Ho
 \end{figure}
 \FloatBarrier
 
-\section{Cross validation with unseen data} \label{seq:crossunseen}
-Note that the k-fold validation in earlier experiments was only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In that case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not give an insight on how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the ANN without a selection method with the feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
+\section{Cross-validation on unseen data} \label{seq:crossunseen}
+Note that the k-fold validation in earlier experiments was only using the same single set both for training and testing, which make the data referring to themselves and has the risk of not generalizing the classifier. In that case, results achieved from table \ref{exp1} and table \ref{tab:exp2} only give an estimation on how successful a classifier is, but does not give an insight on how well it predicts on unseen data. One way to avoid this issue is to make the training and testing sets independent of each other, so the predictions will be based on new and unseen data \cite{26b23e912c654fe4b7478fd910130195}. The following experiment will be using high performing classifiers which are shown in table \ref{tab:exp2}, marked with bold text. As there are three shared second-best classifiers, all of them will be included in this experiment. Additionally, the neural network without a selection method with the feature set five achieved a satisfying result which will also be further investigated. The reason is that the four best performing classifiers only use either the entire raw data or frequency domain. Thus, it will be interesting to compare a classifier that uses statistical features as well.
 \\
 \\
 In this experiment, 50 new data samples for each terrain is collected. The cross validation will use the old dataset as a training set, while the newly collected samples will be used as a test set. The cross validation technique in this experiment is still LOOCV, in order to train as many samples as possible. To achieve a reliable performance estimation, it can be done by running the cross-validation multiple times \cite{Refaeilzadeh2009}. Thus, the training and test sets will be randomly shuffled before each round of cross validation, and each classifier will be run five times. The table \ref{tab:exp4} shows the classifier and feature set used in this experiment.
@@ -1474,11 +1474,11 @@ In this experiment, 50 new data samples for each terrain is collected. The cross
 \FloatBarrier
 \newpage
 \subsection{Results}
-An overview of the performance of the five top performed classifier is shown as a box plot in figure \ref{fig:boxexp}. Again, the top performing is the SVM, and second best is the ANN with the feature set five. These will also be used in further experiments. The other classifiers have heavily decreased their accuracy in their performance.
+An overview of the performance of the five top performed classifier is shown as a box plot in figure \ref{fig:boxexp}. Again, the top performing is the SVM, and second best is the neural network with the feature set five. These will also be used in further experiments. The other classifiers have heavily decreased their accuracy in their performance.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/compareUnseen}
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/box}
 	\caption[Boxplot of the five top performing classifiers]{Boxplot of the five top performing classifiers on unseen data.}
 	\label{fig:boxexp}
 \end{figure}
@@ -1678,7 +1678,7 @@ This is the second best performing classifier, and the table in \ref{tab:nn5} sh
 \newpage
 	
 \subsubsection{Decision Tree - feature set one - RFLV}
-This is the third best performing classifier, and table \ref{dt4} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every class. However, the floor and soft mat still have among the highest accuracies with f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
+This is the third best performing classifier, and table \ref{dt44} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.6\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.4\%. Again, it has problems predicting the hard mat, which it tends to predict as carpet. In contrast to the three best performing models, this model consists of more misclassification in every class. However, the floor and soft mat still have among the highest accuracies with f-score of at least 88\%. The carpet has a high precision, but low recall, and vice versa with the hard mat.
 
 
 
@@ -1768,7 +1768,7 @@ This is the third best performing classifier, and table \ref{dt4} shows the perf
 		\label{dt1ee}
 		\end{subtable}
 	\caption[Results of SVM on feature set three with RFE]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1ee}.}
-\label{dt43}
+\label{dt44}
 \end{table}
 \FloatBarrier
 \newpage
@@ -1778,7 +1778,7 @@ This is the third best performing classifier, and table \ref{dt4} shows the perf
 	
 
 \subsubsection{Decision Tree - feature set one}
-This is the fourth best performing classifier, and table \ref{dt1e2} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on the soft mat. However, soft mat still has the highest precision and recall of at least 92\% - 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% - 36\% and a big variation in the recall with a range of 66.7\% to 78.3\%.
+This is the fourth best performing classifier, and table \ref{dt1e222} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on the soft mat. However, soft mat still has the highest precision and recall of at least 92\% - 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% - 36\% and a big variation in the recall with a range of 66.7\% to 78.3\%.
 
 
 \begin{table}[h]
@@ -1866,13 +1866,13 @@ This is the fourth best performing classifier, and table \ref{dt1e2} shows the p
 	\caption{Accuracy and confusion matrix for decision tree on feature set one after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 	\label{dt1e}
 	\end{subtable}
-	\caption[Results of decision tree on feature set one with RFLV]{Results of decision tree on feature set three with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
-\label{tab:dt1e2}
+	\caption[Results of decision tree on feature set one with RFLV]{Results of decision tree on feature set one after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
+\label{dt1e222}
 \end{table}
 \FloatBarrier
 \newpage
 
-\subsubsection{Neural Network - feature set one}
+\subsubsection{Neural network - feature set one}
 This is the fifth best performing classifier and table \ref{nn2} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
@@ -1922,7 +1922,7 @@ This is the fifth best performing classifier and table \ref{nn2} shows the perfo
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{36.1\%} & \multicolumn{1}{l|}{35.5\%} & \multicolumn{1}{l|}{32.3\%} & \multicolumn{1}{l|}{30\%} & 38.1\% \\ \bottomrule
 		\end{tabular}
-		\caption{f-score - neural network - feature set one}
+		\caption{F-score - neural network - feature set one}
 		\label{nnfscore}
 	\end{subtable}
 \end{table}
@@ -2074,13 +2074,13 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 		\begin{tabular}{@{}lllllll@{}}
 			\toprule
 			\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Output\\ type\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Number\\ of output\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Old\\ result\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}New\\ result\end{tabular}} \\ \midrule
-			\multirow{3}{*}{ANN} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & String & 1 & 78.2\% & 77.6\% \\
+			\multirow{3}{*}{Neural network} & \multirow{3}{*}{Set 5} & \multirow{3}{*}{None} & String & 1 & 78.2\% & 77.6\% \\
 			&  &  & Binary & 2 & NaN & 78.9\% \\
 			&  &  & Binary & 4 & NaN & 74.2\% \\ \midrule
 			\textbf{SVM} & \textbf{Set 3} & \textbf{RFE} & \textbf{String} & \textbf{1} & \textbf{94.8\%} & \textbf{93.6\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results of the classifier after tuning parameters]{Results after tuning parameters of ANN and SVM.}
+	\caption[Results of the classifier after tuning parameters]{Results after tuning parameters of neural network and SVM.}
 	\label{tab:resPara}
 \end{table}
 \FloatBarrier
@@ -2088,7 +2088,7 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 
 
 \subsection{Analysis}
-Tuning parameters did not have a significant effect on the performance. Mostly it slightly decreased, but the ANN with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
+Tuning parameters did not have a significant effect on the performance. Mostly it slightly decreased, but the Neural network with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
 \\
 \\
 Regarding the binary representation of terrains, there is shown a decrease of accuracy when having a representation of the terrain with four binary digits. There is a minor increase of accuracy when the output consists of two binary outputs.  
@@ -2239,7 +2239,7 @@ The data stream when the robot traverses from the hard mat to floor is shown in 
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3MM_line2}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3MM_line3}
 		\caption[Data stream of the transition from hard mat to soft mat.]{Data stream of the robot traversing from hard mat to soft mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:hardmatSoftMat}
 	\end{figure}
@@ -2286,7 +2286,7 @@ The data stream when the robot traverses from the soft mat to hard mat is shown 
 				Hard mat & 0.300 & 0.086 & 0.054 & 0.344 & \cellcolor[HTML]{34FF34}0.921 & \cellcolor[HTML]{34FF34}0.978 & \cellcolor[HTML]{34FF34}0.930 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from soft mat to hard mat]{Estimated probability of each terrain per step walking from soft mat to hard mat.Values are marked green to represent correct predictions. For incorrect predictions, the actual value is marked yellow while the predicted value is marked red.}
+		\caption[Results of transistion from soft mat to hard mat]{Estimated probability of each terrain per step walking from soft mat to hard mat. Values are marked green to represent correct predictions. For incorrect predictions, the actual value is marked yellow while the predicted value is marked red.}
 		\label{MM4MB}
 	\end{table}
 	\FloatBarrier
@@ -2315,7 +2315,7 @@ The data stream when the robot traverses from the soft mat to carpet is shown in
 				Hard mat & 0.054 & 0.045 & 0.121 & 0.055 & 0.216 & \cellcolor[HTML]{FD6864}0.933 & 0.037 & 0.072 \\ \bottomrule
 			\end{tabular}%
 		}
-		\caption[Results of transistion from soft mat to carpet]{Estimated probability of each terrain per step walking from soft mat to carpet.Values are marked green to represent correct predictions. For incorrect predictions, the actual value is marked yellow while the predicted value is marked red.}
+		\caption[Results of transistion from soft mat to carpet]{Estimated probability of each terrain per step walking from soft mat to carpet. Values are marked green to represent correct predictions. For incorrect predictions, the actual value is marked yellow while the predicted value is marked red.}
 		\label{tab:softcarpet}
 	\end{table}
 	\FloatBarrier
@@ -2521,7 +2521,7 @@ One of the important abilities for a robot to achieve terrain classification is 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
 \chapter{Code of segmentation of data} \label{ap:code}
-The custom method of segmenting desired data from the sensor is in listing \ref{ap:code1}. The code only for one sensor.
+The custom method of segmenting desired sensor data is in listing \ref{ap:code1}.
 \lstinputlisting[language=C++, caption={A simplified method to achieve a fixed length of data sequence},captionpos=b,label={ap:code1},frame=single,breaklines=true]{code/data_seg.cpp}
 
 \begin{comment}
@@ -2548,7 +2548,7 @@ The SVM kernels reflect how the similarity between two datapoint is computed. Th
 \chapter{Selected features} \label{ap:self}
 The following paragraphs show different features selected from both method RFLV and RFE.
 
-\subsubsection{Set 1}
+\subsubsection{Feature set one}
 \paragraph{RFLV}
 \begin{align}
 f_{set1} &= \left\{x_{8}, x_{19},\dotsc, x_{24}, x_{27},  x_{53}, \dotsc, x_{61}, x_{80}, \dotsc, x_{83}\right.\nonumber\\
@@ -2575,7 +2575,7 @@ f_{set1} &= \left\{x_{1}, x_{5}, x_{6}, x_{9}, x_{12}, x_{13}, x_{14}, x_{19},x_
 \end{align}
 
 
-\subsubsection{Set 2}
+\subsubsection{Feature set two}
 \paragraph{RFLV}
 \begin{align}
 f_{set2} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, \right.\nonumber\\
@@ -2591,26 +2591,26 @@ f_{set2} &= \left\{x_{var}, x_{std}, \right.\nonumber\\
 \end{align}
 
 
-\subsubsection{Set 3}
+\subsubsection{Feature set three}
 \paragraph{RFLV}
 \begin{align}
-f_{set3} &= \left\{x_{1}, z_{1} \right\}
+f_{set3} &= \left\{fx_{1}, fz_{1} \right\}
 \end{align}
 
 
 \paragraph{RFE}
 \begin{align}
-f_{set3} &= \left\{x_{1},\dotsc,x_{8}, x_{10},x_{13},\dotsc,x_{19},x_{21},x_{22},x_{24},x_{27} \right.\nonumber\\
-&\qquad \left.{}  x_{30},x_{32},x_{33},x_{34},x_{37},x_{38},x_{39}, \right.\nonumber\\
-&\qquad \left.{}  y_{1},y_{3},y_{4},y_{6},\dotsc,y_{13},y_{15},y_{16},y_{20},y_{22},y_{24},y_{25}, \right.\nonumber\\
-&\qquad \left.{} y_{27},y_{28},y_{29},y_{31},y_{32},y_{33},y_{36},y_{37},y_{38},y_{39},y_{51}, \right.\nonumber\\
-&\qquad \left.{} z_{1},\dotsc,z_{11},z_{13},z_{17},\dotsc,z_{22},z_{24},z_{34},  \right.\nonumber\\
-&\qquad \left.{} z_{36},z_{38},z_{39},z_{51},z_{59},z_{60},z_{61} \right\}
+f_{set3} &= \left\{fx_{1},\dotsc,fx_{8}, fx_{10},fx_{13},\dotsc,fx_{19},fx_{21},fx_{22},fx_{24},fx_{27} \right.\nonumber\\
+&\qquad \left.{}  fx_{30},fx_{32},fx_{33},fx_{34},fx_{37},fx_{38},fx_{39}, \right.\nonumber\\
+&\qquad \left.{}  fy_{1},fy_{3},fy_{4},fy_{6},\dotsc,fy_{13},fy_{15},fy_{16},fy_{20},fy_{22},fy_{24},fy_{25}, \right.\nonumber\\
+&\qquad \left.{} fy_{27},fy_{28},fy_{29},fy_{31},fy_{32},fy_{33},fy_{36},fy_{37},fy_{38},fy_{39},fy_{51}, \right.\nonumber\\
+&\qquad \left.{} fz_{1},\dotsc,fz_{11},fz_{13},fz_{17},\dotsc,fz_{22},fz_{24},fz_{34},  \right.\nonumber\\
+&\qquad \left.{} fz_{36},fz_{38},fz_{39},fz_{51},fz_{59},fz_{60},fz_{61} \right\}
 \end{align}
 
 
 
-\subsubsection{Set 4}
+\subsubsection{Feature set four}
 \paragraph{RFLV}
 \begin{align}
 f_{set4} &= \left\{fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
@@ -2625,7 +2625,7 @@ f_{set4} &= \left\{fx_{var}, fx_{std}, \right.\nonumber\\
 &\qquad \left.{} fz_{min}, fz_{max}, fz_{kurtosis}, fz_{var} \right\}
 \end{align}
 
-\subsubsection{Set 5}
+\subsubsection{Feature set five}
 \paragraph{RFLV}
 \begin{align}
 f_{set5} &= \left\{x_{max}, x_{kurtosis}, x_{skew}, fx_{max}, fx_{kurtosis}, fx_{skew}, fx_{E}, \right.\nonumber\\
