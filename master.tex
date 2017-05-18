@@ -155,7 +155,7 @@ In most of the studies, the tactile sensor is often fused with other sensors due
 \\
 \\
 \section{Goal of the thesis}
-The main goal of this thesis is to evaluate a type of 3D optical force sensor for the terrain classification problem. This thesis will also be investigating and developing a reliable approach for data processing, preprocessing, feature selection, and classification for the presented sensor.
+The main goal of this thesis is to evaluate 3D optical force sensor for the terrain classification problem. This thesis will also be investigating and developing a reliable approach for data processing, preprocessing, feature selection, and classification for the presented sensor.
 
 
 
@@ -751,7 +751,7 @@ There is a vast number of classifiers and a variety have been used within terrai
 Most studies based their terrain classification on supervised learning. However, Giguere and Dudek \cite{Giguere2009} presented a new clustering method for terrain classification using unsupervised learning. This makes a robot able to automatically distinguish terrain without any human interaction or feedback. The same authors \cite{5752869} designed a tactile probe and demonstrated the possibility of utilizing the sensor in unsupervised learning. 
 	
 \subsection{Features} \label{sub:relatedfeatures}
-As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain features \cite{5152662,Giguere2009,5509309}. Other researcher only extract features in the time domain \cite{walastactile} or in the frequency domain \cite{4543710} \cite{5979766}. The following paragraphs will give an insight of features extracted in past work.
+As mentioned in section \ref{features}, finding good features is a crucial part of the classification process. Earlier work has extracted features in combinations of statistical features in the time domain with frequency domain features \cite{5152662,Giguere2009,5509309}. Other researcher only extract features in the time domain \cite{walastactile} or in the frequency domain \cite{4543710,5979766}. The following paragraphs will give an insight of features extracted in past work.
 \\
 \\
 Giguere and Dudek \cite{5152662} extracted features such as mean, variance, skewness, kurtosis, fifth moment, and the sum of the variation over time in the time domain. The feature in frequency domain consists of the sum of higher half of amplitude spectrum extracted.
@@ -771,14 +771,14 @@ Walas \cite{walastactile} suggested four statistical features in the time domain
 \\
 The paragraphs above shows that many of previous work has been using statistical features, where some of them are described in section \ref{sub:statical}. The work in \cite{5602459} is an example of extracting good features is crucial to good performing model. The researcher used statistics with a support vector machine and gave an accuracy of 40\%, while a principal component analysis gave an accuracy of 78.75\%.
 	
-\subsection{Validation}\label{subseq:validation}
-A common method of validation is using the k-fold cross-validation  \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However, the selection of k varies. A common k value is set either to 2  \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal to the length of the feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
+\subsection{Model evaluation}\label{subseq:validation}
+A common method to evaluate a model is using the k-fold cross-validation  \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However, the selection of k varies. A common k value is set either to 2  \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal to the length of the feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
 \\
 \\
 Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\%. The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples which are involved in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
-Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation, or real accuracy \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
+Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
 
 \chapter{Software and tools} \label{chap:software}
 This chapter gives an introduction to different tools and libraries used throughout the thesis.
@@ -794,7 +794,7 @@ OptoForce (3D force sensor) \cite{Optoforce} shown in figure \ref{fig:OptoforceB
 \end{figure}
 \FloatBarrier
 
-The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in the amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. The axes of the sensor are shown in figure \ref{fig:OptoforceAxis}. OptoForce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}.
+The sensor consists of a light emitter (LED) and four sensing elements (photodiodes) which are wrapped within two layers; a reflective layer and a sensing surface. The four photodiodes obtain the force by measuring the infrared light reflected by the reflective layer. If a force is applied on the sensing surface, the amount of reflected light on each photodiode will change accordingly. The forces in the x- and y-directions are measured by the difference in the amount of reflected light between the two opposing photodiodes for each direction, while the force in the z-direction is the average of the four measurements. The force axes of the sensor are shown in figure \ref{fig:OptoforceAxis}. OptoForce sensor is a relatively new sensor (2015), and the manufacturer claims the sensor can guarantee precise measurements even up to a 200\% overload \cite{Optoforce2}.
 
 
 \begin{figure}[h]
@@ -912,15 +912,13 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 		\caption{Floor}
 		\label{fig:gulvgraf} 
 	\end{subfigure}
-	
+\end{figure}
+ \begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf2}
 		\caption{Carpet}
 		\label{fig:teppegraf}
 	\end{subfigure}
-	\end{figure}
-
-	\begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[h]{\textwidth}
 		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf2}
 		\caption{Soft mat}
@@ -941,7 +939,7 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 An appropriate method to segment sensor data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code for segmenting desired data for one sensor is given in appendix \ref{ap:code}.
+It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code of segmenting desired data from the sensor is given in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
 As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous works have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and applied to learn and evaluate each of classifiers. The following paragraphs will introduce each feature set. 
@@ -987,7 +985,7 @@ The feature set is shown in equation \ref{eq:fset2}.
 The vector contains 7 features from all 3 directions, which is in total 21 features. 
 	
 \paragraph{Feature set three - complete frequency spectrum} 
-Previous work has shown that using frequency has given good results. In this feature set, the raw data from the time domain is transformed into the frequency domain by fast Fourier transformation. After transformation, a decimation is used to achieve a fixed length. Since the minimum length in the time domain is 125, and the fast Fourier transform is symmetric, the minimum length of the entire spectrum will be 62.5, but in this approach, the thesis will be decimating to a length of 61. Contrary to decimating in the front and end of the sequence, it is considered that data at the end of the sequence is less important than in the front, hence these features will be discarded. The feature set is shown in equation \ref{eq:f1}.
+Previous work has shown that using frequency has given promising results. In this feature set, the raw data from the time domain is transformed into the frequency domain by fast Fourier transformation. After transformation, a decimation is used to achieve a fixed length. Since the minimum length in the time domain is 125, and the fast Fourier transform is symmetric, the minimum length of the entire spectrum will be 62.5, but in this approach, the thesis will be decimating to a length of 61. Contrary to decimating in the front and end of the sequence, it is considered that data at the end of the sequence is less important than in the front, hence these features will be discarded. The feature set is shown in equation \ref{eq:f1}.
 	
 \begin{align}\label{eq:f1}
 f_{set3} &= \left\{fx_1,\dotsc,fx_{61}, \right.\nonumber\\
@@ -1040,10 +1038,12 @@ In order to use raw data as input, a fixed length is required. After many trials
 
 	
 %\newpage
-\section{Learning approach}
-The procedure of the learning approach is divided into two processes: collecting data samples into files and the learning process.
-	
-\subsection{Collecting samples}
+\section{Evaluation procedure}
+This section presents two processes which are used to evaluate a certain classifier. The first process is collecting sensor data samples into a single file. The second process is using the file to evaluate a certain machine learning model.
+
+
+
+\subsection{Collecting data samples}
 The first process shown in figure \ref{fig:createsamples} is to gather data for each terrain which will be stored into files. Those files will further be collected into a single file and used as the training and test samples in the next process. 
 
 	
@@ -1086,7 +1086,7 @@ The first process shown in figure \ref{fig:createsamples} is to gather data for 
 \end{enumerate}
 \clearpage
 
-\subsection{Learning process} \label{subsec:learningProc}
+\subsection{Create and test machine learning model} \label{subsec:learningProc}
 When the data samples of each terrain are unified into a single file, the learning process as shown in figure \ref{fig:learningProcess} is to evaluate each classifier. Rectangles are processes that take a given input and produce an output. The dashed rectangles are processes that can be omitted.
 
 \begin{figure}[h]
@@ -1126,12 +1126,12 @@ When the data samples of each terrain are unified into a single file, the learni
 	
 	\end{tikzpicture}
 	
-	\caption[Process of creating and evaluating a certain classifier]{Process of creating and evaluating a certain classifier.} \label{fig:learningProcess}
+	\caption[Process of creating and evaluating a classifier]{Process of creating and evaluating a classifier.} \label{fig:learningProcess}
 \end{figure}
 
 \FloatBarrier
 	\clearpage
-\subsubsection{Details of the learning process} \label{sub:learningprocess}
+\subsubsection{Details of evaluating a classifier} \label{sub:learningprocess}
 \begin{enumerate}
 \item \textbf{\underline{Read file}}
 \\
@@ -1162,12 +1162,12 @@ This step uses the model to predict the test set.
 
 \item \textbf{\underline{Store partial result}} 
 \\
-This step will store the partial result of the test sample. If there is still more data to be predicted, it starts from \ref{en:loop}.
+This step will store the partial result of the test sample. If every data sample has been used in the testing set, the next step is number 4. If there is still more data to be tested, the loop starts over again from step \ref{en:loop}.
 \end{enumerate}	
 		
 \item \textbf{\underline{Result}}
 \\
-This step will compute the overall results as mentioned in section \ref{subsec:evalclf}, of performance for a certain chosen classifier. 
+This step will compute several measures of performance for a certain chosen classifier, specified in section \ref{subsec:evalclf}. 
 \end{enumerate}
 	
 \clearpage
@@ -2044,8 +2044,8 @@ The current representation of the terrain is that each terrain is assigned to fo
 \FloatBarrier
 
 
-\paragraph{Support vector machine} \label{pa:svmp}
-Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. C tells how much one wants to avoid misclassifying each training example. A large C value gives a more perfect separation of the data, but might not be able to generalize data, while a low C value allows more misclassification, and might contain more errors.
+\paragraph{SVM} \label{pa:svmp}
+Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. The parameter C determines how much one wants to avoid misclassifying each training example. A large C value gives a better separation of the data, but might not be able to generalize data. Meanwhile, a small C value allows more misclassification and might contain more errors.
 
 
 \begin{table}[h]
@@ -2053,7 +2053,7 @@ Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}
 	\begin{tabular}{@{}ll@{}}
 		\toprule
 		\textbf{Parameter} & \textbf{Values} \\ \midrule
-		\multirow{2}{*}{Kernel} & \multirow{2}{*}{linear, rbf, polynomial} \\
+		\multirow{2}{*}{Kernel} & \multirow{2}{*}{RBF, linear, polynomial} \\
 		&  \\
 		C & \begin{tabular}[c]{@{}l@{}}0.1,0.2,...,0.9 and \\ 1,2,...,1000\end{tabular} \\ \bottomrule
 	\end{tabular}
@@ -2103,7 +2103,7 @@ A more realistic practical scenario is to let the robot traverse through differe
 	\end{enumerate}
 	
 \subsection{Real-time implementation} %OBS
-The real-time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation, a ROS service node mentioned in section \ref{sub:service}, is created after modeled a classifier. The training is the same set as used in earlier experiments with 50 samples for each terrain. The service will be waiting for a request from another node, which is the segment data node. The segment data gathers a data stream from the optoForce sensor. The method will collect interesting data as described in section \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will classify, and output the terrain label of the preprocessed data. Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. It will be interesting to look how high probability each terrain is to be predicted. However, the documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware of this when analyzing the results. After given a result, it will be waiting for new partitions from segment data algorithm.
+The real-time implementation can be seen in figure \ref{fig:realtime}, which is a modification of the earlier approach. In this implementation, a ROS service node mentioned in section \ref{sub:service}, is created after modeled a classifier. The training is the same set as used in earlier experiments with 50 samples for each terrain. The service will be waiting for a request from another node, which is the segment data node. The segment data gathers a data stream from the optoForce sensor. The method will collect interesting data as described in section \ref{subseq:segmentation}. After a step is extracted from the sensor, it will then be passed to the service. The service will receive the data and start to preprocess the data. It will extract features, select features, and scale according to the training samples. The last step will classify, and output the terrain label of the preprocessed data. Python provides a probability function on SVM, which is used to estimate the probability of each terrain when predicting. It will be interesting to look how high probability each terrain is to be predicted. However, the documentation is aware that the probability involves Platt scaling, which may be inconsistent with the scores. For example, the highest probability is not necessarily the highest score achieved without the probability function. Thus, one has to be aware of this when analyzing the results. After given a result, the program will be waiting for a new partition of sensor data from segment data algorithm.
 	
 	\begin{figure}[h!]
 		\centering
@@ -2173,7 +2173,7 @@ The data stream when the robot traverses from floor to carpet is shown in figure
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2_line2}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/Gulvet4Teppe2_line3}
 		\caption[Data stream of the transition from floor to carpet]{Data stream of the robot traversing from floor to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:gulvet4teppegraf}
 	\end{figure}
@@ -2203,7 +2203,7 @@ The data stream when the robot traverses from the hard mat to floor is shown in 
 		
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3_3_Gulvet_line2}
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MB3_3_Gulvet_line3}
 	\caption[Data stream of the transition from hard mat to floor]{Data stream of the robot traversing from hard mat to floor. The thick gray horizontal line is the boundary between the two terrains.}
 	\label{fig:mb3Gulvet}
 \end{figure}
@@ -2265,7 +2265,7 @@ The data stream when the robot traverses from the soft mat to hard mat is shown 
 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM_4Resten_MB_line2}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM_4Resten_MB_line3}
 		\caption[Data stream of the transition from soft mat to hard mat]{Data stream of the robot traversing from soft mat to hard mat. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:MM_4_Resten_BGraf}
 	\end{figure}
@@ -2294,7 +2294,7 @@ The data stream when the robot traverses from the soft mat to carpet is shown in
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2_line2}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/MM4Teppe2_line3}
 		\caption[Data stream of the transition from soft mat to carpet.]{Data stream of the robot traversing from soft mat to carpet. The thick gray horizontal line is the boundary between the two terrains.}
 		\label{fig:softcarpet}
 	\end{figure}
@@ -2413,7 +2413,7 @@ The result achieved in the transition between terrains in section \ref{sub:unsee
 Regarding estimated probability on the first step on the new terrain, one can observe that the estimated probabilities are typically low. These issues might come from the fact that all training samples were collected when the robot walked on a certain terrain. Preventing this can be done by gathering training samples where the robot traverses through different terrains. Another thing to be observed is the step in the beginning, where the estimated probability of correct terrain is also typically low. It might indicate that the first step has a particular behavior, as in the middle the robot got more stable. Thus, extracting more data from the first step may improve the result.
 \\
 \\
-Regarding how fast the robot detects new terrain, when the two terrains have big differences in their properties, such as floor and soft mat, it detects the new terrain quickly. Terrains with less difference in their properties may not be detected as fast. Results of the transition from floor to carpet in table \ref{tab:Gulvet4teppe} show that the classifier sensed the new terrain after the second step on the new terrain. Note that the experiments are mostly based on transitions with the soft mat, which only gives an indication of how fast it detects the terrains with high difference in their properties. Thus, to give a more reliable evaluation, more experiments on transitions between floor, carpet, and hard mat is necessary.
+Regarding how fast the robot detects new terrain, when the two terrains have great differences in their properties, such as floor and soft mat, it detects the new terrain quickly. Terrains with less difference in their properties may not be detected as fast. Results of the transition from floor to carpet in table \ref{tab:Gulvet4teppe} show that the classifier sensed the new terrain after the second step on the new terrain. Note that the experiments are mostly based on transitions with the soft mat, which only gives an indication of how fast it detects the terrains with high difference in their properties. Thus, to give a more reliable evaluation, more experiments on transitions between floor, carpet, and hard mat is necessary.
 	
 \section{Predicting on the other sensor}
 The sensor data provided from the front right foot differs somewhat from the data from the front left foot, as seen in figure \ref{fig:s1all}. The differences may come from when mounting the sensor on the robot. There is a possibility that the axis from the sensor on the front left foot does not precisely point in the same direction as the sensor on the front right foot. Despite differences in sensor data, the results from table \ref{tab:pred} indicate that most of the terrains have been predicted correctly, but predicting the hard mat correctly is still challenging. Thus, it is possible to use the training data from the front left foot on the front right foot when incorporating them, but to achieve a more reliable result, it is best to train each sensor independently.
