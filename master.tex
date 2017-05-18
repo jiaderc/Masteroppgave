@@ -242,7 +242,7 @@ A hexapod is a six-legged robot, and is inspired by insects, but mostly spiders.
 		\caption{Lauron V robot \cite{6878051}.}
 		\label{fig:LAURON}
 	\end{subfigure}
-	\caption[Overview of different types of legged robot]{Overview of different types of legged robot: monopod \ref{fig:onlegg},  biped \ref{fig:nao}, quadruped \ref{fig:bigDog}, and hexapod \ref{fig:LAURON}. }
+	\caption[Different types of legged robot]{Overview of different types of legged robot: monopod \ref{fig:onlegg},  biped \ref{fig:nao}, quadruped \ref{fig:bigDog}, and hexapod \ref{fig:LAURON}. }
 	\label{fig:robots}
 \end{figure}
 
@@ -369,7 +369,7 @@ decision boundary was moved by a small amount, there would be a risk that a data
 	\centering
 	%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/SVM.PNG}
 	\includegraphics{Figures/SVM.PNG}
-	\caption[Model of SVM]{Model of optimal margin and hyperplane created by SVM on a two-class classification problem \cite{Cortes1995}.}
+	\caption[SVM classifier]{Model of optimal margin and hyperplane created by SVM on a two-class classification problem \cite{Cortes1995}.}
 	\label{fig:SVM}
 \end{figure}
 \FloatBarrier
@@ -381,7 +381,7 @@ Meanwhile, the Gaussian radial basis function (RBF) or polynomial may be a bette
 \begin{figure}[h]
 	\centering
 	\includegraphics{Figures/svmtransform}
-	\caption[Illustration of transformation]{Figure showing transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
+	\caption[Transformation of the data into a linearly separable space]{Transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
 	\label{fig:svmtransform}
 \end{figure}
 \FloatBarrier
@@ -425,7 +425,7 @@ K-Nearest Neighbors (KNN) is one of the simpler classifiers presented by Cover a
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/KNN.png}
-		\caption[Model of KNN]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified as either a blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
+		\caption[KNN classifier]{An example of a KNN classification \cite{KnnClassification}. The green circle is to be classified as either a blue square or red triangle. The solid circle is when k = 3, while the dashed circle is when k = 5.}
 		\label{fig:KNN}
 \end{figure}
 
@@ -447,7 +447,7 @@ The decision tree is a non-parametric classifier presented by JR Quinlan \cite{Q
 \begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{Figures/decisionTree.PNG}
-		\caption[Model of decision tree classification]{An example of a simple decision tree \cite{Quinlan1986}. This decision tree classifies a day to be P or N based on outlook, humidity and wind.}
+		\caption[Decision tree classifier]{An example of a simple decision tree \cite{Quinlan1986}. This decision tree classifies a day to be P or N based on outlook, humidity and wind.}
 		\label{fig:decisiontree}
 \end{figure}
 \FloatBarrier
@@ -800,7 +800,7 @@ The sensor consists of a light emitter (LED) and four sensing elements (photodio
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.8]{Figures/OptoforceAxis32}
-	\caption[The force axes of the OptoForce sensor]{The force axes of the OptoForce sensor.}
+	\caption[Force axes of the OptoForce sensor]{Force axes of the OptoForce sensor.}
 	\label{fig:OptoforceAxis}
 \end{figure}
 
@@ -908,13 +908,13 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 \begin{figure} [h]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/gulvgraf2}
 		\caption{Floor}
 		\label{fig:gulvgraf} 
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/teppegraf2}
 		\caption{Carpet}
 		\label{fig:teppegraf}
 	\end{subfigure}
@@ -922,17 +922,17 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 
 	\begin{figure}[h] \ContinuedFloat
 	\begin{subfigure}[h]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mykmattegraf2}
 		\caption{Soft mat}
 		\label{fig:mykmattegraf}
 	\end{subfigure}
 	
 	\begin{subfigure}[h]{\textwidth}
-		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf}
+		\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/mattebgraf2}
 		\caption{Hard mat}
 		\label{fig:mattebgraf}
 	\end{subfigure}
-	\caption[Example of data stream for each terrain]{Figure showing an example data stream for each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, soft mat \ref{fig:mykmattegraf}, and hard mat \ref{fig:mattebgraf}.}
+	\caption[Sensor data from each terrain]{Example of sensor data from each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, soft mat \ref{fig:mykmattegraf}, and hard mat \ref{fig:mattebgraf}.}
 	\label{fig:gtmgraf}
 \end{figure}
 \FloatBarrier
@@ -1296,7 +1296,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:fftz}
 	\end{subfigure}
 	
-	\caption[Examples of the mean of each terrain for each direction in the frequency domain]{A mean of 10 steps on each terrain in different directions in the	frequency domain, where the mean in the x-direction \ref{fig:fftx}, the mean in y-direction \ref{fig:ffty},	and the mean in z-direction \ref{fig:fftz} are computed.}
+	\caption[Example of the mean of each terrain for each direction in the frequency domain]{A mean of 10 steps on each terrain in different directions in the	frequency domain, where the mean in the x-direction \ref{fig:fftx}, the mean in y-direction \ref{fig:ffty},	and the mean in z-direction \ref{fig:fftz} are computed.}
 	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
