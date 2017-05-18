@@ -22,13 +22,8 @@ void print_s(int sensorNr){
     writeToFile(); //A function that write the data to file (not shown in code)
 }
 
-/*
-*This function check whether the sensor data has minor change
-*If the neighbors in the elements is over 0.009 which mean
-*that the foot is on ground.  
-*********/
 int isStable(std::vector<std::vector<float>> stabArr){
-    float boundary = 0.009; //Threshold for 
+    float boundary = 0.009;
     int stabilityCount = 0;
     int pos1 = stabArr.size()-2;
     int pos2 = stabArr.size()-1;
@@ -45,9 +40,6 @@ int isStable(std::vector<std::vector<float>> stabArr){
     return 1;
 }
 
-/*
-*This function checking how 
-***/
 void handleDataS0(){
     if(stabilityLst.size() > 2){
         if(fyll == 0 && isStable(stabilityLst)){
@@ -58,8 +50,6 @@ void handleDataS0(){
 
                 if (stabilityLst.size() > stabThres) {
                     start_to_fill = 1;
-
-                    //Fyller den forrige og naavaerende data
                     int lastElement = stabilityLst.size()-1;
                     int secondLast = stabilityLst.size()-2;
                     interestDataS0.push_back(stabilityLst.at(secondLast));

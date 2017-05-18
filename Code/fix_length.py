@@ -5,7 +5,7 @@ def fix_length(data_sequence):
     #Total amount data to be removed
     total_cut = total_length-fixed_length
 	
-    #In case the sequence is odd
+    #In case the sequence length is odd
     rest = total_cut%2
 
     #Calculate the start and end position
