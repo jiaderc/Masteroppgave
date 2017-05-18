@@ -775,7 +775,7 @@ The paragraphs above shows that many of previous work has been using statistical
 A common method to evaluate a model is using the k-fold cross-validation  \cite{DBLP:conf/itat/MrvaF15,6784609,6386243,Hoffmann20141790,6849778,7387710}. However, the selection of k varies. A common k value is set either to 2  \cite{DBLP:conf/itat/MrvaF15,6784609}, 10 \cite{26b23e912c654fe4b7478fd910130195,6386243,Hoffmann20141790,6849778,7387710} or equal to the length of the feature vectors \cite{26b23e912c654fe4b7478fd910130195}.
 \\
 \\
-Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\%. The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples which are involved in either training or testing. The model might be less generalized, the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
+Mrva et al. \cite{DBLP:conf/itat/MrvaF15} used 2-fold cross-validation and achieved an overall accuracy of 99.4\%, and states the possibility of obtaining 100\% with more folds. Best et al. \cite{26b23e912c654fe4b7478fd910130195} used 10-fold cross validation and achieved an accuracy of 99\% while the leave-one-out-cross validation decreased slighty the classifier performance with accuracy of 97.4\%. The studies seems to achieve feasible results. However, as stated in \cite{7387710}, the k-fold only gives a reasonable estimate of performance. That is, it does not give insight on how well it predicts with unseen data. This is because experiments always use the same samples which are involved in either training or testing. The model might be less generalized, because the data  more likely to refer to itself, and there might be difficulty with predicting unseen data. Most authors are aware of this issue and have rectified it by partitioning the samples to make the training and test sets independent \cite{26b23e912c654fe4b7478fd910130195}. The learning process will only be used from a certain set, and testing from another set.
 \\
 \\
 Not all studies evaluated their models by k-fold cross-validation, but also either with new data to get a better estimation \cite{5509309,Walas2015,5752869}. A simpler method of validation is to randomly partition the data set with 70\% used for training, and the rest for testing \cite{5752869}. The most realistic scenario is to base the evaluation on a robot traversing through different terrains \cite{DBLP:conf/itat/MrvaF15}.
@@ -851,7 +851,7 @@ This chapter attempts to present the environment setup and explain the various c
 Four different terrains are used in the experiments: floor, carpet, soft mat, and hard mat as shown in figure \ref{fig:terrains}. A reason for choosing these terrains is to create a more challenging task for the classifier, because of their similar properties. The assumption is that if the algorithm manages to discriminate between floor and carpet, it should be able to distinguish other terrains as well. Floor, carpet and hard mat have the most similar properties and also the most difficult to identify. They are all slippery and have nearly equal hardness. Soft mat, on the other hand, differs from the others with its softness and high friction. The experiments will be investigating whether the classifier can distinguish these terrains with minor differences.
 \\
 \\
-The quadruped robot and the optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides five different types of gaits as mentioned in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait.
+The quadruped robot and the optical force sensor used in this thesis are mentioned in chapter \ref{chap:software}. Although the robot provides five different types of gaits as described in section \ref{sec:robot}, only gait E is used in all experiments. The reason is that the other gaits had issues when walking on the soft mat. The robot either got stuck with a slow gait, or fell with a fast gait.
 
 \begin{figure}[h]
 	\centering
@@ -939,7 +939,7 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 An appropriate method to segment sensor data is using a sliding window algorithm. However, it is difficult to decide on an acceptable size of the window, and to determine whether the data is relevant from the window, and windows which are too big are inefficient. Thus, a custom algorithm to segment data was created. 
 \\
 \\
-It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code of segmenting desired data from the sensor is given in appendix \ref{ap:code}.
+It is considered that the most informative data of terrain is taken when the foot is on the ground. The custom algorithm will be storing the data sequences when the foot is on the ground, and stops when it is not on the ground. As mentioned in section \ref{sec:analyzopto}, a characteristic for all terrain when a foot is in the air, is that the x, y, and z-direction to a sensor have minor changes in their values within a short sequence. Using this property gives the possibility to determine when a foot is either in the air or on the ground. In the implementation, two thresholds have to be set; one to consider the minor change in each direction, and one to consider the minimum length of the minor change sequence, which are set to 0.009 and 15 respectively. That is, when the data sequence consists of at least 15 elements, and the difference between the current data and its neighbor do not exceed 0.009, it is considered that the foot is in the air. When a foot reaches the ground, there will be a big change in each direction for the sensor, and the algorithm will start to store the data from the sensor into an array until it is in the air again. Each step will be used as a sample in the training and test sets. The source code of segmenting desired sensor data is given in appendix \ref{ap:code}.
 
 \section{Feature sets}\label{sec:featuresets}
 As mentioned in section \ref{features}, a good classifier is dependent on good features. As most previous works have extracted features both in the time domain and frequency domain, this thesis will also be extracting in both domains. Five different feature sets will be created and applied to learn and evaluate each of classifiers. The following paragraphs will introduce each feature set. 
@@ -1065,10 +1065,10 @@ The first process shown in figure \ref{fig:createsamples} is to gather data for 
 	\path [line] (p2.south) -- node [above]{} (p3);
 	\end{tikzpicture}
 	
-	\caption[Process of creating data samples]{Process of creating data samples.} \label{fig:createsamples}
+	\caption[Process of storing data samples]{Process of storing data samples.} \label{fig:createsamples}
 \end{figure}
 	
-\subsubsection{Process of creating samples} \label{sub:createsamples}
+\subsubsection{Process of storing samples} \label{sub:createsamples}
 	\begin{enumerate}
 		\item \textbf{\underline{Raw data}}
 		\\
@@ -1444,7 +1444,7 @@ It will be interesting to investigate the features selected from each method. Ho
 		\label{fig:featurez}
 	\end{subfigure}
 
-	\caption[Comparison between each feature on different terrains selected by RFE]{A comparison between each feature selected by RFE, for each terrain on feature set three.}
+	\caption[Comparison between each feature on different terrains selected by RFE]{A comparison between each feature selected by RFE on feature set three.}
 	\label{fig:wrapperset5}
 \end{figure}
 \FloatBarrier
@@ -1776,7 +1776,7 @@ This is the third best performing classifier, and table \ref{dt44} shows the per
 	
 
 \subsubsection{Decision Tree - feature set one}
-This is the fourth best performing classifier, and table \ref{dt1e222} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from table \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on the soft mat. However, soft mat still has the highest precision and recall of at least 92\% - 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% - 36\% and a big variation in the recall with a range of 66.7\% to 78.3\%.
+This is the fourth best performing classifier, and table \ref{dt1e222} shows the performance of each run. The average performance of predicting unseen data has an accuracy of at least 73.8\%, and compared to the old result from table \ref{tab:exp2} it has decreased by 22.2\%. It still has problems predicting the hard mat, which it tends to predict it as carpet. It also shows a similar misclassification as the third best performing classifier when it is on the soft mat. However, soft mat still has the highest precision and recall of at least 92\% and 87\% respectively. The carpet varies in precision between 76\% - 82\%, while the recall is under 50\%. The hard mat achieved a precision of between 28\% - 36\% and a big variation in the recall with a range of 66.7\% to 78.3\%.
 
 
 \begin{table}[h]
@@ -1871,7 +1871,7 @@ This is the fourth best performing classifier, and table \ref{dt1e222} shows the
 \newpage
 
 \subsubsection{Neural network - feature set one}
-This is the fifth best performing classifier and table \ref{tab:nn222} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from table \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% and 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
+This is the fifth best performing classifier and table \ref{tab:nn222} shows the performance of each run. The average performance of predicting unseen data has an accuracy of 67.4\%, and compared to the old result from table \ref{tab:exp2} it has decreased by 28.6\%. In contrast with the other models, this has the poorest result of predicting the floor, which it tends to predict as carpet. Again, the hard mat is the most difficult to predict and has the highest probability of being predicted as carpet, but it is also likely to be predicted as floor as well. The carpet has the second highest precision with a least 96\%, but a low recall of under 48.5\%. The floor has a precision of over 40\% and recall of between 64.5\% - 75\%. The hard mat achieved the lowest precision with under 24\%, but has a high recall with over 83.3\%.
 \begin{table}[h]
 	\begin{subtable}[h]{1\textwidth}
 		\centering
@@ -2045,7 +2045,7 @@ The current representation of the terrain is that each terrain is assigned to fo
 
 
 \paragraph{SVM} \label{pa:svmp}
-Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. The parameter C determines how much one wants to avoid misclassifying each training example. A large C value gives a better separation of the data, but might not be able to generalize data. Meanwhile, a small C value allows more misclassification and might contain more errors.
+Hyperparameters that will be searched for SVM is shown in table \ref{tab:hypsvm}. The kernel can be seen as a similarity function. Each kernel has a different way to compute their similarities. Specifications of the computation for each kernel is given in table \ref{tab:kern}. When one does not want a perfect separation between all data, one can allow some misclassification by tuning the parameter C. The parameter C determines how much one wants to avoid misclassifying each training sample. A large C value gives a better separation of the data, but might not be able to generalize data. Meanwhile, a small C value allows more misclassification and might contain more errors.
 
 
 \begin{table}[h]
@@ -2085,7 +2085,7 @@ Table \ref{tab:resPara} shows the result after a tuned parameter. The best resul
 
 
 \subsection{Analysis}
-Tuning parameters did not have a effect on the performance. Mostly it slightly decreased, but the Neural network with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
+Tuning parameters did not have a effect on the performance. Mostly it slightly decreased, but the neural network with two outputs had a minor increase. Again, the best performing classifier is SVM with feature set three. 
 \\
 \\
 Regarding the binary representation of terrains, there is shown a decrease of accuracy when having a representation of the terrain with four binary numbers. There is a minor increase of accuracy when the output consists of two binary outputs.  
@@ -2119,7 +2119,7 @@ The real-time implementation can be seen in figure \ref{fig:realtime}, which is 
 		\path (p3.south)+(0.0,-1.5) \etape{4}{Scaling};
 		\path (p4.south)+(0.0,-1.5) \etape{12}{Training};
 		
-		\path (p12.south)+(0,-1.5) \etape{5}{Create service};
+		\path (p12.south)+(0,-1.5) \etape{5}{Create ROS service};
 		\path (p5.south)+(0,-1.5) \etape{6}{Waiting for request};
 		\path (p6.south)+(0,-2.5) \dec{7}{Request?};
 		\path (p7.south)+(0,-1.5) \etape{8}{Preprocess data};
@@ -2397,7 +2397,7 @@ Further analysis will be looking at the data provided from each sensor on each t
 Many classifiers have given a good performance; however, when the models were tested on new samples, the performance decreased, as seen in section \ref{seq:crossunseen}. The neural network and decision tree on raw sensor data did not give adequate performances. There is a high chance that these classifiers were overfitted and therefore not able to generalize the data well. It is also worth mentioning that the method of decimating the raw sensor data to a fixed length described in section \ref{subseq:FixLength} might also affect the performance. The method discards features at the start and the end of the feature vector because they were considered as less important. However, the longer the time series is, the more features are removed from the feature vector, with a risk of removing important features. The best performing classifier was the SVM with an overall accuracy of 94.8\%. Note that only SVM used the complete frequency domain as features, and therefore it is hard to tell whether it was the classifier or the feature set that achieved the high accuracy.  
 \\
 \\
-Common characteristics are that the classifier tended to predict hard mat as carpet, and the soft mat in every trial achieved a high f-score as shown in section \ref{seq:crossunseen}. These common characteristics might be due to the sensor data as seen in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}. Sensor data on hard mat and carpet have the most similar features and are most likely to be confused. While the sensor data on soft mat distinguishes from the other terrains, which is also the reason for a high f-score. Several feature selection methods were applied to remove common features and keep distinctive features. It is shown in table \ref{tab:exp2} that the RFE on feature set three did obtain minor improvement and achieved an accuracy of 97\%. It indicates that good features are kept and it is able to distinguish between each terrain, although there is still difficulty predicting the hard mat. The issue of predicting hard mat can be seen in \ref{fig:wrapperset5}, where there are especially many similar features behind the first ten of the sequence in the x-,y-, and z-directions. A further improvement is to test different values on the RFE, by discarding more features and keeping more distinctive features.
+Common characteristics are that the classifier tended to predict hard mat as carpet, and the soft mat in every trial achieved a high f-score as shown in section \ref{seq:crossunseen}. These common characteristics might be due to the sensor data as seen in figures \ref{fig:meanxyz} and \ref{fig:fftxyz}. Sensor data on hard mat and carpet have the most similar features and are most likely to be confused. While the sensor data on soft mat distinguishes from the other terrains, which is also the reason for a high f-score. Several feature selection methods were applied to remove common features and keep distinctive features. It is shown in table \ref{tab:exp2} that the RFE on feature set three did obtain minor improvement and achieved an accuracy of 97\%. It indicates that good features are kept and it is able to distinguish between each terrain, although there is still difficulty predicting the hard mat. The issue of predicting hard mat can be seen in figure \ref{fig:wrapperset5}, where there are especially many similar features behind the first ten of the sequence in the x-,y-, and z-directions. A further improvement is to test different values on the RFE, by discarding more features and keeping more distinctive features.
 	
 \section{Hyperparameter-tuning}
 The achieved parameters from the grid search did not show notable improvement on the performance of the neural network and SVM. The SVM was already a well performing model, and is therefore difficult to find parameter values to obtain a better performance. Neural network, on the other hand, only searched for the number of neurons in one or two hidden layers, while there are many other settings which should be tested to achieve a more optimal classifier. 
@@ -2519,7 +2519,6 @@ One of the important abilities for a robot to achieve terrain classification is 
 \addcontentsline{toc}{chapter}{Appendices}
 \appendix
 \chapter{Code segmentation of sensor data} \label{ap:code}
-\subsubsection{Segmentation}
 The custom method of segmenting desired sensor data is shown in listing \ref{ap:code1}.
 \lstinputlisting[language=C++, caption={A simplified algorithm to segment desired sensor data.},captionpos=b,label={ap:code1},frame=single,breaklines=true]{code/data_seg.cpp}
 %frame=single
