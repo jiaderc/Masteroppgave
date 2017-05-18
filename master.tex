@@ -281,7 +281,7 @@ Based on the information described in the list above, the tactile sensor can be 
 		\caption{Response}
 		\label{fig:tact3}
 	\end{subfigure}\hfill
-	\caption[Applications of the tactile sensor]{Three types of application that can be used of the tactile sensor: manipulation (a), exploration (b), response (c) \cite{Cutkosky2008}.}
+	\caption[Applications of the tactile sensor]{Three types of application that can be used of the tactile sensor: manipulation (a), exploration (b), and response (c) \cite{Cutkosky2008}.}
 	\label{fig:tactiles}
 \end{figure}
 
@@ -381,7 +381,7 @@ Meanwhile, the Gaussian radial basis function (RBF) or polynomial may be a bette
 \begin{figure}[h]
 	\centering
 	\includegraphics{Figures/svmtransform}
-	\caption[Transformation of the data into a linearly separable space]{Transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
+	\caption[Transforming the data into a linearly separable space]{Transformation of the data from non linearly separable to linearly separable space \cite{Marsland:2009:MLA:1571643}.}
 	\label{fig:svmtransform}
 \end{figure}
 \FloatBarrier
@@ -681,7 +681,7 @@ A confusion matrix gives an insight of which classes were easier to predict than
 			\multicolumn{1}{|l|}{} & $C_2$ & 0 & 8 & 5 \\ \cline{2-5} 
 			\multicolumn{1}{|l|}{} & $C_3$ & 5 & 3 & 0 \\ \hline
 		\end{tabular}
-		\caption[Confusion matrix of the 3-class classification]{Confusion matrix of the 3-class classification.}
+		\caption[Confusion matrix of a 3-class classification]{Confusion matrix of a 3-class classification.}
 		\label{tab:cmatrix}
 	\end{table}
 	
@@ -1228,7 +1228,7 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 86\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifiers without the feature selection method]{Results after following the approach shown in figure \ref{fig:learningProcess}. Green has an accuracy of 90\%, yellow is 80\%-89\%, while red 79\% and under.}
+	\caption[Results from different feature sets on different classifiers]{Results from five different feature sets on five different classifiers when using the approach shown in figure \ref{fig:learningProcess}. The colors represent how high the accuracy is. Green has an accuracy of 90\%, yellow is 80\%-89\%, while red 79\% and under.}
 	\label{exp1}
 \end{table}
 \FloatBarrier
@@ -1302,7 +1302,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 	
 	
 	
-\section{Adding feature selection}
+\section{Integration of feature selection}
 Even though there are classifiers which outperform the others, there is still improvement potential. The result achieved was without a feature selection method. The purpose of not using the feature selection was to investigate the performance without removing any features. However, as mentioned in section \ref{selection}, selecting features from a set can increase the classifier performance and prevent the curse of dimensionality. Thus, in the following experiment, the feature selection will be integrated with the previous implementation described in section \ref{subsec:learningProc} to see if there is any improvement. The modified implementation is shown in figure \ref{fig:approach2}, where the added function is colored as red. The algorithm will select feature on the currently entire data set before the data is partitioned in the cross-validation. The filter and wrapper method will be used, and both are libraries provided by scikit-learn mentioned in section \ref{para:scikit}. The filter method will be removing features with low variance, while the wrapper method is recursive feature elimination and removes features to a desired number. 
 
 \paragraph{Removing features with low variance} \label{ap:variance}
@@ -1362,16 +1362,17 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{llll}
-		\hline
-		\textbf{Feature set} & \textbf{Old} & \textbf{Filter} & \textbf{Wrapper} \\ \hline
-		Set 1 & 375 & 230 & 187 \\
-		Set 2 & 21 & 8 & 10 \\
-		Set 3 & 183 & 2 & 91 \\
-		Set 4 & 24 & 11 & 12 \\
-		Set 5 & 45 & 19 & 22 \\ \hline
+	\begin{tabular}{@{}llll@{}}
+		\toprule
+		\multirow{2}{*}{\textbf{Feature set}} & \multicolumn{3}{c}{\textbf{Feature selection}} \\ \cmidrule(l){2-4} 
+		& \textbf{None} & \textbf{RFLV} & \textbf{RFE} \\ \midrule
+		Set one & 375 & 230 & 187 \\
+		Set two & 21 & 8 & 10 \\
+		Set three & 183 & 2 & 91 \\
+		Set four & 24 & 11 & 12 \\
+		Set five & 45 & 19 & 22 \\ \bottomrule
 	\end{tabular}
-	\caption[Numbers of each feature set after the feature selection method]{New numbers of each feature set after applying the feature selection method.}
+		\caption[New length of each feature set]{New length of each feature set after applying the feature selection method.}
 	\label{tab:exp2_1}
 \end{table}
 \FloatBarrier
@@ -1411,7 +1412,7 @@ Table \ref{tab:exp2_1} shows the new number of features after they were removed 
 			\multicolumn{1}{l|}{\multirow{-5}{*}{\textbf{\begin{tabular}[c]{@{}l@{}}Set five - \\ set 2,4\end{tabular}}}} & \multicolumn{1}{l|}{SVM} & \multicolumn{1}{l|}{86\%} & \multicolumn{1}{l|}{{\color[HTML]{FE0000} 83\%}} & {\color[HTML]{FE0000} 84\%} \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption[Results from five different feature sets and classifiers with the feature selection method]{Results from five different feature sets and classifiers when applying the feature selection method. Green is increased accuracy, yellow is same accuracy, and red is decreased accuracy.}
+	\caption[Results from different feature sets on different classifiers with the feature selection method]{Results from five different feature sets on five different classifiers when applying the feature selection method. The colors represent how the new accuracy is compared to the old accuracy. Green represent increased accuracy, yellow represent the same accuracy, and red represent decreased accuracy.}
 	\label{tab:exp2}
 \end{table}
 \FloatBarrier
@@ -1458,16 +1459,15 @@ In this experiment, 50 new data samples for each terrain is collected. The cross
 	\centering
 	\begin{tabular}{@{}lll@{}}
 		\toprule
-		\textbf{Classifier} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ set\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Feature\\ selection\end{tabular}} \\ \midrule
-		SVM & 3 & RFE \\
-		Neural network & 1 & None \\
-		Neural network & 5 & None \\
-		Decision tree & 1 & None \\
-		Decision tree & 1 & RFLV\\
-		 \bottomrule
+		\textbf{Feature set} & \textbf{Classifier} & \textbf{Feature selection} \\ \midrule
+		Set three & SVM & RFE \\
+		Set one & Neural network & None \\
+		Set five & Neural network & None \\
+		Set one & Decision tree & None \\
+		Set one & Decision tree & RFLV \\ \bottomrule
 	\end{tabular}
 	\caption[Overview of top performing models tested on unseen data samples]{Overview of top performing classifiers with their feature set which will be used to test on unseen data.}
-	\label{tab:exp4}
+\label{tab:exp4}
 \end{table}
 \FloatBarrier
 \newpage
@@ -1477,7 +1477,7 @@ An overview of the performance of the five top performed classifier is shown as 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/box}
-	\caption[Boxplot of the five top performing classifiers]{Boxplot of the five top performing classifiers on unseen data.}
+	\caption[Boxplot of the five top performing models]{Boxplot of the five top performing models on unseen data.}
 	\label{fig:boxexp}
 \end{figure}
 \FloatBarrier
@@ -1501,7 +1501,7 @@ This is the best performing classifier, and table \ref{svmexp} shows the perform
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{82\%} & \multicolumn{1}{l|}{80\%} & 82\% \\ \bottomrule
 		\end{tabular}
-		\caption{Precision - SVM - feature set three - RFE}
+		\caption{Precision - SVM - feature set three - RFE.}
 		\label{pressvm}
 	\end{subtable}
 \end{table}
@@ -1519,7 +1519,7 @@ This is the best performing classifier, and table \ref{svmexp} shows the perform
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \bottomrule
 		\end{tabular}
-		\caption{Recall - SVM - feature set three - RFE}
+		\caption{Recall - SVM - feature set three - RFE.}
 		\label{recallsvm}
 	\end{subtable}
 \end{table}
@@ -1536,7 +1536,7 @@ This is the best performing classifier, and table \ref{svmexp} shows the perform
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{96.9\%} & \multicolumn{1}{l|}{90.1\%} & \multicolumn{1}{l|}{88\%} & 90.1\% \\ \bottomrule
 		\end{tabular}
-		\caption{F-score - SVM - feature set three - RFE}
+		\caption{F-score - SVM - feature set three - RFE.}
 		\label{fscoresvm}
 	\end{subtable}
 \end{table}
@@ -1570,10 +1570,10 @@ This is the best performing classifier, and table \ref{svmexp} shows the perform
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{7} & \multicolumn{1}{l|}{0} & 41 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for SVM with a wrapper using feature set three after five runs. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
+		\caption{Accuracy and confusion matrix for the SVM with RFE using feature set three after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{subt:svmexp}
 	\end{subtable}
-	\caption[Results of SVM on feature set three with RFE]{Results of SVM with RFE on feature set three after five trials, with precision \ref{pressvm}, recall \ref{recallsvm}, f-score \ref{fscoresvm}, and accuracy and confusion matrix \ref{subt:svmexp}.}
+	\caption[Results of the SVM using feature set three with RFE]{Results of the SVM using feature set three with RFE after five trials. The results consist of: precision (a), recall (b), f-score (c), and accuracy and confusion matrix (d).}
 	\label{svmexp}
 \end{table}
 \FloatBarrier
@@ -1666,10 +1666,10 @@ This is the second best performing classifier, and in table \ref{tab:nn5} shows 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{9} & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{0} & 21 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for neural network on feature set five after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
+		\caption{Accuracy and confusion matrix for the neural network using feature set five after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{nnset5}
 	\end{subtable}
-\caption[Results of neural network on feature set five]{Results of neural network using feature set five after five runs, with precision \ref{tabl:nnset5pre}, recall \ref{tab:nnset53}, f-score \ref{tab:nnset5fscore}, and accuracy and confusion matrix \ref{nnset5}.}
+\caption[Results of the neural network using feature set five]{Results of the neural network on feature set five after five runs. The results consist of: precision (a), recall (b), f-score (c), and accuracy and confusion matrix (d).}
 \label{tab:nn5}
 \end{table}
 \FloatBarrier
@@ -1762,10 +1762,10 @@ This is the third best performing classifier, and table \ref{dt44} shows the per
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{47} & 2 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{32} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for decision tree on feature set with RFLV after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
+		\caption{Accuracy and confusion matrix for the decision tree using feature set one with RFLV after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 		\label{dt1ee}
 		\end{subtable}
-	\caption[Results of decision tree on feature set one with RFLV]{Results of decision tree on feature set one with RFLV after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1ee}.}
+	\caption[Results of the decision tree using feature set one with RFLV]{Results of decision tree using feature set one with RFLV after five trials. The results consist of: precision (a), recall (b), f-score (c), and accuracy and confusion matrix (d).}
 \label{dt44}
 \end{table}
 \FloatBarrier
@@ -1792,7 +1792,7 @@ This is the fourth best performing classifier, and table \ref{dt1e222} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{92\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 98\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{28\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{34\%} & \multicolumn{1}{l|}{28\%} & 36\% \\ \bottomrule
 		\end{tabular}
-		\caption{Precision - decision tree - feature set one}
+		\caption{Precision - decision tree - feature set one.}
 		\label{dt1Precision}
 	\end{subtable}
 \end{table}
@@ -1810,7 +1810,7 @@ This is the fourth best performing classifier, and table \ref{dt1e222} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{88.5\%} & \multicolumn{1}{l|}{92.2\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{90.2\%} & 87.5\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{66.7\%} & \multicolumn{1}{l|}{68\%} & \multicolumn{1}{l|}{70.8\%} & \multicolumn{1}{l|}{66.7\%} & 78.3\% \\ \bottomrule
 		\end{tabular}
-		\caption{Recall - decision tree - feature set one}
+		\caption{Recall - decision tree - feature set one.}
 		\label{dt1recall}
 	\end{subtable}
 \end{table}
@@ -1827,7 +1827,7 @@ This is the fourth best performing classifier, and table \ref{dt1e222} shows the
 		\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{90.2\%} & \multicolumn{1}{l|}{93.1\%} & \multicolumn{1}{l|}{94\%} & \multicolumn{1}{l|}{92\%} & 92.5\% \\ \midrule
 		\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{39.4\%} & \multicolumn{1}{l|}{45.3\%} & \multicolumn{1}{l|}{45.9\%} & \multicolumn{1}{l|}{39.4\%} & 49.3\% \\ \bottomrule
 	\end{tabular}
-	\caption{F-score - decision tree - feature set one}
+	\caption{F-score - decision tree - feature set one.}
 	\label{dtfscore}
 	\end{subtable}
 \end{table}
@@ -1861,10 +1861,10 @@ This is the fourth best performing classifier, and table \ref{dt1e222} shows the
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{49} & 1 \\ \cmidrule(l){3-6} 
 		\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{3} & 18 \\ \bottomrule
 	\end{tabular}
-	\caption{Accuracy and confusion matrix for decision tree on feature set one after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
+	\caption{Accuracy and confusion matrix for the decision tree using feature set one after five trials. Regarding the confusion matrix, the rows show the actual terrains and the columns show the predicted terrains.}
 	\label{dt1e}
 	\end{subtable}
-	\caption[Results of decision tree on feature set one]{Results of decision tree on feature set one after five trials, with precision \ref{dt1Precision}, recall \ref{dt1recall}, f-score \ref{dtfscore}, and accuracy and confusion matrix \ref{dt1e}.}
+	\caption[Results of the decision tree using feature set one]{Results of the decision tree on feature set one after five trials. The results consist of: precision (a), recall (b), f-score (c), and accuracy and confusion matrix (d).}
 \label{dt1e222}
 \end{table}
 \FloatBarrier
@@ -1885,7 +1885,7 @@ This is the fifth best performing classifier and table \ref{tab:nn222} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{22\%} & \multicolumn{1}{l|}{20\%} & \multicolumn{1}{l|}{18\%} & 24\% \\ \bottomrule
 		\end{tabular}
-		\caption{Precision - neural network - feature set one}
+		\caption{Precision - neural network - feature set one.}
 		\label{nnPrecision}
 	\end{subtable}
 \end{table}
@@ -1903,7 +1903,7 @@ This is the fifth best performing classifier and table \ref{tab:nn222} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{91.7\%} & \multicolumn{1}{l|}{83.3\%} & \multicolumn{1}{l|}{90\%} & 92.3\% \\ \bottomrule
 		\end{tabular}
-		\caption{Recall - neural network - feature set one}
+		\caption{Recall - neural network - feature set one.}
 		\label{nnrecall}
 	\end{subtable}
 \end{table}
@@ -1920,7 +1920,7 @@ This is the fifth best performing classifier and table \ref{tab:nn222} shows the
 			\multicolumn{1}{l|}{Soft mat} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & \multicolumn{1}{l|}{100\%} & 100\% \\ \midrule
 			\multicolumn{1}{l|}{Hard mat} & \multicolumn{1}{l|}{36.1\%} & \multicolumn{1}{l|}{35.5\%} & \multicolumn{1}{l|}{32.3\%} & \multicolumn{1}{l|}{30\%} & 38.1\% \\ \bottomrule
 		\end{tabular}
-		\caption{F-score - neural network - feature set one}
+		\caption{F-score - neural network - feature set one.}
 		\label{nnfscore}
 	\end{subtable}
 \end{table}
@@ -1954,10 +1954,10 @@ This is the fifth best performing classifier and table \ref{tab:nn222} shows the
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{50} & 0 \\ \cmidrule(l){3-6} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{0} & 12 \\ \bottomrule
 		\end{tabular}
-		\caption{Accuracy and confusion matrix for neural network tree using feature set one after five runs. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
+		\caption{Accuracy and confusion matrix for the neural network using feature set one after five trials. Regarding confusion matrix, the row is the actual terrains and the columns is the predicted terrains.}
 		\label{nn2}
 	\end{subtable}
-	\caption[Results of neural network on feature set one]{Results of neural network on feature set one after trials runs, with precision \ref{nnPrecision}, recall \ref{nnrecall}, f-score \ref{nnfscore}, and accuracy and confusion matrix \ref{nn2}.}
+	\caption[Results of the neural network using feature set one]{Results of the neural network using feature set one after trials runs. The results consist of: precision (a), recall (b), f-score (c), and accuracy and confusion matrix (d).}
 	\label{tab:nn222}
 \end{table}
 
