@@ -242,7 +242,7 @@ A hexapod is a six-legged robot, and is inspired by insects, but mostly spiders.
 		\caption{Lauron V robot \cite{6878051}.}
 		\label{fig:LAURON}
 	\end{subfigure}
-	\caption[Different types of legged robot]{Overview of different types of legged robot: monopod \ref{fig:onlegg},  biped \ref{fig:nao}, quadruped \ref{fig:bigDog}, and hexapod \ref{fig:LAURON}. }
+	\caption[Different types of legged robot]{Overview of different types of legged robot: monopod (a),  biped (b), quadruped (c), and hexapod (d).}
 	\label{fig:robots}
 \end{figure}
 
@@ -281,7 +281,7 @@ Based on the information described in the list above, the tactile sensor can be 
 		\caption{Response}
 		\label{fig:tact3}
 	\end{subfigure}\hfill
-	\caption[Applications of the tactile sensor]{Three types of application that can be used of the tactile sensor which are manipulation  \ref{fig:tact1}, exploration \ref{fig:tact2}, response \ref{fig:tact3} \cite{Cutkosky2008}.}
+	\caption[Applications of the tactile sensor]{Three types of application that can be used of the tactile sensor: manipulation (a), exploration (b), response (c) \cite{Cutkosky2008}.}
 	\label{fig:tactiles}
 \end{figure}
 
@@ -887,7 +887,7 @@ The quadruped robot and the optical force sensor used in this thesis are mention
 		\label{fig:mean44}
 	\end{subfigure}
 	\caption[Terrains used in experiments]
-	{\small Four different terrains used in all experiments which are floor \ref{fig:mean14}, carpet \ref{fig:mean24}, soft mat \ref{fig:mean34}, and hard mat \ref{fig:mean44} } 
+	{\small Four different terrains used in all experiments: floor (a), carpet (b), soft mat (c), and hard mat (d).} 
 	\label{fig:terrains}
 \end{figure}
 \FloatBarrier
@@ -932,7 +932,7 @@ The analyze of the sensor data aims to find common characteristics, and to be ab
 		\caption{Hard mat}
 		\label{fig:mattebgraf}
 	\end{subfigure}
-	\caption[Sensor data from each terrain]{Example of sensor data from each terrain: floor \ref{fig:gulvgraf}, carpet \ref{fig:teppegraf}, soft mat \ref{fig:mykmattegraf}, and hard mat \ref{fig:mattebgraf}.}
+	\caption[Sensor data from each terrain]{Example of sensor data from each terrain: floor (a), carpet (b), soft mat (c), and hard mat (d).}
 	\label{fig:gtmgraf}
 \end{figure}
 \FloatBarrier
@@ -1201,8 +1201,7 @@ Table \ref{exp1} shows the results of each classifier when using the learning ap
 			\toprule
 			&  & \multicolumn{2}{c}{\textbf{Accuracy}} \\ \cmidrule(l){3-4} 
 			\multirow{-2}{*}{\textbf{Feature set}} & \multirow{-2}{*}{\textbf{Classifier}} & \multicolumn{1}{l|}{\textbf{Not scaled}} & \textbf{Scaled} \\ \midrule
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} }} & {\color[HTML]{F8A102}} \\
-			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{\multirow{-2}{*}{Naive Bayes}} & \multicolumn{1}{l|}{\multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}}} & \multirow{-2}{*}{{\color[HTML]{F8A102} 83\%}} \\ \cmidrule(l){2-4} 
+			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Naive Bayes} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 83\%}} & {\color[HTML]{F8A102} 83\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Decision tree} & \multicolumn{1}{l|}{{\color[HTML]{009901} 94\%}} & {\color[HTML]{009901} 96\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{KNN} & \multicolumn{1}{l|}{{\color[HTML]{F8A102} 89\%}} & {\color[HTML]{009901} 91\%} \\ \cmidrule(l){2-4} 
 			\multicolumn{1}{l|}{} & \multicolumn{1}{l|}{Neural network} & \multicolumn{1}{l|}{{\color[HTML]{009901} 95\%}} & {\color[HTML]{009901} 96\%} \\ \cmidrule(l){2-4} 
@@ -1268,8 +1267,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:meanz}
 	\end{subfigure}
 	
-	\caption[Example of the mean of each terrain for each direction in the time domain]{
-		A mean of 10 steps on each terrain in different directions in the time domain, where the mean in the x-direction \ref{fig:meanx}, the mean in y-direction \ref{fig:meany}, and the mean in z-direction \ref{fig:meanz} are computed}
+	\caption[Mean of sensor data for each terrain in the time domain]{The mean of sensor data on 10 steps for each terrain in the time domain: the mean in the x-direction (a), the mean in y-direction (b), and the mean in z-direction (c).}
 	\label{fig:meanxyz}
 \end{figure}
 
@@ -1296,7 +1294,7 @@ Besides looking at the performance of each classifier, it is also interesting to
 		\label{fig:fftz}
 	\end{subfigure}
 	
-	\caption[Example of the mean of each terrain for each direction in the frequency domain]{A mean of 10 steps on each terrain in different directions in the	frequency domain, where the mean in the x-direction \ref{fig:fftx}, the mean in y-direction \ref{fig:ffty},	and the mean in z-direction \ref{fig:fftz} are computed.}
+	\caption[Mean of sensor data for each terrain in the frequency domain]{The mean of sensor data on 10 steps for each terrain in the frequency domain: the mean in x-direction (a), the mean in y-direction (b), and the mean in z-direction (c).}
 	\label{fig:fftxyz}
 \end{figure}
 \FloatBarrier
@@ -1354,7 +1352,7 @@ Recursive Feature Elimination (RFE) is a wrapper method that uses a supervised c
 		
 		\end{tikzpicture}
 		
-		\caption[Evaluation process with feature selection]{Modified evaluation process from section \ref{subsec:learningProc}, where the new function is feature selection and is colored red.} 
+		\caption[Process of creating and evaluating a certain classifier with feature selection]{Modified evaluation process from section \ref{subsec:learningProc}. The new function is feature selection and is colored red.} 
 		\label{fig:approach2}
 	\end{figure}
 \FloatBarrier
@@ -1445,7 +1443,7 @@ It will be interesting to investigate the features selected from each method. Ho
 		\label{fig:featurez}
 	\end{subfigure}
 
-	\caption[Comparison of each feature on different terrains selected from RFE]{A comparison of each feature selected by RFE, for each terrain on feature set three.}
+	\caption[Comparison between each feature on different terrains selected by RFE]{A comparison between each feature selected by RFE, for each terrain on feature set three.}
 	\label{fig:wrapperset5}
 \end{figure}
 \FloatBarrier
@@ -2386,7 +2384,8 @@ Further analysis will be looking at the data provided from each sensor on each t
 			\caption{Soft mat}
 			\label{fig:s1mykmatte}
 		\end{subfigure}
-		\caption[Comparision between data stream sensor mounted on left and right front foot of the robot]{Comparison between data stream with the sensor mounted on the left and on the right front foot, on floor \ref{fig:s1gulv2}, carpet \ref{fig:s1teppe}, hard mat \ref{fig:s1hardmatte}, and soft mat	\ref{fig:s1mykmatte}. S1 and S2 refer to sensor data provided from front left foot and front right foot respectively.}
+		\caption[Comparison between sensor data]{			
+			Comparison between sensor data with the sensor mounted on the left and on the right front foot for each terrain: floor (a), carpet (b), hard mat (c), and soft mat (d). (S1) and (S2) refer to sensor data provided from front left foot and front right foot respectively.}
 		\label{fig:s1all}
 	\end{figure}	
 	\FloatBarrier
