@@ -1,15 +1,17 @@
-//sensor 0
-//Raw data that continuously storing sensor data
+//Used to storing raw sensor data continuously
 std::vector<std::vector<float>> rawDataS0; 
+
 //Used to detect whether the foot is on ground or not
 std::vector<std::vector<float>> stabilityLst;
-//Contains sensor data when the foot is on ground
-std::vector<std::vector<float>> interestDataS0;
-int fill = 0; 
-int start_to_fill = 0; //Enables when the foot is on ground
 
-//This function check whether the stored sensor data does not exceed maxBoundary.
-//If the 
+//Used to storing desired sensor data
+std::vector<std::vector<float>> interestDataS0;
+
+//Enables when the foot is on ground
+int start_to_fill = 0;
+int fill = 0; 
+
+
 void checkDesiredData(int sensorNr)
 {
     int maxBoundary = 145;
@@ -21,7 +23,8 @@ void checkDesiredData(int sensorNr)
             return;
         }       	
 	}
-    writeToFile(); //A function that write the data to file (not shown in code)
+//Writes the desired data into a file (not shown in code)
+    writeToFile(); 
 }
 
 int isStable(std::vector<std::vector<float>> stabilityArray)
@@ -63,7 +66,7 @@ void handleDataS0()
                 stabilityLst.clear();
             }else if( start_to_fill && stabilityLst.size() >= stabThres  ){
                 start_to_fill = 0;
-                print_s(0);
+                checkDesiredData(0);
             }
         }
         else{
